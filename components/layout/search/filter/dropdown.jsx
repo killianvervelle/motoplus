@@ -1,9 +1,9 @@
 'use client';
 
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { FilterItem } from './item';
 
 export default function FilterItemDropdown(list) {
@@ -11,7 +11,7 @@ export default function FilterItemDropdown(list) {
   const searchParams = useSearchParams();
   const [active, setActive] = useState('');
   const [openSelect, setOpenSelect] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef < HTMLDivElement > null;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -36,22 +36,22 @@ export default function FilterItemDropdown(list) {
   }, [pathname, list, searchParams]);
 
   return (
-    <div className="relative" ref={ref}>
+    <div className='relative' ref={ref}>
       <div
         onClick={() => {
           setOpenSelect(!openSelect);
         }}
-        className="flex w-full items-center justify-between rounded-sm border border-black/30 px-4 py-2 text-sm dark:border-white/30"
+        className='flex w-full items-center justify-between rounded-sm border border-black/30 px-4 py-2 text-sm dark:border-white/30'
       >
         <div>{active}</div>
-        <ChevronDownIcon className="h-4" />
+        <ChevronDownIcon className='h-4' />
       </div>
       {openSelect && (
         <div
           onClick={() => {
             setOpenSelect(false);
           }}
-          className="absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black"
+          className='absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black'
         >
           {list.map((item, i) => (
             <FilterItem key={i} item={item} />

@@ -1,21 +1,12 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import {
-  addToCart,
-  createCart,
-  getCart,
-  removeFromCart,
-  updateCart
-} from 'lib/shopify';
+import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export async function addItem(
-  prevState,
-  selectedVariantId
-) {
+export async function addItem(prevState, selectedVariantId) {
   if (!selectedVariantId) {
     return 'Error adding item to cart';
   }
@@ -36,9 +27,7 @@ export async function removeItem(prevState, merchandiseId) {
       return 'Error fetching cart';
     }
 
-    const lineItem = cart.lines.find(
-      (line) => line.merchandise.id === merchandiseId
-    );
+    const lineItem = cart.lines.find((line) => line.merchandise.id === merchandiseId);
 
     if (lineItem && lineItem.id) {
       await removeFromCart([lineItem.id]);
@@ -51,10 +40,7 @@ export async function removeItem(prevState, merchandiseId) {
   }
 }
 
-export async function updateItemQuantity(
-  prevState,
-  payload
-) {
+export async function updateItemQuantity(prevState, payload) {
   const { merchandiseId, quantity } = payload;
 
   try {
@@ -64,9 +50,7 @@ export async function updateItemQuantity(
       return 'Error fetching cart';
     }
 
-    const lineItem = cart.lines.find(
-      (line) => line.merchandise.id === merchandiseId
-    );
+    const lineItem = cart.lines.find((line) => line.merchandise.id === merchandiseId);
 
     if (lineItem && lineItem.id) {
       if (quantity === 0) {
@@ -76,8 +60,8 @@ export async function updateItemQuantity(
           {
             id: lineItem.id,
             merchandiseId,
-            quantity
-          }
+            quantity,
+          },
         ]);
       }
     } else if (quantity > 0) {

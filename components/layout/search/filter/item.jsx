@@ -15,14 +15,14 @@ function PathFilterItem(item) {
   newParams.delete('q');
 
   return (
-    <li className="mt-2 flex text-black dark:text-white" key={item.title}>
+    <li className='mt-2 flex text-black dark:text-white' key={item.title}>
       <DynamicTag
         href={createUrl(item.path, newParams)}
         className={clsx(
           'w-full text-sm underline-offset-4 hover:underline dark:hover:text-neutral-100',
           {
-            'underline underline-offset-4': active
-          }
+            'underline underline-offset-4': active,
+          },
         )}
       >
         {item.title}
@@ -40,18 +40,18 @@ function SortFilterItem(item) {
     pathname,
     new URLSearchParams({
       ...(q && { q }),
-      ...(item.slug && item.slug.length && { sort: item.slug })
-    })
+      ...(item.slug && item.slug.length && { sort: item.slug }),
+    }),
   );
   const DynamicTag = active ? 'p' : Link;
 
   return (
-    <li className="mt-2 flex text-sm text-black dark:text-white" key={item.title}>
+    <li className='mt-2 flex text-sm text-black dark:text-white' key={item.title}>
       <DynamicTag
         prefetch={!active ? false : undefined}
         href={href}
         className={clsx('w-full hover:underline hover:underline-offset-4', {
-          'underline underline-offset-4': active
+          'underline underline-offset-4': active,
         })}
       >
         {item.title}

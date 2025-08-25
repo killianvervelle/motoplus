@@ -12,8 +12,7 @@ export default async function SearchPage(props) {
   const searchParams = await props.searchParams;
   const { sort, q: searchValue } = searchParams || {};
 
-  const { sortKey, reverse } =
-    sorting.find((item) => item.slug === sort) || defaultSort;
+  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
   const products = await getProducts({
     sortKey,
@@ -26,16 +25,16 @@ export default async function SearchPage(props) {
   return (
     <>
       {searchValue ? (
-        <p className="mb-4">
+        <p className='mb-4'>
           {products.length === 0
             ? 'There are no products that match '
             : `Showing ${products.length} ${resultsText} for `}
-          <span className="font-bold">&quot;{searchValue}&quot;</span>
+          <span className='font-bold'>&quot;{searchValue}&quot;</span>
         </p>
       ) : null}
 
       {products.length > 0 ? (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <Grid className='grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
           <ProductGridItems products={products} />
         </Grid>
       ) : null}

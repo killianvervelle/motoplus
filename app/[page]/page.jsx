@@ -14,8 +14,8 @@ export async function generateMetadata(props) {
     openGraph: {
       publishedTime: page.createdAt,
       modifiedTime: page.updatedAt,
-      type: 'article'
-    }
+      type: 'article',
+    },
   };
 }
 
@@ -27,13 +27,13 @@ export default async function Page(props) {
 
   return (
     <>
-      <h1 className="mb-8 text-5xl font-bold">{page.title}</h1>
-      <Prose className="mb-8" html={page.body} />
-      <p className="text-sm italic">
+      <h1 className='mb-8 text-5xl font-bold'>{page.title}</h1>
+      <Prose className='mb-8' html={page.body} />
+      <p className='text-sm italic'>
         {`This document was last updated on ${new Intl.DateTimeFormat(undefined, {
           year: 'numeric',
           month: 'long',
-          day: 'numeric'
+          day: 'numeric',
         }).format(new Date(page.updatedAt))}.`}
       </p>
     </>

@@ -1,9 +1,9 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { createContext, useContext, useMemo, useOptimistic } from 'react';
+import { createContext, useContext, useMemo, useOptimistic } from 'react';
 
-const ProductContext = createContext<ProductContextType | undefined>(undefined);
+const ProductContext = createContext(null);
 
 export function ProductProvider(children) {
   const searchParams = useSearchParams();
@@ -16,13 +16,10 @@ export function ProductProvider(children) {
     return params;
   };
 
-  const [state, setOptimisticState] = useOptimistic(
-    getInitialState(),
-    (prevState, update) => ({
-      ...prevState,
-      ...update
-    })
-  );
+  const [state, setOptimisticState] = useOptimistic(getInitialState(), (prevState, update) => ({
+    ...prevState,
+    ...update,
+  }));
 
   const updateOption = (name, value) => {
     const newState = { [name]: value };
@@ -40,9 +37,9 @@ export function ProductProvider(children) {
     () => ({
       state,
       updateOption,
-      updateImage
+      updateImage,
     }),
-    [state]
+    [state],
   );
 
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
