@@ -1,29 +1,29 @@
-"use client";
+'use client'
 
-import { AddToCart } from "@/components/cart/AddToCart";
-import SkeletonCards from "@/components/loadings/skeleton/SkeletonCards";
-import config from "@/config/config.json";
-import ImageFallback from "@/helpers/ImageFallback";
-import useLoadMore from "@/hooks/useLoadMore";
-import { defaultSort, sorting } from "@/lib/constants";
-import { getCollectionProducts, getProducts } from "@/lib/shopify";
-import { PageInfo, Product } from "@/lib/shopify/types";
-import { titleify } from "@/lib/utils/textConverter";
-import Link from "next/link";
-import { Suspense, useEffect, useRef, useState } from "react";
-import { BiLoaderAlt } from "react-icons/bi";
+import { AddToCart } from '@/components/cart/AddToCart'
+import SkeletonCards from '@/components/loadings/skeleton/SkeletonCards'
+import config from '@/config/config.json'
+import ImageFallback from '@/helpers/ImageFallback'
+import useLoadMore from '@/hooks/useLoadMore'
+import { defaultSort, sorting } from '@/lib/constants'
+import { getCollectionProducts, getProducts } from '@/lib/shopify'
+import { PageInfo, Product } from '@/lib/shopify/types'
+import { titleify } from '@/lib/utils/textConverter'
+import Link from 'next/link'
+import { Suspense, useEffect, useRef, useState } from 'react'
+import { BiLoaderAlt } from 'react-icons/bi'
 
 const ProductListView = ({ searchParams }: { searchParams: any }) => {
-  const { currencySymbol } = config.shopify;
-  const [isLoading, setIsLoading] = useState(true);
-  const targetElementRef = useRef<HTMLDivElement>(null);
+  const { currencySymbol } = config.shopify
+  const [isLoading, setIsLoading] = useState(true)
+  const targetElementRef = useRef<HTMLDivElement>(null)
   const [data, setData] = useState<{
-    products: Product[];
-    pageInfo: PageInfo;
+    products: Product[]
+    pageInfo: PageInfo
   }>({
     products: [],
-    pageInfo: { endCursor: "", hasNextPage: false, hasPreviousPage: false },
-  });
+    pageInfo: { endCursor: '', hasNextPage: false, hasPreviousPage: false }
+  })
 
   const {
     sort,
@@ -33,140 +33,108 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
     b: brand,
     c: category,
     t: tag,
-    cursor,
+    cursor
   } = searchParams as {
-    [key: string]: string;
-  };
+    [key: string]: string
+  }
 
-  const { sortKey, reverse } =
-    sorting.find((item) => item.slug === sort) || defaultSort;
+  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      setIsLoading(true)
 
       try {
-        let productsData;
+        let productsData
 
-        if (
-          searchValue ||
-          brand ||
-          minPrice ||
-          maxPrice ||
-          category ||
-          tag ||
-          cursor
-        ) {
-          let queryString = "";
-          let filterCategoryProduct = [];
+        if (searchValue || brand || minPrice || maxPrice || category || tag || cursor) {
+          let queryString = ''
+          const filterCategoryProduct = []
 
           if (minPrice && maxPrice) {
             filterCategoryProduct.push({
               price: {
-                min:
-                  minPrice !== undefined && minPrice !== ""
-                    ? parseFloat(minPrice)
-                    : 0,
-                max:
-                  maxPrice !== undefined && maxPrice !== ""
-                    ? parseFloat(maxPrice)
-                    : Number.POSITIVE_INFINITY,
-              },
-            });
+                min: minPrice !== undefined && minPrice !== '' ? parseFloat(minPrice) : 0,
+                max: maxPrice !== undefined && maxPrice !== '' ? parseFloat(maxPrice) : Number.POSITIVE_INFINITY
+              }
+            })
           }
 
           if (minPrice || maxPrice) {
-            queryString += `variants.price:<=${maxPrice} variants.price:>=${minPrice}`;
+            queryString += `variants.price:<=${maxPrice} variants.price:>=${minPrice}`
           }
 
           if (searchValue) {
-            queryString += ` ${searchValue}`;
+            queryString += ` ${searchValue}`
           }
 
           if (brand) {
-            Array.isArray(brand)
-              ? (queryString += `${brand
-                .map((b) => `(vendor:${b})`)
-                .join(" OR ")}`)
-              : (queryString += `vendor:"${brand}"`);
+            queryString += Array.isArray(brand) ? brand.map((b) => `(vendor:${b})`).join(' OR ') : `vendor:"${brand}"`
 
             if (Array.isArray(brand) && brand.length > 0) {
               brand.forEach((b) => {
                 filterCategoryProduct.push({
-                  productVendor: titleify(b),
-                });
-              });
+                  productVendor: titleify(b)
+                })
+              })
             } else {
               filterCategoryProduct.push({
-                productVendor: titleify(brand),
-              });
+                productVendor: titleify(brand)
+              })
             }
           }
 
           if (tag) {
-            queryString += ` ${tag}`;
+            queryString += ` ${tag}`
 
             filterCategoryProduct.push({
-              tag: tag.charAt(0).toUpperCase() + tag.slice(1),
-            });
+              tag: tag.charAt(0).toUpperCase() + tag.slice(1)
+            })
           }
 
           const query = {
             sortKey,
             reverse,
-            query: queryString,
-          };
+            query: queryString
+          }
 
           productsData =
-            category && category !== "all"
+            category && category !== 'all'
               ? await getCollectionProducts({
-                collection: category,
-                sortKey,
-                reverse,
-                filterCategoryProduct:
-                  filterCategoryProduct.length > 0
-                    ? filterCategoryProduct
-                    : undefined,
-              })
-              : await getProducts({ ...query, cursor });
+                  collection: category,
+                  sortKey,
+                  reverse,
+                  filterCategoryProduct: filterCategoryProduct.length > 0 ? filterCategoryProduct : undefined
+                })
+              : await getProducts({ ...query, cursor })
         } else {
           // Fetch all products
-          productsData = await getProducts({ sortKey, reverse, cursor });
+          productsData = await getProducts({ sortKey, reverse, cursor })
         }
 
         setData({
           products: productsData.products,
-          pageInfo: productsData.pageInfo!,
-        });
+          pageInfo: productsData.pageInfo!
+        })
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error('Error fetching products:', error)
       } finally {
-        setIsLoading(false);
+        setIsLoading(false)
       }
-    };
+    }
 
-    fetchData();
-  }, [
-    cursor,
-    sortKey,
-    searchValue,
-    brand,
-    minPrice,
-    maxPrice,
-    category,
-    tag,
-    reverse,
-  ]);
+    fetchData()
+  }, [cursor, sortKey, searchValue, brand, minPrice, maxPrice, category, tag, reverse])
 
-  const { products, pageInfo } = data;
-  const endCursor = pageInfo?.endCursor || "";
-  const hasNextPage = pageInfo?.hasNextPage || false;
+  const { products, pageInfo } = data
+  const endCursor = pageInfo?.endCursor || ''
+  const hasNextPage = pageInfo?.hasNextPage || false
 
   useLoadMore(targetElementRef as React.RefObject<HTMLElement>, () => {
     if (hasNextPage && !isLoading) {
-      fetchDataWithNewCursor(endCursor);
+      fetchDataWithNewCursor(endCursor)
     }
-  });
+  })
 
   const fetchDataWithNewCursor = async (newCursor: string) => {
     // setIsLoading(true);
@@ -176,108 +144,92 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
         sortKey,
         reverse,
         query: searchValue,
-        cursor: newCursor,
-      });
+        cursor: newCursor
+      })
 
       setData({
         products: [...products, ...res.products],
-        pageInfo: res.pageInfo,
-      });
+        pageInfo: res.pageInfo
+      })
     } catch (error) {
-      console.error("Error fetching more products:", error);
+      console.error('Error fetching more products:', error)
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
-
-  if (isLoading) {
-    return <SkeletonCards />;
   }
 
-  const resultsText = products.length > 1 ? "results" : "result";
+  if (isLoading) {
+    return <SkeletonCards />
+  }
+
+  const resultsText = products.length > 1 ? 'results' : 'result'
 
   return (
     <section>
-      <div ref={targetElementRef} className="row">
+      <div ref={targetElementRef} className='row'>
         {searchValue ? (
-          <p className="mb-4">
+          <p className='mb-4'>
             {products.length === 0
-              ? "There are no products that match "
+              ? 'There are no products that match '
               : `Showing ${products.length} ${resultsText} for `}
-            <span className="font-bold">&quot;{searchValue}&quot;</span>
+            <span className='font-bold'>&quot;{searchValue}&quot;</span>
           </p>
         ) : null}
 
         {products?.length === 0 && (
-          <div className="mx-auto pt-5 text-center">
+          <div className='mx-auto pt-5 text-center'>
             <ImageFallback
-              className="mx-auto mb-6"
-              src="/images/no-search-found.png"
-              alt="no-search-found"
+              className='mx-auto mb-6'
+              src='/images/no-search-found.png'
+              alt='no-search-found'
               width={211}
               height={184}
             />
-            <h1 className="h2 mb-4">No Product Found!</h1>
-            <p>
-              We couldn&apos;t find what you filtered for. Try filtering again.
-            </p>
+            <h1 className='h2 mb-4'>No Product Found!</h1>
+            <p>We couldn&apos;t find what you filtered for. Try filtering again.</p>
           </div>
         )}
 
-        <div className="row space-y-10">
+        <div className='row space-y-10'>
           {products?.map((product: Product) => {
-            const {
-              id,
-              title,
-              variants,
-              handle,
-              featuredImage,
-              priceRange,
-              description,
-              compareAtPriceRange,
-            } = product;
+            const { id, title, variants, handle, featuredImage, priceRange, description, compareAtPriceRange } = product
 
-            const defaultVariantId =
-              variants.length > 0 ? variants[0].id : undefined;
+            const defaultVariantId = variants.length > 0 ? variants[0].id : undefined
 
             return (
-              <div className="col-12" key={id}>
-                <div className="row">
-                  <div className="col-4">
+              <div className='col-12' key={id}>
+                <div className='row'>
+                  <div className='col-4'>
                     <ImageFallback
-                      src={featuredImage?.url || "/images/product_image404.jpg"}
+                      src={featuredImage?.url || '/images/product_image404.jpg'}
                       // fallback={'/images/category-1.png'}
                       width={312}
                       height={269}
-                      alt={featuredImage?.altText || "fallback image"}
-                      className="w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md"
+                      alt={featuredImage?.altText || 'fallback image'}
+                      className='w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md'
                     />
                   </div>
 
-                  <div className="col-8 py-3 max-md:pt-4">
-                    <h2 className="font-bold md:font-normal h4">
+                  <div className='col-8 py-3 max-md:pt-4'>
+                    <h2 className='font-bold md:font-normal h4'>
                       <Link href={`/products/${handle}`}>{title}</Link>
                     </h2>
 
-                    <div className="flex items-center gap-x-2 mt-2">
-                      <span className="text-text-light dark:text-darkmode-text-light text-xs md:text-lg font-bold">
-                        ৳ {priceRange?.minVariantPrice?.amount}{" "}
-                        {priceRange?.minVariantPrice?.currencyCode}
+                    <div className='flex items-center gap-x-2 mt-2'>
+                      <span className='text-text-light dark:text-darkmode-text-light text-xs md:text-lg font-bold'>
+                        ৳ {priceRange?.minVariantPrice?.amount} {priceRange?.minVariantPrice?.currencyCode}
                       </span>
-                      {parseFloat(
-                        compareAtPriceRange?.maxVariantPrice?.amount,
-                      ) > 0 ? (
-                        <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
-                          {currencySymbol}{" "}
-                          {compareAtPriceRange?.maxVariantPrice?.amount}{" "}
+                      {parseFloat(compareAtPriceRange?.maxVariantPrice?.amount) > 0 ? (
+                        <s className='text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium'>
+                          {currencySymbol} {compareAtPriceRange?.maxVariantPrice?.amount}{' '}
                           {compareAtPriceRange?.maxVariantPrice?.currencyCode}
                         </s>
                       ) : (
-                        ""
+                        ''
                       )}
                     </div>
 
-                    <p className="max-md:text-xs text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3">
+                    <p className='max-md:text-xs text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3'>
                       {description}
                     </p>
                     <Suspense>
@@ -286,30 +238,22 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
                         availableForSale={product?.availableForSale}
                         handle={handle}
                         defaultVariantId={defaultVariantId}
-                        stylesClass={
-                          "btn btn-outline-primary max-md:btn-sm drop-shadow-md"
-                        }
+                        stylesClass={'btn btn-outline-primary max-md:btn-sm drop-shadow-md'}
                       />
                     </Suspense>
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
 
-        <p
-          className={
-            hasNextPage || isLoading
-              ? "opacity-100 flex justify-center"
-              : "opacity-0 hidden"
-          }
-        >
+        <p className={hasNextPage || isLoading ? 'opacity-100 flex justify-center' : 'opacity-0 hidden'}>
           <BiLoaderAlt className={`animate-spin`} size={30} />
         </p>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default ProductListView;
+export default ProductListView

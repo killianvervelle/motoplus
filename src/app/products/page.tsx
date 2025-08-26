@@ -1,36 +1,26 @@
-import LoadingProducts from "@/components/loadings/skeleton/SkeletonProducts";
-import ProductLayouts from "@/components/product/ProductLayouts";
-import { defaultSort, sorting } from "@/lib/constants";
-import { getListPage } from "@/lib/contentParser";
-import {
-  getCollectionProducts,
-  getCollections,
-  getHighestProductPrice,
-  getProducts,
-  getVendors,
-} from "@/lib/shopify";
-import { PageInfo, Product } from "@/lib/shopify/types";
-import CallToAction from "@/partials/CallToAction";
-import ProductCardView from "@/partials/ProductCardView";
-import ProductFilters from "@/partials/ProductFilters";
-import ProductListView from "@/partials/ProductListView";
-import { Suspense } from "react";
+import LoadingProducts from '@/components/loadings/skeleton/SkeletonProducts'
+import ProductLayouts from '@/components/product/ProductLayouts'
+import { defaultSort, sorting } from '@/lib/constants'
+import { getListPage } from '@/lib/contentParser'
+import { getCollectionProducts, getCollections, getHighestProductPrice, getProducts, getVendors } from '@/lib/shopify'
+import { PageInfo, Product } from '@/lib/shopify/types'
+import CallToAction from '@/partials/CallToAction'
+import ProductCardView from '@/partials/ProductCardView'
+import ProductFilters from '@/partials/ProductFilters'
+import ProductListView from '@/partials/ProductListView'
+import { Suspense } from 'react'
 
 interface SearchParams {
-  sort?: string;
-  q?: string;
-  minPrice?: string;
-  maxPrice?: string;
-  b?: string;
-  c?: string;
-  t?: string;
+  sort?: string
+  q?: string
+  minPrice?: string
+  maxPrice?: string
+  b?: string
+  c?: string
+  t?: string
 }
 
-const ShowProducts = async ({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) => {
+const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) => {
   const {
     sort,
     q: searchValue,
@@ -38,108 +28,95 @@ const ShowProducts = async ({
     maxPrice,
     b: brand,
     c: category,
-    t: tag,
+    t: tag
   } = searchParams as {
-    [key: string]: string;
-  };
+    [key: string]: string
+  }
 
-  const { layout, cursor } = searchParams as { [key: string]: string };
+  const { layout, cursor } = searchParams as { [key: string]: string }
 
-  const { sortKey, reverse } =
-    sorting.find((item) => item.slug === sort) || defaultSort;
+  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort
 
-  let productsData: any;
-  let vendorsWithCounts: { vendor: string; productCount: number }[] = [];
-  let categoriesWithCounts: { category: string; productCount: number }[] = [];
+  let productsData: any
+  let vendorsWithCounts: { vendor: string; productCount: number }[] = []
+  let categoriesWithCounts: { category: string; productCount: number }[] = []
 
   if (searchValue || brand || minPrice || maxPrice || category || tag) {
-    let queryString = "";
+    let queryString = ''
 
     if (minPrice || maxPrice) {
-      queryString += `variants.price:<=${maxPrice} variants.price:>=${minPrice}`;
+      queryString += `variants.price:<=${maxPrice} variants.price:>=${minPrice}`
     }
 
     if (searchValue) {
-      queryString += ` ${searchValue}`;
+      queryString += ` ${searchValue}`
     }
 
     if (brand) {
-      Array.isArray(brand)
-        ? (queryString += `${brand.map((b) => `(vendor:${b})`).join(" OR ")}`)
-        : (queryString += `vendor:"${brand}"`);
+      queryString += Array.isArray(brand) ? brand.map((b) => `(vendor:${b})`).join(' OR ') : `vendor:"${brand}"`
     }
 
     if (tag) {
-      queryString += ` ${tag}`;
+      queryString += ` ${tag}`
     }
 
     const query = {
       sortKey,
       reverse,
       query: queryString,
-      cursor,
-    };
+      cursor
+    }
 
     productsData =
-      category && category !== "all"
+      category && category !== 'all'
         ? await getCollectionProducts({
-          collection: category,
-          sortKey,
-          reverse,
-        })
-        : await getProducts(query);
+            collection: category,
+            sortKey,
+            reverse
+          })
+        : await getProducts(query)
 
     const uniqueVendors: string[] = [
-      ...new Set(
-        ((productsData?.products as Product[]) || []).map((product: Product) =>
-          String(product?.vendor || ""),
-        ),
-      ),
-    ];
+      ...new Set(((productsData?.products as Product[]) || []).map((product: Product) => String(product?.vendor || '')))
+    ]
 
     const uniqueCategories: string[] = [
       ...new Set(
-        ((productsData?.products as Product[]) || []).flatMap(
-          (product: Product) =>
-            product.collections.nodes.map(
-              (collectionNode: any) => collectionNode.title || "",
-            ),
-        ),
-      ),
-    ];
+        ((productsData?.products as Product[]) || []).flatMap((product: Product) =>
+          product.collections.nodes.map((collectionNode: any) => collectionNode.title || '')
+        )
+      )
+    ]
 
     vendorsWithCounts = uniqueVendors.map((vendor: string) => {
       const productCount = (productsData?.products || []).filter(
-        (product: Product) => product?.vendor === vendor,
-      ).length;
-      return { vendor, productCount };
-    });
+        (product: Product) => product?.vendor === vendor
+      ).length
+      return { vendor, productCount }
+    })
 
     categoriesWithCounts = uniqueCategories.map((category: string) => {
-      const productCount = ((productsData?.products as Product[]) || []).filter(
-        (product: Product) =>
-          product.collections.nodes.some(
-            (collectionNode: any) => collectionNode.title === category,
-          ),
-      ).length;
-      return { category, productCount };
-    });
+      const productCount = ((productsData?.products as Product[]) || []).filter((product: Product) =>
+        product.collections.nodes.some((collectionNode: any) => collectionNode.title === category)
+      ).length
+      return { category, productCount }
+    })
   } else {
     // Fetch all products
-    productsData = await getProducts({ sortKey, reverse, cursor });
+    productsData = await getProducts({ sortKey, reverse, cursor })
   }
-  const categories = await getCollections();
-  const vendors = await getVendors({});
+  const categories = await getCollections()
+  const vendors = await getVendors({})
 
   const tags = [
     ...new Set(
-      (
-        productsData as { pageInfo: PageInfo; products: Product[] }
-      )?.products.flatMap((product: Product) => product.tags),
-    ),
-  ];
+      (productsData as { pageInfo: PageInfo; products: Product[] })?.products.flatMap(
+        (product: Product) => product.tags
+      )
+    )
+  ]
 
-  const maxPriceData = await getHighestProductPrice();
+  const maxPriceData = await getHighestProductPrice()
 
   return (
     <>
@@ -154,9 +131,9 @@ const ShowProducts = async ({
         />
       </Suspense>
 
-      <div className="container">
-        <div className="row">
-          <div className="col-3 hidden lg:block -mt-14">
+      <div className='container'>
+        <div className='row'>
+          <div className='col-3 hidden lg:block -mt-14'>
             <Suspense>
               <ProductFilters
                 categories={categories}
@@ -169,8 +146,8 @@ const ShowProducts = async ({
             </Suspense>
           </div>
 
-          <div className="col-12 lg:col-9">
-            {layout === "list" ? (
+          <div className='col-12 lg:col-9'>
+            {layout === 'list' ? (
               <ProductListView searchParams={searchParams} />
             ) : (
               <ProductCardView searchParams={searchParams} />
@@ -179,14 +156,12 @@ const ShowProducts = async ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-const ProductsListPage = async (props: {
-  searchParams: Promise<SearchParams>;
-}) => {
-  const searchParams = await props.searchParams;
-  const callToAction = getListPage("sections/call-to-action.md");
+const ProductsListPage = async (props: { searchParams: Promise<SearchParams> }) => {
+  const searchParams = await props.searchParams
+  const callToAction = getListPage('sections/call-to-action.md')
 
   return (
     <>
@@ -197,7 +172,7 @@ const ProductsListPage = async (props: {
 
       <CallToAction data={callToAction} />
     </>
-  );
-};
+  )
+}
 
-export default ProductsListPage;
+export default ProductsListPage
