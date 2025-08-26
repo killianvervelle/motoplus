@@ -51,7 +51,7 @@ export default function RootLayout({
       </head>
 
       <body suppressHydrationWarning={true}>
-        <TwSizeIndicator />
+        <TwSizeIndicator s=/>
         <Providers>
           <Header>
             <OpenCart />
