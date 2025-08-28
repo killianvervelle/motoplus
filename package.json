@@ -15,6 +15,7 @@
     "format": "prettier -w ./src",
     "test": "vitest",
     "e2e": "playwright test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "e2e:ui": "playwright test --ui",
     "e2e:debug": "playwright test --debug",
     "remove-darkmode": "node scripts/removeDarkmode.js && yarn format"

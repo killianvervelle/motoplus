@@ -27,8 +27,8 @@ jobs:
       - name: Install
         run: yarn --frozen-lockfile
 
-      - name: ESLint
-        run: yarn eslint
+      - name: Lint (ESLint)
+        run: yarn eslint "src/**/*.{ts,tsx,js,jsx}" "e2e/**/*.ts" "scripts/**/*.{ts,js}" --max-warnings=0
 
       - name: Typecheck
         run: yarn typecheck

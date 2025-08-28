@@ -1,0 +1,14 @@
+# package managers & vendors
+node_modules/
+.yarn/**
+
+# builds & caches
+.next/
+dist/
+build/
+out/
+coverage/
+.playwright/
+playwright-report/
+.vercel/
+.turbo/
