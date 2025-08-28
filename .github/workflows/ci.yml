@@ -28,7 +28,13 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Lint (ESLint)
-        run: yarn eslint "src/**/*.{ts,tsx,js,jsx}" "tests/e2e/*.ts" tests/unit/*.ts" "scripts/**/*.{ts,js}" --max-warnings=0
+        run: |
+            yarn eslint \
+            'src/**/*.{ts,tsx,js,jsx}' \
+            'tests/e2e/**/*.ts' \
+            'tests/unit/**/*.ts' \
+            'scripts/**/*.{ts,js}' \
+            --max-warnings=0
 
       - name: Typecheck
         run: yarn typecheck
