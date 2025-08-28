@@ -1,4 +1,2 @@
-#!/bin/sh
-. "$(git rev-parse --show-toplevel)/.husky/_/husky.sh"
-
-npx lint-staged
+#!/usr/bin/env sh
+. "$(dirname "$0")/h"
