@@ -16,7 +16,11 @@ const Expandable = ({ faqs }: { faqs: Faq[] }) => {
           <button
             className="accordion-header"
             onClick={() => {
-              activeTab === index ? setActiveTab(null) : setActiveTab(index);
+              if (activeTab === index) {
+                setActiveTab(null)
+              } else {
+                setActiveTab(index);
+              }
             }}
           >
             {faq.title}

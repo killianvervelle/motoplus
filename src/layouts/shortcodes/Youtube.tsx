@@ -14,7 +14,7 @@ const Youtube = ({
     import("@justinribeiro/lite-youtube");
   }, []);
 
-  // @ts-ignore
+  // @ts-expect-error frontmatter[name] type not defined in Post
   return <lite-youtube videoid={id} videotitle={title} {...rest} />;
 };
 

@@ -10,24 +10,21 @@
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "lint": "next lint",
-    "prepare": "husky install",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --no-error-on-unmatched-pattern",
+    "lint:ci": "npm run lint -- --max-warnings=0",
+    "lint:files": "eslint --no-error-on-unmatched-pattern",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepare": "husky",
     "format": "prettier -w ./src",
     "test": "vitest",
     "e2e": "playwright test",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
     "e2e:ui": "playwright test --ui",
     "e2e:debug": "playwright test --debug",
     "remove-darkmode": "node scripts/removeDarkmode.js && yarn format"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix --cache --cache-location .eslintcache",
-      "prettier --write"
-    ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
+    "**/*.{js,jsx,ts,tsx}": "eslint --fix",
+    "**/*.{json,css,md}": "prettier --write"
   },
   "engines": {
     "node": ">=18.0.0"

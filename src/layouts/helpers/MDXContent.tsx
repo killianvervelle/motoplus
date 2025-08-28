@@ -13,7 +13,7 @@ const MDXContent = ({ content }: { content: any }) => {
 
   return (
     <>
-      {/* @ts-ignore */}
+      {/* "@ts-expect-error */}
       <MDXRemote
         source={content}
         components={shortcodes}

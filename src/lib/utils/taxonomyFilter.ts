@@ -3,7 +3,7 @@ import { Post } from "@/types";
 
 const taxonomyFilter = (posts: Post[], name: string, key: any) =>
   posts.filter((post) =>
-    //@ts-ignore
+    // @ts-expect-error frontmatter[name] type not defined in Post
     post.frontmatter[name].map((name: string) => slugify(name)).includes(key),
   );
 

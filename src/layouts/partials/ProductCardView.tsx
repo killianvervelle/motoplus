@@ -58,7 +58,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
           cursor
         ) {
           let queryString = "";
-          let filterCategoryProduct = [];
+          const filterCategoryProduct = [];
 
           if (minPrice && maxPrice) {
             filterCategoryProduct.push({
@@ -84,11 +84,13 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
           }
 
           if (brand) {
-            Array.isArray(brand)
-              ? (queryString += `${brand
+            if (Array.isArray(brand)) {
+              queryString += `${brand
                 .map((b) => `(vendor:${b})`)
-                .join(" OR ")}`)
-              : (queryString += `vendor:"${brand}"`);
+                .join(" OR ")}`
+            } else {
+              queryString += `vendor:"${brand}"`
+            };
 
             if (Array.isArray(brand) && brand.length > 0) {
               brand.forEach((b) => {
