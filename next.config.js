@@ -1,4 +1,4 @@
-const config = require("./src/config/config.json");
+import config from "./src/config/config.json" assert { type: "json" };
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,4 +15,4 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

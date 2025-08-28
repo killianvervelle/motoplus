@@ -52,7 +52,7 @@ const RangeSlider = ({
     )
       return;
 
-    const rangeWidth = rangeRef.current.getBoundingClientRect().width;
+    //const rangeWidth = rangeRef.current.getBoundingClientRect().width;
     const minPercent = (minValue / maxAmount) * 100;
     const maxPercent = (maxValue / maxAmount) * 100;
 

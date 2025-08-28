@@ -37,5 +37,17 @@ export default tseslint.config(
       "@typescript-eslint/no-explicit-any": "off"
     },
     settings: { react: { version: "detect" } }
+  },
+
+  {
+    files: ["*.config.js", "*.config.cjs"],
+    languageOptions: {
+      globals: {
+        module: "readonly",
+        process: "readonly",
+        require: "readonly",
+        __dirname: "readonly",
+      },
+    },
   }
 );

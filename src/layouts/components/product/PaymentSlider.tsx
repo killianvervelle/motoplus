@@ -11,7 +11,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const PaymentSlider = ({ paymentMethods }: { paymentMethods: any }) => {
-  const [_, setInit] = useState(false);
+  const [, setInit] = useState(false);
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);

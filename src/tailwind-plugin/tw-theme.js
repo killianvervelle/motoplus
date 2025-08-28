@@ -81,7 +81,7 @@ const colorsMap = {};
   });
 });
 
-module.exports = plugin.withOptions(() => {
+export default plugin.withOptions(() => {
   return function ({ addBase, addUtilities, matchUtilities }) {
     // Default vars on :root; dark vars on .dark
     addBase({

@@ -1,5 +1,5 @@
-const fs = require("fs");
-const path = require("path");
+import fs from "node:fs";
+import path from "node:path";
 
 const rootDirs = ["src/app", "src/hooks", "src/layouts", "src/styles"];
 const configFiles = [
@@ -55,7 +55,7 @@ function deleteNestedProperty(obj, propertyPath) {
   let currentObj = obj;
   for (let i = 0; i < properties.length - 1; i++) {
     const property = properties[i];
-    if (currentObj.hasOwnProperty(property)) {
+    if (Object.prototype.hasOwnProperty.call(currentObj, property)) {
       currentObj = currentObj[property];
     } else {
       return; // Property not found, no need to continue
