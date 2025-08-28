@@ -3,7 +3,20 @@ import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 
 export default tseslint.config(
-  { ignores: ["node_modules/**", ".next/**", "out/**", "dist/**"] },
+  {
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'dist/**',
+      'build/**',
+      'out/**',
+      '.yarn/**',
+      'coverage/**',
+      'playwright-report/**',
+      '.vercel/**',
+      '.turbo/**',
+    ],
+  },
 
   js.configs.recommended,
 
