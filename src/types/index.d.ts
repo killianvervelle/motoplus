@@ -135,9 +135,11 @@ export type Categories = {
   itemCount: number
 }
 
-export type ImageEdge = {
-  node: {
-    altText: string | null
-    url: string
-  }
-}
+export type ImageNode = {
+  url: string;
+  altText: string | null;
+};
+
+export type ImageEdge = { node: ImageNode };
+
+export type ImageConnection = { edges: ImageEdge[] };

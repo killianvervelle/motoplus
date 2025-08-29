@@ -87,7 +87,9 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
                   const selectedColor = item.merchandise.selectedOptions.find((o) => o.name === 'Color')?.value
 
-                  const edges: ImageEdge[] = item.merchandise.product.images?.edges ?? []
+                  const edges: ImageEdge[] = (item.merchandise.product.images ?? []).map((img) => ({
+                    node: { url: img.url, altText: img.altText ?? null }
+                  }))
                   const match = edges.find((e) => (e.node.altText ?? undefined) === selectedColor)
 
                   const src: string =
