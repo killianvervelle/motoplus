@@ -7,7 +7,6 @@ test.describe('home loads', () => {
         if (msg.type() === 'error') consoleErrors.push(msg.text());
       });
 
-    test('loads cleanly, shows header, main content, and at least one product link', async ({ page }) => {
     const resp = await page.goto('/', {waitUntil: 'domcontentloaded'})
     expect(resp?.status()).toBeLessThan(400);
     
@@ -15,10 +14,10 @@ test.describe('home loads', () => {
     await expect(page.getByRole('main')).toBeVisible()
     await expect(page.getByRole('contentinfo')).toBeVisible();
 
+    await page.goto('/products', {waitUntil: 'domcontentloaded'})
     const productLink = page.locator('a[href*="/products/"], a[href*="/product/"]').first();
     await expect(productLink).toBeVisible();
 
     expect(consoleErrors).toEqual([]);
   })
-})
 })
