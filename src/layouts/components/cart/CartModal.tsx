@@ -12,7 +12,7 @@ import CloseCart from './CloseCart'
 import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import OpenCart from './OpenCart'
-import { ImageEdge } from '@/types'
+import { ImageEdge, ImageConnection } from '@/types'
 
 type MerchandiseSearchParams = {
   [key: string]: string
@@ -87,8 +87,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
                   const selectedColor = item.merchandise.selectedOptions.find((o) => o.name === 'Color')?.value
 
-                  //@ts-expect-error Error on edges but it's not.
-                  const edges: ImageEdge[] = item.merchandise.product.images.edges ?? []
+                  const edges: ImageEdge[] =
+                    ((item.merchandise.product.images as unknown as ImageConnection)?.edges) ?? [];
                   const match = edges.find((e) => (e.node.altText ?? undefined) === selectedColor)
 
                   const src: string =
