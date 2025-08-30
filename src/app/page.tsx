@@ -30,7 +30,6 @@ const ShowHeroSlider = async () => {
   }
 };
 
-// Collections
 const ShowCollections = async () => {
   try {
     const cols = await getCollections();
@@ -45,7 +44,6 @@ const ShowCollections = async () => {
   }
 };
 
-// Featured products
 const ShowFeaturedProducts = async () => {
   try {
     const { products = [] } =
