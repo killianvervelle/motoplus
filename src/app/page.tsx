@@ -15,8 +15,8 @@ const { collections } = config.shopify;
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
+console.log('[route] reached');
 
-console.log('[home] reached');
 
 const ShowHeroSlider = async () => {
   const sliderImages = await getCollectionProducts({

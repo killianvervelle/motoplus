@@ -21,9 +21,4 @@ export default {
     ],
   },
   eslint: { ignoreDuringBuilds: true },
-  async redirects() {
-    return basePath
-      ? [{ source: "/", destination: basePath, permanent: false }]
-      : [];
-  },
 };
