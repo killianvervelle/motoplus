@@ -1,37 +1,91 @@
+import CollectionsSlider from "@/components/CollectionsSlider";
+import HeroSlider from "@/components/HeroSlider";
+import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
+import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
+import config from "@/config/config.json";
+import { getListPage } from "@/lib/contentParser";
+import { getCollectionProducts, getCollections } from "@/lib/shopify";
+import CallToAction from "@/partials/CallToAction";
+import FeaturedProducts from "@/partials/FeaturedProducts";
+import SeoMeta from "@/partials/SeoMeta";
+import { Suspense } from "react";
 
+const { collections } = config.shopify;
 
-export const revalidate = 60;               // rebuild at most once per minute
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+console.log('[route] reached');
 
-const SHOP_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN ?? 'motoplus-site76.myshopify.com';
-const API_VERSION = process.env.SHOPIFY_API_VERSION ?? '2024-10';
-const TOKEN = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
-const ENDPOINT = `https://${SHOP_DOMAIN}/api/${API_VERSION}/graphql.json`;
-const QUERY = `query { shop { name } }`;
 
-function HomeView({ name }: { name: string | null }) {
-  return <main className="container"><h1>{name ?? 'Motoplus'}</h1></main>;
-}
+const ShowHeroSlider = async () => {
+  const sliderImages = await getCollectionProducts({
+    collection: collections.hero_slider,
 
-export default async function Page() {
-  const res = await fetch(ENDPOINT, {
-    method: 'POST',
-    // IMPORTANT: no 'cache: "no-store"' here
-    next: { revalidate: 60 },               // (optional, since file-level revalidate is set)
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': TOKEN,
-    },
-    body: JSON.stringify({ query: QUERY }),
   });
+  const { products } = sliderImages;
+  return <HeroSlider products={products} />;
+};
 
-  if (!res.ok) {
-    console.error('Shopify fetch failed', { status: res.status });
-    // For a static page, return a soft UI instead of throwing, so build doesn’t fail
-    return <HomeView name={null} />;
-  }
+const ShowCollections = async () => {
+  const collections = await getCollections();
+  return <CollectionsSlider collections={collections} />;
+};
 
-  const json = await res.json();
-  return <HomeView name={json.data?.shop?.name ?? null} />;
-}
+const ShowFeaturedProducts = async () => {
+  const { products } = await getCollectionProducts({
+    collection: collections.featured_products,
+    reverse: false,
+  });
+  return <FeaturedProducts products={products} />;
+};
+
+const Home = () => {
+  const callToAction = getListPage("sections/call-to-action.md");
+
+  return (
+    <>
+      <SeoMeta />
+      <section>
+        <div className="container">
+          <div className="bg-gradient py-10 rounded-md">
+            <Suspense>
+              <ShowHeroSlider />
+            </Suspense>
+          </div>
+        </div>
+      </section>
+
+      {/* category section  */}
+      <section className="section">
+        <div className="container">
+          <div className="text-center mb-6 md:mb-14">
+            <h2>Collections</h2>
+          </div>
+          <Suspense fallback={<SkeletonCategory />}>
+            <ShowCollections />
+          </Suspense>
+        </div>
+      </section>
+
+      {/* Featured Products section  */}
+      <section>
+        <div className="container">
+          <div className="text-center mb-6 md:mb-14">
+            <h2 className="mb-2">Featured Products</h2>
+            <p className="md:h5">Explore Today&apos;s Featured Picks!</p>
+          </div>
+          <Suspense fallback={<SkeletonFeaturedProducts />}>
+            <ShowFeaturedProducts />
+          </Suspense>
+        </div>
+      </section>
+
+      <CallToAction data={callToAction} />
+    </>
+  );
+};
+
+export default Home;
+
 
