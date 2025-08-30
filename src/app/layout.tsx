@@ -12,6 +12,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pf = theme.fonts.font_family.primary
   const sf = theme.fonts.font_family.secondary
 
+  console.log('[layout] envs', {
+    SHOPIFY_STORE_DOMAIN: !!process.env.SHOPIFY_STORE_DOMAIN,
+    SHOPIFY_STOREFRONT_TOKEN: !!process.env.SHOPIFY_STOREFRONT_TOKEN, // or _ACCESS_TOKEN
+  });
+
   return (
     <html suppressHydrationWarning={true} lang='en'>
       <head>
