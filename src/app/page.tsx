@@ -1,91 +1,51 @@
-import CollectionsSlider from "@/components/CollectionsSlider";
-import HeroSlider from "@/components/HeroSlider";
-import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
-import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
-import config from "@/config/config.json";
-import { getListPage } from "@/lib/contentParser";
-import { getCollectionProducts, getCollections } from "@/lib/shopify";
-import CallToAction from "@/partials/CallToAction";
-import FeaturedProducts from "@/partials/FeaturedProducts";
-import SeoMeta from "@/partials/SeoMeta";
-import { Suspense } from "react";
 
-const { collections } = config.shopify;
+
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 console.log('[route] reached');
 
+const endpoint = "https://motoplus-site76.myshopify.com/api/2023-01/graphql.json"
 
-const ShowHeroSlider = async () => {
-  const sliderImages = await getCollectionProducts({
-    collection: collections.hero_slider,
 
-  });
-  const { products } = sliderImages;
-  return <HeroSlider products={products} />;
-};
 
-const ShowCollections = async () => {
-  const collections = await getCollections();
-  return <CollectionsSlider collections={collections} />;
-};
 
-const ShowFeaturedProducts = async () => {
-  const { products } = await getCollectionProducts({
-    collection: collections.featured_products,
-    reverse: false,
-  });
-  return <FeaturedProducts products={products} />;
-};
+export default async function Home() {
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
+      },
+      body: JSON.stringify({ query: '{ shop { name } }' }) // placeholder; use your real query
+      // IMPORTANT: no-cache or cache: 'no-store' if you want no caching
+    });
 
-const Home = () => {
-  const callToAction = getListPage("sections/call-to-action.md");
+    if (!res.ok) {
+      console.error('Shopify homepage fetch failed', {
+        status: res.status,
+        endpoint,
+        hasToken: !!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
+      });
+      // TEMP while debugging: render a soft error instead of hard 404
+      return <main className="container">Failed to load homepage data.</main>;
+      // or: return notFound();  // restore this after fixing env/API
+    }
 
-  return (
-    <>
-      <SeoMeta />
-      <section>
-        <div className="container">
-          <div className="bg-gradient py-10 rounded-md">
-            <Suspense>
-              <ShowHeroSlider />
-            </Suspense>
-          </div>
-        </div>
-      </section>
+    const data = await res.json();
+    if (!data /* or missing fields */) {
+      console.warn('Shopify homepage data empty');
+      return <main className="container">No data returned.</main>;
+      // or notFound();
+    }
 
-      {/* category section  */}
-      <section className="section">
-        <div className="container">
-          <div className="text-center mb-6 md:mb-14">
-            <h2>Collections</h2>
-          </div>
-          <Suspense fallback={<SkeletonCategory />}>
-            <ShowCollections />
-          </Suspense>
-        </div>
-      </section>
-
-      {/* Featured Products section  */}
-      <section>
-        <div className="container">
-          <div className="text-center mb-6 md:mb-14">
-            <h2 className="mb-2">Featured Products</h2>
-            <p className="md:h5">Explore Today&apos;s Featured Picks!</p>
-          </div>
-          <Suspense fallback={<SkeletonFeaturedProducts />}>
-            <ShowFeaturedProducts />
-          </Suspense>
-        </div>
-      </section>
-
-      <CallToAction data={callToAction} />
-    </>
-  );
-};
-
-export default Home;
+    return <Home data={data} />;
+  } catch (err) {
+    console.error('Homepage fetch threw', err);
+    return <main className="container">Unexpected error.</main>;
+  }
+}
 
 
