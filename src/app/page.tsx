@@ -1,50 +1,55 @@
 
 
+const SHOP_DOMAIN =
+  process.env.SHOPIFY_STORE_DOMAIN ?? 'motoplus-site76.myshopify.com';
+const API_VERSION = process.env.SHOPIFY_API_VERSION ?? '2024-10'; // <- bump from 2023-01
+const TOKEN = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-console.log('[route] reached');
+const ENDPOINT = `https://${SHOP_DOMAIN}/api/${API_VERSION}/graphql.json`;
+const QUERY = /* GraphQL */ `query ShopName { shop { name } }`;
 
-const endpoint = "https://motoplus-site76.myshopify.com/api/2023-01/graphql.json"
+function HomeView({ shopName }: { shopName?: string | null }) {
+  return (
+    <main className="container">
+      <h1>{shopName ?? 'Motoplus'}</h1>
+    </main>
+  );
+}
 
+export default async function Page() {
+  if (!TOKEN) {
+    console.error('Missing SHOPIFY_STOREFRONT_ACCESS_TOKEN in Production');
+    return <HomeView shopName={null} />;
+  }
 
-
-
-export default async function Home() {
   try {
-    const res = await fetch(endpoint, {
+    const res = await fetch(ENDPOINT, {
       method: 'POST',
+      cache: 'no-store', // avoid stale cache while debugging
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
+        'X-Shopify-Storefront-Access-Token': TOKEN,
       },
-      body: JSON.stringify({ query: '{ shop { name } }' }) // placeholder; use your real query
-      // IMPORTANT: no-cache or cache: 'no-store' if you want no caching
+      body: JSON.stringify({ query: QUERY }),
     });
 
     if (!res.ok) {
-      console.error('Shopify homepage fetch failed', {
-        status: res.status,
-        endpoint,
-        hasToken: !!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-      });
-      // TEMP while debugging: render a soft error instead of hard 404
-      return <main className="container">Failed to load homepage data.</main>;
-      // or: return notFound();  // restore this after fixing env/API
+      const text = await res.text();
+      console.error('Shopify fetch failed', { status: res.status, text });
+      return <HomeView shopName={null} />;
     }
 
-    const data = await res.json();
-    if (!data /* or missing fields */) {
-      console.warn('Shopify homepage data empty');
-      return <main className="container">No data returned.</main>;
-      // or notFound();
+    const json = await res.json();
+    if (json.errors) {
+      console.error('Shopify GraphQL errors', json.errors);
+      return <HomeView shopName={null} />;
     }
 
-    return <Home />;
+    const name = json.data?.shop?.name ?? null;
+    return <HomeView shopName={name} />;
   } catch (err) {
     console.error('Homepage fetch threw', err);
-    return <main className="container">Unexpected error.</main>;
+    return <HomeView shopName={null} />;
   }
 }
 
