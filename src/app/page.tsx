@@ -12,28 +12,31 @@ import FeaturedProducts from "@/partials/FeaturedProducts";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
 
-const { collections } = config.shopify;
 
 const ShowHeroSlider = async () => {
-  const sliderImages = await getCollectionProducts({
-    collection: collections.hero_slider,
-
-  });
-  const { products } = sliderImages;
-  return <HeroSlider products={products} />;
+  try {
+    const res = await getCollectionProducts({ collection: config.shopify.collections.hero_slider });
+    const products = res?.products ?? [];
+    if (!products.length) { console.warn('[home] hero_slider empty'); return null; }
+    return <HeroSlider products={products} />;
+  } catch (e) { console.error('[home] hero_slider failed', e); return null; }
 };
 
 const ShowCollections = async () => {
-  const collections = await getCollections();
-  return <CollectionsSlider collections={collections} />;
+  try {
+    const cols = await getCollections();
+    if (!cols?.length) { console.warn('[home] collections empty'); return null; }
+    return <CollectionsSlider collections={cols} />;
+  } catch (e) { console.error('[home] collections failed', e); return null; }
 };
 
 const ShowFeaturedProducts = async () => {
-  const { products } = await getCollectionProducts({
-    collection: collections.featured_products,
-    reverse: false,
-  });
-  return <FeaturedProducts products={products} />;
+  try {
+    const { products = [] } =
+      (await getCollectionProducts({ collection: config.shopify.collections.featured_products, reverse: false })) || {};
+    if (!products.length) { console.warn('[home] featured empty'); return null; }
+    return <FeaturedProducts products={products} />;
+  } catch (e) { console.error('[home] featured failed', e); return null; }
 };
 
 const Home = () => {
