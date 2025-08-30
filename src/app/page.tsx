@@ -1,7 +1,6 @@
 export const dynamic = "force-dynamic";
 
 import CollectionsSlider from "@/components/CollectionsSlider";
-import HeroSlider from "@/components/HeroSlider";
 import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
 import config from "@/config/config.json";
@@ -14,14 +13,7 @@ import { Suspense } from "react";
 
 const { collections } = config.shopify;
 
-const ShowHeroSlider = async () => {
-  const sliderImages = await getCollectionProducts({
-    collection: collections.hero_slider,
 
-  });
-  const { products } = sliderImages;
-  return <HeroSlider products={products} />;
-};
 
 const ShowCollections = async () => {
   const collections = await getCollections();
@@ -42,15 +34,7 @@ const Home = () => {
   return (
     <>
       <SeoMeta />
-      <section>
-        <div className="container">
-          <div className="bg-gradient py-10 rounded-md">
-            <Suspense>
-              <ShowHeroSlider />
-            </Suspense>
-          </div>
-        </div>
-      </section>
+
 
       {/* category section  */}
       <section className="section">
