@@ -12,54 +12,28 @@ import FeaturedProducts from "@/partials/FeaturedProducts";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
 
+const { collections } = config.shopify;
 
 const ShowHeroSlider = async () => {
-  try {
-    const slider = await getCollectionProducts({
-      collection: config.shopify.collections.hero_slider, // "Home-page-slider"
-    });
-    const products = slider?.products ?? [];
-    if (!products.length) {
-      console.warn('[home] hero_slider empty');
-      return null;
-    }
-    return <HeroSlider products={products} />;
-  } catch (e) {
-    console.error('[home] hero_slider fetch failed', e);
-    return null;
-  }
+  const sliderImages = await getCollectionProducts({
+    collection: collections.hero_slider,
+
+  });
+  const { products } = sliderImages;
+  return <HeroSlider products={products} />;
 };
 
 const ShowCollections = async () => {
-  try {
-    const cols = await getCollections();
-    if (!cols?.length) {
-      console.warn('[home] collections empty');
-      return null;
-    }
-    return <CollectionsSlider collections={cols} />;
-  } catch (e) {
-    console.error('[home] collections fetch failed', e);
-    return null;
-  }
+  const collections = await getCollections();
+  return <CollectionsSlider collections={collections} />;
 };
 
 const ShowFeaturedProducts = async () => {
-  try {
-    const res = await getCollectionProducts({
-      collection: config.shopify.collections.featured_products, // "featured-products"
-      reverse: false,
-    });
-    const products = res?.products ?? [];
-    if (!products.length) {
-      console.warn('[home] featured_products empty');
-      return null;
-    }
-    return <FeaturedProducts products={products} />;
-  } catch (e) {
-    console.error('[home] featured_products fetch failed', e);
-    return null;
-  }
+  const { products } = await getCollectionProducts({
+    collection: collections.featured_products,
+    reverse: false,
+  });
+  return <FeaturedProducts products={products} />;
 };
 
 const Home = () => {
