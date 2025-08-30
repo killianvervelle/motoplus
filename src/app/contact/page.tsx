@@ -16,11 +16,6 @@ const Contact = async () => {
   const { title, description, meta_title, image, contact_meta } = frontmatter;
   const { contact_form_action } = config.params;
 
-  console.log('[env]', {
-    SHOPIFY_STORE_DOMAIN: !!process.env.SHOPIFY_STORE_DOMAIN,
-    SHOPIFY_STOREFRONT_ACCESS_TOKEN: !!process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN,
-  });
-
   return (
     <>
       <SeoMeta
