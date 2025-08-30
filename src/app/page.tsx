@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import CollectionsSlider from "@/components/CollectionsSlider";
 import HeroSlider from "@/components/HeroSlider";
 import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
@@ -12,31 +10,34 @@ import FeaturedProducts from "@/partials/FeaturedProducts";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
 
+const { collections } = config.shopify;
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
+console.log('[home] reached');
 
 const ShowHeroSlider = async () => {
-  try {
-    const res = await getCollectionProducts({ collection: config.shopify.collections.hero_slider });
-    const products = res?.products ?? [];
-    if (!products.length) { console.warn('[home] hero_slider empty'); return null; }
-    return <HeroSlider products={products} />;
-  } catch (e) { console.error('[home] hero_slider failed', e); return null; }
+  const sliderImages = await getCollectionProducts({
+    collection: collections.hero_slider,
+
+  });
+  const { products } = sliderImages;
+  return <HeroSlider products={products} />;
 };
 
 const ShowCollections = async () => {
-  try {
-    const cols = await getCollections();
-    if (!cols?.length) { console.warn('[home] collections empty'); return null; }
-    return <CollectionsSlider collections={cols} />;
-  } catch (e) { console.error('[home] collections failed', e); return null; }
+  const collections = await getCollections();
+  return <CollectionsSlider collections={collections} />;
 };
 
 const ShowFeaturedProducts = async () => {
-  try {
-    const { products = [] } =
-      (await getCollectionProducts({ collection: config.shopify.collections.featured_products, reverse: false })) || {};
-    if (!products.length) { console.warn('[home] featured empty'); return null; }
-    return <FeaturedProducts products={products} />;
-  } catch (e) { console.error('[home] featured failed', e); return null; }
+  const { products } = await getCollectionProducts({
+    collection: collections.featured_products,
+    reverse: false,
+  });
+  return <FeaturedProducts products={products} />;
 };
 
 const Home = () => {
