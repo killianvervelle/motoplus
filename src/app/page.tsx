@@ -1,11 +1,10 @@
 export const dynamic = "force-dynamic";
 
-import CollectionsSlider from "@/components/CollectionsSlider";
-import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
+
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
 import config from "@/config/config.json";
 import { getListPage } from "@/lib/contentParser";
-import { getCollectionProducts, getCollections } from "@/lib/shopify";
+import { getCollectionProducts } from "@/lib/shopify";
 import CallToAction from "@/partials/CallToAction";
 import FeaturedProducts from "@/partials/FeaturedProducts";
 import SeoMeta from "@/partials/SeoMeta";
@@ -14,11 +13,6 @@ import { Suspense } from "react";
 const { collections } = config.shopify;
 
 
-
-const ShowCollections = async () => {
-  const collections = await getCollections();
-  return <CollectionsSlider collections={collections} />;
-};
 
 const ShowFeaturedProducts = async () => {
   const { products } = await getCollectionProducts({
@@ -34,19 +28,7 @@ const Home = () => {
   return (
     <>
       <SeoMeta />
-
-
-      {/* category section  */}
-      <section className="section">
-        <div className="container">
-          <div className="text-center mb-6 md:mb-14">
-            <h2>Collections</h2>
-          </div>
-          <Suspense fallback={<SkeletonCategory />}>
-            <ShowCollections />
-          </Suspense>
-        </div>
-      </section>
+      
 
       {/* Featured Products section  */}
       <section>
