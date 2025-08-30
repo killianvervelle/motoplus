@@ -5,11 +5,17 @@ import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import { ContactUsItem, RegularPage } from "@/types";
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+console.log('[route] reached');
+
 const Contact = async () => {
   const data: RegularPage = getListPage("contact/_index.md");
   const { frontmatter } = data;
   const { title, description, meta_title, image, contact_meta } = frontmatter;
   const { contact_form_action } = config.params;
+
 
   return (
     <>
