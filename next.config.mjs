@@ -7,8 +7,6 @@ const basePath =
     ? siteBasePath
     : undefined;
 
-console.log('[build] basePath =', basePath);
-
 export default {
   reactStrictMode: true,
   ...(basePath ? { basePath } : {}),
