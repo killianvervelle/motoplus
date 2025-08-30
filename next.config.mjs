@@ -1,10 +1,16 @@
-import config from "./src/config/config.json" with { type: "json" };
+import cfg from "./src/config/config.json" with { type: "json" };
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const siteBasePath = cfg.site?.base_path;
+const basePath =
+  typeof siteBasePath === "string" && siteBasePath !== "/"
+    ? siteBasePath
+    : undefined;
+
+export default {
   reactStrictMode: true,
-  basePath: config.base_path !== "/" ? config.base_path : "",
-  trailingSlash: config.site.trailing_slash,
+  ...(basePath ? { basePath } : {}),
+  trailingSlash: !!cfg.site?.trailing_slash,
   transpilePackages: ["next-mdx-remote"],
   output: "standalone",
   images: {
@@ -14,5 +20,3 @@ const nextConfig = {
   },
   eslint: { ignoreDuringBuilds: true },
 };
-
-export default nextConfig;
