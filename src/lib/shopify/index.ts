@@ -111,6 +111,8 @@ export async function shopifyFetch<T>({
 
     const body = await result.json();
 
+    console.log("Shopify fetch", { query, variables, body });
+
     if (body.errors) {
       throw body.errors[0];
     }
