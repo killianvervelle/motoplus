@@ -41,7 +41,7 @@ export default async function Home() {
       // or notFound();
     }
 
-    return <Home data={data} />;
+    return <Home />;
   } catch (err) {
     console.error('Homepage fetch threw', err);
     return <main className="container">Unexpected error.</main>;
