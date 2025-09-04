@@ -47,7 +47,7 @@ const Contact = async () => {
 
       <section className="section">
         <div className="container">
-          <div className="mx-auto lg:col-10">
+          <div className="mx-auto lg:col-10 my-20">
             <h2 className="mb-14 text-center">
               We would love to hear from you!
             </h2>
@@ -59,29 +59,29 @@ const Contact = async () => {
             >
               <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                 <div>
-                  <label htmlFor="name" className="form-label">
+                  <label htmlFor="firstName" className="form-label">
                     First Name <span className="text-red-500">*</span>
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="firstName"
+                    name="firstName"
                     className="form-input"
-                    placeholder="John"
                     type="text"
                     required
+                    maxLength={25}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="name" className="form-label">
+                  <label htmlFor="lastName" className="form-label">
                     Last Name
                   </label>
                   <input
-                    id="name"
-                    name="name"
+                    id="lastName"
+                    name="lastName"
                     className="form-input"
-                    placeholder="Doe"
                     type="text"
+                    maxLength={25}
                   />
                 </div>
               </div>
@@ -95,7 +95,6 @@ const Contact = async () => {
                     id="email"
                     name="email"
                     className="form-input"
-                    placeholder="john.doe@email.com"
                     type="email"
                     required
                   />
@@ -108,10 +107,10 @@ const Contact = async () => {
                   <input
                     id="name"
                     name="name"
-                    className="form-input"
-                    placeholder="Enquiry About"
+                    className="form-input"                    
                     type="text"
                     required
+                    minLength={10}
                   />
                 </div>
               </div>
@@ -124,9 +123,9 @@ const Contact = async () => {
                   id="message"
                   name="message"
                   className="form-input"
-                  placeholder="Type your message..."
                   rows={8}
                   required
+                  minLength={10}
                 ></textarea>
               </div>
 

@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "Commerceplate",
-    "base_url": "https://tf-commerceplate.netlify.app/",
+    "base_url": "https://motoplus.vercel.app/",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
@@ -25,8 +25,8 @@
   },
 
   "params": {
-    "contact_form_action": "#",
-    "copyright": "Designed And Developed by [Zeon Studio](https://zeon.studio)"
+    "contact_form_action": "https://YOUR-DOMAIN/contact#contact_form",
+    "copyright": ""
   },
 
   "navigation_button": {
@@ -36,9 +36,9 @@
   },
 
   "metadata": {
-    "meta_author": "Zeon Studio",
+    "meta_author": "killian vervelle",
     "meta_image": "/images/og-image.png",
-    "meta_description": "Shopify Storefront Boilerplate"
+    "meta_description": "Moto Plus storefront"
   },
 
   "shopify": {

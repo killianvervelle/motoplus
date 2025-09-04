@@ -34,7 +34,7 @@ const SeoMeta = ({
       {canonical && <link rel="canonical" href={canonical} itemProp="url" />}
 
       {/* noindex robots */}
-      {noindex && <meta name="robots" content="noindex,nofollow" />}
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* meta-description */}
       <meta
@@ -64,32 +64,11 @@ const SeoMeta = ({
         content={`${base_url}/${pathname.replace("/", "")}`}
       />
 
-      {/* twitter-title */}
-      <meta
-        name="twitter:title"
-        content={plainify(
-          meta_title ? meta_title : title ? title : config.site.title,
-        )}
-      />
-
-      {/* twitter-description */}
-      <meta
-        name="twitter:description"
-        content={plainify(description ? description : meta_description)}
-      />
-
       {/* og-image */}
       <meta
         property="og:image"
         content={`${base_url}${image ? image : meta_image}`}
       />
-
-      {/* twitter-image */}
-      <meta
-        name="twitter:image"
-        content={`${base_url}${image ? image : meta_image}`}
-      />
-      <meta name="twitter:card" content="summary_large_image" />
     </>
   );
 };

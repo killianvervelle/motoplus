@@ -18,6 +18,7 @@ const Testimonials = ({ title, testimonials }: { title: string; testimonials: Ar
 
   const prevRef = useRef(null)
   const nextRef = useRef(null)
+  
   return (
     <section className='section'>
       <div className='container'>

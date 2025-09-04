@@ -107,7 +107,7 @@ const SignUp = () => {
               </div>
 
               {errorMessages.map((error: CustomerError) => (
-                <p key={error.code} className='ont-medium text-red-500 truncate mt-2'>
+                <p key={error.code} className='font-medium text-red-500 truncate mt-2'>
                   *{error.message}
                 </p>
               ))}

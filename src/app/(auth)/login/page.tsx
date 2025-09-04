@@ -48,6 +48,7 @@ const Login = () => {
       } else {
         const errors = responseData.errors || [];
         setErrorMessages(errors);
+        router.push("/login");
       }
     } catch (error) {
       console.error("Error during login:", error);

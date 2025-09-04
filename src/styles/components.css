@@ -1,6 +1,6 @@
 /* section style */
 .section {
-  @apply py-14 xl:py-28;
+  @apply pb-24;
 }
 
 /* container */

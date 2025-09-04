@@ -1,15 +1,15 @@
 import cfg from "./src/config/config.json" with { type: "json" };
 
 /** @type {import('next').NextConfig} */
-const siteBasePath = cfg.site?.base_path;
+/**const siteBasePath = cfg.site?.base_path;
 const basePath =
   typeof siteBasePath === "string" && siteBasePath !== "/"
     ? siteBasePath
-    : undefined;
+    : undefined;**/
 
 export default {
   reactStrictMode: true,
-  ...(basePath ? { basePath } : {}),
+  //...(basePath ? { basePath } : {}),
   trailingSlash: !!cfg.site?.trailing_slash,
   transpilePackages: ["next-mdx-remote"],
   output: "standalone",

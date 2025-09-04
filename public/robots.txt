@@ -3,7 +3,9 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://example.com
+Host: https://motoplus.vercel.app
 
 # Sitemaps
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://motoplus.vercel.app/sitemap.xml
+Sitemap: https://motoplus.vercel.app/sitemap-1.xml
+Sitemap: https://motoplus.vercel.app/sitemap-2.xml
