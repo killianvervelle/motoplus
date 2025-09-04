@@ -12,6 +12,7 @@ export const generateStaticParams = () => {
   const regularPages = getSinglePage("pages").map((page: RegularPage) => ({
     regular: page.slug,
   }));
+  console.log('Static regular slugs:', regularPages.map(p => p));
   return regularPages;
 };
 
@@ -24,6 +25,8 @@ export default async function RegularPages({
   // Make sure this function works in prod (Node runtime), not Edge
   const all = getSinglePage('pages');
   const data = all.find((p: RegularPage) => p.slug === params.regular);
+
+  console.log('Static regular slugs:', data);
 
   if (!data) return notFound();
 

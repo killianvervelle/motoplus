@@ -4,7 +4,6 @@ import LoadingProductGallery from "@/components/loadings/skeleton/SkeletonProduc
 import ProductGallery from "@/components/product/ProductGallery";
 import ShowTags from "@/components/product/ShowTags";
 import Tabs from "@/components/product/Tabs";
-import { VariantSelector } from "@/components/product/VariantSelector";
 import config from "@/config/config.json";
 import { getListPage } from "@/lib/contentParser";
 import { getProduct, getProductRecommendations } from "@/lib/shopify";
@@ -51,9 +50,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
     description,
     descriptionHtml,
     priceRange,
-    compareAtPriceRange,
     images,
-    options,
     variants,
     tags,
   } = product;
@@ -67,14 +64,14 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
       <section className="md:section-sm">
         <div className="container">
           <div className="row justify-center">
-            {/* right side contents  */}
+            {/* left side contents  */}
             <div className="col-10 md:col-8 lg:col-6">
               <Suspense>
                 <ProductGallery images={images} />
               </Suspense>
             </div>
 
-            {/* left side contents  */}
+            {/* right side contents  */}
             <div className="col-10 md:col-8 lg:col-5 md:ml-7 py-6 lg:py-0">
               <h1 className="text-3xl md:h2 mb-2 md:mb-6">{title}</h1>
 
@@ -83,27 +80,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                   {currencySymbol} {priceRange?.minVariantPrice.amount}{" "}
                   {priceRange?.minVariantPrice?.currencyCode}
                 </h4>
-                {parseFloat(compareAtPriceRange?.maxVariantPrice.amount) > 0 ? (
-                  <s className="text-text-light max-md:h3 dark:text-darkmode-text-light">
-                    {currencySymbol}{" "}
-                    {compareAtPriceRange?.maxVariantPrice?.amount}{" "}
-                    {compareAtPriceRange?.maxVariantPrice?.currencyCode}
-                  </s>
-                ) : (
-                  ""
-                )}
-              </div>
 
-              <div className="my-10 md:my-10 space-y-6 md:space-y-10">
-                <div>
-                  {options && (
-                    <VariantSelector
-                      options={options}
-                      variants={variants}
-                      images={images}
-                    />
-                  )}
-                </div>
               </div>
 
               <div className="flex gap-4 mt-8 md:mt-10 mb-6">
