@@ -5,6 +5,8 @@ import SeoMeta from "@/partials/SeoMeta";
 import { RegularPage } from "@/types";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
+
 // Generate static params
 export const generateStaticParams = () => {
   const regularPages = getSinglePage("pages").map((page: RegularPage) => ({
@@ -14,14 +16,14 @@ export const generateStaticParams = () => {
 };
 
 // For all regular pages
-const RegularPages = async (props: {
-  params: Promise<{ regular: string }>;
-}) => {
-  const params = await props.params;
-  const regularData = getSinglePage("pages");
-  const data = regularData.find(
-    (page: RegularPage) => page.slug === params.regular,
-  );
+export default async function RegularPages({
+  params,
+}: {
+  params: { regular: string };
+}) {
+  // Make sure this function works in prod (Node runtime), not Edge
+  const all = getSinglePage('pages');
+  const data = all.find((p: RegularPage) => p.slug === params.regular);
 
   if (!data) return notFound();
 
@@ -30,12 +32,7 @@ const RegularPages = async (props: {
 
   return (
     <>
-      <SeoMeta
-        title={title}
-        meta_title={meta_title}
-        description={description}
-        image={image}
-      />
+      <SeoMeta title={title} meta_title={meta_title} description={description} image={image} />
       <PageHeader title={title} />
       <section className="section">
         <div className="container">
@@ -46,6 +43,4 @@ const RegularPages = async (props: {
       </section>
     </>
   );
-};
-
-export default RegularPages;
+}
