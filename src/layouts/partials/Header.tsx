@@ -1,6 +1,5 @@
 'use client'
 
-import Logo from '@/components/Logo'
 import NavUser from '@/components/NavUser'
 import SearchBar from '@/components/SearchBar'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
@@ -9,6 +8,7 @@ import menu from '@/config/menu.json'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
+import Image from "next/image";
 
 interface IChildNavigationLink {
   name: string
@@ -100,36 +100,22 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
 
   return (
     <header
-      className={`header pb-5 z-[60] bg-light dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
+      className={`header pb-5 z-[60] bg-[#353434] dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
     >
       <nav className='navbar flex flex-wrap z-[60] relative container'>
-        <div className='order-1 py-6 md:py-0 flex items-center justify-between md:justify-center space-x-7 lg:space-x-14'>
+        <div className='order-1 py-6 mb-3 md:mb-0 md:py-0 flex items-center justify-between md:justify-center space-x-7 lg:space-x-14'>
           <div className="absolute left-1/2 -translate-x-1/2 mt-3 md:mt-0 md:static md:translate-x-0">
-            <Logo />
+            <Image
+              src="/images/logo.png"
+              alt="Logo"
+              className="py-6 md:py-0 block"
+              width={80}  
+              height={0}  
+              style={{ height: "auto" }}
+              priority
+            />
           </div>
           <div className='relative hidden md:block '>
-            <label
-              htmlFor='nav-toggle'
-              className='order-3 cursor-pointer flex items-center text-text-dark dark:text-white lg:order-1'
-            >
-              <button id='nav-toggle' className='focus:outline-none' onClick={handleToggleSidebar}>
-                {showSidebar ? (
-                  <svg className='h-3 fill-current block' viewBox='0 0 20 20'>
-                    <title>Menu Close</title>
-                    <polygon
-                      points='11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2'
-                      transform='rotate(45 10 10)'
-                    ></polygon>
-                  </svg>
-                ) : (
-                  <svg className='h-3 fill-current block' viewBox='0 0 20 20'>
-                    <title>Menu Open</title>
-                    <path d='M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z'></path>
-                  </svg>
-                )}
-              </button>
-            </label>
-
             <div
               className={`fixed top-0 left-0 h-full bg-black opacity-50 w-full ${showSidebar ? 'block' : 'hidden'}`}
               onClick={handleToggleSidebar}
@@ -186,10 +172,6 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
           )}
 
           <div className='z-60 block md:hidden ml-6 absolute left-0 md:relative'>
-            <label
-              htmlFor='nav-toggle'
-              className='cursor-pointer flex items-center text-text-dark dark:text-white border dark:border-border/40 p-1 rounded-md'
-            >
               <button id='nav-toggle' className='focus:outline-none' onClick={handleToggleSidebar}>
                 {showSidebar ? (
                   <svg className='h-5 fill-current block' viewBox='0 0 20 20'>
@@ -200,13 +182,12 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                     ></polygon>
                   </svg>
                 ) : (
-                  <svg className='h-5 fill-current block' viewBox='0 0 20 20'>
+                  <svg className='h-5 fill-current text-white block hover:text-[#c60404]' viewBox='0 0 20 20'>
                     <title>Menu Open</title>
                     <path d='M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z'></path>
                   </svg>
                 )}
               </button>
-            </label>
 
             <div
               className={`fixed top-0 left-0 h-full bg-black opacity-50 w-full ${showSidebar ? 'block' : 'hidden'}`}

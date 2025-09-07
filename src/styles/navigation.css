@@ -2,6 +2,11 @@
   @apply bg-body pt-4 dark:bg-darkmode-body;
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
 /* navbar items */
 .navbar {
   @apply relative flex flex-wrap items-center justify-between;

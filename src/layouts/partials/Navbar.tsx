@@ -108,23 +108,57 @@ export default function Navbar() {
                                     >
                                         <div className="bg-[#fafafc] rounded-b-md container dark:bg-darkmode-body w-full border border-gray-200 dark:border-border/40 shadow-xl pointer-events-auto">
                                             <div className="p-6">
-                                                <ul className="grid gap-2 grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
-                                                    {menuItem.submenu.map((sub) => (
-                                                        <li key={sub.slug}>
-                                                            <Link
-                                                                href={{
-                                                                    pathname: "/products",
-                                                                    query: { group: menuItem.slug, category: sub.slug },
-                                                                }}
-                                                                className="block text-left w-full text-[13px] font-medium text-[#1d1d1f] hover:text-black
-                                                                hover:bg-[#f5f5f7] dark:text-white dark:hover:bg-white/5 rounded-md py-1.5 px-2"
-                                                                onClick={close}
-                                                                role="menuitem"
+                                                <ul className="columns-1 sm:columns-2 md:columns-3 xl:columns-4 gap-x-8 [column-fill:_balance] space-y-5">
+                                                    {menuItem.submenu.map((section) => {
+                                                        const items = Array.isArray(section.submenu) ? section.submenu : [];
+
+                                                        return (
+                                                            <li
+                                                                key={section.slug}
+                                                                className="inline-block w-full align-top space-y-2 mb-6 break-inside-avoid
+                                                                [page-break-inside:avoid] [-webkit-column-break-inside:avoid]"
                                                             >
-                                                                {sub.name}
-                                                            </Link>
-                                                        </li>
-                                                    ))}
+                                                                <div className="px-2 text-[15px] font-extrabold text-[#c70303] dark:text-white">
+                                                                    {section.name}
+                                                                </div>
+
+                                                                <ul className="flex flex-wrap items-center">
+                                                                    {items.length === 0 ? (
+                                                                        <li>
+                                                                            <Link
+                                                                                href={{
+                                                                                    pathname: "/products",
+                                                                                    query: { group: menuItem.slug, category: section.slug },
+                                                                                }}
+                                                                                className="text-sm font-medium text-[#1d1d1f] hover:text-black hover:bg-[#f5f5f7] dark:text-white dark:hover:bg-white/5 rounded-md py-1 px-1"
+                                                                                onClick={close}
+                                                                                role="menuitem"
+                                                                            >
+                                                                                {section.name}
+                                                                            </Link>
+                                                                        </li>
+                                                                    ) : (
+                                                                        items.map((item, idx) => (
+                                                                            <li key={item.slug} className="inline">
+                                                                                <Link
+                                                                                    href={{
+                                                                                        pathname: "/products",
+                                                                                        query: { group: menuItem.slug, category: item.slug },
+                                                                                    }}
+                                                                                    className="text-sm hover:underline font-semibold text-[#1d1d1f] hover:text-black dark:text-white rounded-md py-1 px-1"
+                                                                                    onClick={close}
+                                                                                    role="menuitem"
+                                                                                >
+                                                                                    {item.name}
+                                                                                </Link>
+                                                                                {idx < items.length - 1 && <span>,&nbsp;</span>}
+                                                                            </li>
+                                                                        ))
+                                                                    )}
+                                                                </ul>
+                                                            </li>
+                                                        );
+                                                    })}
                                                 </ul>
                                             </div>
                                         </div>

@@ -64,7 +64,8 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className={`border border-border h-10 dark:border-darkmode-border rounded-full flex bg-[#ffffff] dark:bg-dark/10 pl-4 relative`}
+      className="border-red-500 border-2 h-10 rounded-full flex bg-[#ffffff] dark:bg-dark/10 pl-4 relative"
+
     >
       <input
         id="searchInput"

@@ -84,7 +84,7 @@ const NavUser = () => {
         </button>
       ) : (
         <a
-          className='text-xl text-text-dark hover:text-text-primary dark:border-darkmode-border dark:text-white flex items-center'
+          className='text-2xl text-white hover:text-text-primary hover:text-[#c60404]  dark:border-darkmode-border dark:text-white flex items-center'
           href='/login'
           aria-label='login'
         >
