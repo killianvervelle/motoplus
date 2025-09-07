@@ -1,15 +1,15 @@
 {
   "site": {
-    "title": "Commerceplate",
+    "title": "Moto Plus",
     "base_url": "https://motoplus.vercel.app/",
     "base_path": "/",
     "trailing_slash": false,
     "favicon": "/images/favicon.png",
     "logo": "/images/logo.png",
-    "logo_darkmode": "/images/logo-darkmode.png",
-    "logo_width": "150",
-    "logo_height": "27",
-    "logo_text": "Commerceplate"
+    "logo_darkmode": "/images/logo.png",
+    "logo_width": "50",
+    "logo_height": "50",
+    "logo_text": "Moto Plus"
   },
 
   "settings": {
@@ -25,14 +25,13 @@
   },
 
   "params": {
-    "contact_form_action": "https://YOUR-DOMAIN/contact#contact_form",
-    "copyright": ""
+    "contact_form_action": "https://motoplus.vercel.app/contact#contact_form"
   },
 
   "navigation_button": {
     "enable": false,
     "label": "Get Started",
-    "link": "https://github.com/zeon-studio/commerceplate"
+    "link": ""
   },
 
   "metadata": {

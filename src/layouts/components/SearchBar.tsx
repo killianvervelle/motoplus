@@ -64,7 +64,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className={`border border-border dark:border-darkmode-border rounded-full flex bg-light/90 dark:bg-dark/10 pl-4 relative`}
+      className={`border border-border h-10 dark:border-darkmode-border rounded-full flex bg-[#ffffff] dark:bg-dark/10 pl-4 relative`}
     >
       <input
         id="searchInput"
@@ -86,8 +86,8 @@ const SearchBar = () => {
           <IoClose size={20} />
         </button>
       )}
-      <button className="search-icon p-2 m-1 rounded-full">
-        <IoSearch size={20} />
+      <button className="m-2 md:p-1">
+        <IoSearch size={16} />
       </button>
     </form>
   );

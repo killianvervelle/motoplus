@@ -34,54 +34,39 @@ export const getListPage = (filePath: string) => {
 };
 
 // get all single pages, ex: blog/post.md
-// Adjust if your content root differs
-const contentRoot = path.join(process.cwd(), 'src', 'content');
+export const getSinglePage = (folder: string) => {
+  const folderPath = path.join(contentPath, folder);
 
-// Case-insensitive directory resolver (handles Windows vs Linux)
-function resolveDirInsensitive(parent: string, target: string) {
-  if (!fs.existsSync(parent)) return null;
-  const entries = fs.readdirSync(parent, { withFileTypes: true });
-  const match = entries.find(
-    (e) => e.isDirectory() && e.name.toLowerCase() === target.toLowerCase()
-  );
-  return match ? path.join(parent, match.name) : path.join(parent, target);
-}
-
-export type RegularPage = {
-  slug: string;
-  frontmatter: Record<string, any>;
-  content: string;
-};
-
-export const getSinglePage = (folder: string): RegularPage[] => {
-  // Resolve folder in a case-insensitive way
-  const folderPath = resolveDirInsensitive(contentRoot, folder);
-  if (!folderPath || !fs.existsSync(folderPath)) {
-    // Return empty list instead of throwing 404 here.
-    // The route will decide whether to notFound().
-    return [];
+  if (!fs.existsSync(folderPath) || !fs.lstatSync(folderPath).isDirectory()) {
+    notFound();
   }
 
-  // Read .md and .mdx files
-  const files = fs
-    .readdirSync(folderPath)
-    .filter((f) => /^(?!_).*\.(md|mdx)$/i.test(f));
+  const filesPath = fs.readdirSync(folderPath);
+  const sanitizeFiles = filesPath.filter((file) => file.endsWith(".md"));
+  const filterSingleFiles = sanitizeFiles.filter((file) =>
+    file.match(/^(?!_)/),
+  );
 
-  const pages = files.map((filename) => {
+  const singlePages = filterSingleFiles.map((filename) => {
+    const slug = filename.replace(".md", "");
     const filePath = path.join(folderPath, filename);
-    const raw = fs.readFileSync(filePath, 'utf8');
-    const { content, data } = matter(raw);
-
-    // frontmatter.url can be `"/terms-services"` or `"terms-services"`
-    const fmUrl = (data?.url || '').toString().replace(/^\/+/, '');
-    const slug = fmUrl || filename.replace(/\.(md|mdx)$/i, '');
+    const pageData = readFile(filePath);
+    const { content, data: frontmatter } = matter(pageData);
+    const url = frontmatter.url ? frontmatter.url.replace("/", "") : slug;
 
     return {
-      frontmatter: data || {},
-      slug,
+      frontmatter: parseFrontmatter(frontmatter),
+      slug: url,
       content,
     };
   });
 
-  return pages;
+  const publishedPages = singlePages.filter(
+    (page) => !page.frontmatter.draft && page,
+  );
+  const filterByDate = publishedPages.filter(
+    (page) => new Date(page.frontmatter.date || new Date()) <= new Date(),
+  );
+
+  return filterByDate;
 };

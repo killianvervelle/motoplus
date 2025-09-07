@@ -10,6 +10,7 @@ import { FaList } from 'react-icons/fa6'
 import { TbFilter, TbFilterX } from 'react-icons/tb'
 import DropdownMenu from '../filter/DropdownMenu'
 
+
 export type ListItem = SortFilterItem | PathFilterItem
 export type PathFilterItem = { title: string; path: string }
 
@@ -71,17 +72,15 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
                 <div className='flex gap-2'>
                   <button
                     onClick={() => layoutChange('card')}
-                    className={`btn border dark:border-darkmode-border ${
-                      isListView ? 'btn-outline-primary' : 'btn-primary'
-                    } p-2 hover:scale-105 duration-300`}
+                    className={`btn border dark:border-darkmode-border ${isListView ? 'btn-outline-primary' : 'btn-primary'
+                      } p-2 hover:scale-105 duration-300`}
                   >
                     <BsGridFill />
                   </button>
                   <button
                     onClick={() => layoutChange('list')}
-                    className={`btn border dark:border-darkmode-border ${
-                      isListView ? 'btn-primary' : 'btn-outline-primary'
-                    } p-2 hover:scale-105 duration-300`}
+                    className={`btn border dark:border-darkmode-border ${isListView ? 'btn-primary' : 'btn-outline-primary'
+                      } p-2 hover:scale-105 duration-300`}
                   >
                     <FaList />
                   </button>

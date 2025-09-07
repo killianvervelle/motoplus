@@ -43,9 +43,8 @@ function SubmitButton({
         href={`/products/${handle}`}
         aria-label="Please select an option"
         aria-disabled
-        className={`${buttonClasses} ${
-          DynamicTag === "button" && disabledClasses
-        }`}
+        className={`${buttonClasses} ${DynamicTag === "button" && disabledClasses
+          }`}
       >
         Select Variant
       </DynamicTag>
@@ -59,12 +58,13 @@ function SubmitButton({
       }}
       aria-label="Add to cart"
       aria-disabled={pending ? "true" : "false"}
-      className={`${buttonClasses}`}
+      className={`${buttonClasses} hover:bg-gray-700`}
     >
       {pending ? (
         <BiLoaderAlt
           className={`animate-spin w-[70px] md:w-[85px]`}
           size={26}
+
         />
       ) : (
         "Add To Cart"

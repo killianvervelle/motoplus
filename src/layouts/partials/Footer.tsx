@@ -1,12 +1,10 @@
 "use client";
 
-import Logo from "@/components/Logo";
-import config from "@/config/config.json";
 import menu from "@/config/menu.json";
-import social from "@/config/social.json";
-import DynamicIcon from "@/helpers/DynamicIcon";
-import { markdownify } from "@/lib/utils/textConverter";
 import Link from "next/link";
+import { Suspense } from 'react'
+import DropdownLanguages from '../components/filter/DropdownLanguages'
+import { languageItems } from "@/lib/constants";
 
 export interface ISocial {
   name: string;
@@ -15,54 +13,57 @@ export interface ISocial {
 }
 
 const Footer = () => {
-  const { copyright } = config.params;
-
   return (
-    <footer className="bg-light dark:bg-darkmode-light">
+    <footer className="bg-light dark:bg-darkmode-light mt-30">
       <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-center py-10 md:pt-20 md:pb-14">
-          <Logo />
-
-          <ul className="flex gap-x-4 lg:gap-x-10 my-3">
-            {menu.footer.map((menu) => (
-              <li className="footer-link" key={menu.name}>
+        <div className="flex flex-row items-start justify-center gap-20 md:gap-x-30 py-10 md:pt-10 md:pb-14">
+          <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
+            <span className="font-semibold mr-4 pb-3">Contact us</span>
+            <a
+              href="/contact"
+              className="btn max-md:btn-sm btn-primary text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-start text-left"
+            >
+              By Email
+            </a>
+          </div>
+          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
+            <span className="font-semibold mr-4 pb-3">About us</span>
+            {menu.footerAbout.map((menu) => (
+              <li className="footer-link text-sm" key={menu.name}>
                 <Link href={menu.url}>{menu.name}</Link>
               </li>
             ))}
           </ul>
-
-          {/* social share */}
-          <ul className="social-icons social-icons-footer">
-            {social?.main.map((social: ISocial) => (
-              <li key={social.name}>
-                <a
-                  aria-label={social.name}
-                  href={social.link}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                >
-                  <span className="sr-only">{social.name}</span>
-                  <DynamicIcon className="inline-block" icon={social.icon} />
-                </a>
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3">
+            <span className="font-semibold mr-4 pb-3">Service</span>
+            {menu.footerService.map((menu) => (
+              <li className="footer-link text-sm" key={menu.name}>
+                <Link href={menu.url}>{menu.name}</Link>
               </li>
             ))}
           </ul>
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3">
+            <span className="font-semibold mr-4 pb-3">Career</span>
+            {menu.footerCareer.map((menu) => (
+              <li className="footer-link text-sm" key={menu.name}>
+                <p>{menu.description}</p>
+              </li>
+            ))}
+          </ul>
+          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3'>
+            <span className="font-semibold mr-4 pb-3">Language</span>
+            <Suspense>
+              <DropdownLanguages list={languageItems} />
+            </Suspense>
+          </div>
         </div>
 
-        <div className="border-t border-border py-5 dark:border-darkmode-border">
-          <div className="flex flex-col md:flex-row gap-y-2 justify-between items-center text-text-light dark:text-darkmode-text-light">
-            <ul className="flex gap-x-4">
-              {menu.footerCopyright.map((menu) => (
-                <li className="footer-link" key={menu.name}>
-                  <Link href={menu.url}>{menu.name}</Link>
-                </li>
-              ))}
-            </ul>
-
+        <div className="border-t border-gray-300 dark:border-gray-700 py-5">
+          <div className="flex flex-col md:flex-row gap-y-2 justify-center items-center text-text-light dark:text-darkmode-text-light">
             <p
-              className="text-sm font-light"
-              dangerouslySetInnerHTML={markdownify(copyright)}
-            />
+              className="text-sm font-light">
+              © {new Date().getFullYear()} Moto Plus. All rights reserved.
+            </p>
           </div>
         </div>
       </div>

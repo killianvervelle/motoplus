@@ -35,11 +35,10 @@ const renderMenuItem = (
   return menu.hasChildren ? (
     <li className='nav-item nav-dropdown group relative' key={menu.name}>
       <span
-        className={`nav-link inline-flex items-center ${
-          (menu.children?.map(({ url }) => url).includes(pathname) ||
-            menu.children?.map(({ url }) => `${url}/`).includes(pathname)) &&
+        className={`nav-link inline-flex items-center ${(menu.children?.map(({ url }) => url).includes(pathname) ||
+          menu.children?.map(({ url }) => `${url}/`).includes(pathname)) &&
           'active'
-        }`}
+          }`}
         onClick={handleToggleChildMenu}
       >
         {menu.name}
@@ -101,18 +100,18 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
 
   return (
     <header
-      className={`header z-30 ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
+      className={`header pb-5 z-[60] bg-light dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
     >
-      <nav className='navbar flex-wrap container'>
-        <div className='order-1 flex items-center justify-between space-x-7 lg:space-x-14'>
-          <Logo />
-
-          <div className='relative z-40 hidden md:block'>
+      <nav className='navbar flex flex-wrap z-[60] relative container'>
+        <div className='order-1 py-6 md:py-0 flex items-center justify-between md:justify-center space-x-7 lg:space-x-14'>
+          <div className="absolute left-1/2 -translate-x-1/2 mt-3 md:mt-0 md:static md:translate-x-0">
+            <Logo />
+          </div>
+          <div className='relative hidden md:block '>
             <label
               htmlFor='nav-toggle'
               className='order-3 cursor-pointer flex items-center text-text-dark dark:text-white lg:order-1'
             >
-              <span className='mr-2 font-medium'>Pages</span>
               <button id='nav-toggle' className='focus:outline-none' onClick={handleToggleSidebar}>
                 {showSidebar ? (
                   <svg className='h-3 fill-current block' viewBox='0 0 20 20'>
@@ -140,8 +139,6 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
               className={`fixed top-0 left-0 h-full bg-white dark:bg-darkmode-body overflow-y-auto w-full md:w-96 p-9 ${showSidebar ? 'transition-transform transform translate-x-0' : 'transition-transform transform -translate-x-full'}`}
             >
               <div className='flex justify-between items-center mb-14'>
-                <Logo />
-
                 <button onClick={handleToggleSidebar} className='p-2'>
                   <svg className='h-5 fill-current block' viewBox='0 0 20 20'>
                     <title>Menu Close</title>
@@ -178,7 +175,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
           )}
         </div>
 
-        <div className='order-2 lg:order-3 ml-auto flex items-center lg:ml-0'>
+        <div className='order-1 lg:order-3 ml-auto flex items-center lg:ml-0'>
           <ThemeSwitcher className='mr-4 md:mr-6' />
           <Suspense fallback={children[0]}>{children[1]}</Suspense>
 
@@ -188,7 +185,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
             </div>
           )}
 
-          <div className='relative z-40 block md:hidden ml-6'>
+          <div className='z-60 block md:hidden ml-6 absolute left-0 md:relative'>
             <label
               htmlFor='nav-toggle'
               className='cursor-pointer flex items-center text-text-dark dark:text-white border dark:border-border/40 p-1 rounded-md'
@@ -220,8 +217,6 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
               className={`fixed top-0 left-0 h-full bg-white dark:bg-darkmode-body overflow-y-auto w-full md:w-96 p-9 ${showSidebar ? 'transition-transform transform translate-x-0' : 'transition-transform transform -translate-x-full'}`}
             >
               <div className='flex justify-between items-center mb-14'>
-                <Logo />
-
                 <button onClick={handleToggleSidebar} className='p-2'>
                   <svg className='h-5 fill-current block' viewBox='0 0 20 20'>
                     <title>Menu Close</title>

@@ -3,9 +3,7 @@ import HeroSlider from "@/components/HeroSlider";
 import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
 import config from "@/config/config.json";
-import { getListPage } from "@/lib/contentParser";
 import { getCollectionProducts, getCollections } from "@/lib/shopify";
-import CallToAction from "@/partials/CallToAction";
 import FeaturedProducts from "@/partials/FeaturedProducts";
 import SeoMeta from "@/partials/SeoMeta";
 import { Suspense } from "react";
@@ -39,8 +37,6 @@ const ShowFeaturedProducts = async () => {
 };
 
 const Home = () => {
-  const callToAction = getListPage("sections/call-to-action.md");
-
   return (
     <>
       <SeoMeta />
@@ -79,7 +75,6 @@ const Home = () => {
         </div>
       </section>
 
-      <CallToAction data={callToAction} />
     </>
   );
 };

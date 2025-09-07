@@ -1,10 +1,8 @@
 import LoadingProducts from '@/components/loadings/skeleton/SkeletonProducts'
 import ProductLayouts from '@/components/product/ProductLayouts'
 import { defaultSort, sorting } from '@/lib/constants'
-import { getListPage } from '@/lib/contentParser'
 import { getCollectionProducts, getCollections, getHighestProductPrice, getProducts, getVendors } from '@/lib/shopify'
 import { PageInfo, Product } from '@/lib/shopify/types'
-import CallToAction from '@/partials/CallToAction'
 import ProductCardView from '@/partials/ProductCardView'
 import ProductFilters from '@/partials/ProductFilters'
 import ProductListView from '@/partials/ProductListView'
@@ -28,12 +26,12 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
     maxPrice,
     b: brand,
     c: category,
-    t: tag
+    t: tag,
+    layout,
+    cursor
   } = searchParams as {
     [key: string]: string
   }
-
-  const { layout, cursor } = searchParams as { [key: string]: string }
 
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort
 
@@ -70,10 +68,10 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
     productsData =
       category && category !== 'all'
         ? await getCollectionProducts({
-            collection: category,
-            sortKey,
-            reverse
-          })
+          collection: category,
+          sortKey,
+          reverse
+        })
         : await getProducts(query)
 
     const uniqueVendors: string[] = [
@@ -161,7 +159,6 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
 
 const ProductsListPage = async (props: { searchParams: Promise<SearchParams> }) => {
   const searchParams = await props.searchParams
-  const callToAction = getListPage('sections/call-to-action.md')
 
   return (
     <>
@@ -170,7 +167,6 @@ const ProductsListPage = async (props: { searchParams: Promise<SearchParams> }) 
         <ShowProducts searchParams={searchParams} />
       </Suspense>
 
-      <CallToAction data={callToAction} />
     </>
   )
 }

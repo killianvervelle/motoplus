@@ -5,6 +5,8 @@ import { createUrl } from '@/lib/utils'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { ListItem, PathFilterItem as PathFilterItemType } from '../product/ProductLayouts'
+import { LanguageItem } from "@/lib/constants";
+
 
 function PathFilterItem({ item }: { item: PathFilterItemType }) {
   const pathname = usePathname()
@@ -58,6 +60,41 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
   )
 }
 
+function SortLanguageItem({ item }: { item: LanguageItem }) {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const newParams = new URLSearchParams(searchParams.toString())
+
+  if (item.code) {
+    newParams.set('lang', item.code)
+  } else {
+    newParams.delete('lang')
+  }
+
+  const href = createUrl(pathname, newParams)
+
+  const active = searchParams.get('lang') === item.code
+
+  const DynamicTag = active ? 'p' : Link
+
+  return (
+    <li className='flex text-sm text-text-dark hover:bg-dark/50 hover:text-white' key={item.title}>
+      <DynamicTag
+        prefetch={!active ? false : undefined}
+        href={href}
+        className={`w-full pl-4 py-2 ${active ? 'bg-dark text-white' : ''}`}
+      >
+        {item.title}
+      </DynamicTag>
+    </li>
+  )
+}
+
 export function FilterDropdownItem({ item }: { item: ListItem }) {
   return 'path' in item ? <PathFilterItem item={item} /> : <SortFilterItem item={item} />
+}
+
+export function SetLanguageItem({ item }: { item: LanguageItem }) {
+  return <SortLanguageItem item={item} />
 }

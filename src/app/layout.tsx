@@ -5,6 +5,7 @@ import theme from '@/config/theme.json'
 import TwSizeIndicator from '@/helpers/TwSizeIndicator'
 import Footer from '@/partials/Footer'
 import Header from '@/partials/Header'
+import Navbar from '@/partials/Navbar'
 import Providers from '@/partials/Providers'
 import '@/styles/main.css'
 
@@ -18,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=5' />
 
         <link rel='shortcut icon' href={config.site.favicon} />
-        <meta name='theme-name' content='commerceplate' />
         <meta name='msapplication-TileColor' content='#000000' />
         <meta name='theme-color' media='(prefers-color-scheme: light)' content='#fff' />
         <meta name='theme-color' media='(prefers-color-scheme: dark)' content='#000' />
@@ -37,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <OpenCart />
             <Cart />
           </Header>
+          <Navbar />
           <main>{children}</main>
           <Footer />
         </Providers>

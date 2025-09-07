@@ -88,7 +88,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                   <AddToCart
                     variants={product?.variants}
                     availableForSale={product?.availableForSale}
-                    stylesClass={"btn max-md:btn-sm btn-primary"}
+                    stylesClass={"btn max-md:btn-sm btn-primary hover:bg-gray-700"}
                     handle={null}
                     defaultVariantId={defaultVariantId}
                   />

@@ -1,5 +1,5 @@
 .header {
-  @apply bg-body py-6 dark:bg-darkmode-body;
+  @apply bg-body pt-4 dark:bg-darkmode-body;
 }
 
 /* navbar items */
@@ -14,16 +14,18 @@
   }
 }
 
-.navbar-nav {
-  @apply text-center;
-}
-
 .nav-link {
   @apply block p-3 font-bold text-2xl transition text-text-light hover:text-text-dark dark:!text-darkmode-text dark:hover:!text-darkmode-primary lg:px-2 lg:py-3 cursor-pointer;
 }
 
 .nav-list {
   @apply space-y-2;
+}
+
+@media (min-width: 996px) {
+  .md\:block {
+    display: block;
+  }
 }
 
 /* .nav-link {

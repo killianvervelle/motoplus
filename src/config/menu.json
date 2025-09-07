@@ -32,28 +32,65 @@
       "url": "/contact"
     }
   ],
-  "footer": [
+  "footerContact": [
     {
-      "name": "About",
-      "url": "/about"
-    },
-    {
-      "name": "Products",
-      "url": "/products"
-    },
-    {
-      "name": "Contact",
+      "name": "Contact us",
       "url": "/contact"
     }
   ],
-  "footerCopyright": [
+  "footerAbout": [
+    {
+      "name": "About us",
+      "url": "/about"
+    },
+    {
+      "name": "Terms of Service",
+      "url": "/terms-services"
+    },
     {
       "name": "Privacy & Policy",
       "url": "/privacy-policy"
     },
     {
-      "name": "Terms of Service",
-      "url": "/terms-services"
+      "name": "Cookies preference",
+      "url": "/"
+    }
+  ],
+  "footerService": [
+    {
+      "name": "Shipping",
+      "url": "/terms-services",
+      "nav": ""
+    },
+    {
+      "name": "Payment methods",
+      "url": "/terms-services",
+      "nav": ""
+    },
+    {
+      "name": "Return Policy",
+      "url": "/terms-services",
+      "nav": ""
+    }
+  ],
+  "footerCareer": [
+    {
+      "name": "Career",
+      "description": "No jobs offers"
+    }
+  ],
+  "footerLanguage": [
+    {
+      "code": "en",
+      "name": "English"
+    },
+    {
+      "code": "fr",
+      "name": "French"
+    },
+    {
+      "code": "pt",
+      "name": "Portuguese"
     }
   ]
 }
