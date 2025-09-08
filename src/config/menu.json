@@ -764,7 +764,7 @@
     },
     {
       "name": "Terms of Service",
-      "url": "/terms-services",
+      "url": "/terms-service",
       "slug": "terms-of-service"
     },
     {
@@ -773,28 +773,28 @@
       "slug": "privacy-policy"
     },
     {
-      "name": "Cookies preference",
-      "url": "/",
-      "slug": "cookies-preference"
+      "name": "Cookies policy",
+      "url": "/cookies-policy",
+      "slug": "cookies-policy"
     }
   ],
   "footerService": [
     {
       "name": "Shipping",
-      "url": "/terms-services",
-      "nav": "",
+      "url": "/terms-service",
+      "nav": "section-6---shipping-policy",
       "slug": "shipping"
     },
     {
       "name": "Payment methods",
-      "url": "/terms-services",
-      "nav": "",
+      "url": "/terms-service",
+      "nav": "section-7---payment-policy",
       "slug": "payment-methods"
     },
     {
       "name": "Return Policy",
-      "url": "/terms-services",
-      "nav": "",
+      "url": "/terms-service",
+      "nav": "section-8---return-and-refund-policy",
       "slug": "return-policy"
     }
   ],

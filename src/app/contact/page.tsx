@@ -32,7 +32,7 @@ const Contact = async () => {
               contact_meta?.map((contact: ContactUsItem) => (
                 <div
                   key={contact.name}
-                  className="p-10 bg-light dark:bg-darkmode-light rounded-md text-center"
+                  className="p-6 bg-light dark:bg-darkmode-light rounded-md text-center"
                 >
                   <p
                     dangerouslySetInnerHTML={markdownify(contact.name)}
@@ -107,7 +107,7 @@ const Contact = async () => {
                   <input
                     id="name"
                     name="name"
-                    className="form-input"                    
+                    className="form-input"
                     type="text"
                     required
                     minLength={10}
