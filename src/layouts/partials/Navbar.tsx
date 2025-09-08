@@ -118,8 +118,17 @@ export default function Navbar() {
                                                                 className="inline-block w-full align-top space-y-2 mb-6 break-inside-avoid
                                                                 [page-break-inside:avoid] [-webkit-column-break-inside:avoid]"
                                                             >
-                                                                <div className="px-2 text-[15px] font-extrabold text-[#c70303] dark:text-white">
-                                                                    {section.name}
+                                                                <div className="px-2">
+                                                                    <Link
+                                                                        href={{ pathname: "/products", query: { group: menuItem.slug, subgroup: section.slug } }}
+                                                                        className="inline-block text-[15px] font-extrabold text-[#c70303] dark:text-white
+                                                                        hover:underline underline-offset-4 decoration-current
+                                                                        focus-visible:underline focus-visible:outline-none rounded"
+                                                                        onClick={close}
+                                                                        role="menuitem"
+                                                                    >
+                                                                        {section.name}
+                                                                    </Link>
                                                                 </div>
 
                                                                 <ul className="flex flex-wrap items-center">
@@ -128,7 +137,7 @@ export default function Navbar() {
                                                                             <Link
                                                                                 href={{
                                                                                     pathname: "/products",
-                                                                                    query: { group: menuItem.slug, category: section.slug },
+                                                                                    query: { group: menuItem.slug, subgroup: section.slug },
                                                                                 }}
                                                                                 className="text-sm font-medium text-[#1d1d1f] hover:text-black hover:bg-[#f5f5f7] dark:text-white dark:hover:bg-white/5 rounded-md py-1 px-1"
                                                                                 onClick={close}
@@ -143,7 +152,7 @@ export default function Navbar() {
                                                                                 <Link
                                                                                     href={{
                                                                                         pathname: "/products",
-                                                                                        query: { group: menuItem.slug, category: item.slug },
+                                                                                        query: { group: menuItem.slug, subgroup: section.slug, category: item.slug },
                                                                                     }}
                                                                                     className="text-sm hover:underline font-semibold text-[#1d1d1f] hover:text-black dark:text-white rounded-md py-1 px-1"
                                                                                     onClick={close}

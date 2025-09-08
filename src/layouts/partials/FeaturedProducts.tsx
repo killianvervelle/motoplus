@@ -64,7 +64,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
       </div>
 
       <div className='flex justify-center'>
-        <Link className='btn btn-sm md:btn-lg btn-primary font-medium' href={'/products'}>
+        <Link className='btn btn-sm md:btn-lg hover:bg-gray-700 btn-primary font-medium' href={'/products'}>
           + See All Products
         </Link>
       </div>

@@ -23,6 +23,14 @@
   @apply block p-3 font-bold text-2xl transition text-text-light hover:text-text-dark dark:!text-darkmode-text dark:hover:!text-darkmode-primary lg:px-2 lg:py-3 cursor-pointer;
 }
 
+.nav-sublink {
+  @apply block p-1 mx-1 font-bold text-xl transition text-text-light hover:text-text-dark dark:!text-darkmode-text dark:hover:!text-darkmode-primary lg:px-2 lg:py-3 cursor-pointer;
+}
+
+.nav-subsublink {
+  @apply block p-1 mx-1 font-bold text-lg transition text-text-light hover:text-text-dark dark:!text-darkmode-text dark:hover:!text-darkmode-primary lg:px-2 lg:py-3 cursor-pointer;
+}
+
 .nav-list {
   @apply space-y-2;
 }

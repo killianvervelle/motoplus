@@ -16,41 +16,41 @@ const Footer = () => {
   return (
     <footer className="bg-light dark:bg-darkmode-light mt-30">
       <div className="container">
-        <div className="flex flex-row items-start justify-center gap-20 md:gap-x-30 py-10 md:pt-10 md:pb-14">
-          <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-start sm:justify-center xs: gap-x-gap-5 sm:gap-x-10 xl:gap-40 py-10 md:pt-10 md:pb-14">
+          <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-28">
             <span className="font-semibold mr-4 pb-3">Contact us</span>
             <a
               href="/contact"
-              className="btn max-md:btn-sm btn-primary text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-start text-left"
+              className="btn max-md:btn-sm btn-primary text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-center text-left"
             >
               By Email
             </a>
           </div>
-          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
+          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-28">
             <span className="font-semibold mr-4 pb-3">About us</span>
             {menu.footerAbout.map((menu) => (
-              <li className="footer-link text-sm" key={menu.name}>
+              <li className="footer-link text-sm hover:text-[#c60404]" key={menu.name}>
                 <Link href={menu.url}>{menu.name}</Link>
               </li>
             ))}
           </ul>
-          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3">
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-28">
             <span className="font-semibold mr-4 pb-3">Service</span>
             {menu.footerService.map((menu) => (
-              <li className="footer-link text-sm" key={menu.name}>
+              <li className="footer-link text-sm hover:text-[#c60404]" key={menu.name}>
                 <Link href={menu.url}>{menu.name}</Link>
               </li>
             ))}
           </ul>
-          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3">
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-28">
             <span className="font-semibold mr-4 pb-3">Career</span>
             {menu.footerCareer.map((menu) => (
-              <li className="footer-link text-sm" key={menu.name}>
+              <li className="footer-link text-sm hover:text-[#c60404]" key={menu.name}>
                 <p>{menu.description}</p>
               </li>
             ))}
           </ul>
-          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3'>
+          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-28'>
             <span className="font-semibold mr-4 pb-3">Language</span>
             <Suspense>
               <DropdownLanguages list={languageItems} />

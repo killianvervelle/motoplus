@@ -202,7 +202,6 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
                   <div className='col-4'>
                     <ImageFallback
                       src={featuredImage?.url || '/images/product_image404.jpg'}
-                      // fallback={'/images/category-1.png'}
                       width={312}
                       height={269}
                       alt={featuredImage?.altText || 'fallback image'}

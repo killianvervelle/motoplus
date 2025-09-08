@@ -2,336 +2,638 @@
   "main": [
     {
       "name": "Home",
-      "url": "/"
+      "url": "/",
+      "slug": ""
     },
     {
       "name": "Used parts",
       "url": "/used-parts",
+      "slug": "used-parts",
       "hasChildren": true,
       "children": [
         {
           "name": "Drivetrain",
           "url": "/used-parts/drivetrain",
+          "slug": "drivetrain",
           "hasChildren": true,
           "children": [
-            { "name": "Chains", "url": "/used-parts/drivetrain/chains" },
-            { "name": "Sprockets", "url": "/used-parts/drivetrain/sprockets" },
-            { "name": "Chain Guard", "url": "/used-parts/drivetrain/chain-guard" },
-            { "name": "Chain and Sprockets Kit", "url": "/used-parts/drivetrain/chain-and-sprockets-kit" },
-            { "name": "Chain Oiler System", "url": "/used-parts/drivetrain/chain-oiler-system" },
-            { "name": "Chain Tools", "url": "/used-parts/drivetrain/chain-tools" },
-            { "name": "Clutch", "url": "/used-parts/drivetrain/clutch" },
-            { "name": "Clutch Plate", "url": "/used-parts/drivetrain/clutch-plate" }
+            { "name": "Chains", "url": "/used-parts/drivetrain/chains", "slug": "chains" },
+            { "name": "Sprockets", "url": "/used-parts/drivetrain/sprockets", "slug": "sprockets" },
+            { "name": "Chain Guard", "url": "/used-parts/drivetrain/chain-guard", "slug": "chain-guard" },
+            {
+              "name": "Chain and Sprockets Kit",
+              "url": "/used-parts/drivetrain/chain-and-sprockets-kit",
+              "slug": "chain-and-sprockets-kit"
+            },
+            {
+              "name": "Chain Oiler System",
+              "url": "/used-parts/drivetrain/chain-oiler-system",
+              "slug": "chain-oiler-system"
+            },
+            { "name": "Chain Tools", "url": "/used-parts/drivetrain/chain-tools", "slug": "chain-tools" },
+            { "name": "Clutch", "url": "/used-parts/drivetrain/clutch", "slug": "clutch" },
+            { "name": "Clutch Plate", "url": "/used-parts/drivetrain/clutch-plate", "slug": "clutch-plate" }
           ]
         },
         {
           "name": "Fuel Tank",
           "url": "/used-parts/fuel-tank",
+          "slug": "fuel-tank",
           "hasChildren": true,
           "children": [
-            { "name": "Fuel Hose", "url": "/used-parts/fuel-tank/fuel-hose" },
-            { "name": "Quick Connector", "url": "/used-parts/fuel-tank/quick-connector" },
-            { "name": "Fuel Tank Cleaner", "url": "/used-parts/fuel-tank/fuel-tank-cleaner" },
-            { "name": "Fuel Tank Deruster", "url": "/used-parts/fuel-tank/fuel-tank-deruster" },
-            { "name": "Fuel Tank Sealant", "url": "/used-parts/fuel-tank/fuel-tank-sealant" },
-            { "name": "Fuel Pump", "url": "/used-parts/fuel-tank/fuel-pump" }
+            { "name": "Fuel Hose", "url": "/used-parts/fuel-tank/fuel-hose", "slug": "fuel-hose" },
+            { "name": "Quick Connector", "url": "/used-parts/fuel-tank/quick-connector", "slug": "quick-connector" },
+            {
+              "name": "Fuel Tank Cleaner",
+              "url": "/used-parts/fuel-tank/fuel-tank-cleaner",
+              "slug": "fuel-tank-cleaner"
+            },
+            {
+              "name": "Fuel Tank Deruster",
+              "url": "/used-parts/fuel-tank/fuel-tank-deruster",
+              "slug": "fuel-tank-deruster"
+            },
+            {
+              "name": "Fuel Tank Sealant",
+              "url": "/used-parts/fuel-tank/fuel-tank-sealant",
+              "slug": "fuel-tank-sealant"
+            },
+            { "name": "Fuel Pump", "url": "/used-parts/fuel-tank/fuel-pump", "slug": "fuel-pump" }
           ]
         },
         {
           "name": "Electric",
           "url": "/used-parts/electric",
+          "slug": "electric",
           "hasChildren": true,
           "children": [
-            { "name": "Regulator", "url": "/used-parts/electric/regulator" },
-            { "name": "Starter", "url": "/used-parts/electric/starter" },
-            { "name": "Alternator", "url": "/used-parts/electric/alternator" },
-            { "name": "Battery Charger", "url": "/used-parts/electric/battery-charger" },
-            { "name": "Sparkplug", "url": "/used-parts/electric/sparkplug" },
-            { "name": "Battery", "url": "/used-parts/electric/battery" },
-            { "name": "Contact Cleaner", "url": "/used-parts/electric/contact-cleaner" },
-            { "name": "Battery Charger Accessories", "url": "/used-parts/electric/battery-charger-accessories" },
-            { "name": "Battery Booster", "url": "/used-parts/electric/battery-booster" },
-            { "name": "Tape", "url": "/used-parts/electric/tape" },
-            { "name": "Spark Plug Wire", "url": "/used-parts/electric/spark-plug-wire" },
-            { "name": "Spark Plug Cap", "url": "/used-parts/electric/spark-plug-cap" },
-            { "name": "Ignition Coil", "url": "/used-parts/electric/ignition-coil" },
-            { "name": "Flasher Relay", "url": "/used-parts/electric/flasher-relay" },
-            { "name": "Clutch Switch", "url": "/used-parts/electric/clutch-switch" },
-            { "name": "Brake Light Switch", "url": "/used-parts/electric/brake-light-switch" },
-            { "name": "Starter Relay", "url": "/used-parts/electric/starter-relay" }
+            { "name": "Regulator", "url": "/used-parts/electric/regulator", "slug": "regulator" },
+            { "name": "Starter", "url": "/used-parts/electric/starter", "slug": "starter" },
+            { "name": "Alternator", "url": "/used-parts/electric/alternator", "slug": "alternator" },
+            { "name": "Battery Charger", "url": "/used-parts/electric/battery-charger", "slug": "battery-charger" },
+            { "name": "Sparkplug", "url": "/used-parts/electric/sparkplug", "slug": "sparkplug" },
+            { "name": "Battery", "url": "/used-parts/electric/battery", "slug": "battery" },
+            { "name": "Contact Cleaner", "url": "/used-parts/electric/contact-cleaner", "slug": "contact-cleaner" },
+            {
+              "name": "Battery Charger Accessories",
+              "url": "/used-parts/electric/battery-charger-accessories",
+              "slug": "battery-charger-accessories"
+            },
+            { "name": "Battery Booster", "url": "/used-parts/electric/battery-booster", "slug": "battery-booster" },
+            { "name": "Tape", "url": "/used-parts/electric/tape", "slug": "tape" },
+            { "name": "Spark Plug Wire", "url": "/used-parts/electric/spark-plug-wire", "slug": "spark-plug-wire" },
+            { "name": "Spark Plug Cap", "url": "/used-parts/electric/spark-plug-cap", "slug": "spark-plug-cap" },
+            { "name": "Ignition Coil", "url": "/used-parts/electric/ignition-coil", "slug": "ignition-coil" },
+            { "name": "Flasher Relay", "url": "/used-parts/electric/flasher-relay", "slug": "flasher-relay" },
+            { "name": "Clutch Switch", "url": "/used-parts/electric/clutch-switch", "slug": "clutch-switch" },
+            {
+              "name": "Brake Light Switch",
+              "url": "/used-parts/electric/brake-light-switch",
+              "slug": "brake-light-switch"
+            },
+            { "name": "Starter Relay", "url": "/used-parts/electric/starter-relay", "slug": "starter-relay" }
           ]
         },
         {
           "name": "Filters",
           "url": "/used-parts/filters",
+          "slug": "filters",
           "hasChildren": true,
           "children": [
-            { "name": "Oil Filter", "url": "/used-parts/filters/oil-filter" },
-            { "name": "Air filter", "url": "/used-parts/filters/air-filter" },
-            { "name": "Maintenance Package", "url": "/used-parts/filters/maintenance-package" },
-            { "name": "Fuel Filter", "url": "/used-parts/filters/fuel-filter" },
-            { "name": "Air Filter Oil", "url": "/used-parts/filters/air-filter-oil" },
-            { "name": "Air Filter Cleaner", "url": "/used-parts/filters/air-filter-cleaner" }
+            { "name": "Oil Filter", "url": "/used-parts/filters/oil-filter", "slug": "oil-filter" },
+            { "name": "Air filter", "url": "/used-parts/filters/air-filter", "slug": "air-filter" },
+            {
+              "name": "Maintenance Package",
+              "url": "/used-parts/filters/maintenance-package",
+              "slug": "maintenance-package"
+            },
+            { "name": "Fuel Filter", "url": "/used-parts/filters/fuel-filter", "slug": "fuel-filter" },
+            { "name": "Air Filter Oil", "url": "/used-parts/filters/air-filter-oil", "slug": "air-filter-oil" },
+            {
+              "name": "Air Filter Cleaner",
+              "url": "/used-parts/filters/air-filter-cleaner",
+              "slug": "air-filter-cleaner"
+            }
           ]
         },
         {
           "name": "Oil + Fluids",
           "url": "/used-parts/oil-and-fluids",
+          "slug": "oil-fluids",
           "hasChildren": true,
           "children": [
-            { "name": "Engine coolant", "url": "/used-parts/oil-and-fluids/engine-coolant" },
-            { "name": "Engine Oil", "url": "/used-parts/oil-and-fluids/engine-oil" },
-            { "name": "Clutch Fluid", "url": "/used-parts/oil-and-fluids/clutch-fluid" },
-            { "name": "Fork Oil", "url": "/used-parts/oil-and-fluids/fork-oil" },
-            { "name": "Transmission Oil", "url": "/used-parts/oil-and-fluids/transmission-oil" },
-            { "name": "2 Stroke Oil", "url": "/used-parts/oil-and-fluids/2-stroke-oil" },
-            { "name": "Oil Collection Tray", "url": "/used-parts/oil-and-fluids/oil-collection-tray" },
-            { "name": "Shock absorber oil", "url": "/used-parts/oil-and-fluids/shock-absorber-oil" }
+            { "name": "Engine coolant", "url": "/used-parts/oil-and-fluids/engine-coolant", "slug": "engine-coolant" },
+            { "name": "Engine Oil", "url": "/used-parts/oil-and-fluids/engine-oil", "slug": "engine-oil" },
+            { "name": "Clutch Fluid", "url": "/used-parts/oil-and-fluids/clutch-fluid", "slug": "clutch-fluid" },
+            { "name": "Fork Oil", "url": "/used-parts/oil-and-fluids/fork-oil", "slug": "fork-oil" },
+            {
+              "name": "Transmission Oil",
+              "url": "/used-parts/oil-and-fluids/transmission-oil",
+              "slug": "transmission-oil"
+            },
+            { "name": "2 Stroke Oil", "url": "/used-parts/oil-and-fluids/2-stroke-oil", "slug": "2-stroke-oil" },
+            {
+              "name": "Oil Collection Tray",
+              "url": "/used-parts/oil-and-fluids/oil-collection-tray",
+              "slug": "oil-collection-tray"
+            },
+            {
+              "name": "Shock absorber oil",
+              "url": "/used-parts/oil-and-fluids/shock-absorber-oil",
+              "slug": "shock-absorber-oil"
+            }
           ]
         },
         {
           "name": "Maintenance",
           "url": "/used-parts/maintenance",
+          "slug": "maintenance",
           "hasChildren": true,
           "children": [
-            { "name": "Assembly Paste", "url": "/used-parts/maintenance/assembly-paste" },
-            { "name": "Chain Spray", "url": "/used-parts/maintenance/chain-spray" },
-            { "name": "Lithium Grease", "url": "/used-parts/maintenance/lithium-grease" },
-            { "name": "Bearing Grease", "url": "/used-parts/maintenance/bearing-grease" },
-            { "name": "Liquid Gasket", "url": "/used-parts/maintenance/liquid-gasket" },
-            { "name": "Drain Plug", "url": "/used-parts/maintenance/drain-plug" },
-            { "name": "Multispray", "url": "/used-parts/maintenance/multispray" },
-            { "name": "Radiator Cleaner", "url": "/used-parts/maintenance/radiator-cleaner" },
-            { "name": "Carburetor Cleaner", "url": "/used-parts/maintenance/carburetor-cleaner" },
-            { "name": "Penetrating Oil", "url": "/used-parts/maintenance/penetrating-oil" },
-            { "name": "Drain Plug Washer", "url": "/used-parts/maintenance/drain-plug-washer" },
-            { "name": "Gasket Paper", "url": "/used-parts/maintenance/gasket-paper" },
-            { "name": "Clamps", "url": "/used-parts/maintenance/clamps" },
-            { "name": "Engine Oil Cleaner", "url": "/used-parts/maintenance/engine-oil-cleaner" },
-            { "name": "Chain Cleaner", "url": "/used-parts/maintenance/chain-cleaner" },
-            { "name": "Molybdeen Grease", "url": "/used-parts/maintenance/molybdeen-grease" },
-            { "name": "Alternator Cover Gasket", "url": "/used-parts/maintenance/alternator-cover-gasket" },
-            { "name": "Clutch Cover Gasket", "url": "/used-parts/maintenance/clutch-cover-gasket" },
-            { "name": "Valve cover gasket", "url": "/used-parts/maintenance/valve-cover-gasket" },
-            { "name": "Primary Cover Gasket", "url": "/used-parts/maintenance/primary-cover-gasket" }
+            { "name": "Assembly Paste", "url": "/used-parts/maintenance/assembly-paste", "slug": "assembly-paste" },
+            { "name": "Chain Spray", "url": "/used-parts/maintenance/chain-spray", "slug": "chain-spray" },
+            { "name": "Lithium Grease", "url": "/used-parts/maintenance/lithium-grease", "slug": "lithium-grease" },
+            { "name": "Bearing Grease", "url": "/used-parts/maintenance/bearing-grease", "slug": "bearing-grease" },
+            { "name": "Liquid Gasket", "url": "/used-parts/maintenance/liquid-gasket", "slug": "liquid-gasket" },
+            { "name": "Drain Plug", "url": "/used-parts/maintenance/drain-plug", "slug": "drain-plug" },
+            { "name": "Multispray", "url": "/used-parts/maintenance/multispray", "slug": "multispray" },
+            {
+              "name": "Radiator Cleaner",
+              "url": "/used-parts/maintenance/radiator-cleaner",
+              "slug": "radiator-cleaner"
+            },
+            {
+              "name": "Carburetor Cleaner",
+              "url": "/used-parts/maintenance/carburetor-cleaner",
+              "slug": "carburetor-cleaner"
+            },
+            { "name": "Penetrating Oil", "url": "/used-parts/maintenance/penetrating-oil", "slug": "penetrating-oil" },
+            {
+              "name": "Drain Plug Washer",
+              "url": "/used-parts/maintenance/drain-plug-washer",
+              "slug": "drain-plug-washer"
+            },
+            { "name": "Gasket Paper", "url": "/used-parts/maintenance/gasket-paper", "slug": "gasket-paper" },
+            { "name": "Clamps", "url": "/used-parts/maintenance/clamps", "slug": "clamps" },
+            {
+              "name": "Engine Oil Cleaner",
+              "url": "/used-parts/maintenance/engine-oil-cleaner",
+              "slug": "engine-oil-cleaner"
+            },
+            { "name": "Chain Cleaner", "url": "/used-parts/maintenance/chain-cleaner", "slug": "chain-cleaner" },
+            {
+              "name": "Molybdeen Grease",
+              "url": "/used-parts/maintenance/molybdeen-grease",
+              "slug": "molybdeen-grease"
+            },
+            {
+              "name": "Alternator Cover Gasket",
+              "url": "/used-parts/maintenance/alternator-cover-gasket",
+              "slug": "alternator-cover-gasket"
+            },
+            {
+              "name": "Clutch Cover Gasket",
+              "url": "/used-parts/maintenance/clutch-cover-gasket",
+              "slug": "clutch-cover-gasket"
+            },
+            {
+              "name": "Valve cover gasket",
+              "url": "/used-parts/maintenance/valve-cover-gasket",
+              "slug": "valve-cover-gasket"
+            },
+            {
+              "name": "Primary Cover Gasket",
+              "url": "/used-parts/maintenance/primary-cover-gasket",
+              "slug": "primary-cover-gasket"
+            }
           ]
         },
         {
           "name": "Brakes",
           "url": "/used-parts/brakes",
+          "slug": "brakes",
           "hasChildren": true,
           "children": [
-            { "name": "Brake Fluid", "url": "/used-parts/brakes/brake-fluid" },
-            { "name": "Brake Disc Rear", "url": "/used-parts/brakes/brake-disc-rear" },
-            { "name": "Brake Cleaner", "url": "/used-parts/brakes/brake-cleaner" },
-            { "name": "Brake Disc Front", "url": "/used-parts/brakes/brake-disc-front" },
-            { "name": "Brake Pads", "url": "/used-parts/brakes/brake-pads" },
-            { "name": "Maintenance Package", "url": "/used-parts/brakes/maintenance-package" },
-            { "name": "Brake Bleeder", "url": "/used-parts/brakes/brake-bleeder" },
-            { "name": "Brake Caliper Repair Kit", "url": "/used-parts/brakes/brake-caliper-repair-kit" },
-            { "name": "Brake Pump Repair Kit", "url": "/used-parts/brakes/brake-pump-repair-kit" },
-            { "name": "Brake Piston Grease", "url": "/used-parts/brakes/brake-piston-grease" }
+            { "name": "Brake Fluid", "url": "/used-parts/brakes/brake-fluid", "slug": "brake-fluid" },
+            { "name": "Brake Disc Rear", "url": "/used-parts/brakes/brake-disc-rear", "slug": "brake-disc-rear" },
+            { "name": "Brake Cleaner", "url": "/used-parts/brakes/brake-cleaner", "slug": "brake-cleaner" },
+            { "name": "Brake Disc Front", "url": "/used-parts/brakes/brake-disc-front", "slug": "brake-disc-front" },
+            { "name": "Brake Pads", "url": "/used-parts/brakes/brake-pads", "slug": "brake-pads" },
+            {
+              "name": "Maintenance Package",
+              "url": "/used-parts/brakes/maintenance-package",
+              "slug": "maintenance-package"
+            },
+            { "name": "Brake Bleeder", "url": "/used-parts/brakes/brake-bleeder", "slug": "brake-bleeder" },
+            {
+              "name": "Brake Caliper Repair Kit",
+              "url": "/used-parts/brakes/brake-caliper-repair-kit",
+              "slug": "brake-caliper-repair-kit"
+            },
+            {
+              "name": "Brake Pump Repair Kit",
+              "url": "/used-parts/brakes/brake-pump-repair-kit",
+              "slug": "brake-pump-repair-kit"
+            },
+            {
+              "name": "Brake Piston Grease",
+              "url": "/used-parts/brakes/brake-piston-grease",
+              "slug": "brake-piston-grease"
+            }
           ]
         },
         {
           "name": "Overhaul Kits",
           "url": "/used-parts/overhaul-kits",
+          "slug": "overhaul-kits",
           "hasChildren": true,
           "children": [
-            { "name": "Carburettor Repair Kit", "url": "/used-parts/overhaul-kits/carburettor-repair-kit" },
-            { "name": "Front Fork Oil Seal", "url": "/used-parts/overhaul-kits/front-fork-oil-seal" },
-            { "name": "Wheel Bearing", "url": "/used-parts/overhaul-kits/wheel-bearing" },
-            { "name": "Steering Bearing", "url": "/used-parts/overhaul-kits/steering-bearing" },
-            { "name": "Gaskets", "url": "/used-parts/overhaul-kits/gaskets" },
-            { "name": "Swingarm Bearing", "url": "/used-parts/overhaul-kits/swingarm-bearing" },
-            { "name": "Fuel Tap Repair Kit", "url": "/used-parts/overhaul-kits/fuel-tap-repair-kit" },
-            { "name": "Link System Bearing", "url": "/used-parts/overhaul-kits/link-system-bearing" },
-            { "name": "Shock Absorber Bearing", "url": "/used-parts/overhaul-kits/shock-absorber-bearing" },
-            { "name": "Front Fork Repair Kit", "url": "/used-parts/overhaul-kits/front-fork-repair-kit" }
+            {
+              "name": "Carburettor Repair Kit",
+              "url": "/used-parts/overhaul-kits/carburettor-repair-kit",
+              "slug": "carburettor-repair-kit"
+            },
+            {
+              "name": "Front Fork Oil Seal",
+              "url": "/used-parts/overhaul-kits/front-fork-oil-seal",
+              "slug": "front-fork-oil-seal"
+            },
+            { "name": "Wheel Bearing", "url": "/used-parts/overhaul-kits/wheel-bearing", "slug": "wheel-bearing" },
+            {
+              "name": "Steering Bearing",
+              "url": "/used-parts/overhaul-kits/steering-bearing",
+              "slug": "steering-bearing"
+            },
+            { "name": "Gaskets", "url": "/used-parts/overhaul-kits/gaskets", "slug": "gaskets" },
+            {
+              "name": "Swingarm Bearing",
+              "url": "/used-parts/overhaul-kits/swingarm-bearing",
+              "slug": "swingarm-bearing"
+            },
+            {
+              "name": "Fuel Tap Repair Kit",
+              "url": "/used-parts/overhaul-kits/fuel-tap-repair-kit",
+              "slug": "fuel-tap-repair-kit"
+            },
+            {
+              "name": "Link System Bearing",
+              "url": "/used-parts/overhaul-kits/link-system-bearing",
+              "slug": "link-system-bearing"
+            },
+            {
+              "name": "Shock Absorber Bearing",
+              "url": "/used-parts/overhaul-kits/shock-absorber-bearing",
+              "slug": "shock-absorber-bearing"
+            },
+            {
+              "name": "Front Fork Repair Kit",
+              "url": "/used-parts/overhaul-kits/front-fork-repair-kit",
+              "slug": "front-fork-repair-kit"
+            }
           ]
         },
         {
           "name": "Handlebar & Controls",
           "url": "/used-parts/handlebar-and-controls",
+          "slug": "handlebar-controls",
           "hasChildren": true,
           "children": [
-            { "name": "Mirror set", "url": "/used-parts/handlebar-and-controls/mirror-set" },
-            { "name": "Mirror Adapter", "url": "/used-parts/handlebar-and-controls/mirror-adapter" },
-            { "name": "Mirror Holder", "url": "/used-parts/handlebar-and-controls/mirror-holder" },
-            { "name": "Throttle cable", "url": "/used-parts/handlebar-and-controls/throttle-cable" },
-            { "name": "Clutch Cable", "url": "/used-parts/handlebar-and-controls/clutch-cable" },
-            { "name": "Brake Lever", "url": "/used-parts/handlebar-and-controls/brake-lever" },
-            { "name": "Clutch Lever", "url": "/used-parts/handlebar-and-controls/clutch-lever" },
-            { "name": "Mirror Left", "url": "/used-parts/handlebar-and-controls/mirror-left" },
-            { "name": "Mirror Right", "url": "/used-parts/handlebar-and-controls/mirror-right" },
-            { "name": "Brake Line", "url": "/used-parts/handlebar-and-controls/brake-line" }
+            { "name": "Mirror set", "url": "/used-parts/handlebar-and-controls/mirror-set", "slug": "mirror-set" },
+            {
+              "name": "Mirror Adapter",
+              "url": "/used-parts/handlebar-and-controls/mirror-adapter",
+              "slug": "mirror-adapter"
+            },
+            {
+              "name": "Mirror Holder",
+              "url": "/used-parts/handlebar-and-controls/mirror-holder",
+              "slug": "mirror-holder"
+            },
+            {
+              "name": "Throttle cable",
+              "url": "/used-parts/handlebar-and-controls/throttle-cable",
+              "slug": "throttle-cable"
+            },
+            {
+              "name": "Clutch Cable",
+              "url": "/used-parts/handlebar-and-controls/clutch-cable",
+              "slug": "clutch-cable"
+            },
+            { "name": "Brake Lever", "url": "/used-parts/handlebar-and-controls/brake-lever", "slug": "brake-lever" },
+            {
+              "name": "Clutch Lever",
+              "url": "/used-parts/handlebar-and-controls/clutch-lever",
+              "slug": "clutch-lever"
+            },
+            { "name": "Mirror Left", "url": "/used-parts/handlebar-and-controls/mirror-left", "slug": "mirror-left" },
+            {
+              "name": "Mirror Right",
+              "url": "/used-parts/handlebar-and-controls/mirror-right",
+              "slug": "mirror-right"
+            },
+            { "name": "Brake Line", "url": "/used-parts/handlebar-and-controls/brake-line", "slug": "brake-line" }
           ]
         }
       ]
     },
-
     {
       "name": "Accessories",
       "url": "/accessories",
+      "slug": "accessories",
       "hasChildren": true,
       "children": [
         {
           "name": "Accessories",
           "url": "/accessories/accessories",
+          "slug": "accessories",
           "hasChildren": true,
           "children": [
-            { "name": "Heated Grips", "url": "/accessories/accessories/heated-grips" },
-            { "name": "Motorcycle Cover", "url": "/accessories/accessories/motorcycle-cover" },
-            { "name": "Cruise Control", "url": "/accessories/accessories/cruise-control" },
-            { "name": "Windscreen Bolts", "url": "/accessories/accessories/windscreen-bolts" },
-            { "name": "Grip Glue", "url": "/accessories/accessories/grip-glue" },
-            { "name": "Tyre Shine", "url": "/accessories/accessories/tyre-shine" },
-            { "name": "Kickstand Pad", "url": "/accessories/accessories/kickstand-pad" }
+            { "name": "Heated Grips", "url": "/accessories/accessories/heated-grips", "slug": "heated-grips" },
+            {
+              "name": "Motorcycle Cover",
+              "url": "/accessories/accessories/motorcycle-cover",
+              "slug": "motorcycle-cover"
+            },
+            { "name": "Cruise Control", "url": "/accessories/accessories/cruise-control", "slug": "cruise-control" },
+            {
+              "name": "Windscreen Bolts",
+              "url": "/accessories/accessories/windscreen-bolts",
+              "slug": "windscreen-bolts"
+            },
+            { "name": "Grip Glue", "url": "/accessories/accessories/grip-glue", "slug": "grip-glue" },
+            { "name": "Tyre Shine", "url": "/accessories/accessories/tyre-shine", "slug": "tyre-shine" },
+            { "name": "Kickstand Pad", "url": "/accessories/accessories/kickstand-pad", "slug": "kickstand-pad" }
           ]
         },
         {
           "name": "Luggage",
           "url": "/accessories/luggage",
+          "slug": "luggage",
           "hasChildren": true,
           "children": [
-            { "name": "Case Set", "url": "/accessories/luggage/case-set" },
-            { "name": "Cargo Net", "url": "/accessories/luggage/cargo-net" },
-            { "name": "Travelbag Kit", "url": "/accessories/luggage/travelbag-kit" },
-            { "name": "Top Case", "url": "/accessories/luggage/top-case" },
-            { "name": "Tank Bag", "url": "/accessories/luggage/tank-bag" },
-            { "name": "Backpack", "url": "/accessories/luggage/backpack" },
-            { "name": "Luggage Roll", "url": "/accessories/luggage/luggage-roll" },
-            { "name": "Saddle Bag", "url": "/accessories/luggage/saddle-bag" },
-            { "name": "Tank Bag Mounting", "url": "/accessories/luggage/tank-bag-mounting" },
-            { "name": "Bag set", "url": "/accessories/luggage/bag-set" },
-            { "name": "Bag Left", "url": "/accessories/luggage/bag-left" },
-            { "name": "Bag Right", "url": "/accessories/luggage/bag-right" },
-            { "name": "Suitcase Left", "url": "/accessories/luggage/suitcase-left" },
-            { "name": "Suitcase Right", "url": "/accessories/luggage/suitcase-right" },
-            { "name": "Luggage rack", "url": "/accessories/luggage/luggage-rack" }
+            { "name": "Case Set", "url": "/accessories/luggage/case-set", "slug": "case-set" },
+            { "name": "Cargo Net", "url": "/accessories/luggage/cargo-net", "slug": "cargo-net" },
+            { "name": "Travelbag Kit", "url": "/accessories/luggage/travelbag-kit", "slug": "travelbag-kit" },
+            { "name": "Top Case", "url": "/accessories/luggage/top-case", "slug": "top-case" },
+            { "name": "Tank Bag", "url": "/accessories/luggage/tank-bag", "slug": "tank-bag" },
+            { "name": "Backpack", "url": "/accessories/luggage/backpack", "slug": "backpack" },
+            { "name": "Luggage Roll", "url": "/accessories/luggage/luggage-roll", "slug": "luggage-roll" },
+            { "name": "Saddle Bag", "url": "/accessories/luggage/saddle-bag", "slug": "saddle-bag" },
+            {
+              "name": "Tank Bag Mounting",
+              "url": "/accessories/luggage/tank-bag-mounting",
+              "slug": "tank-bag-mounting"
+            },
+            { "name": "Bag set", "url": "/accessories/luggage/bag-set", "slug": "bag-set" },
+            { "name": "Bag Left", "url": "/accessories/luggage/bag-left", "slug": "bag-left" },
+            { "name": "Bag Right", "url": "/accessories/luggage/bag-right", "slug": "bag-right" },
+            { "name": "Suitcase Left", "url": "/accessories/luggage/suitcase-left", "slug": "suitcase-left" },
+            { "name": "Suitcase Right", "url": "/accessories/luggage/suitcase-right", "slug": "suitcase-right" },
+            { "name": "Luggage rack", "url": "/accessories/luggage/luggage-rack", "slug": "luggage-rack" }
           ]
         },
         {
           "name": "Tools",
           "url": "/accessories/tools",
+          "slug": "tools",
           "hasChildren": true,
           "children": [
-            { "name": "Oil Filter Wrench", "url": "/accessories/tools/oil-filter-wrench" },
-            { "name": "Spark Plug Wrench", "url": "/accessories/tools/spark-plug-wrench" },
-            { "name": "Cable Lubricator Tool", "url": "/accessories/tools/cable-lubricator-tool" },
-            { "name": "Front Fork Tools", "url": "/accessories/tools/front-fork-tools" },
-            { "name": "Carburetor Screwdriver", "url": "/accessories/tools/carburetor-screwdriver" },
-            { "name": "Voltage Tester", "url": "/accessories/tools/voltage-tester" },
-            { "name": "Spring Puller", "url": "/accessories/tools/spring-puller" },
-            { "name": "Gasket Scraper", "url": "/accessories/tools/gasket-scraper" },
-            { "name": "Stethoscope", "url": "/accessories/tools/stethoscope" },
-            { "name": "Thread Repair", "url": "/accessories/tools/thread-repair" },
-            { "name": "Synchronous Tester", "url": "/accessories/tools/synchronous-tester" },
-            { "name": "Brake Bleeder", "url": "/accessories/tools/brake-bleeder" },
-            { "name": "Tire Pressure Gauge", "url": "/accessories/tools/tire-pressure-gauge" },
-            { "name": "Front Wheel Axle Tool", "url": "/accessories/tools/front-wheel-axle-tool" },
-            { "name": "Chain Tools", "url": "/accessories/tools/chain-tools" }
+            { "name": "Oil Filter Wrench", "url": "/accessories/tools/oil-filter-wrench", "slug": "oil-filter-wrench" },
+            { "name": "Spark Plug Wrench", "url": "/accessories/tools/spark-plug-wrench", "slug": "spark-plug-wrench" },
+            {
+              "name": "Cable Lubricator Tool",
+              "url": "/accessories/tools/cable-lubricator-tool",
+              "slug": "cable-lubricator-tool"
+            },
+            { "name": "Front Fork Tools", "url": "/accessories/tools/front-fork-tools", "slug": "front-fork-tools" },
+            {
+              "name": "Carburetor Screwdriver",
+              "url": "/accessories/tools/carburetor-screwdriver",
+              "slug": "carburetor-screwdriver"
+            },
+            { "name": "Voltage Tester", "url": "/accessories/tools/voltage-tester", "slug": "voltage-tester" },
+            { "name": "Spring Puller", "url": "/accessories/tools/spring-puller", "slug": "spring-puller" },
+            { "name": "Gasket Scraper", "url": "/accessories/tools/gasket-scraper", "slug": "gasket-scraper" },
+            { "name": "Stethoscope", "url": "/accessories/tools/stethoscope", "slug": "stethoscope" },
+            { "name": "Thread Repair", "url": "/accessories/tools/thread-repair", "slug": "thread-repair" },
+            {
+              "name": "Synchronous Tester",
+              "url": "/accessories/tools/synchronous-tester",
+              "slug": "synchronous-tester"
+            },
+            { "name": "Brake Bleeder", "url": "/accessories/tools/brake-bleeder", "slug": "brake-bleeder" },
+            {
+              "name": "Tire Pressure Gauge",
+              "url": "/accessories/tools/tire-pressure-gauge",
+              "slug": "tire-pressure-gauge"
+            },
+            {
+              "name": "Front Wheel Axle Tool",
+              "url": "/accessories/tools/front-wheel-axle-tool",
+              "slug": "front-wheel-axle-tool"
+            },
+            { "name": "Chain Tools", "url": "/accessories/tools/chain-tools", "slug": "chain-tools" }
           ]
         },
         {
           "name": "Workshop Equipment",
           "url": "/accessories/workshop-equipment",
+          "slug": "workshop-equipment",
           "hasChildren": true,
           "children": [
-            { "name": "Wheel Chock", "url": "/accessories/workshop-equipment/wheel-chock" },
-            { "name": "Paddock Stand", "url": "/accessories/workshop-equipment/paddock-stand" },
-            { "name": "Motorcycle Lift", "url": "/accessories/workshop-equipment/motorcycle-lift" },
-            { "name": "Funnel", "url": "/accessories/workshop-equipment/funnel" },
-            { "name": "Tire Repair Kit", "url": "/accessories/workshop-equipment/tire-repair-kit" },
-            { "name": "Paddock Stand Adapter", "url": "/accessories/workshop-equipment/paddock-stand-adapter" },
-            { "name": "Assortment boxes", "url": "/accessories/workshop-equipment/assortment-boxes" },
-            { "name": "Magnetic Scale", "url": "/accessories/workshop-equipment/magnetic-scale" },
-            { "name": "Jerrycan", "url": "/accessories/workshop-equipment/jerrycan" },
-            { "name": "Auxiliary Fuel Tank", "url": "/accessories/workshop-equipment/auxiliary-fuel-tank" },
-            { "name": "Fuel Tank Protector", "url": "/accessories/workshop-equipment/fuel-tank-protector" },
-            { "name": "Handlebar Harness", "url": "/accessories/workshop-equipment/handlebar-harness" },
-            { "name": "Oil Collection Tray", "url": "/accessories/workshop-equipment/oil-collection-tray" },
-            { "name": "Vice Jaws", "url": "/accessories/workshop-equipment/vice-jaws" },
-            { "name": "Hand Cleaner", "url": "/accessories/workshop-equipment/hand-cleaner" },
-            { "name": "Threadlocker", "url": "/accessories/workshop-equipment/threadlocker" },
-            { "name": "Tie-Down Straps", "url": "/accessories/workshop-equipment/tie-down-straps" },
-            { "name": "Workshop Glove", "url": "/accessories/workshop-equipment/workshop-glove" },
-            { "name": "Mechanics Bar Stool", "url": "/accessories/workshop-equipment/mechanics-bar-stool" },
-            { "name": "Workshop Manual", "url": "/accessories/workshop-equipment/workshop-manual" }
+            { "name": "Wheel Chock", "url": "/accessories/workshop-equipment/wheel-chock", "slug": "wheel-chock" },
+            {
+              "name": "Paddock Stand",
+              "url": "/accessories/workshop-equipment/paddock-stand",
+              "slug": "paddock-stand"
+            },
+            {
+              "name": "Motorcycle Lift",
+              "url": "/accessories/workshop-equipment/motorcycle-lift",
+              "slug": "motorcycle-lift"
+            },
+            { "name": "Funnel", "url": "/accessories/workshop-equipment/funnel", "slug": "funnel" },
+            {
+              "name": "Tire Repair Kit",
+              "url": "/accessories/workshop-equipment/tire-repair-kit",
+              "slug": "tire-repair-kit"
+            },
+            {
+              "name": "Paddock Stand Adapter",
+              "url": "/accessories/workshop-equipment/paddock-stand-adapter",
+              "slug": "paddock-stand-adapter"
+            },
+            {
+              "name": "Assortment boxes",
+              "url": "/accessories/workshop-equipment/assortment-boxes",
+              "slug": "assortment-boxes"
+            },
+            {
+              "name": "Magnetic Scale",
+              "url": "/accessories/workshop-equipment/magnetic-scale",
+              "slug": "magnetic-scale"
+            },
+            { "name": "Jerrycan", "url": "/accessories/workshop-equipment/jerrycan", "slug": "jerrycan" },
+            {
+              "name": "Auxiliary Fuel Tank",
+              "url": "/accessories/workshop-equipment/auxiliary-fuel-tank",
+              "slug": "auxiliary-fuel-tank"
+            },
+            {
+              "name": "Fuel Tank Protector",
+              "url": "/accessories/workshop-equipment/fuel-tank-protector",
+              "slug": "fuel-tank-protector"
+            },
+            {
+              "name": "Handlebar Harness",
+              "url": "/accessories/workshop-equipment/handlebar-harness",
+              "slug": "handlebar-harness"
+            },
+            {
+              "name": "Oil Collection Tray",
+              "url": "/accessories/workshop-equipment/oil-collection-tray",
+              "slug": "oil-collection-tray"
+            },
+            { "name": "Vice Jaws", "url": "/accessories/workshop-equipment/vice-jaws", "slug": "vice-jaws" },
+            { "name": "Hand Cleaner", "url": "/accessories/workshop-equipment/hand-cleaner", "slug": "hand-cleaner" },
+            { "name": "Threadlocker", "url": "/accessories/workshop-equipment/threadlocker", "slug": "threadlocker" },
+            {
+              "name": "Tie-Down Straps",
+              "url": "/accessories/workshop-equipment/tie-down-straps",
+              "slug": "tie-down-straps"
+            },
+            {
+              "name": "Workshop Glove",
+              "url": "/accessories/workshop-equipment/workshop-glove",
+              "slug": "workshop-glove"
+            },
+            {
+              "name": "Mechanics Bar Stool",
+              "url": "/accessories/workshop-equipment/mechanics-bar-stool",
+              "slug": "mechanics-bar-stool"
+            },
+            {
+              "name": "Workshop Manual",
+              "url": "/accessories/workshop-equipment/workshop-manual",
+              "slug": "workshop-manual"
+            }
           ]
         },
         {
           "name": "Clothing and Merchandise",
           "url": "/accessories/clothing-and-merchandise",
+          "slug": "clothing-merchandise",
           "hasChildren": true,
           "children": [
-            { "name": "Clothing Care", "url": "/accessories/clothing-and-merchandise/clothing-care" },
-            { "name": "Pedal for Kids", "url": "/accessories/clothing-and-merchandise/pedal-for-kids" }
+            {
+              "name": "Clothing Care",
+              "url": "/accessories/clothing-and-merchandise/clothing-care",
+              "slug": "clothing-care"
+            },
+            {
+              "name": "Pedal for Kids",
+              "url": "/accessories/clothing-and-merchandise/pedal-for-kids",
+              "slug": "pedal-for-kids"
+            }
           ]
         },
         {
           "name": "Locks",
           "url": "/accessories/locks",
+          "slug": "locks",
           "hasChildren": true,
           "children": [
-            { "name": "Chain Lock", "url": "/accessories/locks/chain-lock" },
-            { "name": "U-lock", "url": "/accessories/locks/u-lock" },
-            { "name": "Ground /Wall Anchor", "url": "/accessories/locks/ground-wall-anchor" },
-            { "name": "Lock Accessory", "url": "/accessories/locks/lock-accessory" },
-            { "name": "Disc Brake Lock", "url": "/accessories/locks/disc-brake-lock" },
-            { "name": "Lock Reminder", "url": "/accessories/locks/lock-reminder" }
+            { "name": "Chain Lock", "url": "/accessories/locks/chain-lock", "slug": "chain-lock" },
+            { "name": "U-lock", "url": "/accessories/locks/u-lock", "slug": "u-lock" },
+            {
+              "name": "Ground /Wall Anchor",
+              "url": "/accessories/locks/ground-wall-anchor",
+              "slug": "ground-wall-anchor"
+            },
+            { "name": "Lock Accessory", "url": "/accessories/locks/lock-accessory", "slug": "lock-accessory" },
+            { "name": "Disc Brake Lock", "url": "/accessories/locks/disc-brake-lock", "slug": "disc-brake-lock" },
+            { "name": "Lock Reminder", "url": "/accessories/locks/lock-reminder", "slug": "lock-reminder" }
           ]
         },
         {
           "name": "Navigation, Intercom and Telephone",
           "url": "/accessories/navigation-intercom-telephone",
+          "slug": "navigation-intercom-telephone",
           "hasChildren": true,
           "children": [
-            { "name": "Intercom", "url": "/accessories/navigation-intercom-telephone/intercom" },
-            { "name": "Phone Holder", "url": "/accessories/navigation-intercom-telephone/phone-holder" },
+            { "name": "Intercom", "url": "/accessories/navigation-intercom-telephone/intercom", "slug": "intercom" },
+            {
+              "name": "Phone Holder",
+              "url": "/accessories/navigation-intercom-telephone/phone-holder",
+              "slug": "phone-holder"
+            },
             {
               "name": "Phone Holder Mounting",
-              "url": "/accessories/navigation-intercom-telephone/phone-holder-mounting"
+              "url": "/accessories/navigation-intercom-telephone/phone-holder-mounting",
+              "slug": "phone-holder-mounting"
             },
             {
               "name": "Phone Holder Accessoires",
-              "url": "/accessories/navigation-intercom-telephone/phone-holder-accessoires"
+              "url": "/accessories/navigation-intercom-telephone/phone-holder-accessoires",
+              "slug": "phone-holder-accessoires"
             },
-            { "name": "Navigation System", "url": "/accessories/navigation-intercom-telephone/navigation-system" }
+            {
+              "name": "Navigation System",
+              "url": "/accessories/navigation-intercom-telephone/navigation-system",
+              "slug": "navigation-system"
+            }
           ]
         },
         {
           "name": "Wash and Shine",
           "url": "/accessories/wash-and-shine",
+          "slug": "wash-shine",
           "hasChildren": true,
           "children": [
-            { "name": "Seat Spray", "url": "/accessories/wash-and-shine/seat-spray" },
-            { "name": "Polish and Wax", "url": "/accessories/wash-and-shine/polish-and-wax" },
-            { "name": "Chrome and Alu Polish", "url": "/accessories/wash-and-shine/chrome-and-alu-polish" },
-            { "name": "Cleaning Supplies", "url": "/accessories/wash-and-shine/cleaning-supplies" },
-            { "name": "Brush", "url": "/accessories/wash-and-shine/brush" },
-            { "name": "Sponge", "url": "/accessories/wash-and-shine/sponge" },
-            { "name": "Cleaning Cloth", "url": "/accessories/wash-and-shine/cleaning-cloth" },
-            { "name": "Degreaser", "url": "/accessories/wash-and-shine/degreaser" },
-            { "name": "Corrosion Protection", "url": "/accessories/wash-and-shine/corrosion-protection" },
-            { "name": "Cleaning Set", "url": "/accessories/wash-and-shine/cleaning-set" },
-            { "name": "Wax Spray", "url": "/accessories/wash-and-shine/wax-spray" },
-            { "name": "Silicone Spray", "url": "/accessories/wash-and-shine/silicone-spray" },
-            { "name": "Bug Spray", "url": "/accessories/wash-and-shine/bug-spray" },
-            { "name": "Wheel Cleaner", "url": "/accessories/wash-and-shine/wheel-cleaner" },
-            { "name": "Exhaust Plug", "url": "/accessories/wash-and-shine/exhaust-plug" }
+            { "name": "Seat Spray", "url": "/accessories/wash-and-shine/seat-spray", "slug": "seat-spray" },
+            { "name": "Polish and Wax", "url": "/accessories/wash-and-shine/polish-and-wax", "slug": "polish-wax" },
+            {
+              "name": "Chrome and Alu Polish",
+              "url": "/accessories/wash-and-shine/chrome-and-alu-polish",
+              "slug": "chrome-alu-polish"
+            },
+            {
+              "name": "Cleaning Supplies",
+              "url": "/accessories/wash-and-shine/cleaning-supplies",
+              "slug": "cleaning-supplies"
+            },
+            { "name": "Brush", "url": "/accessories/wash-and-shine/brush", "slug": "brush" },
+            { "name": "Sponge", "url": "/accessories/wash-and-shine/sponge", "slug": "sponge" },
+            { "name": "Cleaning Cloth", "url": "/accessories/wash-and-shine/cleaning-cloth", "slug": "cleaning-cloth" },
+            { "name": "Degreaser", "url": "/accessories/wash-and-shine/degreaser", "slug": "degreaser" },
+            {
+              "name": "Corrosion Protection",
+              "url": "/accessories/wash-and-shine/corrosion-protection",
+              "slug": "corrosion-protection"
+            },
+            { "name": "Cleaning Set", "url": "/accessories/wash-and-shine/cleaning-set", "slug": "cleaning-set" },
+            { "name": "Wax Spray", "url": "/accessories/wash-and-shine/wax-spray", "slug": "wax-spray" },
+            { "name": "Silicone Spray", "url": "/accessories/wash-and-shine/silicone-spray", "slug": "silicone-spray" },
+            { "name": "Bug Spray", "url": "/accessories/wash-and-shine/bug-spray", "slug": "bug-spray" },
+            { "name": "Wheel Cleaner", "url": "/accessories/wash-and-shine/wheel-cleaner", "slug": "wheel-cleaner" },
+            { "name": "Exhaust Plug", "url": "/accessories/wash-and-shine/exhaust-plug", "slug": "exhaust-plug" }
           ]
         },
         {
           "name": "Fuel & Additives",
           "url": "/accessories/fuel-and-additives",
+          "slug": "fuel-additives",
           "hasChildren": true,
           "children": [
-            { "name": "Stabilizer", "url": "/accessories/fuel-and-additives/stabilizer" },
-            { "name": "Cleaner", "url": "/accessories/fuel-and-additives/cleaner" },
-            { "name": "Octane Booster", "url": "/accessories/fuel-and-additives/octane-booster" },
-            { "name": "E10 Additive", "url": "/accessories/fuel-and-additives/e10-additive" },
-            { "name": "Ecomaxx Fuel", "url": "/accessories/fuel-and-additives/ecomaxx-fuel" }
+            { "name": "Stabilizer", "url": "/accessories/fuel-and-additives/stabilizer", "slug": "stabilizer" },
+            { "name": "Cleaner", "url": "/accessories/fuel-and-additives/cleaner", "slug": "cleaner" },
+            {
+              "name": "Octane Booster",
+              "url": "/accessories/fuel-and-additives/octane-booster",
+              "slug": "octane-booster"
+            },
+            { "name": "E10 Additive", "url": "/accessories/fuel-and-additives/e10-additive", "slug": "e10-additive" },
+            { "name": "Ecomaxx Fuel", "url": "/accessories/fuel-and-additives/ecomaxx-fuel", "slug": "ecomaxx-fuel" }
           ]
         }
       ]
@@ -339,171 +641,185 @@
     {
       "name": "Brands",
       "url": "/brands",
+      "slug": "brands",
       "hasChildren": true,
       "children": [
-        { "name": "A-Sider", "url": "/brands/a/a-sider" },
-        { "name": "AFAM", "url": "/brands/a/afam" },
-        { "name": "Abus", "url": "/brands/a/abus" },
-        { "name": "Acebikes", "url": "/brands/a/acebikes" },
-        { "name": "All Balls Racing", "url": "/brands/a/all-balls-racing" },
-        { "name": "Ate", "url": "/brands/a/ate" },
-        { "name": "Athena", "url": "/brands/a/athena" },
+        { "name": "A-Sider", "url": "/brands/a/a-sider", "slug": "a-sider" },
+        { "name": "AFAM", "url": "/brands/a/afam", "slug": "afam" },
+        { "name": "Abus", "url": "/brands/a/abus", "slug": "abus" },
+        { "name": "Acebikes", "url": "/brands/a/acebikes", "slug": "acebikes" },
+        { "name": "All Balls Racing", "url": "/brands/a/all-balls-racing", "slug": "all-balls-racing" },
+        { "name": "Ate", "url": "/brands/a/ate", "slug": "ate" },
+        { "name": "Athena", "url": "/brands/a/athena", "slug": "athena" },
 
-        { "name": "BS Battery", "url": "/brands/b/bs-battery" },
-        { "name": "Barkbusters", "url": "/brands/b/barkbusters" },
-        { "name": "Barracuda", "url": "/brands/b/barracuda" },
-        { "name": "Beru", "url": "/brands/b/beru" },
-        { "name": "Bihr", "url": "/brands/b/bihr" },
-        { "name": "Bike Lift", "url": "/brands/b/bike-lift" },
-        { "name": "Bikeservice", "url": "/brands/b/bikeservice" },
+        { "name": "BS Battery", "url": "/brands/b/bs-battery", "slug": "bs-battery" },
+        { "name": "Barkbusters", "url": "/brands/b/barkbusters", "slug": "barkbusters" },
+        { "name": "Barracuda", "url": "/brands/b/barracuda", "slug": "barracuda" },
+        { "name": "Beru", "url": "/brands/b/beru", "slug": "beru" },
+        { "name": "Bihr", "url": "/brands/b/bihr", "slug": "bihr" },
+        { "name": "Bike Lift", "url": "/brands/b/bike-lift", "slug": "bike-lift" },
+        { "name": "Bikeservice", "url": "/brands/b/bikeservice", "slug": "bikeservice" },
 
-        { "name": "Castrol", "url": "/brands/c/castrol" },
-        { "name": "Centauro", "url": "/brands/c/centauro" },
+        { "name": "Castrol", "url": "/brands/c/castrol", "slug": "castrol" },
+        { "name": "Centauro", "url": "/brands/c/centauro", "slug": "centauro" },
 
-        { "name": "DS Covers", "url": "/brands/d/ds-covers" },
-        { "name": "Daytona", "url": "/brands/d/daytona" },
-        { "name": "Denali", "url": "/brands/d/denali" },
-        { "name": "Domino", "url": "/brands/d/domino" },
-        { "name": "Draper", "url": "/brands/d/draper" },
+        { "name": "DS Covers", "url": "/brands/d/ds-covers", "slug": "ds-covers" },
+        { "name": "Daytona", "url": "/brands/d/daytona", "slug": "daytona" },
+        { "name": "Denali", "url": "/brands/d/denali", "slug": "denali" },
+        { "name": "Domino", "url": "/brands/d/domino", "slug": "domino" },
+        { "name": "Draper", "url": "/brands/d/draper", "slug": "draper" },
 
-        { "name": "Ecomaxx", "url": "/brands/e/ecomaxx" },
-        { "name": "Elring", "url": "/brands/e/elring" },
+        { "name": "Ecomaxx", "url": "/brands/e/ecomaxx", "slug": "ecomaxx" },
+        { "name": "Elring", "url": "/brands/e/elring", "slug": "elring" },
 
-        { "name": "Forté", "url": "/brands/f/forte" },
+        { "name": "Forté", "url": "/brands/f/forte", "slug": "forte" },
 
-        { "name": "GIVI", "url": "/brands/g/givi" },
-        { "name": "Garmin", "url": "/brands/g/garmin" },
+        { "name": "GIVI", "url": "/brands/g/givi", "slug": "givi" },
+        { "name": "Garmin", "url": "/brands/g/garmin", "slug": "garmin" },
 
-        { "name": "HPX", "url": "/brands/h/hpx" },
-        { "name": "Haynes", "url": "/brands/h/haynes" },
-        { "name": "Held", "url": "/brands/h/held" },
-        { "name": "Hepco & Becker", "url": "/brands/h/hepco-and-becker" },
-        { "name": "Hiflofiltro", "url": "/brands/h/hiflofiltro" },
-        { "name": "Hiplok", "url": "/brands/h/hiplok" },
+        { "name": "HPX", "url": "/brands/h/hpx", "slug": "hpx" },
+        { "name": "Haynes", "url": "/brands/h/haynes", "slug": "haynes" },
+        { "name": "Held", "url": "/brands/h/held", "slug": "held" },
+        { "name": "Hepco & Becker", "url": "/brands/h/hepco-and-becker", "slug": "hepco-and-becker" },
+        { "name": "Hiflofiltro", "url": "/brands/h/hiflofiltro", "slug": "hiflofiltro" },
+        { "name": "Hiplok", "url": "/brands/h/hiplok", "slug": "hiplok" },
 
-        { "name": "IK Sprayers", "url": "/brands/i/ik-sprayers" },
+        { "name": "IK Sprayers", "url": "/brands/i/ik-sprayers", "slug": "ik-sprayers" },
 
-        { "name": "JMP", "url": "/brands/j/jmp" },
-        { "name": "JT Sprockets", "url": "/brands/j/jt-sprockets" },
+        { "name": "JMP", "url": "/brands/j/jmp", "slug": "jmp" },
+        { "name": "JT Sprockets", "url": "/brands/j/jt-sprockets", "slug": "jt-sprockets" },
 
-        { "name": "K&N", "url": "/brands/k/k-and-n" },
-        { "name": "KAOKO", "url": "/brands/k/kaoko" },
+        { "name": "K&N", "url": "/brands/k/k-and-n", "slug": "k-and-n" },
+        { "name": "KAOKO", "url": "/brands/k/kaoko", "slug": "kaoko" },
 
-        { "name": "Liqui Moly", "url": "/brands/l/liqui-moly" },
-        { "name": "Loctite", "url": "/brands/l/loctite" },
+        { "name": "Liqui Moly", "url": "/brands/l/liqui-moly", "slug": "liqui-moly" },
+        { "name": "Loctite", "url": "/brands/l/loctite", "slug": "loctite" },
 
-        { "name": "Mahle", "url": "/brands/m/mahle" },
-        { "name": "Motion Pro", "url": "/brands/m/motion-pro" },
-        { "name": "Motobrackets", "url": "/brands/m/motobrackets" },
-        { "name": "Motorcycle Storehouse", "url": "/brands/m/motorcycle-storehouse" },
-        { "name": "Motul", "url": "/brands/m/motul" },
-        { "name": "Muc-Off", "url": "/brands/m/muc-off" },
+        { "name": "Mahle", "url": "/brands/m/mahle", "slug": "mahle" },
+        { "name": "Motion Pro", "url": "/brands/m/motion-pro", "slug": "motion-pro" },
+        { "name": "Motobrackets", "url": "/brands/m/motobrackets", "slug": "motobrackets" },
+        { "name": "Motorcycle Storehouse", "url": "/brands/m/motorcycle-storehouse", "slug": "motorcycle-storehouse" },
+        { "name": "Motul", "url": "/brands/m/motul", "slug": "motul" },
+        { "name": "Muc-Off", "url": "/brands/m/muc-off", "slug": "muc-off" },
 
-        { "name": "NGK", "url": "/brands/n/ngk" },
-        { "name": "NOCO", "url": "/brands/n/noco" },
+        { "name": "NGK", "url": "/brands/n/ngk", "slug": "ngk" },
+        { "name": "NOCO", "url": "/brands/n/noco", "slug": "noco" },
 
-        { "name": "Onedesign", "url": "/brands/o/onedesign" },
-        { "name": "Osram", "url": "/brands/o/osram" },
-        { "name": "Oxford", "url": "/brands/o/oxford" },
+        { "name": "Onedesign", "url": "/brands/o/onedesign", "slug": "onedesign" },
+        { "name": "Osram", "url": "/brands/o/osram", "slug": "osram" },
+        { "name": "Oxford", "url": "/brands/o/oxford", "slug": "oxford" },
 
-        { "name": "Pressol", "url": "/brands/p/pressol" },
-        { "name": "Putoline", "url": "/brands/p/putoline" },
+        { "name": "Pressol", "url": "/brands/p/pressol", "slug": "pressol" },
+        { "name": "Putoline", "url": "/brands/p/putoline", "slug": "putoline" },
 
-        { "name": "Quad Lock", "url": "/brands/q/quad-lock" },
+        { "name": "Quad Lock", "url": "/brands/q/quad-lock", "slug": "quad-lock" },
 
-        { "name": "RK", "url": "/brands/r/rk" },
-        { "name": "Roadlok", "url": "/brands/r/roadlok" },
+        { "name": "RK", "url": "/brands/r/rk", "slug": "rk" },
+        { "name": "Roadlok", "url": "/brands/r/roadlok", "slug": "roadlok" },
 
-        { "name": "SP Connect", "url": "/brands/s/sp-connect" },
-        { "name": "SW-Motech", "url": "/brands/s/sw-motech" },
-        { "name": "Sachs", "url": "/brands/s/sachs" },
-        { "name": "Scottoiler", "url": "/brands/s/scottoiler" },
-        { "name": "Sena", "url": "/brands/s/sena" },
-        { "name": "Sonic", "url": "/brands/s/sonic" },
+        { "name": "SP Connect", "url": "/brands/s/sp-connect", "slug": "sp-connect" },
+        { "name": "SW-Motech", "url": "/brands/s/sw-motech", "slug": "sw-motech" },
+        { "name": "Sachs", "url": "/brands/s/sachs", "slug": "sachs" },
+        { "name": "Scottoiler", "url": "/brands/s/scottoiler", "slug": "scottoiler" },
+        { "name": "Sena", "url": "/brands/s/sena", "slug": "sena" },
+        { "name": "Sonic", "url": "/brands/s/sonic", "slug": "sonic" },
 
-        { "name": "TNK", "url": "/brands/t/tnk" },
-        { "name": "TRW", "url": "/brands/t/trw" },
-        { "name": "Tank Cure", "url": "/brands/t/tank-cure" },
-        { "name": "Tecmate", "url": "/brands/t/tecmate" },
-        { "name": "Tecnium", "url": "/brands/t/tecnium" },
-        { "name": "TomTom", "url": "/brands/t/tomtom" },
-        { "name": "Tsubaki", "url": "/brands/t/tsubaki" },
-        { "name": "Twin Air", "url": "/brands/t/twin-air" },
+        { "name": "TNK", "url": "/brands/t/tnk", "slug": "tnk" },
+        { "name": "TRW", "url": "/brands/t/trw", "slug": "trw" },
+        { "name": "Tank Cure", "url": "/brands/t/tank-cure", "slug": "tank-cure" },
+        { "name": "Tecmate", "url": "/brands/t/tecmate", "slug": "tecmate" },
+        { "name": "Tecnium", "url": "/brands/t/tecnium", "slug": "tecnium" },
+        { "name": "TomTom", "url": "/brands/t/tomtom", "slug": "tomtom" },
+        { "name": "Tsubaki", "url": "/brands/t/tsubaki", "slug": "tsubaki" },
+        { "name": "Twin Air", "url": "/brands/t/twin-air", "slug": "twin-air" },
 
-        { "name": "V-Parts", "url": "/brands/v/v-parts" },
-        { "name": "Vector", "url": "/brands/v/vector" },
+        { "name": "V-Parts", "url": "/brands/v/v-parts", "slug": "v-parts" },
+        { "name": "Vector", "url": "/brands/v/vector", "slug": "vector" },
 
-        { "name": "WAI Global", "url": "/brands/w/wai-global" },
-        { "name": "WRS", "url": "/brands/w/wrs" },
-        { "name": "Wunderlich", "url": "/brands/w/wunderlich" },
+        { "name": "WAI Global", "url": "/brands/w/wai-global", "slug": "wai-global" },
+        { "name": "WRS", "url": "/brands/w/wrs", "slug": "wrs" },
+        { "name": "Wunderlich", "url": "/brands/w/wunderlich", "slug": "wunderlich" },
 
-        { "name": "Yuasa", "url": "/brands/y/yuasa" }
+        { "name": "Yuasa", "url": "/brands/y/yuasa", "slug": "yuasa" }
       ]
     },
     {
       "name": "Contact",
-      "url": "/contact"
+      "url": "/contact",
+      "slug": "contact"
     }
   ],
   "footerContact": [
     {
       "name": "Contact us",
-      "url": "/contact"
+      "url": "/contact",
+      "slug": "contact-us"
     }
   ],
   "footerAbout": [
     {
       "name": "About us",
-      "url": "/about"
+      "url": "/about",
+      "slug": "about-us"
     },
     {
       "name": "Terms of Service",
-      "url": "/terms-services"
+      "url": "/terms-services",
+      "slug": "terms-of-service"
     },
     {
       "name": "Privacy & Policy",
-      "url": "/privacy-policy"
+      "url": "/privacy-policy",
+      "slug": "privacy-policy"
     },
     {
       "name": "Cookies preference",
-      "url": "/"
+      "url": "/",
+      "slug": "cookies-preference"
     }
   ],
   "footerService": [
     {
       "name": "Shipping",
       "url": "/terms-services",
-      "nav": ""
+      "nav": "",
+      "slug": "shipping"
     },
     {
       "name": "Payment methods",
       "url": "/terms-services",
-      "nav": ""
+      "nav": "",
+      "slug": "payment-methods"
     },
     {
       "name": "Return Policy",
       "url": "/terms-services",
-      "nav": ""
+      "nav": "",
+      "slug": "return-policy"
     }
   ],
   "footerCareer": [
     {
       "name": "Career",
-      "description": "No jobs offers"
+      "description": "No jobs offers",
+      "slug": "career"
     }
   ],
   "footerLanguage": [
     {
       "code": "en",
-      "name": "English"
+      "name": "English",
+      "slug": "english"
     },
     {
       "code": "fr",
-      "name": "French"
+      "name": "French",
+      "slug": "french"
     },
     {
       "code": "pt",
-      "name": "Portuguese"
+      "name": "Portuguese",
+      "slug": "portuguese"
     }
   ]
 }
