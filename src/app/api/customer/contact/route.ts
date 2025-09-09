@@ -1,38 +1,55 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import * as sgMail from "@sendgrid/mail";
+import { signUpFormSchema } from "../../../contact/schema";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const form = await req.formData();
-    const firstName = String(form.get("firstName") || "");
-    const lastName  = String(form.get("lastName")  || "");
-    const email     = String(form.get("email")     || "");
-    const message   = String(form.get("message")   || "");
+    const json = await req.json().catch(() => null);
+    if (!json) return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
 
-    const url = `${process.env.SHOPIFY_STORE_DOMAIN!.replace(/\/$/, "")}/contact`;
+    if (!json.subject && typeof json.name === "string") json.subject = json.name;
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        form_type: "contact",
-        "contact[name]": `${firstName} ${lastName}`.trim() || "Visitor",
-        "contact[email]": email,
-        "contact[body]": `\n${message}\n\nFrom: ${firstName} ${lastName} <${email}>`,
-      }),
-      cache: "no-store",
-      redirect: "follow", 
-    });
+    const parsed = signUpFormSchema.safeParse(json);
+    if (!parsed.success) {
+      return NextResponse.json({ ok: false, error: "Invalid input", issues: parsed.error.flatten() }, { status: 400 });
+    }
 
-    const ok = res.ok || res.status === 302 || res.status === 303;
-    if (!ok) {
-      const preview = (await res.text()).slice(0, 500);
-      return NextResponse.json({ ok: false, status: res.status, preview }, { status: 502 });
+    const { firstName, lastName, email, subject, message } = parsed.data;
+
+    if (!process.env.SENDGRID_API_KEY || !process.env.CONTACT_FROM || !process.env.CONTACT_TO) {
+      return NextResponse.json({ ok: false, error: "Missing SENDGRID/CONTACT_* env vars" }, { status: 500 });
+    }
+    if (process.env.SENDGRID_REGION === "eu" && "setDataResidency" in sgMail) {
+      (sgMail as any).setDataResidency("eu");
+    }
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+
+    const subjectLine = subject ?? `New contact from ${firstName}`;
+    const fullName = [firstName, lastName].filter(Boolean).join(" ");
+    const text = `From: ${fullName} <${email}>\n\n${message}`;
+    const html = `<p><strong>From:</strong> ${fullName} &lt;${email}&gt;</p><p>${message.replace(/\n/g, "<br/>")}</p>`;
+
+    const msg = {
+      to: process.env.CONTACT_TO!,
+      from: process.env.CONTACT_FROM!, 
+      subject: subjectLine,
+      replyTo: email,
+      text,
+      html,
+    };
+
+    const [resp] = await sgMail.send(msg);
+    // 2xx is success
+    if (resp.statusCode < 200 || resp.statusCode >= 300) {
+      return NextResponse.json({ ok: false, error: "SendGrid error", status: resp.statusCode }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
-  } catch (e: any) {
-    return NextResponse.json({ ok: false, error: e?.message ?? "Unknown error" }, { status: 500 });
-  }}
+  } catch (err: any) {
+    const details = err?.response?.body ?? err?.message ?? "Server error";
+    return NextResponse.json({ ok: false, error: details }, { status: 500 });
+  }
+}
