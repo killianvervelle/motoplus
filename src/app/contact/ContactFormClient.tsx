@@ -65,7 +65,6 @@ export default function ContactForm() {
         if (r.ok) form.reset();
 
         setDone(true)
-        setToken(null);
     }
 
     const data = {
