@@ -15,6 +15,7 @@ console.log('[route] reached');
 export default function ContactForm() {
     const [token, setToken] = useState<string | null>(null);
     const [sending, setSending] = useState(false);
+    const [done, setDone] = useState(false);
     const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
 
 
@@ -30,7 +31,7 @@ export default function ContactForm() {
 
         setSending(true);
 
-        const v = await fetch("/api/validateRecaptcha", {
+        const v = await fetch("/api/customer/validateRecaptcha", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ recaptchaResponse: token }),
@@ -63,6 +64,8 @@ export default function ContactForm() {
 
         setSending(false);
         if (r.ok) form.reset();
+
+        setDone(true)
 
         setToken(null);
         setRefreshReCaptcha((val) => !val);
@@ -202,8 +205,8 @@ export default function ContactForm() {
                             </div>
 
                             <div className="flex justify-end">
-                                <button type="submit" disabled={sending} className="btn btn-primary">
-                                    {sending ? "Sending…" : "Send"}
+                                <button type="submit" disabled={sending || done} className="btn btn-primary">
+                                    {sending ? "Sending…" : done ? "Sent" : "Send"}
                                 </button>
                             </div>
                         </form>
