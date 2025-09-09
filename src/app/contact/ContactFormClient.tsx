@@ -21,6 +21,7 @@ export default function ContactForm() {
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setDone(false);
 
         const form = e.currentTarget;
         const data = new FormData(form);
@@ -36,35 +37,50 @@ export default function ContactForm() {
             return;
         }
 
-        const v = await fetch("/api/customer/validateRecaptcha", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ recaptchaResponse: token }),
-        });
+        try {
+            // 1) Validate captcha on your server
+            const v = await fetch("/api/customer/validateRecaptcha", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ recaptchaResponse: token }),
+            });
 
-        if (!v.ok) {
+            if (!v.ok) {
+                const j = await v.json().catch(() => ({} as any));
+                console.log(`Captcha check failed${j?.error ? `: ${j.error}` : ""}`);
+                return; // finally{} will still run
+            }
+
+            // 2) Send your message
+            const payload = {
+                firstName: data.get("firstName"),
+                lastName: data.get("lastName"),
+                email: data.get("email"),
+                subject: data.get("name"),
+                message: data.get("message"),
+                body: data.get("message"),
+            };
+
+            const r = await fetch("/api/customer/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            if (!r.ok) {
+                console.log("Something went wrong. Please try again.");
+                return;
+            }
+
+            form.reset();
+            setDone(true);
+            console.log("Thanks! We’ll be in touch.");
+            setTimeout(() => setDone(false), 3000);
+        } catch (err) {
+            console.log("Network error. Please try again.", err);
+        } finally {
             setSending(false);
-            return;
         }
-
-        const payload = {
-            firstName: data.get("firstName"),
-            lastName: data.get("lastName"),
-            email: data.get("email"),
-            message: data.get("message"),
-            body: data.get("message")
-        };
-
-        const r = await fetch("/api/customer/contact", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        });
-
-        setSending(false);
-        if (r.ok) form.reset();
-
-        setDone(true)
     }
 
     const data = {
