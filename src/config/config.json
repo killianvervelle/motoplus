@@ -25,7 +25,7 @@
   },
 
   "params": {
-    "contact_form_action": "/api/contact"
+    "contact_form_action": "/api/customer/contact"
   },
 
   "navigation_button": {
