@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
     const firstName = String(form.get("firstName") || "");
     const lastName  = String(form.get("lastName")  || "");
     const email     = String(form.get("email")     || "");
-    const subject   = String(form.get("name")      || "Contact form");
     const message   = String(form.get("message")   || "");
 
     const url = `${process.env.SHOPIFY_STORE_DOMAIN!.replace(/\/$/, "")}/contact`;
@@ -21,7 +20,7 @@ export async function POST(req: NextRequest) {
         form_type: "contact",
         "contact[name]": `${firstName} ${lastName}`.trim() || "Visitor",
         "contact[email]": email,
-        "contact[body]": `Subject: ${subject}\n\n${message}\n\nFrom: ${firstName} ${lastName} <${email}>`,
+        "contact[body]": `\n${message}\n\nFrom: ${firstName} ${lastName} <${email}>`,
       }),
       cache: "no-store",
       redirect: "follow", 
