@@ -4,8 +4,8 @@ export const revalidate = 0;
 
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
-import ReCaptchaProvider from "./ReCaptchaProvider";     
-import ContactFormClient from "./ContactFormClient";      
+import ReCaptchaProvider from "./ReCaptchaProvider";
+import ContactFormClient from "./ContactFormClient";
 
 export default function ContactPage() {
   return (
