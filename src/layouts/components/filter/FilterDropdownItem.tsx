@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { ListItem, PathFilterItem as PathFilterItemType } from '../product/ProductLayouts'
 import { LanguageItem } from "@/lib/constants";
+import { translateClient } from "../../../lib/utils/translateClient";
 
 
 function PathFilterItem({ item }: { item: PathFilterItemType }) {
@@ -36,7 +37,7 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
   const newParams = new URLSearchParams(searchParams.toString())
 
   if (item.slug) {
-    newParams.set('sort', item.slug)
+    newParams.set('sort', translateClient("sorting", item.slug) ? item.slug : "")
   } else {
     newParams.delete('sort')
   }
@@ -54,7 +55,7 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
         href={href}
         className={`w-full pl-4 py-2 ${active ? 'bg-dark text-white' : ''}`}
       >
-        {item.title}
+        {translateClient("sorting", item.slug? item.slug : "Not found")}
       </DynamicTag>
     </li>
   )
@@ -85,7 +86,7 @@ function SortLanguageItem({ item }: { item: LanguageItem }) {
         href={href}
         className={`w-full pl-4 py-2 ${active ? 'bg-dark text-white' : ''}`}
       >
-        {item.title}
+        {translateClient("footer-language", item.code)}
       </DynamicTag>
     </li>
   )

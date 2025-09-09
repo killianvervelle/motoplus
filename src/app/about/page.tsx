@@ -84,10 +84,10 @@ const About = () => {
 
       <section className='section'>
         <div className='container'>
-          <div className='px-7 dark:bg-darkmode-light text-center rounded-md'>
+          <div className='px-7 dark:bg-darkmode-light text-center rounded-md '>
             <h2>Reasons to shop with us</h2>
 
-            <div className='bg-light row justify-center gap-6 py-20 mt-14'>
+            <div className='bg-light dark:bg-darkmode-light row justify-center gap-6 py-20 mt-14'>
               <div className='col-6 md:col-5 lg:col-3'>
                 <div className='flex justify-center'>
                   <FaTools size={48} />
@@ -125,7 +125,7 @@ const About = () => {
                 <p dangerouslySetInnerHTML={markdownify(faq_section_subtitle!)} className='md:text-lg text-justify pr-5' />
 
                 {button?.enable && (
-                  <Link className='btn btn-sm md:btn-lg btn-primary font-medium' href={button.link}>
+                  <Link className='btn btn-sm md:btn-lg btn-primary font-medium hover:bg-gray-700' href={button.link}>
                     {button.label}
                   </Link>
                 )}

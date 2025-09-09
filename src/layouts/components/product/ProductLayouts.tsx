@@ -9,6 +9,7 @@ import { BsGridFill } from 'react-icons/bs'
 import { FaList } from 'react-icons/fa6'
 import { TbFilter, TbFilterX } from 'react-icons/tb'
 import DropdownMenu from '../filter/DropdownMenu'
+import { translateClient } from "../../../lib/utils/translateClient";
 
 
 export type ListItem = SortFilterItem | PathFilterItem
@@ -68,7 +69,7 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
           <div className='col-12 lg:col-9'>
             <div className='flex justify-between items-center mb-4'>
               <div className='flex gap-x-4 items-center font-medium text-xs md:text-base'>
-                <p className='max-md:hidden text-text-dark dark:text-darkmode-text-dark'>Views</p>
+                <p className='max-md:hidden text-text-dark dark:text-darkmode-text-dark'>{translateClient("product-layout", "views")}</p>
                 <div className='flex gap-2'>
                   <button
                     onClick={() => layoutChange('card')}
@@ -105,7 +106,7 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
                 {/* Filter Button Trigger End */}
 
                 <div className='flex gap-x-4 items-center font-medium text-sm md:text-base relative z-20'>
-                  <p className='max-md:hidden text-text-dark dark:text-darkmode-text-dark'>Sort By</p>
+                  <p className='max-md:hidden text-text-dark dark:text-darkmode-text-dark'>{translateClient("product-layout", "sort-by")}</p>
                   <Suspense>
                     <DropdownMenu list={sorting} />
                   </Suspense>

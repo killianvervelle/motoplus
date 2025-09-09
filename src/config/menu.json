@@ -3,7 +3,7 @@
     {
       "name": "Home",
       "url": "/",
-      "slug": ""
+      "slug": "home"
     },
     {
       "name": "Used parts",
@@ -23,7 +23,7 @@
             {
               "name": "Chain and Sprockets Kit",
               "url": "/used-parts/drivetrain/chain-and-sprockets-kit",
-              "slug": "chain-and-sprockets-kit"
+              "slug": "chain-sprockets-kit"
             },
             {
               "name": "Chain Oiler System",
@@ -521,18 +521,18 @@
         },
         {
           "name": "Clothing and Merchandise",
-          "url": "/accessories/clothing-and-merchandise",
+          "url": "/accessories/clothing-merchandise",
           "slug": "clothing-merchandise",
           "hasChildren": true,
           "children": [
             {
               "name": "Clothing Care",
-              "url": "/accessories/clothing-and-merchandise/clothing-care",
+              "url": "/accessories/clothing-merchandise/clothing-care",
               "slug": "clothing-care"
             },
             {
               "name": "Pedal for Kids",
-              "url": "/accessories/clothing-and-merchandise/pedal-for-kids",
+              "url": "/accessories/clothing-merchandise/pedal-for-kids",
               "slug": "pedal-for-kids"
             }
           ]
@@ -586,7 +586,7 @@
         },
         {
           "name": "Wash and Shine",
-          "url": "/accessories/wash-and-shine",
+          "url": "/accessories/wash-shine",
           "slug": "wash-shine",
           "hasChildren": true,
           "children": [
@@ -680,7 +680,7 @@
         { "name": "HPX", "url": "/brands/h/hpx", "slug": "hpx" },
         { "name": "Haynes", "url": "/brands/h/haynes", "slug": "haynes" },
         { "name": "Held", "url": "/brands/h/held", "slug": "held" },
-        { "name": "Hepco & Becker", "url": "/brands/h/hepco-and-becker", "slug": "hepco-and-becker" },
+        { "name": "Hepco & Becker", "url": "/brands/h/hepco-and-becker", "slug": "hepco-becker" },
         { "name": "Hiflofiltro", "url": "/brands/h/hiflofiltro", "slug": "hiflofiltro" },
         { "name": "Hiplok", "url": "/brands/h/hiplok", "slug": "hiplok" },
 
@@ -689,7 +689,7 @@
         { "name": "JMP", "url": "/brands/j/jmp", "slug": "jmp" },
         { "name": "JT Sprockets", "url": "/brands/j/jt-sprockets", "slug": "jt-sprockets" },
 
-        { "name": "K&N", "url": "/brands/k/k-and-n", "slug": "k-and-n" },
+        { "name": "K&N", "url": "/brands/k/k-and-n", "slug": "k-n" },
         { "name": "KAOKO", "url": "/brands/k/kaoko", "slug": "kaoko" },
 
         { "name": "Liqui Moly", "url": "/brands/l/liqui-moly", "slug": "liqui-moly" },

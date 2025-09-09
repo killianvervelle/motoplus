@@ -10,7 +10,7 @@ export const defaultLanguage: LanguageItem = {
 
 export const languageItems: LanguageItem[] = [
   defaultLanguage,
-  { title: "Portugese", code: "pt" },
+  { title: "Portuguese", code: "pt" },
   { title: "French", code: "fr" },
 ]
 
@@ -23,7 +23,7 @@ export type SortFilterItem = {
 
 export const defaultSort: SortFilterItem = {
   title: "Relevance",
-  slug: null,
+  slug: "relevance",
   sortKey: "CREATED_AT",
   reverse: false,
 };
@@ -93,7 +93,7 @@ export const MENU_ITEMS: MenuItem[] = [
           { name: "Chains", slug: "chains" },
           { name: "Sprockets", slug: "sprockets" },
           { name: "Chain Guard", slug: "chain-guard" },
-          { name: "Chain and Sprockets Kit", slug: "chain-and-sprockets-kit" },
+          { name: "Chain and Sprockets Kit", slug: "chain-sprockets-kit" },
           { name: "Chain Oiler System", slug: "chain-oiler-system" },
           { name: "Chain Tools", slug: "chain-tools" },
           { name: "Clutch", slug: "clutch" },
@@ -149,7 +149,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Oil + Fluids",
-        slug: "oil-and-fluids",
+        slug: "oil-fluids",
         submenu: [
           { name: "Engine coolant", slug: "engine-coolant" },
           { name: "Engine Oil", slug: "engine-oil" },
@@ -205,7 +205,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Handlebar & Controls",
-        slug: "handlebar-and-controls",
+        slug: "handlebar-controls",
         submenu: [
           { name: "Mirror set", slug: "mirror-set" },
           { name: "Mirror Adapter", slug: "mirror-adapter" },
@@ -240,7 +240,7 @@ export const MENU_ITEMS: MenuItem[] = [
 
   {
     name: "ACCESSORIES",
-    slug: "accessories",
+    slug: "accessory",
     kind: "accessory",
     submenu: [
       {
@@ -279,7 +279,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Fuel & Additives",
-        slug: "fuel-and-additives",
+        slug: "fuel-additives",
         submenu: [
           { name: "Stabilizer", slug: "stabilizer" },
           { name: "Cleaner", slug: "cleaner" },
@@ -290,11 +290,11 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Wash and Shine",
-        slug: "wash-and-shine",
+        slug: "wash-shine",
         submenu: [
           { name: "Seat Spray", slug: "seat-spray" },
-          { name: "Polish and Wax", slug: "polish-and-wax" },
-          { name: "Chrome and Alu Polish", slug: "chrome-and-alu-polish" },
+          { name: "Polish and Wax", slug: "polish-wax" },
+          { name: "Chrome and Alu Polish", slug: "chrome-alu-polish" },
           { name: "Cleaning Supplies", slug: "cleaning-supplies" },
           { name: "Brush", slug: "brush" },
           { name: "Sponge", slug: "sponge" },
@@ -370,7 +370,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Clothing and Merchandise",
-        slug: "clothing-and-merchandise",
+        slug: "clothing-merchandise",
         submenu: [
           { name: "Clothing Care", slug: "clothing-care" },
           { name: "Pedal for Kids", slug: "pedal-for-kids" }
@@ -439,7 +439,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { name: "HPX", slug: "hpx" },
       { name: "Haynes", slug: "haynes" },
       { name: "Held", slug: "held" },
-      { name: "Hepco & Becker", slug: "hepco-and-becker" },
+      { name: "Hepco & Becker", slug: "hepco-becker" },
       { name: "Hiflofiltro", slug: "hiflofiltro" },
       { name: "Hiplok", slug: "hiplok" }
     ]},
@@ -451,7 +451,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { name: "JT Sprockets", slug: "jt-sprockets" }
     ]},
     { name: "K", slug: "k", submenu: [
-      { name: "K&N", slug: "k-and-n" },
+      { name: "K&N", slug: "k-n" },
       { name: "KAOKO", slug: "kaoko" }
     ]},
     { name: "L", slug: "l", submenu: [

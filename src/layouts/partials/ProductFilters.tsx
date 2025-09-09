@@ -8,6 +8,7 @@ import { slugify } from '@/lib/utils/textConverter'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { BsCheckLg } from 'react-icons/bs'
+import { translateClient } from "../../lib/utils/translateClient";
 
 const ProductFilters = ({
   categories,
@@ -58,7 +59,7 @@ const ProductFilters = ({
   return (
     <div>
       <div>
-        <h5 className='mb-2 lg:text-xl'>Select Price Range</h5>
+        <h5 className='mb-2 lg:text-xl'>{translateClient("product-filters", "price-range")}</h5>
         <hr className='border-border dark:border-darkmode-border' />
         <div className='pt-4'>
           <Suspense>
@@ -68,7 +69,7 @@ const ProductFilters = ({
       </div>
 
       <div>
-        <h5 className='mb-2 mt-4 lg:mt-6 lg:text-xl'>Product Categories</h5>
+        <h5 className='mb-2 mt-4 lg:mt-6 lg:text-xl'>{translateClient("product-filters", "product-cat")}</h5>
         <hr className='border-border dark:border-darkmode-border' />
         <ul className='mt-4 space-y-4'>
           {categories.map((category) => (
@@ -98,7 +99,7 @@ const ProductFilters = ({
 
       {vendors && (
         <div>
-          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>Brands</h5>
+          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{translateClient("product-filters", "brands")}</h5>
           <hr className='border-border dark:border-darkmode-border' />
           <ul className='mt-4 space-y-4'>
             {vendors.map((vendor) => (
@@ -142,7 +143,7 @@ const ProductFilters = ({
 
       {tags.length > 0 && (
         <div>
-          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>Tags</h5>
+          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{translateClient("product-filters", "tags")}</h5>
           <hr className='border-border dark:border-darkmode-border' />
           <div className='mt-4'>
             <Suspense>

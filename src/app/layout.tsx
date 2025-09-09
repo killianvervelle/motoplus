@@ -8,6 +8,7 @@ import Header from '@/partials/Header'
 import Navbar from '@/partials/Navbar'
 import Providers from '@/partials/Providers'
 import '@/styles/main.css'
+import { NextIntlClientProvider } from 'next-intl';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pf = theme.fonts.font_family.primary
@@ -33,13 +34,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
-          <Header>
-            <OpenCart />
-            <Cart />
-          </Header>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          <NextIntlClientProvider>
+            <Header>
+              <OpenCart />
+              <Cart />
+            </Header>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </NextIntlClientProvider>
         </Providers>
       </body>
     </html>

@@ -4,6 +4,8 @@ import config from '@/config/config.json'
 import ImageFallback from '@/helpers/ImageFallback'
 import { Product } from '@/lib/shopify/types'
 import Link from 'next/link'
+import { translateClient } from "../../lib/utils/translateClient";
+
 
 const FeaturedProducts = ({ products }: { products: Product[] }) => {
   const { currencySymbol } = config.shopify
@@ -65,7 +67,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
 
       <div className='flex justify-center'>
         <Link className='btn btn-sm md:btn-lg hover:bg-gray-700 btn-primary font-medium' href={'/products'}>
-          + See All Products
+          {translateClient("featuredProducts", "see-all-products")}
         </Link>
       </div>
     </>

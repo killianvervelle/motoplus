@@ -36,7 +36,8 @@ const ShowFeaturedProducts = async () => {
   return <FeaturedProducts products={products} />;
 };
 
-const Home = () => {
+const Home = async () => {
+
   return (
     <>
       <SeoMeta />

@@ -100,7 +100,6 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
       return { category, productCount }
     })
   } else {
-    // Fetch all products
     productsData = await getProducts({ sortKey, reverse, cursor })
   }
   const categories = await getCollections()
@@ -162,7 +161,6 @@ const ProductsListPage = async (props: { searchParams: Promise<SearchParams> }) 
 
   return (
     <>
-      {/* <PageHeader title={"Products"} /> */}
       <Suspense fallback={<LoadingProducts />}>
         <ShowProducts searchParams={searchParams} />
       </Suspense>

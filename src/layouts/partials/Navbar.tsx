@@ -1,34 +1,15 @@
 "use client";
 
 import React, { useState, useCallback } from 'react'
-//import { useSearchParams, useRouter } from 'next/navigation'
 import { MENU_ITEMS } from '@/lib/constants';
-//import { createUrl } from '@/lib/utils'
 import Link from "next/link";
 import clsx from "clsx";
+import { translateClient } from "../../lib/utils/translateClient";
 
 export default function Navbar() {
-    //const router = useRouter();
-    //const searchParams = useSearchParams();
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const open = useCallback((i: number) => setOpenIndex(i), []);
     const close = useCallback(() => setOpenIndex(null), []);
-
-
-    /**type MenuKind = "brand" | "category" | "accessory";
-
-    const setSingleParam = (key: "b" | "c" | "a", value: string, scroll = true) => {
-        const params = new URLSearchParams(searchParams?.toString() ?? "");
-        params.delete(key);
-        params.append(key, value);
-        router.push(createUrl("/products", params), { scroll });
-    };
-
-    const handlers: Record<MenuKind, (slug: string) => void> = {
-        brand: (slug) => setSingleParam("b", slug, true),
-        category: (slug) => setSingleParam("c", slug, true),
-        accessory: (slug) => setSingleParam("a", slug, true),
-    };**/
 
     return (
         <div className="mb-10 bg-[#d7d7d7] dark:bg-darkmode-light">
@@ -83,7 +64,7 @@ export default function Navbar() {
                                     <button
                                         className={clsx(
                                             "text-[13px] px-1 py-1 rounded transition-colors hover:text-[#c60404] font-bold",
-                                            "text-[#29292c] dark:text-white dark:hover:text-white",
+                                            "text-[#29292c] dark:text-white dark:hover:text-[#c60404]",
                                             isOpen && "bg-white/70 dark:bg-white/10"
                                         )}
                                         aria-haspopup="true"
@@ -92,7 +73,7 @@ export default function Navbar() {
                                         onClick={() => (isOpen ? close() : open(i))}
                                         onKeyDown={(e) => e.key === "Escape" && close()}
                                     >
-                                        {menuItem.name}
+                                        {translateClient("menu", menuItem.slug)}
                                     </button>
 
                                     <div
@@ -106,7 +87,7 @@ export default function Navbar() {
                                         onMouseLeave={close}
                                         onMouseEnter={() => open(i)}
                                     >
-                                        <div className="bg-[#fafafc] rounded-b-md container dark:bg-darkmode-body w-full border border-gray-200 dark:border-border/40 shadow-xl pointer-events-auto">
+                                        <div className="bg-[#fafafc] rounded-b-md container  dark:bg-darkmode-body w-full border border-gray-200 dark:border-border/40 shadow-xl pointer-events-auto">
                                             <div className="p-6">
                                                 <ul className="columns-1 sm:columns-2 md:columns-3 xl:columns-4 gap-x-8 [column-fill:_balance] space-y-5">
                                                     {menuItem.submenu.map((section) => {
@@ -122,12 +103,12 @@ export default function Navbar() {
                                                                     <Link
                                                                         href={{ pathname: "/products", query: { group: menuItem.slug, subgroup: section.slug } }}
                                                                         className="inline-block text-[15px] font-extrabold text-[#c70303] dark:text-white
-                                                                        hover:underline underline-offset-4 decoration-current
+                                                                        hover:underline underline-offset-4 decoration-current dark:hover:text-[#c60404]
                                                                         focus-visible:underline focus-visible:outline-none rounded"
                                                                         onClick={close}
                                                                         role="menuitem"
                                                                     >
-                                                                        {section.name}
+                                                                        {translateClient("menu", section.slug)}
                                                                     </Link>
                                                                 </div>
 
@@ -139,11 +120,11 @@ export default function Navbar() {
                                                                                     pathname: "/products",
                                                                                     query: { group: menuItem.slug, subgroup: section.slug },
                                                                                 }}
-                                                                                className="text-sm font-medium text-[#1d1d1f] hover:text-black hover:bg-[#f5f5f7] dark:text-white dark:hover:bg-white/5 rounded-md py-1 px-1"
+                                                                                className="text-sm font-medium text-[#1d1d1f] dark:hover:text-[#c60404] hover:bg-[#f5f5f7] dark:text-white dark:hover:bg-white/5 rounded-md py-1 px-1"
                                                                                 onClick={close}
                                                                                 role="menuitem"
                                                                             >
-                                                                                {section.name}
+                                                                                {translateClient("menu", section.slug)}
                                                                             </Link>
                                                                         </li>
                                                                     ) : (
@@ -154,11 +135,11 @@ export default function Navbar() {
                                                                                         pathname: "/products",
                                                                                         query: { group: menuItem.slug, subgroup: section.slug, category: item.slug },
                                                                                     }}
-                                                                                    className="text-sm hover:underline font-semibold text-[#1d1d1f] hover:text-black dark:text-white rounded-md py-1 px-1"
+                                                                                    className="text-sm hover:underline font-semibold text-[#1d1d1f] dark:hover:text-[#c60404] dark:text-white rounded-md py-1 px-1"
                                                                                     onClick={close}
                                                                                     role="menuitem"
                                                                                 >
-                                                                                    {item.name}
+                                                                                    {translateClient("menu", item.slug)}
                                                                                 </Link>
                                                                                 {idx < items.length - 1 && <span>,&nbsp;</span>}
                                                                             </li>

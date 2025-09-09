@@ -4,6 +4,7 @@ import { createUrl } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoClose, IoSearch } from "react-icons/io5";
+import { translateClient } from "../../lib/utils/translateClient";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -73,7 +74,7 @@ const SearchBar = () => {
         key={searchParams?.get("q")}
         type="search"
         name="search"
-        placeholder="Search for products"
+        placeholder={translateClient("searchbar", "search-for-products")}
         autoComplete="off"
         value={inputValue}
         onChange={handleChange}

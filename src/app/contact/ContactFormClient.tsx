@@ -14,14 +14,12 @@ console.log('[route] reached');
 
 export default function ContactForm() {
     const [sending, setSending] = useState(false);
-    const [done, setDone] = useState(false);
     const { executeRecaptcha } = useGoogleReCaptcha();
 
 
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setDone(false);
 
         const form = e.currentTarget;
         const data = new FormData(form);
@@ -38,7 +36,6 @@ export default function ContactForm() {
         }
 
         try {
-            // 1) Validate captcha on your server
             const v = await fetch("/api/customer/validateRecaptcha", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -48,10 +45,9 @@ export default function ContactForm() {
             if (!v.ok) {
                 const j = await v.json().catch(() => ({} as any));
                 console.log(`Captcha check failed${j?.error ? `: ${j.error}` : ""}`);
-                return; // finally{} will still run
+                return;
             }
 
-            // 2) Send your message
             const payload = {
                 firstName: data.get("firstName"),
                 lastName: data.get("lastName"),
@@ -73,9 +69,6 @@ export default function ContactForm() {
             }
 
             form.reset();
-            setDone(true);
-            console.log("Thanks! We’ll be in touch.");
-            setTimeout(() => setDone(false), 3000);
         } catch (err) {
             console.log("Network error. Please try again.", err);
         } finally {
@@ -138,13 +131,13 @@ export default function ContactForm() {
                         </h2>
 
                         <form
-                            className="border border-border dark:border-darkmode-border rounded-md p-10"
+                            className="border border-border dark:border-darkmode-border rounded-md p-10 "
                             method="POST"
                             onSubmit={onSubmit}
                         >
                             <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                                 <div>
-                                    <label htmlFor="firstName" className="form-label">
+                                    <label htmlFor="firstName" className="dark:text-white">
                                         First Name <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -158,7 +151,7 @@ export default function ContactForm() {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="lastName" className="form-label">
+                                    <label htmlFor="lastName" className="dark:text-white">
                                         Last Name
                                     </label>
                                     <input
@@ -173,7 +166,7 @@ export default function ContactForm() {
 
                             <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                                 <div>
-                                    <label htmlFor="email" className="form-label">
+                                    <label htmlFor="email" className="dark:text-white">
                                         Email Address <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -186,7 +179,7 @@ export default function ContactForm() {
                                 </div>
 
                                 <div>
-                                    <label htmlFor="name" className="form-label">
+                                    <label htmlFor="name" className="dark:text-white">
                                         Subject <span className="text-red-500">*</span>
                                     </label>
                                     <input
@@ -201,7 +194,7 @@ export default function ContactForm() {
                             </div>
 
                             <div className="mb-6">
-                                <label htmlFor="message" className="form-label">
+                                <label htmlFor="message" className="dark:text-white">
                                     Message <span className="text-red-500">*</span>
                                 </label>
                                 <textarea
@@ -215,8 +208,8 @@ export default function ContactForm() {
                             </div>
 
                             <div className="flex justify-end">
-                                <button type="submit" disabled={sending || done} className="btn btn-primary">
-                                    {sending ? "Sending…" : done ? "Sent" : "Send"}
+                                <button type="submit" disabled={sending} className="btn btn-primary hover:bg-gray-700 h-7 flex items-center justify-center">
+                                    {sending ? "Sending…" : "Send"}
                                 </button>
                             </div>
                         </form>

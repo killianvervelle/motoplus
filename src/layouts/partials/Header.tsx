@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
 import Image from "next/image";
+import { translateClient } from "../../lib/utils/translateClient";
+
 
 interface IChildNavigationLink {
   name: string
@@ -55,7 +57,7 @@ function MenuGroup({
           }`}
         onClick={onToggle}
       >
-        {menu.name}
+        {translateClient("header", menu.slug)}
         <svg className='h-4 w-4 fill-current ml-2 ' viewBox='0 0 20 20'>
           <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
         </svg>
@@ -73,7 +75,7 @@ function MenuGroup({
                 }}
                 className={`nav-sublink hover:text-[#c70303] inline-flex items-center ${isMenuItemActive(child, pathname)}`}
               >
-                {child.name}
+                {translateClient("menu", child.slug)}
                 {grand.length > 0 && (
                   <svg className="h-4 w-4 ml-2 fill-current" viewBox="0 0 20 20">
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
@@ -89,7 +91,7 @@ function MenuGroup({
                         href={{ pathname: "/products", query: { group: menu.slug, subgroup: child.slug, category: cat.slug } }}
                         className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(cat, pathname)}`}
                       >
-                        {cat.name}
+                     {translateClient("menu", cat.slug)}
                       </Link>
                     </li>
                   ))}
@@ -103,7 +105,7 @@ function MenuGroup({
   ) : (
     <li className='nav-item' key={menu.name}>
       <Link href={menu.url} className={`nav-link block hover:text-[#c70303] ${isMenuItemActive(menu, pathname)}`}>
-        {menu.name}
+        {translateClient("header", menu.slug)}
       </Link>
     </li>
   )
