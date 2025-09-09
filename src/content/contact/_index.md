@@ -1,5 +1,5 @@
 ---
-title: ''Connect with Us
+title: 'Connect with Us'
 meta_title: ''
 description: 'this is meta description'
 draft: false

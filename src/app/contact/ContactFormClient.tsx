@@ -4,7 +4,7 @@ import { markdownify } from "@/lib/utils/textConverter";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import { ContactUsItem } from "@/types";
-import { GoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 import { useState } from "react";
 
@@ -13,15 +13,11 @@ export const revalidate = 0;
 console.log('[route] reached');
 
 export default function ContactForm() {
-    const [token, setToken] = useState<string | null>(null);
     const [sending, setSending] = useState(false);
     const [done, setDone] = useState(false);
-    const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
 
-    const handleVerify = (recaptchaToken: string) => {
-        setToken(recaptchaToken);
-    };
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -31,6 +27,15 @@ export default function ContactForm() {
 
         setSending(true);
 
+        if (!executeRecaptcha) {
+            return;
+        }
+
+        const token = await executeRecaptcha("contact");
+        if (!token) {
+            return;
+        }
+
         const v = await fetch("/api/customer/validateRecaptcha", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -39,7 +44,6 @@ export default function ContactForm() {
 
         if (!v.ok) {
             setSending(false);
-            setRefreshReCaptcha((r) => !r);
             return;
         }
 
@@ -57,18 +61,11 @@ export default function ContactForm() {
             body: JSON.stringify(payload),
         });
 
-        if (!token) {
-            setRefreshReCaptcha((v) => !v);
-            return;
-        }
-
         setSending(false);
         if (r.ok) form.reset();
 
         setDone(true)
-
         setToken(null);
-        setRefreshReCaptcha((val) => !val);
     }
 
     const data = {
@@ -117,8 +114,6 @@ export default function ContactForm() {
                     </div>
                 </div>
             </section>
-
-            <GoogleReCaptcha onVerify={handleVerify} refreshReCaptcha={refreshReCaptcha} />
 
             <section className="section">
                 <div className="container">
