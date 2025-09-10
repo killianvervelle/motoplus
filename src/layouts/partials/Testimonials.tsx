@@ -2,7 +2,7 @@
 
 import ImageFallback from '@/helpers/ImageFallback'
 import { markdownify } from '@/lib/utils/textConverter'
-import { Testimonial } from '@/types'
+import { TranslatedTestimonial } from '@/types'
 import { useRef, useState } from 'react'
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi'
 // Import Swiper styles
@@ -11,8 +11,10 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { TestimonialsProps } from '@/types'
 
-const Testimonials = ({ title, testimonials }: { title: string; testimonials: Array<Testimonial> }) => {
+
+const Testimonials = ({ title, testimonials }: TestimonialsProps) => {
   const [, setInit] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
@@ -39,10 +41,9 @@ const Testimonials = ({ title, testimonials }: { title: string; testimonials: Ar
                 prevEl: prevRef.current,
                 nextEl: nextRef.current
               }}
-              //trigger a re-render by updating the state on swiper initialization
               onInit={() => setInit(true)}
             >
-              {testimonials.map((item: Testimonial, index: number) => (
+              {testimonials.map((item: TranslatedTestimonial, index: number) => (
                 <SwiperSlide key={index}>
                   <div className='rounded-lg relative flex flex-col items-center bg-light px-7 py-10 dark:bg-darkmode-light'>
                     <div className='text-text-dark dark:text-white absolute opacity-25'>
@@ -73,7 +74,7 @@ const Testimonials = ({ title, testimonials }: { title: string; testimonials: Ar
                           height={50}
                           width={50}
                           className='rounded-full'
-                          src={item.avatar}
+                          src={"/images/avatar-sm.png"}
                           alt={item.name}
                         />
                       </div>

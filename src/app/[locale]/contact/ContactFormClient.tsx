@@ -5,7 +5,7 @@ import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import { ContactUsItem } from "@/types";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-
+import { translateClient } from "../../../lib/utils/translateClient";
 import { useState } from "react";
 
 export const runtime = 'nodejs';
@@ -15,8 +15,6 @@ console.log('[route] reached');
 export default function ContactForm() {
     const [sending, setSending] = useState(false);
     const { executeRecaptcha } = useGoogleReCaptcha();
-
-
 
     async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -80,18 +78,22 @@ export default function ContactForm() {
         "contact_meta": [
             {
                 "name": "Address",
+                "slug": "adress",
                 "contact": "Chem. des Mésanges 4, 1032 Romanel-sur-Lausanne"
             },
             {
                 "name": "Email",
+                "slug": "email",
                 "contact": "motopecas.net@gmail.com"
             },
             {
                 "name": "Phone",
+                "slug": "phone",
                 "contact": "(+41) 021 535 67 11"
             },
             {
                 "name": "Shop Time",
+                "slug": "shop-time",
                 "contact": "Monday - Friday:</br> 8:30 am – 12 pm </br> 1:30 pm – 6:30 pm </br></br>  Saturday: </br> 9 am – 12 pm </br> 12:10 pm – 4 pm </br>"
             }
         ]
@@ -100,9 +102,9 @@ export default function ContactForm() {
     return (
         <>
             <SeoMeta
-                title={'Connect with Us'}
+                title={translateClient("contact-seo-header", "title")}
             />
-            <PageHeader title={'Connect with Us'} />
+            <PageHeader title={translateClient("contact-seo-header", "title")} />
             <section className="pt-12 xl:pt-24">
                 <div className="container">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -112,10 +114,9 @@ export default function ContactForm() {
                                     key={contact.name}
                                     className="p-6 bg-light dark:bg-darkmode-light rounded-md text-center"
                                 >
-                                    <p
-                                        dangerouslySetInnerHTML={markdownify(contact.name)}
-                                        className="mb-6 h3 font-medium text-text-dark dark:text-darkmode-text-dark"
-                                    />
+                                    <p className="mb-6 h3 font-medium text-text-dark dark:text-darkmode-text-dark">
+                                        {translateClient("contact-title", contact.slug)}
+                                    </p>
                                     <p dangerouslySetInnerHTML={markdownify(contact.contact)} />
                                 </div>
                             ))}
@@ -127,7 +128,7 @@ export default function ContactForm() {
                 <div className="container">
                     <div className="mx-auto lg:col-10 my-20">
                         <h2 className="mb-14 text-center">
-                            We would love to hear from you!
+                            {translateClient("contact-title", "hear-from-you")}
                         </h2>
 
                         <form
@@ -138,7 +139,7 @@ export default function ContactForm() {
                             <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                                 <div>
                                     <label htmlFor="firstName" className="dark:text-white">
-                                        First Name <span className="text-red-500">*</span>
+                                        {translateClient("contact-form", "firstName")} <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         id="firstName"
@@ -152,7 +153,7 @@ export default function ContactForm() {
 
                                 <div>
                                     <label htmlFor="lastName" className="dark:text-white">
-                                        Last Name
+                                        {translateClient("contact-form", "lastName")}
                                     </label>
                                     <input
                                         id="lastName"
@@ -167,7 +168,7 @@ export default function ContactForm() {
                             <div className="mb-6 md:grid grid-cols-2 gap-x-8 max-md:space-y-6">
                                 <div>
                                     <label htmlFor="email" className="dark:text-white">
-                                        Email Address <span className="text-red-500">*</span>
+                                        {translateClient("contact-form", "email")} <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         id="email"
@@ -180,7 +181,7 @@ export default function ContactForm() {
 
                                 <div>
                                     <label htmlFor="name" className="dark:text-white">
-                                        Subject <span className="text-red-500">*</span>
+                                        {translateClient("contact-form", "subject")} <span className="text-red-500">*</span>
                                     </label>
                                     <input
                                         id="name"
@@ -195,7 +196,7 @@ export default function ContactForm() {
 
                             <div className="mb-6">
                                 <label htmlFor="message" className="dark:text-white">
-                                    Message <span className="text-red-500">*</span>
+                                    {translateClient("contact-form", "message")} <span className="text-red-500">*</span>
                                 </label>
                                 <textarea
                                     id="message"
@@ -209,7 +210,7 @@ export default function ContactForm() {
 
                             <div className="flex justify-end">
                                 <button type="submit" disabled={sending} className="btn btn-primary hover:bg-gray-700 h-7 flex items-center justify-center">
-                                    {sending ? "Sending…" : "Send"}
+                                    {sending ? translateClient("contact-form", "sending") : translateClient("contact-form", "send")}
                                 </button>
                             </div>
                         </form>

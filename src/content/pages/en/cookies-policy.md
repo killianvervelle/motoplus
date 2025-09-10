@@ -9,7 +9,7 @@ draft: false
 
 ## Cookies Policy
 
-### Last updated: 08.09.2025
+### Last updated: 08/09/2025
 
 At **MotoPlus** (“we”, “us”, “our”), we respect your privacy and are committed to being transparent about how we use cookies when you access our website and services (the “Site”). This Cookies Policy explains what cookies are, how we use them, and your choices regarding cookies.
 

@@ -7,7 +7,7 @@ draft: false
 
 <div class="justified">
 
-## MotoPlus Privacy Policy
+## Privacy Policy
 
 ### Last updated: 08.09.2025
 

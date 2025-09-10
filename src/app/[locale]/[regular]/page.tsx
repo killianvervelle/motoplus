@@ -2,19 +2,10 @@ import MDXContent from "@/helpers/MDXContent";
 import { getSinglePage } from "@/lib/contentParser";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
-import { RegularPage } from "@/types";
 import { notFound } from "next/navigation";
+import { useLocale } from 'next-intl'
 
 export const dynamic = 'force-dynamic';
-
-// Generate static params
-export const generateStaticParams = () => {
-  const regularPages = getSinglePage("pages").map((page: RegularPage) => ({
-    regular: page.slug,
-  }));
-  console.log('Static regular slugs:', regularPages.map(p => p));
-  return regularPages;
-};
 
 // For all regular pages
 export default async function RegularPages({
@@ -22,9 +13,9 @@ export default async function RegularPages({
 }: {
   params: { regular: string };
 }) {
-  // Make sure this function works in prod (Node runtime), not Edge
-  const all = getSinglePage('pages');
-  const data = all.find((p: RegularPage) => p.slug === params.regular);
+  const locale = useLocale()
+  const all = getSinglePage(`pages/${locale}`)
+  const data = all.find((p) => p.slug === params.regular);
 
   console.log('Static regular slugs:', data);
 

@@ -5,14 +5,15 @@ import { plainify } from "@/lib/utils/textConverter";
 import { usePathname } from "next/navigation";
 
 const SeoMeta = ({
-  title,
+  main_slug_title,
   meta_title,
   image,
   description,
   canonical,
   noindex,
 }: {
-  title?: string;
+  title?: string,
+  main_slug_title?: string;
   meta_title?: string;
   image?: string;
   description?: string;
@@ -27,7 +28,7 @@ const SeoMeta = ({
     <>
       {/* title */}
       <title>
-        {plainify(meta_title ? meta_title : title ? title : config.site.title)}
+        {plainify(meta_title ? meta_title : main_slug_title ? main_slug_title : config.site.title)}
       </title>
 
       {/* canonical url */}
@@ -49,7 +50,7 @@ const SeoMeta = ({
       <meta
         property="og:title"
         content={plainify(
-          meta_title ? meta_title : title ? title : config.site.title,
+          meta_title ? meta_title : main_slug_title ? main_slug_title : config.site.title,
         )}
       />
 

@@ -327,7 +327,7 @@
   "footer-about": {
     "about-us": "About us",
     "terms-of-service": "Terms of Service",
-    "privacy-policy": "Privacy & Policy",
+    "privacy-policy": "Privacy Policy",
     "cookies-policy": "Cookies policy"
   },
   "footer-service": {
@@ -365,5 +365,87 @@
     "product-cat": "Product Categories",
     "brands": "Brands",
     "tags": "Tags"
+  },
+  "contact-meta": {
+    "adress": "Chem. des Mésanges 4, 1032 Romanel-sur-Lausanne",
+    "email": "motopecas.net@gmail.com",
+    "phone": "(+41) 021 535 67 11",
+    "shop-time": "Monday - Friday:</br> 8:30 am – 12 pm </br> 1:30 pm – 6:30 pm </br></br>  Saturday: </br> 9 am – 12 pm </br> 12:10 pm – 4 pm </br>"
+  },
+  "contact-title": {
+    "adress": "Adress",
+    "email": "Email",
+    "phone": "Phone",
+    "shop-time": "Shop Time",
+    "hear-from-you": "We would love to hear from you!"
+  },
+  "contact-form": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending..."
+  },
+  "breadCrums": {
+    "contact": "Contact",
+    "about": "About Us",
+    "terms-service": "Terms of Service",
+    "privacy-policy": "Privacy Policy",
+    "cookies-policy": "Cookies Policy"
+  },
+  "contact-seo-header": {
+    "title": "Connect with Us"
+  },
+  "about-us-seo-header": {
+    "title": "About Us"
+  },
+
+  "about-us": {
+    "title": "About Us",
+    "image": "/images/aboutUs.png",
+    "our-company": "Our company",
+    "content": "At MOTOPLUS SITE76, our true passion is the world of motorcycles and everything that surrounds two-wheel culture. We are a company created by motorcyclists, for motorcyclists, with the purpose of serving everyone — from beginners to the most experienced riders — by offering solutions that accompany every stage of their journey on two wheels.\n\nOur goal is to build the most complete and specialized marketplace in the industry, bringing together in one place a wide selection of high-quality parts, accessories, gear, and services. We know that every motorcyclist has a unique relationship with their bike, and that’s why we strive to deliver a shopping experience that stands out, with products that enhance performance, comfort, safety, and riding style.\n\nBeyond a diverse portfolio, at MOTOPLUS SITE76 we value personalized service and expert technical support, because we believe that buying parts and accessories for your motorcycle goes far beyond a simple transaction — it’s about understanding the rider’s needs, passion, and project.\n\nWe are always seeking innovation, new partnerships with trusted brands, and suppliers who share the same passion for quality and excellence. Our aim is to become a national reference — a trusted platform for motorcyclists who want the very best for their machine and for their experience on the road or track.\n\nWhether you’re a speed enthusiast, a trail adventurer, or someone who embraces motorcycles as a lifestyle, MOTOPLUS SITE76 is here to be your partner in every kilometer.",
+    "faq-section-title": "Frequently Asked Questions",
+    "faq-section-subtitle": "We know buying used motorcycle parts can raise questions. Here you’ll find clear information about part inspections, fitment, delivery, and our guarantees.",
+    "label": "Contact Us",
+    "link": "/contact",
+    "faq1title": "Where do your motorcycle parts come from?",
+    "faq1content": "All parts listed on our platform come directly from motorcycles dismantled by our own team. We do not work with third-party vendors — this ensures full control over the origin and quality of every part.",
+    "faq2title": "Are the parts inspected before being listed?",
+    "faq2content": "Yes, each part is carefully dismantled, cleaned, and inspected by our specialists before being added to the catalog. We guarantee that all listed items are in usable condition and accurately described.",
+    "faq3title": "How do I know if a part is compatible with my motorcycle?",
+    "faq3content": "Each part listing includes details about the model, year, and version of the motorcycle it was taken from. If you’re unsure about compatibility, our support team can help you confirm before purchase.",
+    "faq4title": "Do you provide any warranty on secondhand parts?",
+    "faq4content": "We offer a limited guarantee on all dismantled parts to ensure they arrive as described and in working order. The warranty period and coverage details are specified on each product page.",
+    "faq5title": "Can I return a part if it doesn’t fit my motorcycle?",
+    "faq5content": "Yes, we accept returns within a defined period if the part is incompatible or not as described. Please make sure to check compatibility details before purchasing, and contact our team if in doubt.",
+    "faq6title": "Do you ship parts nationwide?",
+    "faq6content": "Absolutely. We pack all parts securely and ship across the country with trusted carriers. Shipping costs and delivery times depend on the size of the part and your location.",
+    "testimonials-section-enable": true,
+    "testimonials-section-title": "What Our Client Says",
+    "name1": "Killian Vervelle",
+    "design1": "Motorcycle Enthusiast",
+    "avat1": "/images/avatar-sm.png",
+    "cont1": "I found the exact OEM part I needed for my Yamaha at a fraction of the price, and it arrived in excellent condition. The whole process was smooth and gave me full confidence to order again.",
+    "name2": "Edouard Chateau",
+    "design2": "Adventure Rider",
+    "avat2": "/images/avatar-sm.png",
+    "cont2": "As a mechanic, I need reliable suppliers. Every part I’ve ordered has been carefully dismantled, inspected, and exactly as described. This marketplace has become my go-to source for quality used motorcycle parts.",
+    "name3": "Manuel DaSilva",
+    "design3": "Workshop Owner",
+    "avat3": "/images/avatar-sm.png",
+    "cont3": "Running a workshop means time and trust are everything. With MOTOPLUS SITE76 I can quickly source genuine parts at fair prices, helping me keep my customers’ bikes on the road without delays.",
+    "contact-us": "Contact Us",
+    "contact": "/contact",
+
+    "reasons": "Reasons to shop with us",
+    "direct": "Direct from Dismantling",
+    "third-party": "All parts come from bikes we dismantle ourselves—no third-party sellers.",
+    "fast-secure": "Fast & secure shipping",
+    "delivery": "Carefully packed, nationwide delivery.",
+    "quality": "Quality Guaranteed",
+    "inspected": "Inspected and described by specialists for condition and authenticity."
   }
 }

@@ -8,14 +8,25 @@ import Header from '@/partials/Header'
 import Navbar from '@/partials/Navbar'
 import Providers from '@/partials/Providers'
 import '@/styles/main.css'
-import { NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function RootLayout({ children, params }: { children: React.ReactNode, params: Promise<{ locale: string }>; }) {
   const pf = theme.fonts.font_family.primary
   const sf = theme.fonts.font_family.secondary
 
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
-    <html suppressHydrationWarning={true} lang='en'>
+    <html suppressHydrationWarning={true} lang={locale}>
       <head>
         <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=5' />
 

@@ -1,48 +1,46 @@
 export type RegularPage = {
   frontmatter: {
-    title: string
-    image?: string
-    description?: string
+    title?: string
     meta_title?: string
-    layout?: string
-    draft?: boolean
-    about_us?: AboutUsItem[]
+    description?: string
+    image?: string
+    main_slug_title: string
+    about_us: AboutUsItem[]
     contact_meta?: ContactUsItem[]
-    faq_section_title?: string
-    button?: Button
-    faq_section_subtitle?: string
-    faqs?: { title: string; content: string }[]
+    button: Button
+    slug_faq_section_title: string
+    faqs: Faq[]
     testimonials_section_enable: boolean
-    testimonials_section_title?: string
-    testimonials?: {
-      name: string
-      designation: string
-      avatar: string
-      content: string
-    }[]
+    slug_faq_section_subtitle: string
+    testimonials: Testimonial[]
     staff_section_enable?: boolean
+    slug_testimonials_section_title: string
     staff?: {
       name: string
       designation: string
       avatar: string
     }[]
   }
-  content: string
-  slug?: string
 }
 
 export type AboutUsItem = {
   image: string
-  content: string
-  title: string
+  slug_content: string
+  slug_title: string
 }
 
 export type ContactUsItem = {
   name: string
   contact: string
+  slug: sting
 }
 
 export type Faq = {
+  slug_title: string
+  slug_content: string
+}
+
+export type TranslatedFaq = {
   title: string
   content: string
 }
@@ -89,11 +87,29 @@ export type Feature = {
   title: string
 }
 
+export type Button = {
+  enable: boolean
+  slug_label: string
+  slug_link: string
+}
+
 export type Testimonial = {
+  slug_name: string
+  slug_designation: string
+  slug_content:string
+  avatar: string
+}
+
+type TestimonialsProps = {
+  title: string
+  testimonials: TranslatedTestimonial[]
+}
+
+export type TranslatedTestimonial = {
   name: string
   designation: string
-  avatar: string
   content: string
+  image: string
 }
 
 export type Banner = {
@@ -110,12 +126,6 @@ export type Call_to_action = {
   description: string
   image: string
   button: Button
-}
-
-export type Button = {
-  enable: boolean
-  label: string
-  link: string
 }
 
 export type contact_meta = {

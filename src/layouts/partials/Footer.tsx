@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#353434] dark:bg-darkmode-light mt-30 text-white">
       <div className="container">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-start sm:justify-center xs: gap-x-gap-5 sm:gap-x-10 xl:gap-40 py-10 md:pt-10 md:pb-14">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-start sm:justify-center xs: gap-x-gap-5 sm:gap-x-10 xl:gap-30 py-10 md:pt-10 md:pb-14">
           <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-28">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-contact", "contact-us")}</span>
             <a

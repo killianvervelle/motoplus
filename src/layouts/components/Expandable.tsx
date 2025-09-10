@@ -1,14 +1,14 @@
 "use client";
 
-import { Faq } from "@/types";
 import { useState } from "react";
+import { TranslatedFaq } from '@/types'
 
-const Expandable = ({ faqs }: { faqs: Faq[] }) => {
+const Expandable = ({ faqs }: { faqs: TranslatedFaq[] }) => {
   const [activeTab, setActiveTab] = useState<number | null>(0);
 
   return (
     <>
-      {faqs.map((faq: Faq, index) => (
+      {faqs.map((faq: TranslatedFaq, index) => (
         <div
           key={index}
           className={`accordion ${activeTab === index && "active"}`}
