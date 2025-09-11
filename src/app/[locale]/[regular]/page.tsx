@@ -2,10 +2,20 @@ import MDXContent from "@/helpers/MDXContent";
 import { getSinglePage } from "@/lib/contentParser";
 import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
+import { RegularPage } from "@/types";
 import { notFound } from "next/navigation";
 import { useLocale } from 'next-intl'
 
 export const dynamic = 'force-dynamic';
+
+// Generate static params
+export const generateStaticParams = () => {
+  const regularPages = getSinglePage("pages").map((page: RegularPage) => ({
+    regular: page.frontmatter.main_slug_title,
+  }));
+  console.log('Static regular slugs:', regularPages.map(p => p));
+  return regularPages;
+};
 
 // For all regular pages
 export default async function RegularPages({
