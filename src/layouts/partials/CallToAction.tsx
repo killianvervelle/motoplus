@@ -2,6 +2,8 @@ import ImageFallback from "@/helpers/ImageFallback";
 import { markdownify } from "@/lib/utils/textConverter";
 import { Call_to_action } from "@/types";
 import Link from "next/link";
+import { translateServer } from "../../lib/utils/translateServer";
+
 
 interface PageData {
   notFound?: boolean;
@@ -9,7 +11,10 @@ interface PageData {
   frontmatter: Call_to_action;
 }
 
-const CallToAction = ({ data }: { data: PageData }) => {
+const CallToAction = async ({ data }: { data: PageData }) => {
+  const translatedUrl = await translateServer("about-us", data.frontmatter.button.slug_link)
+  const translatedLabel = await translateServer("about-us", data.frontmatter.button.slug_label)
+
   return (
     <>
       {data.frontmatter.enable && (
@@ -40,9 +45,9 @@ const CallToAction = ({ data }: { data: PageData }) => {
                   {data.frontmatter.button.enable && (
                     <Link
                       className="btn btn-sm md:btn-lg btn-primary font-medium"
-                      href={data.frontmatter.button.link}
+                      href={translatedUrl}
                     >
-                      {data.frontmatter.button.label}
+                      {translatedLabel}
                     </Link>
                   )}
                 </div>
