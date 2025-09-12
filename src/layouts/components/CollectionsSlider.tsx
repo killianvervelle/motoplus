@@ -57,25 +57,25 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
         onInit={() => setInit(true)}
       >
         {collectionsData?.map((item: any) => {
-          const { title, handle, image } = item
+          const { title, handle, featuredImage, priceRange } = item
           return (
             <SwiperSlide key={handle}>
-              <div className='text-center relative'>
+              <div className='text-center relative rounded-md overflow-hidden group'>
                 <img
-                  src={image?.url}
+                  src={featuredImage.url}
                   width={424}
                   height={306}
                   alt={title}
-                  className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md'
+                  className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
                 />
                 <div className='py-6'>
-                  <h3 className='mb-2 font-medium h4'>
-                    <Link className='after:absolute after:inset-0' href={`/products?c=${handle}`}>
+                  <h4 className='mb-2 font-medium h5'>
+                    <Link className='after:absolute after:inset-0' href={`/products/${handle}`}>
                       {title}
                     </Link>
-                  </h3>
+                  </h4>
                   <p className='text-text-light dark:text-darkmode-text-light text-xs md:text-xl'>
-                    {item.products?.edges.length} items
+                    {priceRange.maxVariantPrice.amount} CHF
                   </p>
                 </div>
               </div>
@@ -84,11 +84,10 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
         })}
 
         <div
-          className={`hidden md:block w-full absolute top-[33%] z-10 px-4 text-text-dark ${
-            isHovered
+          className={`block w-full absolute top-[33%] z-10 px-4 text-text-dark ${isHovered
               ? 'opacity-100 transition-opacity duration-300 ease-in-out'
               : 'opacity-0 transition-opacity duration-300 ease-in-out'
-          }`}
+            }`}
         >
           <div ref={prevRef} className='p-2 lg:p-3 rounded-md bg-body cursor-pointer shadow-sm absolute left-4'>
             <HiOutlineArrowNarrowLeft size={24} />

@@ -1,7 +1,7 @@
 ---
 title: 'Privacy Policy'
-meta_title: ''
-description: 'this is meta description'
+meta_title: 'Privacy Policy | MotoPlus'
+description: 'Learn how MotoPlus collects, uses, and protects your personal information in compliance with GDPR and data protection laws. Transparency and security for all users.'
 draft: false
 ---
 

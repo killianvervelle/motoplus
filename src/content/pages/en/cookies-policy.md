@@ -1,7 +1,7 @@
 ---
 title: 'Cookies Policy'
-meta_title: 'MotoPlus Cookies Policy'
-description: 'MotoPlus uses only essential cookies necessary for the operation of the site, such as login, shopping cart, and security cookies. We do not use analytics or advertising cookies.'
+meta_title: 'Cookies Policy'
+description: 'MotoPlus only uses essential cookies necessary for the operation of the site, such as login, cart, and security cookies. We do not use analytics or advertising cookies.'
 draft: false
 ---
 

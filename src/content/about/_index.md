@@ -49,4 +49,19 @@ testimonials:
     slug_designation: 'design3'
     avatar: 'avat3'
     slug_content: 'cont3'
+
+  - slug_name: 'name4'
+    slug_designation: 'design4'
+    avatar: 'avat4'
+    slug_content: 'cont4'
+
+  - slug_name: 'name5'
+    slug_designation: 'design5'
+    avatar: 'avat5'
+    slug_content: 'cont5'
+
+  - slug_name: 'name6'
+    slug_designation: 'design6'
+    avatar: 'avat6'
+    slug_content: 'cont6'
 ---

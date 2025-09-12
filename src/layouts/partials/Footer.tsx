@@ -15,19 +15,19 @@ export interface ISocial {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#353434] dark:bg-darkmode-light mt-30 text-white">
+    <footer className="bg-[#232222] dark:bg-darkmode-light mt-50 text-white">
       <div className="container">
         <div className="flex flex-col sm:flex-row items-center sm:items-start justify-start sm:justify-center xs: gap-x-gap-5 sm:gap-x-10 xl:gap-30 py-10 md:pt-10 md:pb-14">
-          <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-28">
+          <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-contact", "contact-us")}</span>
             <a
               href="/contact"
-              className="btn max-md:btn-sm btn-primary bg-white text-gray-500 text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-center text-left"
+              className="btn max-md:btn-sm btn-primary bg-white text-gray-600 text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-center text-left"
             >
               {translateClient("footer-contact", "by-email")}
             </a>
           </div>
-          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-28">
+          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-about", "about-us")}</span>
             {menu.footerAbout.map((menu) => (
               <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
@@ -35,7 +35,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-28">
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-service", "service")}</span>
             {menu.footerService.map((menu) => (
               <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
@@ -43,7 +43,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-28">
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0 items-start">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-career", "title")}</span>
             {menu.footerCareer.map((menu) => (
               <li className="footer-link text-sm text-white" key={menu.name}>
@@ -51,7 +51,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-28'>
+          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0'>
             <span className="font-semibold text-white mr-4 pb-3">{translateClient("footer-language", "language")}</span>
             <Suspense>
               <DropdownLanguages list={languageItems} />

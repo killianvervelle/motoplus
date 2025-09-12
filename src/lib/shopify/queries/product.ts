@@ -67,3 +67,16 @@ export const getHighestProductPriceQuery = /* GraphQL */ `
     }
   }
 `;
+
+export const getLatestProductsQuery = /* GraphQL */ `
+  query getLatestProducts {
+    products(first: 15, sortKey: CREATED_AT, reverse: true) {
+      edges {
+        node {
+          ...product
+        }
+      }
+    }
+  }
+  ${productFragment}
+`;

@@ -10,6 +10,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
 import Image from "next/image";
 import { translateClient } from "../../lib/utils/translateClient";
+import DropdownLanguages from '../components/filter/DropdownLanguages'
+import { languageItems } from "@/lib/constants";
 
 
 interface IChildNavigationLink {
@@ -91,7 +93,7 @@ function MenuGroup({
                         href={{ pathname: "/products", query: { group: menu.slug, subgroup: child.slug, category: cat.slug } }}
                         className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(cat, pathname)}`}
                       >
-                     {translateClient("menu", cat.slug)}
+                        {translateClient("menu", cat.slug)}
                       </Link>
                     </li>
                   ))}
@@ -145,7 +147,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
 
   return (
     <header
-      className={`header pb-5 z-[60] bg-[#353434] dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
+      className={`header pb-5 z-[60] bg-[#232222] dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
     >
       <nav className='navbar flex flex-wrap z-[60] relative container'>
         <div className='order-1 py-6 mb-3 md:mb-0 md:py-0 flex items-center justify-between md:justify-center space-x-7 lg:space-x-14'>
@@ -154,10 +156,10 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
               src="/images/logo.png"
               alt="Logo"
               className="py-6 md:py-0 block hover:cursor-pointer"
-              width={80}
               onClick={() => router.push('/')}
-              height={0}
-              style={{ height: "auto" }}
+              width={80}
+              height={80}
+              style={{ height: "auto", width: "80px" }}
               priority
             />
           </div>
@@ -217,6 +219,9 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                     ></polygon>
                   </svg>
                 </button>
+                <Suspense>
+                  <DropdownLanguages list={languageItems} />
+                </Suspense>
               </div>
               <ul>
                 {main.map((menu, i) => (

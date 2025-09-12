@@ -1,7 +1,7 @@
 ---
 title: 'Terms of Service'
-meta_title: ''
-description: 'this is meta description'
+meta_title: 'Terms of Service | MotoPlus'
+description: 'Read MotoPlus Terms of Service: rules for site use, purchases, payments, shipping, returns, and responsibilities. Clarity and trust in every transaction.'
 draft: false
 ---
 

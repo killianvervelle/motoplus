@@ -4,15 +4,18 @@ import React, { useState, useCallback } from 'react'
 import { MENU_ITEMS } from '@/lib/constants';
 import Link from "next/link";
 import clsx from "clsx";
+import Image from "next/image";
 import { translateClient } from "../../lib/utils/translateClient";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const open = useCallback((i: number) => setOpenIndex(i), []);
     const close = useCallback(() => setOpenIndex(null), []);
+    const { resolvedTheme } = useTheme();
 
     return (
-        <div className="mb-10 bg-[#d7d7d7] dark:bg-darkmode-light">
+        <div className=" bg-[#d7d7d7] dark:bg-darkmode-light">
             <div
                 className={clsx(
                     "fixed inset-0 transition-opacity duration-300",
@@ -63,7 +66,7 @@ export default function Navbar() {
                                 >
                                     <button
                                         className={clsx(
-                                            "text-[13px] px-1 py-1 rounded transition-colors hover:text-[#c60404] font-bold",
+                                            "text-[14px] px-1 py-1 rounded transition-colors hover:text-[#c60404] font-bold",
                                             "text-[#29292c] dark:text-white dark:hover:text-[#c60404]",
                                             isOpen && "bg-white/70 dark:bg-white/10"
                                         )}
@@ -99,18 +102,45 @@ export default function Navbar() {
                                                                 className="inline-block w-full align-top space-y-2 mb-6 break-inside-avoid
                                                                 [page-break-inside:avoid] [-webkit-column-break-inside:avoid]"
                                                             >
-                                                                <div className="px-2">
-                                                                    <Link
-                                                                        href={{ pathname: "/products", query: { group: menuItem.slug, subgroup: section.slug } }}
-                                                                        className="inline-block text-[15px] font-extrabold text-[#c70303] dark:text-white
+                                                                {section.imageWhite ?
+                                                                    <div className="flex items-center justify-left gap-5 px-2">
+                                                                        <Image
+                                                                            src={
+                                                                                resolvedTheme === "dark"
+                                                                                    ? section.imageWhite || "/images/placeholder.png"
+                                                                                    : section.imageBlack || "/images/placeholder.png"
+                                                                            }
+                                                                            alt="Logo"
+                                                                            width={30}
+                                                                            height={30}             
+                                                                            style={{ height: 'auto', width: '30px' }}
+                                                                            className={resolvedTheme === "dark" ? "invert brightness-100" : ""}
+                                                                        />
+                                                                        <Link
+                                                                            href={{ pathname: "/products", query: { group: menuItem.slug, subgroup: section.slug } }}
+                                                                            className="inline-block text-[15px] font-extrabold text-[#c70303] dark:text-[#c70303]
                                                                         hover:underline underline-offset-4 decoration-current dark:hover:text-[#c60404]
                                                                         focus-visible:underline focus-visible:outline-none rounded"
-                                                                        onClick={close}
-                                                                        role="menuitem"
-                                                                    >
-                                                                        {translateClient("menu", section.slug)}
-                                                                    </Link>
-                                                                </div>
+                                                                            onClick={close}
+                                                                            role="menuitem"
+                                                                        >
+                                                                            {translateClient("menu", section.slug)}
+                                                                        </Link>
+                                                                    </div>
+                                                                    :
+                                                                    <div className="px-2">
+                                                                        <Link
+                                                                            href={{ pathname: "/products", query: { group: menuItem.slug, subgroup: section.slug } }}
+                                                                            className="inline-block text-[15px] font-extrabold text-[#c70303] dark:text-[#c70303]
+                                                                        hover:underline underline-offset-4 decoration-current dark:hover:text-[#c60404]
+                                                                        focus-visible:underline focus-visible:outline-none rounded"
+                                                                            onClick={close}
+                                                                            role="menuitem"
+                                                                        >
+                                                                            {translateClient("menu", section.slug)}
+                                                                        </Link>
+                                                                    </div>
+                                                                }
 
                                                                 <ul className="flex flex-wrap items-center">
                                                                     {items.length === 0 ? (

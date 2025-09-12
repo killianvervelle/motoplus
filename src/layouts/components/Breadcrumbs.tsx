@@ -42,8 +42,6 @@ const Breadcrumbs = ({ className }: { className?: string }) => {
     }
   })
 
-  console.log(parts)
-
   return (
     <nav aria-label='Breadcrumb' className={className}>
       <ol className='inline-flex' role='list'>

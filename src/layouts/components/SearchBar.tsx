@@ -65,7 +65,7 @@ const SearchBar = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="border-red-500 border-2 h-10 rounded-full flex bg-[#ffffff] dark:bg-dark/10 pl-4 relative"
+      className="border-red-500 border-2 h-10 rounded-full flex bg-[#ffffff]  pl-4 relative items-center"
 
     >
       <input
@@ -82,13 +82,13 @@ const SearchBar = () => {
       {inputValue && (
         <button
           type="button"
-          className="p-2 m-1 rounded-full"
+          className="mx-1 rounded-full text-[#232222]"
           onClick={handleClear}
         >
           <IoClose size={20} />
         </button>
       )}
-      <button className="m-2 md:p-1">
+      <button className="mx-2 p-1 text-[#232222]">
         <IoSearch size={16} />
       </button>
     </form>

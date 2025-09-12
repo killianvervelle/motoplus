@@ -3,7 +3,10 @@
 import { SortFilterItem as SortFilterItemType } from '@/lib/constants'
 import { createUrl } from '@/lib/utils'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
+import Image from "next/image";
+import { useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from '@/i18n/navigation';
+import {useLocale} from 'next-intl';
 import { ListItem, PathFilterItem as PathFilterItemType } from '../product/ProductLayouts'
 import { LanguageItem } from "@/lib/constants";
 import { translateClient } from "../../../lib/utils/translateClient";
@@ -55,7 +58,7 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
         href={href}
         className={`w-full pl-4 py-2 ${active ? 'bg-dark text-white' : ''}`}
       >
-        {translateClient("sorting", item.slug? item.slug : "Not found")}
+        {translateClient("sorting", item.slug ? item.slug : "Not found")}
       </DynamicTag>
     </li>
   )
@@ -63,32 +66,37 @@ function SortFilterItem({ item }: { item: SortFilterItemType }) {
 
 function SortLanguageItem({ item }: { item: LanguageItem }) {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
+  const router = useRouter()
+  const locale = useLocale();
 
-  const newParams = new URLSearchParams(searchParams.toString())
-
-  if (item.code) {
-    newParams.set('lang', item.code)
-  } else {
-    newParams.delete('lang')
-  }
-
-  const href = createUrl(pathname, newParams)
-
-  const active = searchParams.get('lang') === item.code
+  const active = locale === item.code;
 
   const DynamicTag = active ? 'p' : Link
 
+  const handleChange = (locale: string) => {
+    router.replace(pathname, { locale });
+  };
+
   return (
-    <li className='flex text-sm text-text-dark hover:bg-dark/50 hover:text-white' key={item.title}>
+    <li className='flex items-center justify-between px-5 text-sm text-text-dark hover:bg-dark/50 hover:text-white' key={item.title}>
       <DynamicTag
         prefetch={!active ? false : undefined}
-        href={href}
-        className={`w-full pl-4 py-2 ${active ? 'bg-dark text-white' : ''}`}
+        href={pathname}
+        onClick={() => {handleChange(item.code)
+
+        }}
+        className={`w-full pl-4 py-2 text-gray-900 ${active ? 'font-bold' : ''}`}
       >
         {translateClient("footer-language", item.code)}
       </DynamicTag>
-    </li>
+      <Image
+        src={item.image ? item.image : "/images/image-placeholder.png"}
+        alt="Logo"
+        width={20}
+        height={0}
+        style={{ height: "auto" }}
+      />
+    </li >
   )
 }
 

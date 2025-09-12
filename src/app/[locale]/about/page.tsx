@@ -66,6 +66,7 @@ const About = async () => {
     label: await translateServer("about-us", button.slug_label),
     link: await translateServer("about-us", button.slug_link)
   }
+
   const translatedTestimonials = await Promise.all(
     frontmatter.testimonials.map(
       async (item: Testimonial) => {
@@ -87,24 +88,26 @@ const About = async () => {
       <section className='section'>
         <div className='container'>
           {translatedAboutUs?.map((section: { title: string; content: string; image: string }, index: number) => (
-            <div className={`lg:flex gap-8 mt-14 lg:mt-28`} key={section?.title}>
+            <div className={`lg:flex gap-8 lg:mt-9`} key={section?.title}>
               {index % 2 === 0 ? (
                 <>
-                  <ImageFallback
-                    className='rounded-md mx-auto'
-                    src={"/images/aboutUs.png"}
-                    width={536}
-                    height={449}
-                    alt={section?.title}
-                  />
-                  <div className='mt-10 lg:mt-0'>
+                  <div className='hidden lg:flex lg:mx-auto w-full'>
+                    <ImageFallback
+                      className='lg:rounded-md'
+                      src={"/images/aboutUs.png"}
+                      width={536}
+                      height={449}
+                      alt={section?.title}
+                    />
+                  </div>
+                  <div className='lg:mt-0 row lg:block text-center lg:text-start'>
                     <h2>{section?.title}</h2>
                     {section?.content
                       .split(/\n\n+/)
                       .map((para, i) => (
                         <p
                           key={i}
-                          className="mt-4 text-text-light dark:text-darkmode-text-light leading-7 text-justify"
+                          className="mt-8 text-text-light dark:text-darkmode-text-light leading-7 text-justify"
                           dangerouslySetInnerHTML={markdownify(para)}
                         />
                       ))}

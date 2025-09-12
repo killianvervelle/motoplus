@@ -1,17 +1,19 @@
 export type LanguageItem = {
     title: string;
     code: string;
+    image?: string
 }
 
 export const defaultLanguage: LanguageItem = {
     title: "English",
-    code: "en"
+    code: "en",
+    image: "/images/royaume-uni.png"
 };
 
 export const languageItems: LanguageItem[] = [
   defaultLanguage,
-  { title: "Portuguese", code: "pt" },
-  { title: "French", code: "fr" },
+  { title: "Portuguese", code: "pt", image: "/images/portugual.png" },
+  { title: "French", code: "fr", image: "/images/france.png" },
 ]
 
 export type SortFilterItem = {
@@ -20,6 +22,22 @@ export type SortFilterItem = {
   sortKey: "RELEVANCE" | "BEST_SELLING" | "CREATED_AT" | "PRICE";
   reverse: boolean;
 };
+
+export type Filters = Record<string, string[]>;
+
+export type HomeFilterBoxProp = { 
+  filtersComponents: Filters
+  filtersBrands: Filters
+  totalProducts: string
+  title: string
+  subtitle: string
+  brand: string
+  model: string
+  part: string
+  search: string
+  available: string
+  available2: string
+}
 
 export const defaultSort: SortFilterItem = {
   title: "Relevance",
@@ -70,6 +88,8 @@ export type SubSubmenuItem = {
 export type SubmenuItem = {
   name: string;
   slug: string;
+  imageBlack?: string;
+  imageWhite?: string;
   submenu: SubSubmenuItem[];
 };
 
@@ -89,6 +109,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Drivetrain",
         slug: "drivetrain",
+        imageBlack: "/images/wheelB.png",
+        imageWhite: "/images/wheelW.png",
         submenu: [
           { name: "Chains", slug: "chains" },
           { name: "Sprockets", slug: "sprockets" },
@@ -103,6 +125,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Fuel Tank",
         slug: "fuel-tank",
+        imageBlack: "/images/gas-tankB.png",
+        imageWhite: "/images/gas-tankW.png",
         submenu: [
           { name: "Fuel Hose", slug: "fuel-hose" },
           { name: "Quick Connector", slug: "quick-connector" },
@@ -115,6 +139,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Electric",
         slug: "electric",
+        imageBlack: "/images/wireB.png",
+        imageWhite: "/images/wireW.png",
         submenu: [
           { name: "Regulator", slug: "regulator" },
           { name: "Starter", slug: "starter" },
@@ -138,6 +164,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Filters",
         slug: "filters",
+        imageBlack: "/images/oil-filterB.png", 
+        imageWhite: "/images/oil-filterW.png",
         submenu: [
           { name: "Oil Filter", slug: "oil-filter" },
           { name: "Air filter", slug: "air-filter" },
@@ -150,6 +178,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Oil + Fluids",
         slug: "oil-fluids",
+        imageBlack: "/images/engine-oilB.png",
+        imageWhite: "/images/engine-oilW.png",
         submenu: [
           { name: "Engine coolant", slug: "engine-coolant" },
           { name: "Engine Oil", slug: "engine-oil" },
@@ -164,6 +194,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Brakes",
         slug: "brakes",
+        imageBlack: "/images/disc-brakeB.png",
+        imageWhite: "/images/disc-brakeW.png",
         submenu: [
           { name: "Brake Fluid", slug: "brake-fluid" },
           { name: "Brake Disc Rear", slug: "brake-disc-rear" },
@@ -180,6 +212,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Maintenance",
         slug: "maintenance",
+        imageBlack: "/images/settingsB.png",
+        imageWhite: "/images/settingsW.png",
         submenu: [
           { name: "Assembly Paste", slug: "assembly-paste" },
           { name: "Chain Spray", slug: "chain-spray" },
@@ -206,6 +240,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Handlebar & Controls",
         slug: "handlebar-controls",
+        imageBlack: "/images/brakeB.png",
+        imageWhite: "/images/brakeW.png",
         submenu: [
           { name: "Mirror set", slug: "mirror-set" },
           { name: "Mirror Adapter", slug: "mirror-adapter" },
@@ -222,6 +258,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Overhaul Kits",
         slug: "overhaul-kits",
+        imageBlack: "/images/mechanic-toolsB.png",
+        imageWhite: "/images/mechanic-toolsW.png",
         submenu: [
           { name: "Carburettor Repair Kit", slug: "carburettor-repair-kit" },
           { name: "Front Fork Oil Seal", slug: "front-fork-oil-seal" },
@@ -246,6 +284,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Accessories",
         slug: "accessories",
+        imageBlack: "/images/gripB.png",
+        imageWhite: "/images/gripW.png",
         submenu: [
           { name: "Heated Grips", slug: "heated-grips" },
           { name: "Motorcycle Cover", slug: "motorcycle-cover" },
@@ -259,6 +299,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Luggage",
         slug: "luggage",
+        imageBlack: "/images/airpodsB.png",
+        imageWhite: "/images/airpodsW.png",
         submenu: [
           { name: "Case Set", slug: "case-set" },
           { name: "Cargo Net", slug: "cargo-net" },
@@ -280,6 +322,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Fuel & Additives",
         slug: "fuel-additives",
+        imageBlack: "/images/cosmeticB.png",
+        imageWhite: "/images/cosmeticW.png",
         submenu: [
           { name: "Stabilizer", slug: "stabilizer" },
           { name: "Cleaner", slug: "cleaner" },
@@ -291,6 +335,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Wash and Shine",
         slug: "wash-shine",
+        imageBlack: "/images/sprayB.png",
+        imageWhite: "/images/sprayW.png",
         submenu: [
           { name: "Seat Spray", slug: "seat-spray" },
           { name: "Polish and Wax", slug: "polish-wax" },
@@ -312,6 +358,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Tools",
         slug: "tools",
+        imageBlack: "/images/clampB.png",
+        imageWhite: "/images/clampW.png",
         submenu: [
           { name: "Oil Filter Wrench", slug: "oil-filter-wrench" },
           { name: "Spark Plug Wrench", slug: "spark-plug-wrench" },
@@ -333,6 +381,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Workshop Equipment",
         slug: "workshop-equipment",
+        imageBlack: "/images/wrenchB.png",
+        imageWhite: "/images/wrenchW.png",
         submenu: [
           { name: "Wheel Chock", slug: "wheel-chock" },
           { name: "Paddock Stand", slug: "paddock-stand" },
@@ -359,6 +409,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Locks",
         slug: "locks",
+        imageBlack: "/images/lockB.png",
+        imageWhite: "/images/lockW.png",
         submenu: [
           { name: "Chain Lock", slug: "chain-lock" },
           { name: "U-lock", slug: "u-lock" },
@@ -371,6 +423,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Clothing and Merchandise",
         slug: "clothing-merchandise",
+        imageBlack: "/images/suitB.png",
+        imageWhite: "/images/suitW.png",
         submenu: [
           { name: "Clothing Care", slug: "clothing-care" },
           { name: "Pedal for Kids", slug: "pedal-for-kids" }
@@ -379,6 +433,8 @@ export const MENU_ITEMS: MenuItem[] = [
       {
         name: "Navigation, Intercom and Telephone",
         slug: "navigation-intercom-telephone",
+        imageBlack: "/images/automotiveB.png",
+        imageWhite: "/images/automotiveW.png",
         submenu: [
           { name: "Intercom", slug: "intercom" },
           { name: "Phone Holder", slug: "phone-holder" },

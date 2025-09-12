@@ -24,7 +24,7 @@ import { getCartQuery } from "./queries/cart";
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
-  getCollectionsQuery,
+  getCollectionsQuery
 } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
 import { getPageQuery, getPagesQuery } from "./queries/page";
@@ -33,6 +33,7 @@ import {
   getProductQuery,
   getProductRecommendationsQuery,
   getProductsQuery,
+  getLatestProductsQuery
 } from "./queries/product";
 import { getVendorsQuery } from "./queries/vendor";
 import {
@@ -405,6 +406,16 @@ export async function getCollections(): Promise<Collection[]> {
 
   return collections;
 }
+
+export async function getLatestProducts() {
+  const res = await shopifyFetch<ShopifyProductsOperation>({
+    query: getLatestProductsQuery,
+    tags: ["products"],
+  });
+
+  return removeEdgesAndNodes(res.body.data.products);
+}
+
 
 export async function getMenu(handle: string): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({

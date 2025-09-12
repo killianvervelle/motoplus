@@ -1,14 +1,15 @@
 'use client'
 
-import { usePathname, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { SetLanguageItem } from './FilterDropdownItem'
 import { LanguageItem } from '@/lib/constants'
+import { useLocale } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 const DropdownLanguages = ({ list }: { list: LanguageItem[] }) => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const [active, setActive] = useState('')
+  const [active, setActive] = useState('English')
+  const locale = useLocale();
+  const t = useTranslations('language');
 
   const [openSelect, setOpenSelect] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -25,15 +26,10 @@ const DropdownLanguages = ({ list }: { list: LanguageItem[] }) => {
   }, [])
 
   useEffect(() => {
-    list.forEach((listItem: LanguageItem) => {
-      if (
-        ('path' in listItem && pathname === listItem.path) ||
-        ('code' in listItem && searchParams.get('lang') === listItem.code)
-      ) {
-        setActive(listItem.title)
-      }
-    })
-  }, [pathname, list, searchParams])
+    if (locale) {
+      setActive(t(locale));
+    }
+  }, [locale]);
 
   return (
     <div className='relative inline-block text-left text-text-light' ref={menuRef}>
@@ -46,7 +42,7 @@ const DropdownLanguages = ({ list }: { list: LanguageItem[] }) => {
         id='menu-button'
         aria-haspopup='true'
       >
-        <div className='text-darkmode-light'>{active}</div>
+        <div className='text-gray-600'>{active}</div>
         <svg
           className={`-mr-1 h-5 w-5 text-gray-400 transform ${openSelect ? 'rotate-180' : ''} transition-transform`}
           fill='currentColor'
@@ -63,7 +59,7 @@ const DropdownLanguages = ({ list }: { list: LanguageItem[] }) => {
 
       {openSelect && (
         <div
-          className='absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden'
+          className='absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden'
           onClick={() => {
             setOpenSelect(false)
           }}
