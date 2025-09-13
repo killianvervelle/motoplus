@@ -2,7 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { HomeFilterBoxProp } from "@/lib/constants";
+import { slugify } from "@/lib/utils/textConverter"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 
 const FilterBox = ({
     filtersBrands,
@@ -18,15 +21,19 @@ const FilterBox = ({
     available2
 }: HomeFilterBoxProp) => {
     const [openSelect, setOpenSelect] = useState<string | null>(null);
-    const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-    const [selectedModel, setSelectedModel] = useState<string | null>(null);
-    const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
+    const [selectedBrand, setSelectedBrand] = useState<Pick | null>(null);
+    const [selectedModel, setSelectedModel] = useState<Pick | null>(null);
+    const [selectedComponent, setSelectedComponent] = useState<Pick | null>(null);
+    const [animate, setAnimate] = useState(false);
+    const router = useRouter();
 
     const brands = useMemo(() => Object.keys(filtersBrands).sort(), [filtersBrands]);
 
+    type Pick = { name: string; slug: string } | null;
+
     const models = useMemo(() => {
         if (!selectedBrand) return [];
-        return (filtersBrands[selectedBrand] ?? []).sort();
+        return (filtersBrands[selectedBrand.name] ?? []).sort();
     }, [filtersBrands, selectedBrand]);
 
     const toggleSelect = (key: string) => {
@@ -39,10 +46,13 @@ const FilterBox = ({
     };
 
     const handleSearch = () => {
-
+        setAnimate(true);
+        const params = new URLSearchParams();
+        if (selectedBrand) params.set("brand", slugify(selectedBrand.slug));
+        if (selectedModel) params.set("model", slugify(selectedModel.slug));
+        if (selectedComponent) params.set("part", slugify(selectedComponent.slug));
+        router.push(`/products?${params.toString()}`);
     }
-
-    console.log(totalProducts)
 
     return (
         <div className="bg-[#232222] min-h-[150px] text-white px-10 py-10 rounded-2xl shadow-lg opacity-97">
@@ -62,7 +72,7 @@ const FilterBox = ({
                             onClick={() => toggleSelect("Brand")}
                         >
                             <span className="text-gray-600 truncate">
-                                {selectedBrand ?? `${brand}`}
+                                {selectedBrand?.name ?? `${brand}`}
                             </span>
                             <Chevron open={openSelect === "Brand"} />
                         </button>
@@ -92,7 +102,7 @@ const FilterBox = ({
                             disabled={!selectedBrand}
                         >
                             <span className="text-gray-600 truncate">
-                                {selectedModel ?? `${model}`}
+                                {selectedModel?.name ?? `${model}`}
                             </span>
                             <Chevron open={openSelect === "Model"} />
                         </button>
@@ -119,7 +129,7 @@ const FilterBox = ({
                             disabled={!selectedModel}
                         >
                             <span className="text-gray-600 truncate">
-                                {selectedComponent ?? `${part}`}
+                                {selectedComponent?.name ?? `${part}`}
                             </span>
                             <Chevron open={openSelect === "Component"} />
                         </button>
@@ -165,6 +175,8 @@ const FilterBox = ({
                                     width={22}
                                     height={22}
                                     style={{ height: "auto", width: "22px" }}
+                                    className={`duration-4000 ease-in-out overflow-hidden
+                                        ${animate ? "lg:translate-x-[2000px] sm:translate-x-[100px] -rotate-70 opacity-100" : "translate-x-0 rotate-0 opacity-100"}`}
                                 />
                             </div>
 

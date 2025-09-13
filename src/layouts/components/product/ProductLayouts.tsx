@@ -61,7 +61,7 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
   }
 
   return (
-    <section className='pt-4'>
+    <section className='pt-14 pl-5'>
       <div className='container'>
         <div className='row'>
           <div className='col-3 max-lg:hidden' />
@@ -89,7 +89,6 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
               </div>
 
               <div className='flex gap-x-8'>
-                {/* Filter Button Trigger */}
                 <div className='filter-button-container block lg:hidden mt-1'>
                   <button onClick={() => setExpanded(!isExpanded)}>
                     {isExpanded ? (
@@ -103,7 +102,6 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
                     )}
                   </button>
                 </div>
-                {/* Filter Button Trigger End */}
 
                 <div className='flex gap-x-4 items-center font-medium text-sm md:text-base relative z-20'>
                   <p className='max-md:hidden text-text-dark dark:text-darkmode-text-dark'>{translateClient("product-layout", "sort-by")}</p>

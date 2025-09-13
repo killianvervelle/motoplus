@@ -210,7 +210,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
       ) : null}
 
       {products?.length === 0 && (
-        <div className="mx-auto pt-5 text-center">
+        <div className="flex flex-col items-center mx-auto pt-5 text-center">
           <ImageFallback
             className="mx-auto mb-6 w-[211px] h-[184px]"
             src="/images/no-search-found.png"
@@ -219,23 +219,25 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
             height={184}
             priority={true}
           />
-          <h1 className="h2 mb-4">No Product Found!</h1>
+          <h1 className="h2 mt-4 mb-4">No Product Found!</h1>
           <p>
             We couldn&apos;t find what you filtered for. Try filtering again.
           </p>
         </div>
       )}
 
-      <div className="row gap-y-8 md:gap-y-14">
+      <div className="row gap-y-8 md:gap-y-14 pl-40 sm:pl-10">
         {products.map((product, index) => {
           const defaultVariantId =
             product?.variants.length > 0 ? product?.variants[0].id : undefined;
           return (
             <div
               key={index}
-              className="text-center col-12 sm:col-6 md:col-4 group relative"
+              className={`text-center col-10 sm:col-6 md:col-4 group relative 
+                ${index % 3 === 0 && "md:border-r-[0.5px] md:border-gray-200"}
+                ${index % 3 === 2 && "md:border-l-[0.5px] md:border-gray-200"}`}
             >
-              <div className="md:relative overflow-hidden">
+              <div className="md:relative sm:h-56 md:h-56 lg:h-56 xl:h-56 overflow-hidden">
                 <ImageFallback
                   src={
                     product.featuredImage?.url || "/images/product_image404.jpg"
@@ -244,6 +246,13 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
                   height={269}
                   alt={product.featuredImage?.altText || "fallback image"}
                   className="w-full h-[200px] sm:w-[312px] md:h-[269px] object-cover rounded-md border mx-auto"
+                />
+                <img
+                  src="/images/logo.png"
+                  width={40}
+                  height={20}
+                  alt="Logo"
+                  className="absolute top-2 right-2 "
                 />
 
                 <Suspense>
@@ -258,8 +267,8 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
                   />
                 </Suspense>
               </div>
-              <div className="py-2 md:py-4 text-center z-20">
-                <h2 className="font-medium text-base md:text-xl">
+              <div className="flex flex-col xl:h-32 lg:h-40 md:h-40 sm:h-24 justify-between py-2 md:py-6 text-center z-20">
+                <h2 className="font-medium text-base md:text-lg line-clamp-1 md:line-clamp-2">
                   <Link
                     className="after:absolute after:inset-0"
                     href={`/products/${product?.handle}`}
@@ -267,8 +276,8 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
                     {product?.title}
                   </Link>
                 </h2>
-                <div className="flex flex-wrap justify-center items-center gap-x-2 mt-2 md:mt-4">
-                  <span className="text-base md:text-xl font-bold text-text-dark dark:text-darkmode-text-dark">
+                <div className="flex xl:flex-row flex-col justify-center items-center gap-x-2">
+                  <span className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark">
                     {currencySymbol}{" "}
                     {product?.priceRange?.minVariantPrice?.amount}{" "}
                     {product?.priceRange?.minVariantPrice?.currencyCode}

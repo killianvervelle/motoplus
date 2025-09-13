@@ -27,7 +27,7 @@ export default async function ServicePage({
         <>
             <SeoMeta {...frontmatter} />
             <PageHeader title={frontmatter.title} />
-            <section className="section">
+            <section className="section-bottom">
                 <div className="container prose dark:prose-invert">
                     <div dangerouslySetInnerHTML={{ __html: html }} />
                 </div>

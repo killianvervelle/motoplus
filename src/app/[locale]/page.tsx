@@ -15,6 +15,13 @@ import filtersBrands from "../../../motorcycles_simplified.json"
 import FilterBox from "@/components/filter/FilterBox";
 import { GROUPS } from "@/lib/groups";
 import { getTranslations } from 'next-intl/server';
+import Testimonials from '@/partials/Testimonials'
+import { FaBoxOpen, FaTools  } from 'react-icons/fa'
+import { IoDiamondSharp } from "react-icons/io5";
+import { RiCustomerService2Fill } from "react-icons/ri";
+import { RegularPage, Testimonial } from '@/types'
+import { getListPage } from '@/lib/contentParser'
+
 
 //const { collections } = config.shopify;
 
@@ -65,6 +72,22 @@ const getTotalNumberOfProducts = async () => {
   return data.productsCount.count;
 };
 
+const aboutUsSlugs = {
+  translatedTitle: "title",
+  translatedFaqTitle: "faq-section-title",
+  translatedFaqSubTitle: "faq-section-subtitle",
+  translatedTestimonialTitle: "testimonials-section-title",
+  translatedValueTitle: "reasons",
+  translatedMissionTitle: "direct",
+  translatedVisionTitle: "third-party",
+  translatedTeamFastSecure: "fast-secure",
+  translatedTeamQuality: "quality",
+  translatedTeamInspected: "inspected",
+  translatedCtaTitle: "delivery",
+  translatedCustomer: "customer",
+  translatedSupport: "support"
+};
+
 /*const ShowFeaturedProducts = async () => {
   const { products } = await getCollectionProducts({
     collection: collections.featured_products,
@@ -89,6 +112,36 @@ const Home = async () => {
   );
 
   const t = await getTranslations('filterbox');
+
+  const translations = await Promise.all(
+    Object.entries(aboutUsSlugs).map(([key, slug]) =>
+      translateServer("about-us", slug).then((value) => [key, value])
+    )
+  );
+
+  const translated = Object.fromEntries(translations) as Record<
+    keyof typeof aboutUsSlugs,
+    string
+  >;
+
+  const data: RegularPage = getListPage('about/_index.md')
+
+  const { frontmatter } = data
+  const {
+    testimonials_section_enable,
+  } = frontmatter
+
+  const translatedTestimonials = await Promise.all(
+    frontmatter.testimonials.map(
+      async (item: Testimonial) => {
+        const name = await translateServer("about-us", item.slug_name)
+        const designation = await translateServer("about-us", item.slug_designation)
+        const content = await translateServer("about-us", item.slug_content)
+        const image = await translateServer("about-us", item.avatar)
+        return { name, designation, content, image }
+      }
+    )
+  )
 
   return (
     <>
@@ -131,25 +184,70 @@ const Home = async () => {
       {/* category section  */}
       < section className="section" >
         <div className="container">
-          <div className="text-center mb-6 md:mb-14">
+          <div className="text-center sm:pt-20 md:pt-0 mb-6 md:mb-14">
             <h3>{translatedLatestArrivals}</h3>
           </div>
           <Suspense fallback={<SkeletonCategory />}>
             <ShowLatestProducts />
           </Suspense>
         </div>
+        <Suspense fallback={<SkeletonFeaturedProducts />}>
+          {/*<ShowFeaturedProducts />*/}
+          <div className='flex justify-center mt-7'>
+            <Link className='btn btn-sm md:btn-md hover:bg-gray-700 btn-primary font-medium' href={'/products'}>
+              {translatedSeeAll}
+            </Link>
+          </div>
+        </Suspense>
       </section >
 
-      {/* Featured Products section  */}
-      < section >
+      {/* values section  */}
+      < section className='section-bottom bg-[#232222] dark:bg-darkmode-light mb-24' >
         <div className="container">
-          <Suspense fallback={<SkeletonFeaturedProducts />}>
-            {/*<ShowFeaturedProducts />*/}
-            <div className='flex justify-center'>
-              <Link className='btn btn-sm md:btn-lg hover:bg-gray-700 btn-primary font-medium' href={'/products'}>
-                {translatedSeeAll}
-              </Link>
+          <div className="text-center text-light">
+            <div className='row justify-center py-20 gap-1 lg:gap-0 mt-14'>
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
+                <div className='flex justify-center'>
+                  <FaTools size={48} className="text-[#c60404]" />
+                </div>
+                <h5 className='md:h-20 lg:h-24 mt-6 text-light pb-6 md:pb-0'>{translated.translatedMissionTitle}</h5>
+                <p className="mx-5">{translated.translatedVisionTitle}</p>
+              </div>
+
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
+                <div className='flex justify-center'>
+                  <FaBoxOpen size={48} className="text-[#c60404]" />
+                </div>
+                <h5 className='md:h-20 lg:h-24 mt-6 text-light pb-6 md:pb-0'>{translated.translatedTeamFastSecure}</h5>
+                <p className="mx-5">{translated.translatedCtaTitle}</p>
+              </div>
+
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
+                <div className='flex justify-center'>
+                  <IoDiamondSharp size={48} className="text-[#c60404]" />
+                </div>
+                <h5 className='md:h-20 lg:h-24 mt-6 text-light pb-6 md:pb-0'>{translated.translatedTeamQuality}</h5>
+                <p className="mx-5">{translated.translatedTeamInspected}</p>
+              </div>
+
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
+                <div className='flex justify-center'>
+                  <RiCustomerService2Fill  size={48} className="text-[#c60404]" />
+                </div>
+                <h5 className='md:h-20 lg:h-24 mt-6 text-light pb-6 md:pb-0'>{translated.translatedCustomer}</h5>
+                <p className="mx-5">{translated.translatedSupport}</p>
+              </div>
             </div>
+          </div>
+        </div>
+
+      </section >
+
+      {/* testimonials section  */}
+      < section className="section-bottom" >
+        <div className="container">
+          <Suspense>
+            {testimonials_section_enable && <Testimonials title={translated.translatedTestimonialTitle!} testimonials={translatedTestimonials!} />}
           </Suspense>
         </div>
       </section >

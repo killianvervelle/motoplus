@@ -61,15 +61,25 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
           return (
             <SwiperSlide key={handle}>
               <div className='text-center relative rounded-md overflow-hidden group'>
-                <img
-                  src={featuredImage.url}
-                  width={424}
-                  height={306}
-                  alt={title}
-                  className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
-                />
+                <div className='relative'>
+                  <img
+                    src={featuredImage.url}
+                    width={424}
+                    height={306}
+                    alt={title}
+                    className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
+                  />
+                  <img
+                    src="/images/logo.png"
+                    width={50}
+                    height={30}
+                    alt="Logo"
+                    className="absolute top-2 right-2 "
+                  />
+                </div>
+
                 <div className='py-6'>
-                  <h4 className='mb-2 font-medium h5'>
+                  <h4 className='mb-2 font-medium h5 line-clamp-1'>
                     <Link className='after:absolute after:inset-0' href={`/products/${handle}`}>
                       {title}
                     </Link>
@@ -85,8 +95,8 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
 
         <div
           className={`block w-full absolute top-[33%] z-10 px-4 text-text-dark ${isHovered
-              ? 'opacity-100 transition-opacity duration-300 ease-in-out'
-              : 'opacity-0 transition-opacity duration-300 ease-in-out'
+            ? 'opacity-100 transition-opacity duration-300 ease-in-out'
+            : 'opacity-0 transition-opacity duration-300 ease-in-out'
             }`}
         >
           <div ref={prevRef} className='p-2 lg:p-3 rounded-md bg-body cursor-pointer shadow-sm absolute left-4'>

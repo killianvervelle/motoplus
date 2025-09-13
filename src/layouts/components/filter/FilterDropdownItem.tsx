@@ -6,7 +6,7 @@ import Link from 'next/link'
 import Image from "next/image";
 import { useSearchParams } from 'next/navigation'
 import { usePathname, useRouter } from '@/i18n/navigation';
-import {useLocale} from 'next-intl';
+import { useLocale } from 'next-intl';
 import { ListItem, PathFilterItem as PathFilterItemType } from '../product/ProductLayouts'
 import { LanguageItem } from "@/lib/constants";
 import { translateClient } from "../../../lib/utils/translateClient";
@@ -82,7 +82,8 @@ function SortLanguageItem({ item }: { item: LanguageItem }) {
       <DynamicTag
         prefetch={!active ? false : undefined}
         href={pathname}
-        onClick={() => {handleChange(item.code)
+        onClick={() => {
+          handleChange(item.code)
 
         }}
         className={`w-full pl-4 py-2 text-gray-900 ${active ? 'font-bold' : ''}`}

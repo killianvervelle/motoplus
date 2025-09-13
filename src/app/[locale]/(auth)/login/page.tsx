@@ -59,7 +59,7 @@ const Login = () => {
 
   return (
     <section className="section">
-      <div className="container">
+      <div className="container pt-12 xl:pt-24">
         <div className="row">
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
             <div className="mb-14 text-center">

@@ -7,12 +7,16 @@ import clsx from "clsx";
 import Image from "next/image";
 import { translateClient } from "../../lib/utils/translateClient";
 import { useTheme } from "next-themes";
+import { Suspense } from "react";
+import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
 
 export default function Navbar() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const open = useCallback((i: number) => setOpenIndex(i), []);
     const close = useCallback(() => setOpenIndex(null), []);
     const { resolvedTheme } = useTheme();
+
+    const translatedSeeAll = translateClient("featuredProducts", "see-all-products")
 
     return (
         <div className=" bg-[#d7d7d7] dark:bg-darkmode-light">
@@ -28,7 +32,7 @@ export default function Navbar() {
             />
 
             <nav className="navbar hidden md:flex bg-[#d7d7d7] dark:bg-darkmode-light z-50">
-                <div className=" container">
+                <div className="container flex justify-between items-center">
                     <ul className="flex items-center justify-start ">
                         <li>
                             <Link href="/" aria-label="Home" onClick={() => close()} scroll className="inline-flex">
@@ -90,7 +94,7 @@ export default function Navbar() {
                                         onMouseLeave={close}
                                         onMouseEnter={() => open(i)}
                                     >
-                                        <div className="bg-[#fafafc] rounded-b-md container  dark:bg-darkmode-body w-full border border-gray-200 dark:border-border/40 shadow-xl pointer-events-auto">
+                                        <div className="bg-[#fafafc] rounded-b-md container  dark:bg-darkmode-body w-full border border-gray-200 dark:border-border/40 shadow-xl pointer-events-auto relative">
                                             <div className="p-6">
                                                 <ul className="columns-1 sm:columns-2 md:columns-3 xl:columns-4 gap-x-8 [column-fill:_balance] space-y-5">
                                                     {menuItem.submenu.map((section) => {
@@ -112,7 +116,7 @@ export default function Navbar() {
                                                                             }
                                                                             alt="Logo"
                                                                             width={30}
-                                                                            height={30}             
+                                                                            height={30}
                                                                             style={{ height: 'auto', width: '30px' }}
                                                                             className={resolvedTheme === "dark" ? "invert brightness-100" : ""}
                                                                         />
@@ -181,12 +185,89 @@ export default function Navbar() {
                                                     })}
                                                 </ul>
                                             </div>
+                                            <Suspense fallback={<SkeletonFeaturedProducts />}>
+                                                <div className='flex justify-center mt-7'>
+                                                    <Link 
+                                                    className={`${openIndex !== null ? "block" : "hidden"} absolute bottom-4 right-4 btn btn-sm hover:bg-gray-700 btn-primary font-medium`} 
+                                                    href={'/products'}
+                                                    onClick={close}>
+                                                        {translatedSeeAll}
+                                                    </Link>
+                                                </div>
+                                            </Suspense>
                                         </div>
                                     </div>
                                 </li>
                             );
                         })}
                     </ul>
+                    <div className="flex items-center gap-2">
+                        <img
+                            src="/images/google.png"
+                            alt="Google"
+                            className="w-4 h-4"
+                        />
+
+                        <div className="flex items-center gap-1">
+                            {[...Array(4)].map((_, i) => (
+                                <svg
+                                    key={i}
+                                    className="w-4 h-4 text-yellow-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286
+                                    3.967a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588
+                                    1.81l-3.387 2.46a1 1 0 00-.364 1.118l1.286
+                                    3.967c.3.921-.755 1.688-1.54 1.118l-3.387-2.46a1
+                                    1 0 00-1.175 0l-3.387 2.46c-.784.57-1.838-.197-1.54-1.118l1.286-3.967a1
+                                    1 0 00-.364-1.118L2.045 9.394c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0
+                                    00.95-.69l1.286-3.967z" />
+                                </svg>
+                            ))}
+                            <div className="relative w-4 h-4">
+                                {/* yellow half–star on top */}
+                                <svg
+                                    className="absolute inset-0 w-4 h-4 z-10 text-yellow-400"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <defs>
+                                        <linearGradient id="half-yellow">
+                                            <stop offset="50%" stopColor="currentColor" />
+                                            <stop offset="50%" stopColor="transparent" />
+                                        </linearGradient>
+                                    </defs>
+                                    <path fill="url(#half-yellow)" d="M9.049 2.927c.3-.921 1.603-.921
+                                    1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0
+                                    1.371 1.24.588 1.81l-3.387 2.46a1 1 0
+                                    00-.364 1.118l1.286 3.967c.3.921-.755 1.688-1.54
+                                    1.118l-3.387-2.46a1 1 0 00-1.175 0l-3.387
+                                    2.46c-.784.57-1.838-.197-1.54-1.118l1.286-3.967a1
+                                    1 0 00-.364-1.118L2.045 9.394c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0
+                                    00.95-.69l1.286-3.967z"/>
+                                </svg>
+
+                                {/* black full star as background */}
+                                <svg
+                                    className="absolute inset-0 w-4 h-4 text-gray-100"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921
+                                    1.902 0l1.286 3.967a1 1 0 00.95.69h4.18c.969 0
+                                    1.371 1.24.588 1.81l-3.387 2.46a1 1 0
+                                    00-.364 1.118l1.286 3.967c.3.921-.755 1.688-1.54
+                                    1.118l-3.387-2.46a1 1 0 00-1.175 0l-3.387
+                                    2.46c-.784.57-1.838-.197-1.54-1.118l1.286-3.967a1
+                                    1 0 00-.364-1.118L2.045 9.394c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0
+                                    00.95-.69l1.286-3.967z"/>
+                                </svg>
+                            </div>
+
+                            <span className="ml-1 font-semibold text-sm">4.5 / 5</span>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>

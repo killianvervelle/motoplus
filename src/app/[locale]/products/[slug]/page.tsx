@@ -111,7 +111,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                       alt={payment.name}
                       width={44}
                       height={32}
-                      className="w-[44px] h-[32px]"
+                      className="w-[44px] h-[32px"
                     />
                   ),
                 )}

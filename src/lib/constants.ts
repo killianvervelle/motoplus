@@ -177,7 +177,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Oil + Fluids",
-        slug: "oil-fluids",
+        slug: "oil--fluids",
         imageBlack: "/images/engine-oilB.png",
         imageWhite: "/images/engine-oilW.png",
         submenu: [

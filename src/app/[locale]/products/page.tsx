@@ -143,7 +143,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
             </Suspense>
           </div>
 
-          <div className='col-12 lg:col-9'>
+          <div className='col-12 lg:col-9 pt-5 pl-5'>
             {layout === 'list' ? (
               <ProductListView searchParams={searchParams} />
             ) : (

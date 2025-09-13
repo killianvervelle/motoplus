@@ -7,7 +7,9 @@ import SeoMeta from '@/partials/SeoMeta'
 import Testimonials from '@/partials/Testimonials'
 import { AboutUsItem, RegularPage, Faq, Testimonial } from '@/types'
 import Link from 'next/link'
-import { FaBoxOpen, FaCheckCircle, FaTools } from 'react-icons/fa'
+import { FaBoxOpen, FaTools } from 'react-icons/fa'
+import { IoDiamondSharp } from "react-icons/io5";
+import { RiCustomerService2Fill } from "react-icons/ri"
 import { translateServer } from "../../../lib/utils/translateServer";
 
 
@@ -31,7 +33,9 @@ const About = async () => {
     translatedTeamFastSecure: "fast-secure",
     translatedTeamQuality: "quality",
     translatedTeamInspected: "inspected",
-    translatedCtaTitle: "delivery"
+    translatedCtaTitle: "delivery",
+    translatedCustomer: "customer",
+    translatedSupport: "support"
   };
 
   const translations = await Promise.all(
@@ -101,7 +105,7 @@ const About = async () => {
                     />
                   </div>
                   <div className='lg:mt-0 row lg:block text-center lg:text-start'>
-                    <h2>{section?.title}</h2>
+                    <h3>{section?.title}</h3>
                     {section?.content
                       .split(/\n\n+/)
                       .map((para, i) => (
@@ -116,7 +120,7 @@ const About = async () => {
               ) : (
                 <>
                   <div>
-                    <h2>{section.title}</h2>
+                    <h3>{section.title}</h3>
                     <p
                       className='mt-4 text-text-light dark:text-darkmode-text-light leading-7'
                       dangerouslySetInnerHTML={markdownify(section.content)}
@@ -141,43 +145,50 @@ const About = async () => {
       <section className='section'>
         <div className='container'>
           <div className='px-7 dark:bg-darkmode-light text-center rounded-md '>
-            <h2>{translated.translatedValueTitle}</h2>
-
-            <div className='bg-light dark:bg-darkmode-light row justify-center gap-6 py-20 mt-14'>
-              <div className='col-6 md:col-5 lg:col-3'>
+            <h3>{translated.translatedValueTitle}</h3>
+            <div className='bg-light dark:bg-darkmode-light row justify-center py-20 mt-14'>
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
                 <div className='flex justify-center'>
                   <FaTools size={48} />
                 </div>
-                <h3 className='md:h4 mt-6 mb-4'>{translated.translatedMissionTitle}</h3>
-                <p>{translated.translatedVisionTitle}</p>
+                <h5 className='md:h-20 lg:h-24 mt-6 pb-6 md:pb-0'>{translated.translatedMissionTitle}</h5>
+                <p className="mx-5">{translated.translatedVisionTitle}</p>
               </div>
 
-              <div className='col-6 md:col-6 lg:col-3'>
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
                 <div className='flex justify-center'>
                   <FaBoxOpen size={48} />
                 </div>
-                <h3 className='md:h4 mt-6 mb-4'>{translated.translatedTeamFastSecure}</h3>
-                <p>{translated.translatedCtaTitle}</p>
+                <h5 className='md:h-20 lg:h-24 mt-6 pb-6 md:pb-0'>{translated.translatedTeamFastSecure}</h5>
+                <p className="mx-5">{translated.translatedCtaTitle}</p>
               </div>
 
-              <div className='col-6 md:col-5 lg:col-3'>
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
                 <div className='flex justify-center'>
-                  <FaCheckCircle size={48} />
+                  <IoDiamondSharp size={48} />
                 </div>
-                <h3 className='md:h4 mt-6 mb-4'>{translated.translatedTeamQuality}</h3>
-                <p>{translated.translatedTeamInspected}</p>
+                <h5 className='md:h-20 lg:h-24 mt-6 pb-6 md:pb-0'>{translated.translatedTeamQuality}</h5>
+                <p className="mx-5">{translated.translatedTeamInspected}</p>
+              </div>
+
+              <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
+                <div className='flex justify-center'>
+                  <RiCustomerService2Fill size={48} />
+                </div>
+                <h5 className='md:h-20 lg:h-24 mt-6 pb-6 md:pb-0'>{translated.translatedCustomer}</h5>
+                <p className="mx-5">{translated.translatedSupport}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className='section'>
+      <section className='section-bottom'>
         <div className='container'>
-          <div className='bg-light px-7 lg:px-32 py-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-md'>
+          <div className='bg-light px-7 lg:px-32 pt-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-md'>
             <div className='row'>
               <div className='md:col-5 mx-auto space-y-5 mb-10 md:mb-0'>
-                <h1 dangerouslySetInnerHTML={markdownify(translated.translatedFaqTitle)} />
+                <h3 dangerouslySetInnerHTML={markdownify(translated.translatedFaqTitle)} />
                 <p dangerouslySetInnerHTML={markdownify(translated.translatedFaqSubTitle)} className='md:text-lg text-justify pr-5' />
 
                 {button?.enable && (

@@ -101,11 +101,11 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
           productsData =
             category && category !== 'all'
               ? await getCollectionProducts({
-                  collection: category,
-                  sortKey,
-                  reverse,
-                  filterCategoryProduct: filterCategoryProduct.length > 0 ? filterCategoryProduct : undefined
-                })
+                collection: category,
+                sortKey,
+                reverse,
+                filterCategoryProduct: filterCategoryProduct.length > 0 ? filterCategoryProduct : undefined
+              })
               : await getProducts({ ...query, cursor })
         } else {
           // Fetch all products
@@ -177,29 +177,32 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
         ) : null}
 
         {products?.length === 0 && (
-          <div className='mx-auto pt-5 text-center'>
+          <div className="flex flex-col items-center mx-auto pt-5 text-center">
             <ImageFallback
-              className='mx-auto mb-6'
-              src='/images/no-search-found.png'
-              alt='no-search-found'
+              className="mx-auto mb-6 w-[211px] h-[184px]"
+              src="/images/no-search-found.png"
+              alt="no-search-found"
               width={211}
               height={184}
+              priority={true}
             />
-            <h1 className='h2 mb-4'>No Product Found!</h1>
-            <p>We couldn&apos;t find what you filtered for. Try filtering again.</p>
+            <h1 className="h2 mt-4 mb-4">No Product Found!</h1>
+            <p>
+              We couldn&apos;t find what you filtered for. Try filtering again.
+            </p>
           </div>
         )}
 
         <div className='row space-y-10'>
           {products?.map((product: Product) => {
-            const { id, title, variants, handle, featuredImage, priceRange, description, compareAtPriceRange } = product
+            const { id, title, variants, handle, featuredImage, description } = product
 
             const defaultVariantId = variants.length > 0 ? variants[0].id : undefined
 
             return (
               <div className='col-12' key={id}>
                 <div className='row'>
-                  <div className='col-4'>
+                  <div className='col-4 md:relative'>
                     <ImageFallback
                       src={featuredImage?.url || '/images/product_image404.jpg'}
                       width={312}
@@ -207,28 +210,43 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
                       alt={featuredImage?.altText || 'fallback image'}
                       className='w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md'
                     />
+                    <img
+                      src="/images/logo.png"
+                      width={40}
+                      height={20}
+                      alt="Logo"
+                      className="absolute top-2 right-2 "
+                    />
                   </div>
 
-                  <div className='col-8 py-3 max-md:pt-4'>
-                    <h2 className='font-bold md:font-normal h4'>
+                  <div className='col-8 py-3 max-md:pt-4 '>
+                    <h3 className='font-bold md:font-normal h5'>
                       <Link href={`/products/${handle}`}>{title}</Link>
-                    </h2>
+                    </h3>
 
                     <div className='flex items-center gap-x-2 mt-2'>
-                      <span className='text-text-light dark:text-darkmode-text-light text-xs md:text-lg font-bold'>
-                        ৳ {priceRange?.minVariantPrice?.amount} {priceRange?.minVariantPrice?.currencyCode}
+                      <span className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark">
+                        {currencySymbol}{" "}
+                        {product?.priceRange?.minVariantPrice?.amount}{" "}
+                        {product?.priceRange?.minVariantPrice?.currencyCode}
                       </span>
-                      {parseFloat(compareAtPriceRange?.maxVariantPrice?.amount) > 0 ? (
-                        <s className='text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium'>
-                          {currencySymbol} {compareAtPriceRange?.maxVariantPrice?.amount}{' '}
-                          {compareAtPriceRange?.maxVariantPrice?.currencyCode}
+                      {parseFloat(
+                        product?.compareAtPriceRange?.maxVariantPrice?.amount,
+                      ) > 0 ? (
+                        <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
+                          {currencySymbol}{" "}
+                          {product?.compareAtPriceRange?.maxVariantPrice?.amount}{" "}
+                          {
+                            product?.compareAtPriceRange?.maxVariantPrice
+                              ?.currencyCode
+                          }
                         </s>
                       ) : (
-                        ''
+                        ""
                       )}
                     </div>
 
-                    <p className='max-md:text-xs text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3'>
+                    <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3'>
                       {description}
                     </p>
                     <Suspense>

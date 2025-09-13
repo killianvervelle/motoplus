@@ -12,6 +12,10 @@
   @apply mx-auto !max-w-[1640px] px-4;
 }
 
+.section-bottom {
+  @apply pb-0;
+}
+
 /* social icons */
 .social-icons {
   @apply flex items-center gap-x-2;

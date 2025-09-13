@@ -4,11 +4,14 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { ListItem } from '../product/ProductLayouts'
 import { FilterDropdownItem } from './FilterDropdownItem'
+import { SortFilterItem } from '@/lib/constants'
+import { useTranslations } from "next-intl";
 
 const DropdownMenu = ({ list }: { list: ListItem[] }) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [active, setActive] = useState('')
+  const t = useTranslations('sorting');
 
   const [openSelect, setOpenSelect] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -24,16 +27,26 @@ const DropdownMenu = ({ list }: { list: ListItem[] }) => {
     return () => window.removeEventListener('click', handleClickOutside)
   }, [])
 
+  function isSortFilterItem(item: ListItem): item is SortFilterItem {
+    return 'slug' in item && typeof item.slug === 'string';
+  }
+
   useEffect(() => {
-    list.forEach((listItem: ListItem) => {
-      if (
-        ('path' in listItem && pathname === listItem.path) ||
-        ('slug' in listItem && searchParams.get('sort') === listItem.slug)
-      ) {
-        setActive(listItem.title)
+    list.forEach((listItem) => {
+      const isPathMatch =
+        'path' in listItem && pathname === listItem.path;
+
+      let isSlugMatch = false;
+      if (isSortFilterItem(listItem)) {
+        isSlugMatch = searchParams.get('sort') === listItem.slug;
       }
-    })
-  }, [pathname, list, searchParams])
+
+      if (isPathMatch || isSlugMatch) {
+        const slug = isSortFilterItem(listItem) ? listItem.slug : '';
+        setActive(t(slug!));
+      }
+    });
+  }, [pathname, list, searchParams]);
 
   return (
     <div className='relative inline-block text-left text-text-light' ref={menuRef}>

@@ -118,13 +118,25 @@ export default function ContactForm() {
                                         {translateClient("contact-title", contact.slug)}
                                     </p>
                                     <p dangerouslySetInnerHTML={markdownify(contact.contact)} />
+                                    {contact.slug === "adress" &&
+                                        <div className="mt-6 overflow-hidden rounded-md border aspect-[16/9]">
+                                            <iframe
+                                                title="Google Map — Moto Plus De Magalhães Ribeiro"
+                                                src="https://www.google.com/maps?q=46.5686564,6.6043734&z=17&output=embed"
+                                                className="w-full h-full border-0"
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                                allowFullScreen
+                                            />
+                                        </div>
+                                    }
                                 </div>
                             ))}
                     </div>
                 </div>
             </section>
 
-            <section className="section">
+            <section className="section-bottom">
                 <div className="container">
                     <div className="mx-auto lg:col-10 my-20">
                         <h2 className="mb-14 text-center">
