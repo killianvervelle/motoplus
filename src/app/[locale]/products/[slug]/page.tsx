@@ -43,7 +43,7 @@ const ProductSingle = async ({
 
 export default ProductSingle;
 
-const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
+const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
   const paymentsAndDelivery = getListPage("sections/payments-and-delivery.md");
   const { payment_methods, estimated_delivery } =
     paymentsAndDelivery.frontmatter;
@@ -53,7 +53,10 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
 
   console.log("PRODUCT 222", product)
 
-  if (!product) return notFound();
+  if (!product) {
+    console.log("not found")
+    return notFound();
+  }
 
   const {
     id,
