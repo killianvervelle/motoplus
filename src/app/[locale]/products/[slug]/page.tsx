@@ -18,7 +18,6 @@ export const generateMetadata = async ({
 }: {
   params: { locale: string; slug: string };
 }) => {
-  console.log("PARAAAMMMSSSS", params.slug);
 
   const product = await getProduct(params.slug);
   if (!product) return notFound();
@@ -29,8 +28,11 @@ export const generateMetadata = async ({
   };
 };
 
-const ProductSingle = async (props: { params: Promise<{ slug: string }> }) => {
-  const params = await props.params;
+const ProductSingle = async ({
+  params
+}: {
+  params: { locale: string; slug: string }
+}) => {
   return (
     <Suspense fallback={<LoadingProductGallery />}>
       <ShowProductSingle params={params} />
