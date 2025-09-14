@@ -24,8 +24,7 @@ export const generateMetadata = async ({
   };
 };
 
-const ProductSingle = async (props: { params: Promise<{ slug: string }> }) => {
-  const params = await props.params;
+const ProductSingle = async ({ params }: { params: { slug: string } }) => {
   return (
     <Suspense fallback={<LoadingProductGallery />}>
       <ShowProductSingle params={params} />
