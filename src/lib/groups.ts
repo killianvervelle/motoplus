@@ -43,7 +43,7 @@ export const GROUPS = {
     "air-filter-oil",
     "air-filter-cleaner",
   ],
-  "oil-and-fluids": [
+  "oil--fluids": [
     "engine-coolant",
     "engine-oil",
     "clutch-fluid",
