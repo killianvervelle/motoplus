@@ -11,11 +11,10 @@ import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { slug: string };
+export const generateMetadata = async (props: {
+  params: Promise<{ slug: string }>;
 }) => {
+  const params = await props.params;
   const product = await getProduct(params.slug);
   if (!product) return notFound();
   return {
@@ -24,7 +23,8 @@ export const generateMetadata = async ({
   };
 };
 
-const ProductSingle = async ({ params }: { params: { slug: string } }) => {
+const ProductSingle = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   return (
     <Suspense fallback={<LoadingProductGallery />}>
       <ShowProductSingle params={params} />
