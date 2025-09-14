@@ -18,6 +18,7 @@ export const generateMetadata = async (props: {
 }) => {
   const params = props.params;
   const product = await getProduct(params.slug);
+  console.log("PARAAAMMMSSSS", params, params.slug)
   if (!product) return notFound();
   return {
     title: product.seo.title || product.title,
