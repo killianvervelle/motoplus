@@ -21,6 +21,7 @@ export const generateMetadata = async ({
 }) => {
 
   const product = await getProduct(params.slug);
+  console.log("PRRROODUCGT", product)
   if (!product) return notFound();
 
   return {
