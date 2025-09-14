@@ -112,7 +112,7 @@ export default function ContactForm() {
                             data.contact_meta?.map((contact: ContactUsItem) => (
                                 <div
                                     key={contact.name}
-                                    className="p-6 bg-light dark:bg-darkmode-light rounded-md text-center"
+                                    className="p-6 bg-[#e9e9e9] dark:bg-darkmode-light rounded-md text-center"
                                 >
                                     <p className="mb-6 h3 font-medium text-text-dark dark:text-darkmode-text-dark">
                                         {translateClient("contact-title", contact.slug)}
@@ -144,7 +144,7 @@ export default function ContactForm() {
                         </h2>
 
                         <form
-                            className="border border-border dark:border-darkmode-border rounded-md p-10 "
+                            className="border border-[#cecece] dark:border-darkmode-border rounded-md p-10 "
                             method="POST"
                             onSubmit={onSubmit}
                         >

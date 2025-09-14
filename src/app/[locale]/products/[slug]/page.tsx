@@ -115,7 +115,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                 )}
               </div>
 
-              <hr className="my-6 border border-border dark:border-border/40" />
+              <hr className="my-6 border border-[#cecece] dark:border-border/40" />
 
               <div className="flex gap-3 items-center mb-6">
                 <h5 className="max-md:text-base">Share:</h5>

@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { JSX, MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react'
 import { FiZoomIn } from 'react-icons/fi'
@@ -114,9 +113,8 @@ const CustomZoomImage = ({ src, alt, width, height }: CustomZoomImageProps): JSX
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden rounded-md ${
-        !isZoomed && showMagnifier ? 'cursor-zoom-in' : isZoomed ? 'cursor-zoom-out' : ''
-      }`}
+      className={`relative w-full h-full overflow-hidden rounded-md ${!isZoomed && showMagnifier ? 'cursor-zoom-in' : isZoomed ? 'cursor-zoom-out' : ''
+        }`}
       ref={imageRef}
       onMouseEnter={() => !isTouchDevice && setShowMagnifier(true)}
       onMouseLeave={() => !isTouchDevice && setShowMagnifier(false)}
@@ -126,13 +124,20 @@ const CustomZoomImage = ({ src, alt, width, height }: CustomZoomImageProps): JSX
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <Image
+      <img
         src={src}
         alt={alt}
         width={width}
         height={height}
         className='w-full h-full object-contain'
         draggable={false}
+      />
+      <img
+        src="/images/logo.png"
+        width={60}
+        height={40}
+        alt="Logo"
+        className="absolute top-2 right-2 "
       />
 
       {/* Magnifying glass icon - shown on hover for desktop, shown on touch for mobile */}
@@ -241,17 +246,16 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
         >
           {filteredImages.map((item: ImageItem) => (
             <SwiperSlide key={item.url}>
-              <div className='mb-6 border border-border dark:border-border/40 rounded-md max-h-[623px] overflow-hidden'>
+              <div className='mb-6 border border-[#cecece] dark:border-border/40 rounded-md max-h-[623px] overflow-hidden'>
                 <CustomZoomImage src={item.url} alt={item.altText} width={722} height={623} />
               </div>
             </SwiperSlide>
           ))}
           <div
-            className={`hidden lg:block w-full absolute top-1/2 -translate-y-1/2 z-10 px-6 text-text-dark ${
-              isHovered
-                ? 'opacity-100 transition-opacity duration-300 ease-in-out'
-                : 'opacity-0 transition-opacity duration-300 ease-in-out'
-            }`}
+            className={`hidden lg:block w-full absolute top-1/2 -translate-y-1/2 z-10 px-6 text-text-dark ${isHovered
+              ? 'opacity-100 transition-opacity duration-300 ease-in-out'
+              : 'opacity-0 transition-opacity duration-300 ease-in-out'
+              }`}
           >
             <div ref={prevRef} className='p-2 lg:p-4 rounded-md bg-body cursor-pointer shadow-sm absolute left-4'>
               <HiOutlineArrowNarrowLeft size={24} />
@@ -274,19 +278,25 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           <SwiperSlide key={item.url}>
             <div
               onClick={() => handleThumbSlideClick(item.url)}
-              className={`rounded-md cursor-pointer overflow-hidden ${
-                picUrl === item.url
-                  ? 'border border-darkmode-border dark:border-yellow-500'
-                  : 'border border-border dark:border-border/40'
-              }`}
+              className={`rounded-md cursor-pointer overflow-hidden relative ${picUrl === item.url
+                ? 'border border-darkmode-border dark:border-yellow-500'
+                : 'border border-[#cecece] dark:border-border/40'
+                }`}
             >
-              <Image
+              <img
                 src={item.url}
                 alt={item.altText}
                 width={168}
                 height={146}
                 className='max-h-[146px]'
                 draggable={false}
+              />
+              <img
+                src="/images/logo.png"
+                width={20}
+                height={10}
+                alt="Logo"
+                className="absolute top-2 right-2 "
               />
             </div>
           </SwiperSlide>

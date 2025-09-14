@@ -234,8 +234,8 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
             <div
               key={index}
               className={`text-center col-10 sm:col-6 md:col-4 group relative 
-                ${index % 3 === 0 && "md:border-r-[0.5px] md:border-gray-200"}
-                ${index % 3 === 2 && "md:border-l-[0.5px] md:border-gray-200"}`}
+                ${index % 3 === 0 && "md:border-r-[0.5px] md:border-[#cecece]"}
+                ${index % 3 === 2 && "md:border-l-[0.5px] md:border-[#cecece]"}`}
             >
               <div className="md:relative sm:h-56 md:h-56 lg:h-56 xl:h-56 overflow-hidden">
                 <ImageFallback
@@ -262,7 +262,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
                     handle={product?.handle}
                     defaultVariantId={defaultVariantId}
                     stylesClass={
-                      "btn btn-primary max-md:btn-sm z-10 absolute bottom-24 md:bottom-0 left-1/2 transform -translate-x-1/2 md:translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md"
+                      "btn btn-primary max-md:btn-sm z-10 absolute bottom-24 md:bottom-[-5] left-1/2 transform -translate-x-1/2 md:translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md"
                     }
                   />
                 </Suspense>

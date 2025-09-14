@@ -24,14 +24,14 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                   width={424}
                   height={306}
                   alt={featuredImage?.altText || 'fallback image'}
-                  className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
+                  className='h-[220px] sm:h-[350px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
                 />
                 <img
                   src="/images/logo.png"
                   width={50}
                   height={30}
                   alt="Logo"
-                  className="absolute top-2 right-2 "
+                  className="absolute top-5 right-5"
                 />
 
                 <AddToCart
@@ -40,7 +40,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                   handle={handle}
                   defaultVariantId={defaultVariantId}
                   stylesClass={
-                    'btn btn-primary max-md:btn-sm z-10 absolute bottom-12 md:bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md'
+                    'btn btn-primary max-md:btn-sm z-10 absolute bottom-12 bottom-[-5] left-1/2 transform -translate-x-1/2 translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md'
                   }
                 />
               </div>

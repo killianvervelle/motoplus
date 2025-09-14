@@ -23,7 +23,7 @@
     @apply inline-block;
     a {
       @apply h-6 w-7 p-1 flex  items-center justify-center rounded-md bg-white 
-text-text-light border border-border 
+text-text-light border border-[#cecece] 
 dark:border-border/30 dark:bg-darkmode-light dark:text-darkmode-text-light 
 hover:scale-110 hover:-translate-y-0.5 hover:text-primary 
 duration-300 transform;

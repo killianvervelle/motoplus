@@ -201,8 +201,10 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
 
             return (
               <div className='col-12' key={id}>
-                <div className='row'>
+                <div className='row group'>
                   <div className='col-4 md:relative'>
+                    <Link
+                      href={`/products/${handle}`}>
                     <ImageFallback
                       src={featuredImage?.url || '/images/product_image404.jpg'}
                       width={312}
@@ -217,59 +219,60 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
                       alt="Logo"
                       className="absolute top-2 right-2 "
                     />
-                  </div>
+                  </Link>
+                </div>
 
-                  <div className='col-8 py-3 max-md:pt-4 '>
-                    <h3 className='font-bold md:font-normal h5'>
-                      <Link href={`/products/${handle}`}>{title}</Link>
-                    </h3>
+                <div className='col-8 py-3 max-md:pt-4 '>
+                  <h3 className='font-bold md:font-normal h5'>
+                    <Link href={`/products/${handle}`}>{title}</Link>
+                  </h3>
 
-                    <div className='flex items-center gap-x-2 mt-2'>
-                      <span className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark">
+                  <div className='flex items-center gap-x-2 mt-2'>
+                    <span className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark">
+                      {currencySymbol}{" "}
+                      {product?.priceRange?.minVariantPrice?.amount}{" "}
+                      {product?.priceRange?.minVariantPrice?.currencyCode}
+                    </span>
+                    {parseFloat(
+                      product?.compareAtPriceRange?.maxVariantPrice?.amount,
+                    ) > 0 ? (
+                      <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
                         {currencySymbol}{" "}
-                        {product?.priceRange?.minVariantPrice?.amount}{" "}
-                        {product?.priceRange?.minVariantPrice?.currencyCode}
-                      </span>
-                      {parseFloat(
-                        product?.compareAtPriceRange?.maxVariantPrice?.amount,
-                      ) > 0 ? (
-                        <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
-                          {currencySymbol}{" "}
-                          {product?.compareAtPriceRange?.maxVariantPrice?.amount}{" "}
-                          {
-                            product?.compareAtPriceRange?.maxVariantPrice
-                              ?.currencyCode
-                          }
-                        </s>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-
-                    <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3'>
-                      {description}
-                    </p>
-                    <Suspense>
-                      <AddToCart
-                        variants={product?.variants}
-                        availableForSale={product?.availableForSale}
-                        handle={handle}
-                        defaultVariantId={defaultVariantId}
-                        stylesClass={'btn btn-outline-primary max-md:btn-sm drop-shadow-md'}
-                      />
-                    </Suspense>
+                        {product?.compareAtPriceRange?.maxVariantPrice?.amount}{" "}
+                        {
+                          product?.compareAtPriceRange?.maxVariantPrice
+                            ?.currencyCode
+                        }
+                      </s>
+                    ) : (
+                      ""
+                    )}
                   </div>
+
+                  <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3'>
+                    {description}
+                  </p>
+                  <Suspense>
+                    <AddToCart
+                      variants={product?.variants}
+                      availableForSale={product?.availableForSale}
+                      handle={handle}
+                      defaultVariantId={defaultVariantId}
+                      stylesClass={'btn btn-outline-primary max-md:btn-sm drop-shadow-md'}
+                    />
+                  </Suspense>
                 </div>
               </div>
-            )
+              </div>
+        )
           })}
-        </div>
-
-        <p className={hasNextPage || isLoading ? 'opacity-100 flex justify-center' : 'opacity-0 hidden'}>
-          <BiLoaderAlt className={`animate-spin`} size={30} />
-        </p>
       </div>
-    </section>
+
+      <p className={hasNextPage || isLoading ? 'opacity-100 flex justify-center' : 'opacity-0 hidden'}>
+        <BiLoaderAlt className={`animate-spin`} size={30} />
+      </p>
+    </div>
+    </section >
   )
 }
 

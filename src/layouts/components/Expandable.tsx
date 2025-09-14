@@ -11,7 +11,7 @@ const Expandable = ({ faqs }: { faqs: TranslatedFaq[] }) => {
       {faqs.map((faq: TranslatedFaq, index) => (
         <div
           key={index}
-          className={`accordion ${activeTab === index && "active"}`}
+          className={`accordion ${activeTab === index && "active"} bg-[#e9e9e9] border-b-[#dfdddd]`}
         >
           <button
             className="accordion-header"

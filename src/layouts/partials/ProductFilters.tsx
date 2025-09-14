@@ -60,7 +60,7 @@ const ProductFilters = ({
     <div>
       <div>
         <h5 className='mb-2 lg:text-xl'>{translateClient("product-filters", "price-range")}</h5>
-        <hr className='border-border dark:border-darkmode-border' />
+        <hr className='border-[#cecece] dark:border-darkmode-border' />
         <div className='pt-4'>
           <Suspense>
             <RangeSlider maxPriceData={maxPriceData} />
@@ -70,7 +70,7 @@ const ProductFilters = ({
 
       <div>
         <h5 className='mb-2 mt-4 lg:mt-6 lg:text-xl'>{translateClient("product-filters", "product-cat")}</h5>
-        <hr className='border-border dark:border-darkmode-border' />
+        <hr className='border-[#cecece] dark:border-darkmode-border' />
         <ul className='mt-4 space-y-4'>
           {categories.map((category) => (
             <li
@@ -100,7 +100,7 @@ const ProductFilters = ({
       {vendors && (
         <div>
           <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{translateClient("product-filters", "brands")}</h5>
-          <hr className='border-border dark:border-darkmode-border' />
+          <hr className='border-[#cecece] dark:border-darkmode-border' />
           <ul className='mt-4 space-y-4'>
             {vendors.map((vendor) => (
               <li
@@ -144,7 +144,7 @@ const ProductFilters = ({
       {tags.length > 0 && (
         <div>
           <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{translateClient("product-filters", "tags")}</h5>
-          <hr className='border-border dark:border-darkmode-border' />
+          <hr className='border-[#cecece] dark:border-darkmode-border' />
           <div className='mt-4'>
             <Suspense>
               {' '}

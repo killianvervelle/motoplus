@@ -31,7 +31,7 @@ export default function Navbar() {
                 aria-hidden="true"
             />
 
-            <nav className="navbar hidden md:flex bg-[#d7d7d7] dark:bg-darkmode-light z-50">
+            <nav className="navbar hidden md:flex bg-[#c7c6c6] dark:bg-darkmode-light z-50">
                 <div className="container flex justify-between items-center">
                     <ul className="flex items-center justify-start ">
                         <li>

@@ -146,7 +146,7 @@ const About = async () => {
         <div className='container'>
           <div className='px-7 dark:bg-darkmode-light text-center rounded-md '>
             <h3>{translated.translatedValueTitle}</h3>
-            <div className='bg-light dark:bg-darkmode-light row justify-center py-20 mt-14'>
+            <div className='bg-[#e9e9e9] dark:bg-darkmode-light row justify-center py-20 mt-14'>
               <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
                 <div className='flex justify-center'>
                   <FaTools size={48} />
@@ -185,7 +185,7 @@ const About = async () => {
 
       <section className='section-bottom'>
         <div className='container'>
-          <div className='bg-light px-7 lg:px-32 pt-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-md'>
+          <div className='bg-[#e9e9e9] px-7 lg:px-32 pt-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-md'>
             <div className='row'>
               <div className='md:col-5 mx-auto space-y-5 mb-10 md:mb-0'>
                 <h3 dangerouslySetInnerHTML={markdownify(translated.translatedFaqTitle)} />
@@ -198,7 +198,7 @@ const About = async () => {
                 )}
               </div>
 
-              <div className='md:col-7 text-justify'>
+              <div className='md:col-7 text-justify pb-10'>
                 <Expandable faqs={translatedFaqs!} />
               </div>
             </div>

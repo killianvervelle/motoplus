@@ -95,13 +95,13 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     match?.node.url ?? item.merchandise.product.featuredImage?.url ?? '/images/product_image404.jpg'
 
                   return (
-                    <li key={i} className='flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700'>
+                    <li key={i} className='flex w-full flex-col border-b border-[#cecece] dark:border-neutral-700'>
                       <div className='relative flex w-full flex-row justify-between px-1 py-4'>
                         <div className='absolute z-40 -mt-2 ml-[55px]'>
                           <DeleteItemButton item={item} />
                         </div>
                         <Link href={merchandiseUrl} onClick={closeCart} className='z-30 flex flex-row space-x-4'>
-                          <div className='relative h-16 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300'>
+                          <div className='relative h-16 w-16 overflow-hidden rounded-md border border-[#cecece] bg-neutral-300'>
                             <Image
                               className='h-full w-full object-cover'
                               src={src}
@@ -124,7 +124,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             amount={item.cost.totalAmount.amount}
                             currencyCode={item.cost.totalAmount.currencyCode}
                           />
-                          <div className='ml-auto flex h-9 flex-row items-center rounded-md border border-neutral-200 dark:border-neutral-700'>
+                          <div className='ml-auto flex h-9 flex-row items-center rounded-md border border-[#cecece] dark:border-neutral-700'>
                             <EditItemQuantityButton item={item} type='minus' />
                             <p className='w-6 text-center'>
                               <span className='w-full text-sm'>{item.quantity}</span>
@@ -138,7 +138,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 })}
               </ul>
               <div className='py-4 text-sm text-neutral-500 dark:text-neutral-400'>
-                <div className='mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700'>
+                <div className='mb-3 flex items-center justify-between border-b border-[#cecece] pb-1 dark:border-neutral-700'>
                   <p>Taxes</p>
                   <Price
                     className='text-right text-base text-black dark:text-white'
@@ -146,11 +146,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                     currencyCode={cart.cost.totalTaxAmount.currencyCode}
                   />
                 </div>
-                <div className='mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700'>
+                <div className='mb-3 flex items-center justify-between border-b border-[#cecece] pb-1 pt-1 dark:border-neutral-700'>
                   <p>Shipping</p>
                   <p className='text-right'>Calculated at checkout</p>
                 </div>
-                <div className='mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700'>
+                <div className='mb-3 flex items-center justify-between border-b border-[#cecece] pb-1 pt-1 dark:border-neutral-700'>
                   <p>Total</p>
                   <Price
                     className='text-right text-base text-black dark:text-white'

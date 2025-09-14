@@ -60,7 +60,7 @@ const Testimonials = ({ title, testimonials }: TestimonialsProps) => {
             >
               {testimonials.map((item: TranslatedTestimonial, index: number) => (
                 <SwiperSlide key={index}>
-                  <div className='rounded-lg relative flex flex-col items-center bg-light py-10 dark:bg-darkmode-light'>
+                  <div className='rounded-lg relative flex flex-col items-center bg-[#e9e9e9] py-10 dark:bg-darkmode-light'>
                     <div className='text-text-dark dark:text-white absolute opacity-25'>
                     </div>
                     <blockquote
