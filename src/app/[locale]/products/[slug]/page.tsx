@@ -12,9 +12,9 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 export const generateMetadata = async (props: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }) => {
-  const params = await props.params;
+  const params = props.params;
   const product = await getProduct(params.slug);
   if (!product) return notFound();
   return {
