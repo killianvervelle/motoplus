@@ -11,6 +11,8 @@ import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export const generateMetadata = async (props: {
   params: { slug: string };
 }) => {

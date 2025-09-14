@@ -7,7 +7,6 @@ import { useLocale } from 'next-intl'
 import { RegularPage } from "@/types";
 
 
-
 export const dynamic = 'force-dynamic';
 
 export const generateStaticParams = () => {

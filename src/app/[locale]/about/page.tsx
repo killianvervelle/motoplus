@@ -12,6 +12,7 @@ import { IoDiamondSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri"
 import { translateServer } from "../../../lib/utils/translateServer";
 
+export const dynamic = 'force-dynamic';
 
 const About = async () => {
   const data: RegularPage = getListPage('about/_index.md')
