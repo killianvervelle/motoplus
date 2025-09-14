@@ -11,10 +11,11 @@ import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-export const generateMetadata = async (props: {
-  params: Promise<{ slug: string }>;
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { slug: string };
 }) => {
-  const params = await props.params;
   const product = await getProduct(params.slug);
   if (!product) return notFound();
   return {
