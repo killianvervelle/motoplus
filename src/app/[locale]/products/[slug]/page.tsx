@@ -13,13 +13,16 @@ import { Suspense } from "react";
 
 export const dynamic = 'force-dynamic';
 
-export const generateMetadata = async (props: {
-  params: { slug: string };
+export const generateMetadata = async ({
+  params,
+}: {
+  params: { locale: string; slug: string };
 }) => {
-  const params = props.params;
+  console.log("PARAAAMMMSSSS", params, params.slug);
+
   const product = await getProduct(params.slug);
-  console.log("PARAAAMMMSSSS", params, params.slug)
   if (!product) return notFound();
+
   return {
     title: product.seo.title || product.title,
     description: product.seo.description || product.description,
