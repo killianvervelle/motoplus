@@ -45,7 +45,14 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
           rel="noopener noreferrer nofollow"
         >
           <span className="sr-only">{socialName}</span>
-          <DynamicIcon className="inline-block" icon={"FaFacebookF"} />
+          <img
+            key={"Facebook"}
+            src={"/images/facebook.png"}
+            alt={"Facebook"}
+            width={25}
+            height={18}
+            className="w-[25] h-[18]"
+          />
         </a>
       </li>
 
@@ -57,7 +64,14 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
           rel="noopener noreferrer nofollow"
         >
           <span className="sr-only">{socialName}</span>
-          <DynamicIcon className="inline-block" icon={"FaXTwitter"} />
+          <img
+            key={"LinkedIn"}
+            src={"/images/linkedin.png"}
+            alt={"LinkedIn"}
+            width={25}
+            height={18}
+            className="w-[25] h-[18]"
+          />
         </a>
       </li>
 
@@ -69,7 +83,14 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
           rel="noopener noreferrer nofollow"
         >
           <span className="sr-only">{socialName}</span>
-          <DynamicIcon className="inline-block" icon={"FaLinkedinIn"} />
+          <img
+            key={"Twitter"}
+            src={"/images/twitter.png"}
+            alt={"Twitter"}
+            width={25}
+            height={18}
+            className="w-[25] h-[18]"
+          />
         </a>
       </li>
 

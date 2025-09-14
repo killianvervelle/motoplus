@@ -115,7 +115,7 @@ export const MENU_ITEMS: MenuItem[] = [
           { name: "Chains", slug: "chains" },
           { name: "Sprockets", slug: "sprockets" },
           { name: "Chain Guard", slug: "chain-guard" },
-          { name: "Chain and Sprockets Kit", slug: "chain-sprockets-kit" },
+          { name: "Chain and Sprockets Kit", slug: "chain-and-sprockets-kit" },
           { name: "Chain Oiler System", slug: "chain-oiler-system" },
           { name: "Chain Tools", slug: "chain-tools" },
           { name: "Clutch", slug: "clutch" },
@@ -176,7 +176,7 @@ export const MENU_ITEMS: MenuItem[] = [
         ]
       },
       {
-        name: "Oil + Fluids",
+        name: "Oil & Fluids",
         slug: "oil--fluids",
         imageBlack: "/images/engine-oilB.png",
         imageWhite: "/images/engine-oilW.png",
@@ -239,7 +239,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Handlebar & Controls",
-        slug: "handlebar-controls",
+        slug: "handlebar--controls",
         imageBlack: "/images/brakeB.png",
         imageWhite: "/images/brakeW.png",
         submenu: [
@@ -321,7 +321,7 @@ export const MENU_ITEMS: MenuItem[] = [
       },
       {
         name: "Fuel & Additives",
-        slug: "fuel-additives",
+        slug: "fuel--additives",
         imageBlack: "/images/cosmeticB.png",
         imageWhite: "/images/cosmeticW.png",
         submenu: [
@@ -333,14 +333,14 @@ export const MENU_ITEMS: MenuItem[] = [
         ]
       },
       {
-        name: "Wash and Shine",
-        slug: "wash-shine",
+        name: "Wash & Shine",
+        slug: "wash--shine",
         imageBlack: "/images/sprayB.png",
         imageWhite: "/images/sprayW.png",
         submenu: [
           { name: "Seat Spray", slug: "seat-spray" },
-          { name: "Polish and Wax", slug: "polish-wax" },
-          { name: "Chrome and Alu Polish", slug: "chrome-alu-polish" },
+          { name: "Polish & Wax", slug: "polish--wax" },
+          { name: "Chrome & Alu Polish", slug: "chrome--alu-polish" },
           { name: "Cleaning Supplies", slug: "cleaning-supplies" },
           { name: "Brush", slug: "brush" },
           { name: "Sponge", slug: "sponge" },
@@ -421,8 +421,8 @@ export const MENU_ITEMS: MenuItem[] = [
         ]
       },
       {
-        name: "Clothing and Merchandise",
-        slug: "clothing-merchandise",
+        name: "Clothing & Merchandise",
+        slug: "clothing--merchandise",
         imageBlack: "/images/suitB.png",
         imageWhite: "/images/suitW.png",
         submenu: [
@@ -431,8 +431,8 @@ export const MENU_ITEMS: MenuItem[] = [
         ]
       },
       {
-        name: "Navigation, Intercom and Telephone",
-        slug: "navigation-intercom-telephone",
+        name: "Navigation, Intercom & Telephone",
+        slug: "navigation--intercom--telephone",
         imageBlack: "/images/automotiveB.png",
         imageWhite: "/images/automotiveW.png",
         submenu: [

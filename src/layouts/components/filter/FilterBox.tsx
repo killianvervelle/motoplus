@@ -48,9 +48,9 @@ const FilterBox = ({
     const handleSearch = () => {
         setAnimate(true);
         const params = new URLSearchParams();
-        if (selectedBrand) params.set("brand", slugify(selectedBrand.slug));
-        if (selectedModel) params.set("model", slugify(selectedModel.slug));
-        if (selectedComponent) params.set("part", slugify(selectedComponent.slug));
+        if (selectedBrand) params.set("brand", selectedBrand.slug);
+        if (selectedModel) params.set("model", selectedModel.slug);
+        if (selectedComponent) params.set("component", selectedComponent.slug);
         router.push(`/products?${params.toString()}`);
     }
 
@@ -83,7 +83,7 @@ const FilterBox = ({
                                         key={b}
                                         className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                                         onClick={closeAnd(() => {
-                                            setSelectedBrand(b);
+                                            setSelectedBrand({ name: b, slug: slugify(b) });
                                             setSelectedModel(null);
                                         })}
                                     >
@@ -112,7 +112,10 @@ const FilterBox = ({
                                     <li
                                         key={m}
                                         className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
-                                        onClick={closeAnd(() => setSelectedModel(m))}
+                                        onClick={closeAnd(() => {
+                                            setSelectedModel({ name: m, slug: slugify(m) });
+                                            setSelectedComponent(null);
+                                        })}
                                     >
                                         {m}
                                     </li>
@@ -146,7 +149,9 @@ const FilterBox = ({
                                                 <li
                                                     key={item}
                                                     className="px-6 py-2 hover:bg-gray-200 cursor-pointer"
-                                                    onClick={closeAnd(() => setSelectedComponent(item))}
+                                                    onClick={closeAnd(() =>
+                                                        setSelectedComponent({ name: item, slug: slugify(item) })
+                                                    )}
                                                 >
                                                     {item}
                                                 </li>

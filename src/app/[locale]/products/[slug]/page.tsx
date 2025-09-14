@@ -8,7 +8,6 @@ import config from "@/config/config.json";
 import { getListPage } from "@/lib/contentParser";
 import { getProduct, getProductRecommendations } from "@/lib/shopify";
 import LatestProducts from "@/partials/FeaturedProducts";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -71,12 +70,11 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
               </Suspense>
             </div>
 
-            {/* right side contents  */}
             <div className="col-10 md:col-8 lg:col-5 md:ml-7 py-6 lg:py-0">
               <h1 className="text-3xl md:h2 mb-2 md:mb-6">{title}</h1>
 
               <div className="flex gap-2 items-center">
-                <h4 className="text-text-light dark:text-darkmode-text-light max-md:h2">
+                <h4 className="text-[#c60404] max-md:h2">
                   {currencySymbol} {priceRange?.minVariantPrice.amount}{" "}
                   {priceRange?.minVariantPrice?.currencyCode}
                 </h4>
@@ -105,13 +103,13 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
                 <h5 className="max-md:text-base">Payment: </h5>
                 {payment_methods?.map(
                   (payment: { name: string; image_url: string }) => (
-                    <Image
+                    <img
                       key={payment.name}
                       src={payment.image_url}
                       alt={payment.name}
                       width={44}
-                      height={32}
-                      className="w-[44px] h-[32px"
+                      height={40}
+                      className="w-[44px] h-[40px]"
                     />
                   ),
                 )}
@@ -142,7 +140,7 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
         <section>
           <div className="container">
             <div className="row">
-              <div className="col-10 lg:col-11 mx-auto mt-12">
+              <div className="col-10 lg:col-11 mx-auto">
                 <Tabs descriptionHtml={descriptionHtml} />
               </div>
             </div>
@@ -151,12 +149,12 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
       )}
 
       {/* Recommended Products section  */}
-      <section className="section">
+      <section className="section-bottom">
         <div className="container">
           {relatedProducts?.length > 0 && (
             <>
-              <div className="text-center mb-6 md:mb-14">
-                <h2 className="mb-2">Related Products</h2>
+              <div className="text-center mb-6 md:mb-14 pt-24">
+                <h3 className="mb-2">Related Products</h3>
               </div>
               <LatestProducts products={relatedProducts.slice(0, 4)} />
             </>

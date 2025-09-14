@@ -5,7 +5,9 @@ payment_methods:
   - name: 'MasterCard'
     image_url: '/images/payment/mastercard.png'
   - name: 'Express'
-    image_url: '/images/payment/express.png'
+    image_url: '/images/payment/maestro.png'
+  - name: 'Paypal'
+    image_url: '/images/payment/paypal.png'
 
 estimated_delivery: 'Est. Delivery between 1 - 3 days'
 ---

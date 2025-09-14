@@ -22,7 +22,11 @@
   li {
     @apply inline-block;
     a {
-      @apply h-6 w-6 p-1 flex items-center justify-center rounded-md bg-white hover:bg-primary hover:text-white duration-300 text-center leading-9 text-text-light border border-border dark:border-border/30 dark:bg-darkmode-light dark:text-darkmode-text-light dark:hover:bg-white dark:hover:text-black;
+      @apply h-6 w-7 p-1 flex  items-center justify-center rounded-md bg-white 
+text-text-light border border-border 
+dark:border-border/30 dark:bg-darkmode-light dark:text-darkmode-text-light 
+hover:scale-110 hover:-translate-y-0.5 hover:text-primary 
+duration-300 transform;
       svg {
         @apply text-xs;
       }

@@ -3,7 +3,7 @@ export const GROUPS = {
     "chains",
     "sprockets",
     "chain-guard",
-    "chain-sprockets-kit",
+    "chain-and-sprockets-kit",
     "chain-oiler-system",
     "clutch",
     "clutch-plate",
@@ -37,7 +37,7 @@ export const GROUPS = {
   ],
   "filters": [
     "oil-filter",
-    "oil-fluids",
+    "oil--fluids",
     "air-filter",
     "fuel-filter",
     "air-filter-oil",
@@ -85,7 +85,7 @@ export const GROUPS = {
     "valve-cover-gasket",
     "primary-cover-gasket",
   ],
-  "handlebar-controls": [
+  "handlebar--controls": [
     "mirror-set",
     "mirror-adapter",
     "mirror-holder",
@@ -135,17 +135,17 @@ export const GROUPS = {
     "suitcase-right",
     "luggage-rack",
   ],
-  "fuel-additives": [
+  "fuel--additives": [
     "stabilizer",
     "cleaner",
     "octane-booster",
     "e10-additive",
     "ecomaxx-fuel",
   ],
-  "wash-shine": [
+  "wash--shine": [
     "seat-spray",
-    "polish-wax",
-    "chrome-alu-polish",
+    "polish--wax",
+    "chrome--alu-polish",
     "cleaning-supplies",
     "brush",
     "sponge",
@@ -206,11 +206,11 @@ export const GROUPS = {
     "disc-brake-lock",
     "lock-reminder",
   ],
-  "clothing-merchandise": [
+  "clothing--merchandise": [
     "clothing-care",
     "pedal-for-kids",
   ],
-  "navigation-intercom-telephone": [
+  "navigation--intercom--telephone": [
     "intercom",
     "phone-holder",
     "phone-holder-mounting",

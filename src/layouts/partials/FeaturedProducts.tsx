@@ -1,7 +1,6 @@
 'use client'
 import { AddToCart } from '@/components/cart/AddToCart'
 import config from '@/config/config.json'
-import ImageFallback from '@/helpers/ImageFallback'
 import { Product } from '@/lib/shopify/types'
 import Link from 'next/link'
 import { translateClient } from "../../lib/utils/translateClient";
@@ -20,12 +19,19 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
           return (
             <div key={id} className='text-center col-6 md:col-4 lg:col-3 mb-8 md:mb-14 group relative'>
               <div className='relative overflow-hidden'>
-                <ImageFallback
+                <img
                   src={featuredImage?.url || '/images/product_image404.jpg'}
-                  width={312}
-                  height={269}
+                  width={424}
+                  height={306}
                   alt={featuredImage?.altText || 'fallback image'}
-                  className='w-[312px] h-[150px] md:h-[269px] object-cover border border-border rounded-md'
+                  className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
+                />
+                <img
+                  src="/images/logo.png"
+                  width={50}
+                  height={30}
+                  alt="Logo"
+                  className="absolute top-2 right-2 "
                 />
 
                 <AddToCart
@@ -66,7 +72,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
       </div>
 
       <div className='flex justify-center'>
-        <Link className='btn btn-sm md:btn-lg hover:bg-gray-700 btn-primary font-medium' href={'/products'}>
+        <Link className='btn max-md:btn-sm hover:bg-gray-700 btn-primary font-medium' href={'/products'}>
           {translateClient("featuredProducts", "see-all-products")}
         </Link>
       </div>

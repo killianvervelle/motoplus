@@ -23,7 +23,7 @@
             {
               "name": "Chain and Sprockets Kit",
               "url": "/used-parts/drivetrain/chain-and-sprockets-kit",
-              "slug": "chain-sprockets-kit"
+              "slug": "chain-and-sprockets-kit"
             },
             {
               "name": "Chain Oiler System",
@@ -117,29 +117,29 @@
           ]
         },
         {
-          "name": "Oil + Fluids",
-          "url": "/used-parts/oil-and-fluids",
-          "slug": "oil-fluids",
+          "name": "Oil & Fluids",
+          "url": "/used-parts/oil--fluids",
+          "slug": "oil--fluids",
           "hasChildren": true,
           "children": [
-            { "name": "Engine coolant", "url": "/used-parts/oil-and-fluids/engine-coolant", "slug": "engine-coolant" },
-            { "name": "Engine Oil", "url": "/used-parts/oil-and-fluids/engine-oil", "slug": "engine-oil" },
-            { "name": "Clutch Fluid", "url": "/used-parts/oil-and-fluids/clutch-fluid", "slug": "clutch-fluid" },
-            { "name": "Fork Oil", "url": "/used-parts/oil-and-fluids/fork-oil", "slug": "fork-oil" },
+            { "name": "Engine coolant", "url": "/used-parts/oil--fluids/engine-coolant", "slug": "engine-coolant" },
+            { "name": "Engine Oil", "url": "/used-parts/oil--fluids/engine-oil", "slug": "engine-oil" },
+            { "name": "Clutch Fluid", "url": "/used-parts/oil--fluids/clutch-fluid", "slug": "clutch-fluid" },
+            { "name": "Fork Oil", "url": "/used-parts/oil--fluids/fork-oil", "slug": "fork-oil" },
             {
               "name": "Transmission Oil",
-              "url": "/used-parts/oil-and-fluids/transmission-oil",
+              "url": "/used-parts/oil--fluids/transmission-oil",
               "slug": "transmission-oil"
             },
-            { "name": "2 Stroke Oil", "url": "/used-parts/oil-and-fluids/2-stroke-oil", "slug": "2-stroke-oil" },
+            { "name": "2 Stroke Oil", "url": "/used-parts/oil--fluids/2-stroke-oil", "slug": "2-stroke-oil" },
             {
               "name": "Oil Collection Tray",
-              "url": "/used-parts/oil-and-fluids/oil-collection-tray",
+              "url": "/used-parts/oil--fluids/oil-collection-tray",
               "slug": "oil-collection-tray"
             },
             {
               "name": "Shock absorber oil",
-              "url": "/used-parts/oil-and-fluids/shock-absorber-oil",
+              "url": "/used-parts/oil--fluids/shock-absorber-oil",
               "slug": "shock-absorber-oil"
             }
           ]
@@ -294,44 +294,44 @@
         },
         {
           "name": "Handlebar & Controls",
-          "url": "/used-parts/handlebar-and-controls",
-          "slug": "handlebar-controls",
+          "url": "/used-parts/handlebar--controls",
+          "slug": "handlebar--controls",
           "hasChildren": true,
           "children": [
-            { "name": "Mirror set", "url": "/used-parts/handlebar-and-controls/mirror-set", "slug": "mirror-set" },
+            { "name": "Mirror set", "url": "/used-parts/handlebar--controls/mirror-set", "slug": "mirror-set" },
             {
               "name": "Mirror Adapter",
-              "url": "/used-parts/handlebar-and-controls/mirror-adapter",
+              "url": "/used-parts/handlebar--controls/mirror-adapter",
               "slug": "mirror-adapter"
             },
             {
               "name": "Mirror Holder",
-              "url": "/used-parts/handlebar-and-controls/mirror-holder",
+              "url": "/used-parts/handlebar--controls/mirror-holder",
               "slug": "mirror-holder"
             },
             {
               "name": "Throttle cable",
-              "url": "/used-parts/handlebar-and-controls/throttle-cable",
+              "url": "/used-parts/handlebar--controls/throttle-cable",
               "slug": "throttle-cable"
             },
             {
               "name": "Clutch Cable",
-              "url": "/used-parts/handlebar-and-controls/clutch-cable",
+              "url": "/used-parts/handlebar--controls/clutch-cable",
               "slug": "clutch-cable"
             },
-            { "name": "Brake Lever", "url": "/used-parts/handlebar-and-controls/brake-lever", "slug": "brake-lever" },
+            { "name": "Brake Lever", "url": "/used-parts/handlebar--controls/brake-lever", "slug": "brake-lever" },
             {
               "name": "Clutch Lever",
-              "url": "/used-parts/handlebar-and-controls/clutch-lever",
+              "url": "/used-parts/handlebar--controls/clutch-lever",
               "slug": "clutch-lever"
             },
-            { "name": "Mirror Left", "url": "/used-parts/handlebar-and-controls/mirror-left", "slug": "mirror-left" },
+            { "name": "Mirror Left", "url": "/used-parts/handlebar--controls/mirror-left", "slug": "mirror-left" },
             {
               "name": "Mirror Right",
-              "url": "/used-parts/handlebar-and-controls/mirror-right",
+              "url": "/used-parts/handlebar--controls/mirror-right",
               "slug": "mirror-right"
             },
-            { "name": "Brake Line", "url": "/used-parts/handlebar-and-controls/brake-line", "slug": "brake-line" }
+            { "name": "Brake Line", "url": "/used-parts/handlebar--controls/brake-line", "slug": "brake-line" }
           ]
         }
       ]
@@ -520,19 +520,19 @@
           ]
         },
         {
-          "name": "Clothing and Merchandise",
+          "name": "Clothing & Merchandise",
           "url": "/accessories/clothing-merchandise",
-          "slug": "clothing-merchandise",
+          "slug": "clothing--merchandise",
           "hasChildren": true,
           "children": [
             {
               "name": "Clothing Care",
-              "url": "/accessories/clothing-merchandise/clothing-care",
+              "url": "/accessories/clothing--merchandise/clothing-care",
               "slug": "clothing-care"
             },
             {
               "name": "Pedal for Kids",
-              "url": "/accessories/clothing-merchandise/pedal-for-kids",
+              "url": "/accessories/clothing--merchandise/pedal-for-kids",
               "slug": "pedal-for-kids"
             }
           ]
@@ -556,84 +556,84 @@
           ]
         },
         {
-          "name": "Navigation, Intercom and Telephone",
-          "url": "/accessories/navigation-intercom-telephone",
-          "slug": "navigation-intercom-telephone",
+          "name": "Navigation, Intercom & Telephone",
+          "url": "/accessories/navigation--intercom--telephone",
+          "slug": "navigation--intercom--telephone",
           "hasChildren": true,
           "children": [
-            { "name": "Intercom", "url": "/accessories/navigation-intercom-telephone/intercom", "slug": "intercom" },
+            { "name": "Intercom", "url": "/accessories/navigation--intercom--telephone/intercom", "slug": "intercom" },
             {
               "name": "Phone Holder",
-              "url": "/accessories/navigation-intercom-telephone/phone-holder",
+              "url": "/accessories/navigation--intercom--telephone/phone-holder",
               "slug": "phone-holder"
             },
             {
               "name": "Phone Holder Mounting",
-              "url": "/accessories/navigation-intercom-telephone/phone-holder-mounting",
+              "url": "/accessories/navigation--intercom--telephone/phone-holder-mounting",
               "slug": "phone-holder-mounting"
             },
             {
               "name": "Phone Holder Accessoires",
-              "url": "/accessories/navigation-intercom-telephone/phone-holder-accessoires",
+              "url": "/accessories/navigation--intercom--telephone/phone-holder-accessoires",
               "slug": "phone-holder-accessoires"
             },
             {
               "name": "Navigation System",
-              "url": "/accessories/navigation-intercom-telephone/navigation-system",
+              "url": "/accessories/navigation--intercom--telephone/navigation-system",
               "slug": "navigation-system"
             }
           ]
         },
         {
-          "name": "Wash and Shine",
-          "url": "/accessories/wash-shine",
-          "slug": "wash-shine",
+          "name": "Wash & Shine",
+          "url": "/accessories/wash--shine",
+          "slug": "wash--shine",
           "hasChildren": true,
           "children": [
-            { "name": "Seat Spray", "url": "/accessories/wash-and-shine/seat-spray", "slug": "seat-spray" },
-            { "name": "Polish and Wax", "url": "/accessories/wash-and-shine/polish-and-wax", "slug": "polish-wax" },
+            { "name": "Seat Spray", "url": "/accessories/wash--shine/seat-spray", "slug": "seat-spray" },
+            { "name": "Polish & Wax", "url": "/accessories/wash--shine/polish--wax", "slug": "polish--wax" },
             {
-              "name": "Chrome and Alu Polish",
-              "url": "/accessories/wash-and-shine/chrome-and-alu-polish",
-              "slug": "chrome-alu-polish"
+              "name": "Chrome & Alu Polish",
+              "url": "/accessories/wash--shine/chrome--alu-polish",
+              "slug": "chrome--alu-polish"
             },
             {
               "name": "Cleaning Supplies",
-              "url": "/accessories/wash-and-shine/cleaning-supplies",
+              "url": "/accessories/wash--shine/cleaning-supplies",
               "slug": "cleaning-supplies"
             },
-            { "name": "Brush", "url": "/accessories/wash-and-shine/brush", "slug": "brush" },
-            { "name": "Sponge", "url": "/accessories/wash-and-shine/sponge", "slug": "sponge" },
-            { "name": "Cleaning Cloth", "url": "/accessories/wash-and-shine/cleaning-cloth", "slug": "cleaning-cloth" },
-            { "name": "Degreaser", "url": "/accessories/wash-and-shine/degreaser", "slug": "degreaser" },
+            { "name": "Brush", "url": "/accessories/wash--shine/brush", "slug": "brush" },
+            { "name": "Sponge", "url": "/accessories/wash--shine/sponge", "slug": "sponge" },
+            { "name": "Cleaning Cloth", "url": "/accessories/wash--shine/cleaning-cloth", "slug": "cleaning-cloth" },
+            { "name": "Degreaser", "url": "/accessories/wash--shine/degreaser", "slug": "degreaser" },
             {
               "name": "Corrosion Protection",
-              "url": "/accessories/wash-and-shine/corrosion-protection",
+              "url": "/accessories/wash--shine/corrosion-protection",
               "slug": "corrosion-protection"
             },
-            { "name": "Cleaning Set", "url": "/accessories/wash-and-shine/cleaning-set", "slug": "cleaning-set" },
-            { "name": "Wax Spray", "url": "/accessories/wash-and-shine/wax-spray", "slug": "wax-spray" },
-            { "name": "Silicone Spray", "url": "/accessories/wash-and-shine/silicone-spray", "slug": "silicone-spray" },
-            { "name": "Bug Spray", "url": "/accessories/wash-and-shine/bug-spray", "slug": "bug-spray" },
-            { "name": "Wheel Cleaner", "url": "/accessories/wash-and-shine/wheel-cleaner", "slug": "wheel-cleaner" },
-            { "name": "Exhaust Plug", "url": "/accessories/wash-and-shine/exhaust-plug", "slug": "exhaust-plug" }
+            { "name": "Cleaning Set", "url": "/accessories/wash--shine/cleaning-set", "slug": "cleaning-set" },
+            { "name": "Wax Spray", "url": "/accessories/wash--shine/wax-spray", "slug": "wax-spray" },
+            { "name": "Silicone Spray", "url": "/accessories/wash--shine/silicone-spray", "slug": "silicone-spray" },
+            { "name": "Bug Spray", "url": "/accessories/wash--shine/bug-spray", "slug": "bug-spray" },
+            { "name": "Wheel Cleaner", "url": "/accessories/wash--shine/wheel-cleaner", "slug": "wheel-cleaner" },
+            { "name": "Exhaust Plug", "url": "/accessories/wash--shine/exhaust-plug", "slug": "exhaust-plug" }
           ]
         },
         {
           "name": "Fuel & Additives",
-          "url": "/accessories/fuel-and-additives",
-          "slug": "fuel-additives",
+          "url": "/accessories/fuel--additives",
+          "slug": "fuel--additives",
           "hasChildren": true,
           "children": [
-            { "name": "Stabilizer", "url": "/accessories/fuel-and-additives/stabilizer", "slug": "stabilizer" },
-            { "name": "Cleaner", "url": "/accessories/fuel-and-additives/cleaner", "slug": "cleaner" },
+            { "name": "Stabilizer", "url": "/accessories/fuel--additives/stabilizer", "slug": "stabilizer" },
+            { "name": "Cleaner", "url": "/accessories/fuel--additives/cleaner", "slug": "cleaner" },
             {
               "name": "Octane Booster",
-              "url": "/accessories/fuel-and-additives/octane-booster",
+              "url": "/accessories/fuel--additives/octane-booster",
               "slug": "octane-booster"
             },
-            { "name": "E10 Additive", "url": "/accessories/fuel-and-additives/e10-additive", "slug": "e10-additive" },
-            { "name": "Ecomaxx Fuel", "url": "/accessories/fuel-and-additives/ecomaxx-fuel", "slug": "ecomaxx-fuel" }
+            { "name": "E10 Additive", "url": "/accessories/fuel--additives/e10-additive", "slug": "e10-additive" },
+            { "name": "Ecomaxx Fuel", "url": "/accessories/fuel--additives/ecomaxx-fuel", "slug": "ecomaxx-fuel" }
           ]
         }
       ]
