@@ -32,11 +32,12 @@ export const generateMetadata = async ({
 const ProductSingle = async ({
   params
 }: {
-  params: { locale: string; slug: string }
+  params: Promise<{ locale: string; slug: string }>
 }) => {
+  const param = await params
   return (
     <Suspense fallback={<LoadingProductGallery />}>
-      <ShowProductSingle params={params} />
+      <ShowProductSingle params={param} />
     </Suspense>
   );
 };
@@ -51,12 +52,7 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
   const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug);
 
-  console.log("PRODUCT 222", product)
-
-  if (!product) {
-    console.log("not found")
-    return notFound();
-  }
+  if (!product) return notFound();
 
   const {
     id,
