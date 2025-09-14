@@ -18,7 +18,7 @@ export const generateMetadata = async ({
 }: {
   params: { locale: string; slug: string };
 }) => {
-  console.log("PARAAAMMMSSSS", params, params.slug);
+  console.log("PARAAAMMMSSSS", params.slug);
 
   const product = await getProduct(params.slug);
   if (!product) return notFound();
