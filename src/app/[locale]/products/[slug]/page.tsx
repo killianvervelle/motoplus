@@ -21,7 +21,6 @@ export const generateMetadata = async ({
 }) => {
 
   const product = await getProduct(params.slug);
-  console.log("PRRROODUCGT", product)
   if (!product) return notFound();
 
   return {
@@ -52,7 +51,10 @@ const ShowProductSingle = async ({ params }: { params: { slug: string } }) => {
   const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug);
 
+  console.log("PRODUCT 222", product)
+
   if (!product) return notFound();
+
   const {
     id,
     title,
