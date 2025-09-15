@@ -4,18 +4,9 @@ import PageHeader from "@/partials/PageHeader";
 import SeoMeta from "@/partials/SeoMeta";
 import { notFound } from "next/navigation";
 import { useLocale } from 'next-intl'
-import { RegularPage } from "@/types";
 
 
 export const dynamic = 'force-dynamic';
-
-export const generateStaticParams = () => {
-  const regularPages = getSinglePage("pages").map((page: RegularPage) => ({
-    regular: page.frontmatter.main_slug_title,
-  }));
-  console.log('Static regular slugs:', regularPages.map(p => p));
-  return regularPages;
-};
 
 export default async function RegularPages({
   params,
