@@ -1,3 +1,4 @@
+import { AddToCart } from "@/components/cart/AddToCart";
 import LoadingProductGallery from "@/components/loadings/skeleton/SkeletonProductGallery";
 import ProductGallery from "@/components/product/ProductGallery";
 import Tabs from "@/components/product/Tabs";
@@ -39,6 +40,7 @@ export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
 
+
   const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug);
 
@@ -51,10 +53,12 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
     descriptionHtml,
     priceRange,
     images,
+    variants,
   } = product;
 
   const relatedProducts = await getProductRecommendations(id);
 
+  const defaultVariantId = variants.length > 0 ? variants[0].id : undefined;
 
   return (
     <>
@@ -77,6 +81,18 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
                   {priceRange?.minVariantPrice?.currencyCode}
                 </h4>
 
+              </div>
+
+              <div className="flex gap-4 mt-8 md:mt-10 mb-6">
+                <Suspense>
+                  <AddToCart
+                    variants={product?.variants}
+                    availableForSale={product?.availableForSale}
+                    stylesClass={"btn max-md:btn-sm btn-primary hover:bg-gray-700"}
+                    handle={null}
+                    defaultVariantId={defaultVariantId}
+                  />
+                </Suspense>
               </div>
 
 
