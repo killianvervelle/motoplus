@@ -1,9 +1,10 @@
+import Social from "@/components/Social";
 import { AddToCart } from "@/components/cart/AddToCart";
 import LoadingProductGallery from "@/components/loadings/skeleton/SkeletonProductGallery";
 import ProductGallery from "@/components/product/ProductGallery";
+import ShowTags from "@/components/product/ShowTags";
 import Tabs from "@/components/product/Tabs";
 import config from "@/config/config.json";
-import { getListPage } from "@/lib/contentParser";
 import { getProduct, getProductRecommendations } from "@/lib/shopify";
 import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
@@ -40,9 +41,7 @@ const ProductSingle = async ({
 export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
-  const paymentsAndDelivery = getListPage("sections/payments-and-delivery.md");
-  const { payment_methods, estimated_delivery } =
-    paymentsAndDelivery.frontmatter;
+
 
   const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug);
@@ -57,6 +56,7 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
     priceRange,
     images,
     variants,
+    tags,
   } = product;
 
   const relatedProducts = await getProductRecommendations(id);
@@ -104,25 +104,23 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
-                <h5 className="max-md:text-base">Payment: </h5>
-                {payment_methods?.map(
-                  (payment: { name: string; image_url: string }) => (
-                    <img
-                      key={payment.name}
-                      src={payment.image_url}
-                      alt={payment.name}
-                      width={44}
-                      height={40}
-                      className="w-[44px] h-[40px]"
-                    />
-                  ),
-                )}
-              </div>
+
 
               <hr className="my-6 border border-[#cecece] dark:border-border/40" />
 
+              <div className="flex gap-3 items-center mb-6">
+                <h5 className="max-md:text-base">Share:</h5>
+                <Social socialName={title} className="social-icons" />
+              </div>
 
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-3 items-center">
+                  <h5 className="max-md:text-base">Tags:</h5>
+                  <Suspense>
+                    <ShowTags tags={tags} />
+                  </Suspense>
+                </div>
+              )}
             </div>
           </div>
         </div>
