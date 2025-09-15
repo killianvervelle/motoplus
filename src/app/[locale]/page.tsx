@@ -124,7 +124,7 @@ const Home = async () => {
     string
   >;
 
-  const res = await fetch('/about/_index.md', { cache: 'no-store' });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/about/_index.md`);
   const text = await res.text();
   const { data: frontmatter } = matter(text);
   const testimonials_section_enable = frontmatter.testimonials_section_enable;
