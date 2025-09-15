@@ -12,8 +12,6 @@ import { RiCustomerService2Fill } from "react-icons/ri"
 import { translateServer } from "../../../lib/utils/translateServer";
 import matter from 'gray-matter';
 
-export const dynamic = 'force-dynamic';
-
 const About = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/content/about/_index.md`);
   const text = await res.text();
