@@ -1,8 +1,7 @@
-
 import LoadingProductGallery from "@/components/loadings/skeleton/SkeletonProductGallery";
-
+import ProductGallery from "@/components/product/ProductGallery";
 import Tabs from "@/components/product/Tabs";
-
+import config from "@/config/config.json";
 import { getProduct, getProductRecommendations } from "@/lib/shopify";
 import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
@@ -40,18 +39,18 @@ export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
 
-
+  const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug);
 
   if (!product) return notFound();
 
   const {
     id,
-
+    title,
     description,
     descriptionHtml,
-
-
+    priceRange,
+    images,
   } = product;
 
   const relatedProducts = await getProductRecommendations(id);
@@ -59,7 +58,32 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
 
   return (
     <>
+      <section className="md:section-sm">
+        <div className="container">
+          <div className="row justify-center">
+            {/* left side contents  */}
+            <div className="col-10 md:col-8 lg:col-6">
+              <Suspense>
+                <ProductGallery images={images} />
+              </Suspense>
+            </div>
 
+            <div className="col-10 md:col-8 lg:col-5 md:ml-7 py-6 lg:py-0">
+              <h1 className="text-3xl md:h2 mb-2 md:mb-6">{title}</h1>
+
+              <div className="flex gap-2 items-center">
+                <h4 className="text-[#c60404] max-md:h2">
+                  {currencySymbol} {priceRange?.minVariantPrice.amount}{" "}
+                  {priceRange?.minVariantPrice?.currencyCode}
+                </h4>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Description of a product  */}
       {description && (
