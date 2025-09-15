@@ -3,6 +3,7 @@ import LoadingProductGallery from "@/components/loadings/skeleton/SkeletonProduc
 import ProductGallery from "@/components/product/ProductGallery";
 import Tabs from "@/components/product/Tabs";
 import config from "@/config/config.json";
+import { getListPage } from "@/lib/contentParser";
 import { getProduct, getProductRecommendations } from "@/lib/shopify";
 import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
@@ -39,7 +40,9 @@ const ProductSingle = async ({
 export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
-
+  const paymentsAndDelivery = getListPage("sections/payments-and-delivery.md");
+  const { payment_methods, estimated_delivery } =
+    paymentsAndDelivery.frontmatter;
 
   const { currencySymbol } = config.shopify;
   const product = await getProduct(params.slug);
@@ -94,6 +97,30 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
                   />
                 </Suspense>
               </div>
+
+              <div className="mb-8 md:mb-10">
+                <p className="p-2 max-md:text-sm rounded-md bg-light dark:bg-darkmode-light inline">
+                  {estimated_delivery}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <h5 className="max-md:text-base">Payment: </h5>
+                {payment_methods?.map(
+                  (payment: { name: string; image_url: string }) => (
+                    <img
+                      key={payment.name}
+                      src={payment.image_url}
+                      alt={payment.name}
+                      width={44}
+                      height={40}
+                      className="w-[44px] h-[40px]"
+                    />
+                  ),
+                )}
+              </div>
+
+              <hr className="my-6 border border-[#cecece] dark:border-border/40" />
 
 
             </div>
