@@ -42,7 +42,7 @@ const ProductSingle = async ({
 export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
-  const res = await fetch('/sections/payments-and-delivery.md', { cache: 'no-store' });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/sections/payments-and-delivery.md`);
   const text = await res.text();
   const { data: frontmatter } = matter(text);
 
