@@ -16,11 +16,11 @@ import FilterBox from "@/components/filter/FilterBox";
 import { GROUPS } from "@/lib/groups";
 import { getTranslations } from 'next-intl/server';
 import Testimonials from '@/partials/Testimonials'
-import { FaBoxOpen, FaTools  } from 'react-icons/fa'
+import { FaBoxOpen, FaTools } from 'react-icons/fa'
 import { IoDiamondSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri";
-import { RegularPage, Testimonial } from '@/types'
-import { getListPage } from '@/lib/contentParser'
+import { Testimonial } from '@/types'
+import matter from 'gray-matter';
 
 
 //const { collections } = config.shopify;
@@ -124,12 +124,11 @@ const Home = async () => {
     string
   >;
 
-  const data: RegularPage = getListPage('about/_index.md')
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/about/_index.md`);
+  const text = await res.text();
+  const { data: frontmatter } = matter(text);
+  const testimonials_section_enable = frontmatter.testimonials_section_enable;
 
-  const { frontmatter } = data
-  const {
-    testimonials_section_enable,
-  } = frontmatter
 
   const translatedTestimonials = await Promise.all(
     frontmatter.testimonials.map(
@@ -232,7 +231,7 @@ const Home = async () => {
 
               <div className='col-6 md:col-5 lg:col-3 my-12 lg:my-0'>
                 <div className='flex justify-center'>
-                  <RiCustomerService2Fill  size={48} className="text-[#c60404]" />
+                  <RiCustomerService2Fill size={48} className="text-[#c60404]" />
                 </div>
                 <h5 className='md:h-20 lg:h-24 mt-6 text-light pb-6 md:pb-0'>{translated.translatedCustomer}</h5>
                 <p className="mx-5">{translated.translatedSupport}</p>

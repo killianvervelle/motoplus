@@ -45,7 +45,7 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/sections/payments-and-delivery.md`);
   const text = await res.text();
   const { data: frontmatter } = matter(text);
-  console.log("IUHIUIUIUH", frontmatter)
+
   const payment_methods = frontmatter.payment_methods;
   const estimated_delivery = frontmatter.estimated_delivery;
 
