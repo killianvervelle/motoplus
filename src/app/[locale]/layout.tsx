@@ -13,11 +13,11 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 
 
-export default async function RootLayout({ children, params }: { children: React.ReactNode, params: { locale: string } }) {
+export default async function RootLayout({ children, params }: { children: React.ReactNode, params: Promise<{ locale: string }> }) {
   const pf = theme.fonts.font_family.primary
   const sf = theme.fonts.font_family.secondary
 
-  const { locale } = params;
+  const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }

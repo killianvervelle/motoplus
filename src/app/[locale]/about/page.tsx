@@ -1,23 +1,24 @@
 import Expandable from '@/components/Expandable'
 import ImageFallback from '@/helpers/ImageFallback'
-import { getListPage } from '@/lib/contentParser'
 import { markdownify } from '@/lib/utils/textConverter'
 import PageHeader from '@/partials/PageHeader'
 import SeoMeta from '@/partials/SeoMeta'
 import Testimonials from '@/partials/Testimonials'
-import { AboutUsItem, RegularPage, Faq, Testimonial } from '@/types'
+import { AboutUsItem, Faq, Testimonial } from '@/types'
 import Link from 'next/link'
 import { FaBoxOpen, FaTools } from 'react-icons/fa'
 import { IoDiamondSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri"
 import { translateServer } from "../../../lib/utils/translateServer";
+import matter from 'gray-matter';
 
 export const dynamic = 'force-dynamic';
 
 const About = async () => {
-  const data: RegularPage = getListPage('about/_index.md')
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/content/about/_index.md`);
+  const text = await res.text();
+  const { data: frontmatter } = matter(text);
 
-  const { frontmatter } = data
   const {
     button,
     testimonials_section_enable,
@@ -99,7 +100,7 @@ const About = async () => {
                   <div className='hidden lg:flex lg:mx-auto w-full'>
                     <ImageFallback
                       className='lg:rounded-md'
-                      src={"/images/aboutUs.png"}
+                      src={"/images/aboutUs.jpg"}
                       width={536}
                       height={449}
                       alt={section?.title}

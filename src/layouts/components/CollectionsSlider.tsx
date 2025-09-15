@@ -99,10 +99,10 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
             : 'opacity-0 transition-opacity duration-300 ease-in-out'
             }`}
         >
-          <div ref={prevRef} className='p-2 lg:p-3 rounded-md bg-body cursor-pointer shadow-sm absolute left-4'>
+          <div ref={prevRef} className='p-2 lg:p-3 rounded-md bg-gray-200 cursor-pointer shadow-sm absolute left-4'>
             <HiOutlineArrowNarrowLeft size={24} />
           </div>
-          <div ref={nextRef} className='p-2 lg:p-3 rounded-md bg-body cursor-pointer shadow-sm absolute right-4'>
+          <div ref={nextRef} className='p-2 lg:p-3 rounded-md bg-gray-200 cursor-pointer shadow-sm absolute right-4'>
             <HiOutlineArrowNarrowRight size={24} />
           </div>
         </div>
