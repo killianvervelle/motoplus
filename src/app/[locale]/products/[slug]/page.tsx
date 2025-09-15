@@ -9,6 +9,7 @@ import { getProduct, getProductRecommendations } from "@/lib/shopify";
 import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import matter from 'gray-matter';
 
 
 export const generateMetadata = async ({
@@ -41,6 +42,11 @@ const ProductSingle = async ({
 export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/sections/payments-and-delivery.md`);
+  const text = await res.text();
+  const { data: frontmatter } = matter(text);
+  const payment_methods = frontmatter.payment_methods;
+  const estimated_delivery = frontmatter.estimated_delivery;
 
 
   const { currencySymbol } = config.shopify;
@@ -98,9 +104,27 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
                 </Suspense>
               </div>
 
+              <div className="mb-8 md:mb-10">
+                <p className="p-2 max-md:text-sm rounded-md bg-light dark:bg-darkmode-light inline">
+                  {estimated_delivery}
+                </p>
+              </div>
 
-
-
+              <div className="flex flex-wrap items-center gap-3">
+                <h5 className="max-md:text-base">Payment: </h5>
+                {payment_methods?.map(
+                  (payment: { name: string; image_url: string }) => (
+                    <img
+                      key={payment.name}
+                      src={payment.image_url}
+                      alt={payment.name}
+                      width={44}
+                      height={40}
+                      className="w-[44px] h-[40px]"
+                    />
+                  ),
+                )}
+              </div>
 
               <hr className="my-6 border border-[#cecece] dark:border-border/40" />
 
