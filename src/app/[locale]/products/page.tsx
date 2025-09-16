@@ -13,7 +13,6 @@ interface SearchParams {
   q?: string
   minPrice?: string
   maxPrice?: string
-  b?: string
   c?: string
   t?: string
 }
@@ -24,9 +23,9 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
     q: searchValue,
     minPrice,
     maxPrice,
-    b: brand,
     c: category,
-    t: tag,
+    m: model,
+    b: brand,
     layout,
     cursor
   } = searchParams as {
@@ -39,7 +38,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
   let vendorsWithCounts: { vendor: string; productCount: number }[] = []
   let categoriesWithCounts: { category: string; productCount: number }[] = []
 
-  if (searchValue || brand || minPrice || maxPrice || category || tag) {
+  if (searchValue || model || brand || minPrice || maxPrice || category) {
     let queryString = ''
 
     if (minPrice || maxPrice) {
@@ -51,11 +50,11 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
     }
 
     if (brand) {
-      queryString += Array.isArray(brand) ? brand.map((b) => `(vendor:${b})`).join(' OR ') : `vendor:"${brand}"`
+      queryString += ` tag:'${brand}'`
     }
 
-    if (tag) {
-      queryString += ` ${tag}`
+    if (model) {
+      queryString += ` tag:'${model}'`
     }
 
     const query = {
@@ -65,6 +64,8 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
       cursor
     }
 
+    console.log(query)
+
     productsData =
       category && category !== 'all'
         ? await getCollectionProducts({
@@ -73,6 +74,9 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
           reverse
         })
         : await getProducts(query)
+
+
+    console.log(productsData?.products)
 
     const uniqueVendors: string[] = [
       ...new Set(((productsData?.products as Product[]) || []).map((product: Product) => String(product?.vendor || '')))

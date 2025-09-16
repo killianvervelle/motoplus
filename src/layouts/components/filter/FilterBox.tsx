@@ -48,9 +48,10 @@ const FilterBox = ({
     const handleSearch = () => {
         setAnimate(true);
         const params = new URLSearchParams();
-        if (selectedBrand) params.set("brand", selectedBrand.slug);
-        if (selectedModel) params.set("model", selectedModel.slug);
-        if (selectedComponent) params.set("component", selectedComponent.slug);
+        if (selectedBrand) params.set("b", selectedBrand.slug);
+        if (selectedModel) params.set("m", selectedModel.slug);
+        if (selectedComponent) params.set("c", selectedComponent.slug);
+        console.log("params")
         router.push(`/products?${params.toString()}`);
     }
 

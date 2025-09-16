@@ -166,11 +166,10 @@ export type ShopifyCart = {
 export type ShopifyCollection = {
   handle: string;
   title: string;
-  description: string;
   seo: SEO;
   updatedAt: string;
   path?: string;
-  products?: {
+  products: {
     edges: Array<ShopifyProduct>;
   };
 };

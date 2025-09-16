@@ -8,7 +8,6 @@ import useLoadMore from "@/hooks/useLoadMore";
 import { defaultSort, sorting } from "@/lib/constants";
 import { getCollectionProducts, getProducts } from "@/lib/shopify";
 import { PageInfo, Product } from "@/lib/shopify/types";
-import { titleify } from "@/lib/utils/textConverter";
 import Link from "next/link";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -30,9 +29,9 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
     q: searchValue,
     minPrice,
     maxPrice,
-    b: brand,
     c: category,
-    t: tag,
+    m: model,
+    b: brand,
     cursor,
   } = searchParams as {
     [key: string]: string;
@@ -50,11 +49,11 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
 
         if (
           searchValue ||
-          brand ||
           minPrice ||
           maxPrice ||
           category ||
-          tag ||
+          brand ||
+          model ||
           cursor
         ) {
           let queryString = "";
@@ -84,33 +83,11 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
           }
 
           if (brand) {
-            if (Array.isArray(brand)) {
-              queryString += `${brand
-                .map((b) => `(vendor:${b})`)
-                .join(" OR ")}`
-            } else {
-              queryString += `vendor:"${brand}"`
-            };
-
-            if (Array.isArray(brand) && brand.length > 0) {
-              brand.forEach((b) => {
-                filterCategoryProduct.push({
-                  productVendor: titleify(b),
-                });
-              });
-            } else {
-              filterCategoryProduct.push({
-                productVendor: titleify(brand),
-              });
-            }
+            queryString += ` tag:'${brand}'`
           }
 
-          if (tag) {
-            queryString += ` ${tag}`;
-
-            filterCategoryProduct.push({
-              tag: tag.charAt(0).toUpperCase() + tag.slice(1),
-            });
+          if (model) {
+            queryString += ` tag:'${model}'`
           }
 
           const query = {
@@ -152,12 +129,12 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
     cursor,
     sortKey,
     searchValue,
-    brand,
     minPrice,
     maxPrice,
     category,
-    tag,
     reverse,
+    model,
+    brand
   ]);
 
   const { products, pageInfo } = data;
