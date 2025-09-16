@@ -71,25 +71,21 @@ function SortLanguageItem({ item }: { item: LanguageItem }) {
 
   const active = locale === item.code;
 
-  const DynamicTag = active ? 'p' : Link
-
   const handleChange = (locale: string) => {
-    router.replace(pathname, { locale });
+    console.log("PATHNAME LOCALE", pathname, locale)
+    router.replace(pathname, { locale: locale })
   };
 
   return (
-    <li className='flex items-center justify-between px-5 text-sm text-text-dark hover:bg-dark/50 hover:text-white' key={item.title}>
-      <DynamicTag
-        prefetch={!active ? false : undefined}
-        href={pathname}
-        onClick={() => {
-          handleChange(item.code)
-
-        }}
-        className={`w-full pl-4 py-2 text-gray-900 ${active ? 'font-bold' : ''}`}
-      >
+    <li
+      className='flex items-center justify-between px-5 text-sm text-text-dark hover:bg-dark/50 hover:text-white'
+      key={item.title}
+      onClick={() => {
+        handleChange(item.code)
+      }}>
+      <p className={`w-full pl-4 py-2 text-gray-900 ${active ? 'font-bold' : ''}`}>
         {translateClient("footer-language", item.code)}
-      </DynamicTag>
+      </p>
       <Image
         src={item.image ? item.image : "/images/image-placeholder.png"}
         alt="Logo"

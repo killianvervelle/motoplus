@@ -4,6 +4,7 @@ import config from "@/config/config.json";
 import { plainify } from "@/lib/utils/textConverter";
 import { usePathname } from "next/navigation";
 
+
 const SeoMeta = ({
   main_slug_title,
   meta_title,

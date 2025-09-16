@@ -2,9 +2,7 @@ import CollectionsSlider from "@/components/CollectionsSlider";
 //import HeroSlider from "@/components/HeroSlider";
 import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
-//import config from "@/config/config.json";
-import { /*getCollectionProducts,*/ getLatestProducts } from "@/lib/shopify";
-//import FeaturedProducts from "@/partials/FeaturedProducts";
+import { getLatestProducts } from "@/lib/shopify"; //getCollectionProducts, 
 import SeoMeta from "@/partials/SeoMeta";
 import Writing from "@/partials/Writing";
 import { Suspense } from "react";
@@ -23,10 +21,7 @@ import { Testimonial } from '@/types'
 import matter from 'gray-matter';
 
 
-//const { collections } = config.shopify;
-
-export const runtime = 'nodejs';
-export const revalidate = 0;
+export const dynamic = 'force-dynamic';
 
 /*const ShowHeroSlider = async () => {
   const sliderImages = await getCollectionProducts({

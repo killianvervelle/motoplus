@@ -10,7 +10,9 @@ import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import matter from 'gray-matter';
+import { translateServer } from "../../../../lib/utils/translateServer";
 
+export const dynamic = 'force-dynamic';
 
 export const generateMetadata = async ({
   params,
@@ -66,6 +68,8 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
   } = product;
 
   const relatedProducts = await getProductRecommendations(id);
+
+  const related_title = await translateServer("featuredProducts", "related-products")
 
   const defaultVariantId = variants.length > 0 ? variants[0].id : undefined;
 
@@ -165,7 +169,7 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
           {relatedProducts?.length > 0 && (
             <>
               <div className="text-center mb-6 md:mb-14 pt-24">
-                <h3 className="mb-2">Related Products</h3>
+                <h3 className="mb-2">{related_title}</h3>
               </div>
               <LatestProducts products={relatedProducts.slice(0, 4)} />
             </>

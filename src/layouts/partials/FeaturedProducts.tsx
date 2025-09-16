@@ -5,6 +5,7 @@ import { Product } from '@/lib/shopify/types'
 import Link from 'next/link'
 import { translateClient } from "../../lib/utils/translateClient";
 
+export const dynamic = 'force-dynamic';
 
 const FeaturedProducts = ({ products }: { products: Product[] }) => {
   const { currencySymbol } = config.shopify

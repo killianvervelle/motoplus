@@ -10,6 +10,8 @@ import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import LoadingCategory from './loadings/skeleton/SkeletonCategory'
 
+export const dynamic = 'force-dynamic';
+
 const CollectionsSlider = ({ collections }: { collections: any }) => {
   const [, setInit] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
