@@ -4,10 +4,9 @@ import ShowTags from '@/components/product/ShowTags'
 import RangeSlider from '@/components/rangeSlider/RangeSlider'
 import { ShopifyCollection } from '@/lib/shopify/types'
 import { createUrl } from '@/lib/utils'
-import { slugify } from '@/lib/utils/textConverter'
+//import { slugify } from '@/lib/utils/textConverter'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
-import { BsCheckLg } from 'react-icons/bs'
 import { translateClient } from "../../lib/utils/translateClient";
 
 const ProductFilters = ({
@@ -28,19 +27,16 @@ const ProductFilters = ({
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const selectedBrands = searchParams.getAll('b')
+  const selectedBrand = searchParams.get('v')
   const selectedCategory = searchParams.get('c')
 
   const handleBrandClick = (name: string) => {
-    const slugName = slugify(name.toLowerCase())
     const newParams = new URLSearchParams(searchParams.toString())
 
-    const currentBrands = newParams.getAll('b')
-
-    if (currentBrands.includes(slugName)) {
-      newParams.delete('b', slugName)
+    if (name === selectedBrand) {
+      newParams.delete('v')
     } else {
-      newParams.append('b', slugName)
+      newParams.set('v', name)
     }
     router.push(createUrl('/products', newParams), { scroll: false })
   }
@@ -75,11 +71,10 @@ const ProductFilters = ({
           {categories.map((category) => (
             <li
               key={category.handle}
-              className={`flex items-center justify-between cursor-pointer ${
-                selectedCategory === category.handle
-                  ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
-                  : 'text-text-light dark:text-darkmode-text-light'
-              }`}
+              className={`flex items-center justify-between cursor-pointer ${selectedCategory === category.handle
+                ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
+                : 'text-text-light dark:text-darkmode-text-light'
+                }`}
               onClick={() => handleCategoryClick(category.handle)}
             >
               {category.title}{' '}
@@ -105,36 +100,29 @@ const ProductFilters = ({
             {vendors.map((vendor) => (
               <li
                 key={vendor.vendor}
-                className={`flex items-center justify-between cursor-pointer text-text-light dark:text-darkmode-text-light`}
+                className={`flex items-center justify-between cursor-pointer ${selectedBrand === vendor.vendor
+                  ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
+                  : 'text-text-light dark:text-darkmode-text-light'
+                  }`}
                 onClick={() => handleBrandClick(vendor.vendor)}
               >
-                {searchParams.has('b') &&
-                !searchParams.has('c') &&
-                !searchParams.has('minPrice') &&
-                !searchParams.has('maxPrice') &&
-                !searchParams.has('q') &&
-                !searchParams.has('t') ? (
+                {searchParams.has('v') &&
+                  !searchParams.has('c') &&
+                  !searchParams.has('minPrice') &&
+                  !searchParams.has('maxPrice') &&
+                  !searchParams.has('q') &&
+                  !searchParams.has('t') ? (
                   <span>
                     {vendor.vendor} ({vendor.productCount})
                   </span>
                 ) : (
                   <span>
                     {vendorsWithCounts.length > 0
-                      ? `${vendor.vendor} (${
-                          vendorsWithCounts.find((v) => v.vendor === vendor.vendor)?.productCount || 0
-                        })`
+                      ? `${vendor.vendor} (${vendorsWithCounts.find((v) => v.vendor === vendor.vendor)?.productCount || 0
+                      })`
                       : `${vendor.vendor} (${vendor.productCount})`}
                   </span>
                 )}
-                <div className='h-4 w-4 rounded-sm flex items-center justify-center border border-border dark:border-border/40'>
-                  {selectedBrands.map((b, i) =>
-                    slugify(vendor.vendor.toLowerCase()) === b ? (
-                      <span key={i}>
-                        <BsCheckLg size={16} />
-                      </span>
-                    ) : null
-                  )}
-                </div>
               </li>
             ))}
           </ul>

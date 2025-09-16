@@ -32,6 +32,8 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
     c: category,
     m: model,
     b: brand,
+    v: vendor,
+    t: tag,
     cursor,
   } = searchParams as {
     [key: string]: string;
@@ -54,7 +56,9 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
           category ||
           brand ||
           model ||
-          cursor
+          vendor ||
+          cursor ||
+          tag
         ) {
           let queryString = "";
           const filterCategoryProduct = [];
@@ -88,6 +92,14 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
 
           if (model) {
             queryString += ` tag:'${model}'`
+          }
+
+          if (vendor) {
+            queryString += ` vendor:"${vendor}"`;
+          }
+
+          if (tag) {
+            queryString += ` tag:'${tag}'`
           }
 
           const query = {
@@ -134,7 +146,9 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
     category,
     reverse,
     model,
-    brand
+    vendor,
+    brand,
+    tag
   ]);
 
   const { products, pageInfo } = data;

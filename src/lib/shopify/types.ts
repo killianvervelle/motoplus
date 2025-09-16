@@ -193,7 +193,8 @@ export type ShopifyProduct = {
   featuredImage: Image;
   images: Connection<Image>;
   seo: SEO;
-  tags: string[];
+  tag: string;
+  tags:string;
   updatedAt: string;
   vendor: string;
   collections: any;

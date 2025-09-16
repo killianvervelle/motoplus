@@ -32,7 +32,8 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
     b: brand,
     m: model,
     c: category,
-
+    v: vendor,
+    t: tag,
     cursor
   } = searchParams as {
     [key: string]: string
@@ -53,6 +54,8 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
           category ||
           brand ||
           model ||
+          vendor||
+          tag   ||
           cursor) {
           let queryString = ''
           const filterCategoryProduct = []
@@ -80,6 +83,14 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
 
           if (model) {
             queryString += ` tag:'${model}'`
+          }
+
+          if (vendor) {
+            queryString += ` vendor:"${vendor}"`;
+          }
+
+          if (tag) {
+            queryString += ` tag:'${tag}'`
           }
 
           const query = {
@@ -114,7 +125,7 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
     }
 
     fetchData()
-  }, [cursor, sortKey, searchValue, minPrice, maxPrice, category, reverse, model, brand])
+  }, [cursor, sortKey, searchValue, minPrice, maxPrice, category, reverse, model, brand, vendor, tag])
 
   const { products, pageInfo } = data
   const endCursor = pageInfo?.endCursor || ''

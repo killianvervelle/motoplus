@@ -26,6 +26,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
     c: category,
     m: model,
     b: brand,
+    t: tag,
     layout,
     cursor
   } = searchParams as {
@@ -55,6 +56,10 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
 
     if (model) {
       queryString += ` tag:'${model}'`
+    }
+
+    if (tag) {
+      queryString += ` tag:'${tag}'`
     }
 
     const query = {
