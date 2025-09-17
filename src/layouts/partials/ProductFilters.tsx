@@ -29,6 +29,7 @@ const ProductFilters = ({
 
   console.log("cat", categoriesWithCounts)
 
+
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -38,14 +39,6 @@ const ProductFilters = ({
   const onlyVendorFilterActive =
     searchParams.has("v") &&
     !searchParams.has("c") &&
-    !searchParams.has("minPrice") &&
-    !searchParams.has("maxPrice") &&
-    !searchParams.has("q") &&
-    !searchParams.has("t");
-
-  const onlyCategoryFilterActive =
-    searchParams.has("c") &&
-    !searchParams.has("v") &&
     !searchParams.has("minPrice") &&
     !searchParams.has("maxPrice") &&
     !searchParams.has("q") &&
@@ -86,29 +79,24 @@ const ProductFilters = ({
         <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">{cat}</h5>
         <hr className="border-[#cecece] dark:border-darkmode-border" />
         <ul className="mt-4 space-y-4">
-          {categories.map((category) => {
-            const dynamicCount =
-              categoriesWithCounts.find((c) => c.category === category.title)
-                ?.productCount ?? category.products?.length ?? 0;
-
-            const displayCount = onlyCategoryFilterActive
-              ? category.products?.length ?? 0
-              : dynamicCount;
+          {categories.map(cat => {
+            const currentCount =
+              categoriesWithCounts.find(c => c.category === cat.title)?.productCount ?? 0
 
             return (
               <li
-                key={category.handle}
-                className={`flex items-center justify-between cursor-pointer ${selectedCategory === category.handle
-                  ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
-                  : "text-text-light dark:text-darkmode-text-light"
+                key={cat.handle}
+                className={`flex items-center justify-between cursor-pointer ${selectedCategory === cat.handle
+                  ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
+                  : 'text-text-light dark:text-darkmode-text-light'
                   }`}
-                onClick={() => handleCategoryClick(category.handle)}
+                onClick={() => handleCategoryClick(cat.handle)}
               >
                 <span>
-                  {category.title} ({displayCount})
+                  {cat.title} ({currentCount})
                 </span>
               </li>
-            );
+            )
           })}
         </ul>
       </div>

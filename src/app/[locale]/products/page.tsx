@@ -120,7 +120,6 @@ const ShowProducts = async ({
       return { vendor, productCount }
     })
 
-
     categoriesWithCounts = uniqueCategories.map((category: string) => {
       const productCount = ((productsData?.products as Product[]) || []).filter((product: Product) =>
         product.collections.nodes.some((collectionNode: any) => collectionNode.title === category)
