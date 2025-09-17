@@ -194,7 +194,7 @@ export type ShopifyProduct = {
   images: Connection<Image>;
   seo: SEO;
   tag: string;
-  tags:string;
+  tags:string[];
   updatedAt: string;
   vendor: string;
   collections: any;
@@ -262,6 +262,7 @@ export type ShopifyCollectionOperation = {
   };
   variables: {
     handle: string;
+    language?: string;
   };
 };
 
@@ -278,6 +279,8 @@ export type ShopifyCollectionProductsOperation = {
     handle: string;
     reverse?: boolean;
     sortKey?: string;
+    language?: string;
+    locale?: string
   };
 };
 
@@ -316,6 +319,7 @@ export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
   variables: {
     handle: string;
+    language?: string;
   };
 };
 
@@ -340,5 +344,7 @@ export type ShopifyProductsOperation = {
     reverse?: boolean;
     sortKey?: string;
     cursor?: string;
+    language?: string;
+    locale?: string
   };
 };

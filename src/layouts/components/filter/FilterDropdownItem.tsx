@@ -68,12 +68,14 @@ function SortLanguageItem({ item }: { item: LanguageItem }) {
   const pathname = usePathname()
   const router = useRouter()
   const locale = useLocale();
-
+  const searchParams = useSearchParams()
   const active = locale === item.code;
 
-  const handleChange = (locale: string) => {
-    console.log("PATHNAME LOCALE", pathname, locale)
-    router.replace(pathname, { locale: locale })
+  const handleChange = (newlocale: string) => {
+    router.replace(
+      { pathname, query: Object.fromEntries(searchParams) },
+      { locale: newlocale }
+    )
   };
 
   return (

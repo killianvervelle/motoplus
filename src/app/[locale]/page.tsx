@@ -20,7 +20,6 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 import { Testimonial } from '@/types'
 import matter from 'gray-matter';
 
-
 export const dynamic = 'force-dynamic';
 
 /*const ShowHeroSlider = async () => {
@@ -32,8 +31,12 @@ export const dynamic = 'force-dynamic';
   return <HeroSlider products={products} />;
 };*/
 
-const ShowLatestProducts = async () => {
-  const collections = await getLatestProducts();
+const ShowLatestProducts = async ({
+  locale,
+}: {
+  locale: string
+}) => {
+  const collections = await getLatestProducts(locale);
   return <CollectionsSlider collections={collections} />;
 };
 
@@ -91,12 +94,18 @@ const aboutUsSlugs = {
   return <FeaturedProducts products={products} />;
 };*/
 
-const Home = async () => {
+const Home = async ({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) => {
   const translatedSeeAll = await translateServer("featuredProducts", "see-all-products")
   const translatedLatestArrivals = await translateServer("home", "latest-arrivals")
   const totalProducts = await getTotalNumberOfProducts();
 
-  const filtersComponents = await Promise.all(
+  const { locale } = await params;
+
+  const filtersComponents: [string, string[]][] = await Promise.all(
     Object.entries(GROUPS).map(async ([key, options]) => {
       const translatedKey = await translateServer("filters", key);
       const translatedValues = await Promise.all(
@@ -105,6 +114,13 @@ const Home = async () => {
       return [translatedKey, translatedValues]
     })
   );
+
+  const sortedFiltersComponents = filtersComponents
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([translatedKey, translatedValues]) => [
+      translatedKey,
+      [...translatedValues].sort((a, b) => a.localeCompare(b))
+    ]);
 
   const t = await getTranslations('filterbox');
 
@@ -160,7 +176,7 @@ const Home = async () => {
           <div className="absolute w-full h-auto top-1/4 flex justify-center">
             <FilterBox
               filtersBrands={filtersBrands}
-              filtersComponents={Object.fromEntries(filtersComponents)}
+              filtersComponents={Object.fromEntries(sortedFiltersComponents)}
               totalProducts={totalProducts}
               title={t('title')}
               subtitle={t('subtitle')}
@@ -182,7 +198,7 @@ const Home = async () => {
             <h3>{translatedLatestArrivals}</h3>
           </div>
           <Suspense fallback={<SkeletonCategory />}>
-            <ShowLatestProducts />
+            <ShowLatestProducts locale={locale} />
           </Suspense>
         </div>
         <Suspense fallback={<SkeletonFeaturedProducts />}>

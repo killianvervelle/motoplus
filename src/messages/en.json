@@ -218,6 +218,7 @@
     "bihr": "Bihr",
     "bike-lift": "Bike Lift",
     "bikeservice": "Bikeservice",
+    "brembo": "Brembo",
     "c": "C",
     "castrol": "Castrol",
     "centauro": "Centauro",
@@ -308,7 +309,24 @@
   },
   "featuredProducts": {
     "related-products": "Related Products",
-    "see-all-products": "+ See All Products"
+    "see-all-products": "+ See All Products",
+    "no-recommendation": "No recommendations can be made yet.",
+    "description": "Description",
+    "tags": "Tags",
+    "share": "Share",
+    "payment": "Payment",
+    "delivery": "Est. Delivery between 1 – 3 days",
+    "add-to-cart": "Add To Cart"
+  },
+  "cart": {
+    "taxes": "Taxes",
+    "shipping": "Shipping",
+    "total": "Total",
+    "proceed": "Proceed to Checkout",
+    "calculated": "Calculated at checkout",
+    "your-cart": "Your Cart",
+    "oops": "Oops. Your Bag Is Empty.",
+    "miss-out": "Don't Miss Out: Add Product"
   },
   "header": {
     "home": "Home",

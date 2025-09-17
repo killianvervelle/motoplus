@@ -467,7 +467,8 @@ export const MENU_ITEMS: MenuItem[] = [
       { name: "Beru", slug: "beru" },
       { name: "Bihr", slug: "bihr" },
       { name: "Bike Lift", slug: "bike-lift" },
-      { name: "Bikeservice", slug: "bikeservice" }
+      { name: "Bikeservice", slug: "bikeservice" },
+      { name: "Brembo", slug: "brembo" }
     ]},
     { name: "C", slug: "c", submenu: [
       { name: "Castrol", slug: "castrol" },

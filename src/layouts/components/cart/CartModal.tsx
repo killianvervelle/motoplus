@@ -13,6 +13,8 @@ import { DeleteItemButton } from './DeleteItemButton'
 import { EditItemQuantityButton } from './EditItemQuantityButton'
 import OpenCart from './OpenCart'
 import { ImageEdge, ImageConnection } from '@/types'
+import { translateClient } from "../../../lib/utils/translateClient";
+
 
 type MerchandiseSearchParams = {
   [key: string]: string
@@ -23,6 +25,15 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const quantityRef = useRef(cart?.totalQuantity)
   const openCart = () => setIsOpen(true)
   const closeCart = () => setIsOpen(false)
+
+  const taxes = translateClient("cart", "taxes")
+  const shipping = translateClient("cart", "shipping")
+  const total = translateClient("cart", "total")
+  const proceed = translateClient("cart", "proceed")
+  const calculated = translateClient("cart", "calculated")
+  const yourCart = translateClient("cart", "your-cart")
+  const oops = translateClient("cart", "oops")
+  const missOut = translateClient("cart", "miss-out")
 
   useEffect(() => {
     // Open cart modal when quantity changes.
@@ -50,7 +61,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
       >
         <div className='h-fit flex flex-col border-l border-b drop-shadow-lg rounded-bl-md border-neutral-200 bg-body p-6 text-black dark:border-neutral-700 dark:bg-darkmode-body dark:text-white'>
           <div className='flex items-center justify-between'>
-            <p className='text-lg font-semibold'>Your Cart</p>
+            <p className='text-lg font-semibold'>{yourCart}</p>
             <button aria-label='Close cart' onClick={closeCart}>
               <CloseCart />
             </button>
@@ -63,9 +74,9 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               <div className='md:mt-16'>
                 <FaShoppingCart size={76} />
               </div>
-              <p>Oops. Your Bag Is Empty.</p>
+              <p>{oops}</p>
               <Link onClick={closeCart} href={'/products'} className='btn btn-primary w-full'>
-                Don&apos;t Miss Out: Add Product
+                {missOut}
               </Link>
             </div>
           ) : (
@@ -139,7 +150,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               </ul>
               <div className='py-4 text-sm text-neutral-500 dark:text-neutral-400'>
                 <div className='mb-3 flex items-center justify-between border-b border-[#cecece] pb-1 dark:border-neutral-700'>
-                  <p>Taxes</p>
+                  <p>{taxes}</p>
                   <Price
                     className='text-right text-base text-black dark:text-white'
                     amount={cart.cost.totalTaxAmount.amount}
@@ -147,11 +158,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   />
                 </div>
                 <div className='mb-3 flex items-center justify-between border-b border-[#cecece] pb-1 pt-1 dark:border-neutral-700'>
-                  <p>Shipping</p>
-                  <p className='text-right'>Calculated at checkout</p>
+                  <p>{shipping}</p>
+                  <p className='text-right'>{calculated}</p>
                 </div>
                 <div className='mb-3 flex items-center justify-between border-b border-[#cecece] pb-1 pt-1 dark:border-neutral-700'>
-                  <p>Total</p>
+                  <p>{total}</p>
                   <Price
                     className='text-right text-base text-black dark:text-white'
                     amount={cart.cost.totalAmount.amount}
@@ -163,7 +174,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 href={cart.checkoutUrl}
                 className='block w-full rounded-md bg-dark dark:bg-light p-3 text-center text-sm font-medium text-white dark:text-text-dark opacity-100 hover:opacity-90'
               >
-                Proceed to Checkout
+                {proceed}
               </a>
             </div>
           )}

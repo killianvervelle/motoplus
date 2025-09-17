@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-const Tabs = ({ descriptionHtml }: { descriptionHtml: string }) => {
+const Tabs = ({ descriptionHtml, title }: { descriptionHtml: string; title: string }) => {
   const [description, setDescription] = useState('')
   const [loading, setLoading] = useState(true)
   const [selectedTab, setSelectedTab] = useState(0)
@@ -23,18 +23,18 @@ const Tabs = ({ descriptionHtml }: { descriptionHtml: string }) => {
         <button
           onClick={() => setSelectedTab(0)}
           className={`${selectedTab === 0
-              ? 'border-t-[1] border-l-[1] border-r-[1] border-b-0 bg-body dark:bg-darkmode-body border-[#cecece] dark:border-border/40 translate-y-[2px]'
-              : 'border-transparent hover:underline'
+            ? 'border-t-[1] border-l-[1] border-r-[1] border-b-0 bg-body dark:bg-darkmode-body border-[#cecece] dark:border-border/40 translate-y-[2px]'
+            : 'border-transparent hover:underline'
             } cursor-pointer focus:outline-none px-6 rounded-tl-md rounded-tr-md h-12 py-[1] border-t-[1] border-l-[1] border-r-[1] border-b-0`}
         >
-          Description
+        {title}  
         </button>
         {contentArray[1] && (
           <button
             onClick={() => setSelectedTab(1)}
             className={`${selectedTab === 1
-                ? 'border-t-[1] border-l-[1] border-r-[1] border-b-0 border-[#cecece] dark:border-border/40 bg-body dark:bg-darkmode-body translate-y-[2px]'
-                : 'border-transparent hover:underline'
+              ? 'border-t-[1] border-l-[1] border-r-[1] border-b-0 border-[#cecece] dark:border-border/40 bg-body dark:bg-darkmode-body translate-y-[2px]'
+              : 'border-transparent hover:underline'
               } cursor-pointer focus:outline-none px-6 rounded-tl-md rounded-tr-md h-12 py-[1] border-t-[1] border-l-[1] border-r-[1] border-b-0 ml-8`}
           >
             More Info

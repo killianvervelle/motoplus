@@ -288,7 +288,9 @@ export async function getCollection(
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
-    variables: { handle },
+    variables: { 
+      handle,
+     },
   });
 
   return reshapeCollection(res.body.data.collection);
@@ -299,12 +301,16 @@ export async function getCollectionProducts({
   reverse,
   sortKey,
   filterCategoryProduct,
+  locale
+
 }: {
-  collection: string;
+  collection?: string;
   reverse?: boolean;
   sortKey?: string;
-  filterCategoryProduct?: any[]; // Update the type based on your GraphQL schema
+  locale?: string;
+  filterCategoryProduct?: any[]; 
 }): Promise<{ pageInfo: PageInfo | null; products: Product[] }> {
+  const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
@@ -312,12 +318,14 @@ export async function getCollectionProducts({
       handle: collection,
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
-      filterCategoryProduct, // Pass the filters variable to the query
+      language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT', 
+      filterCategoryProduct, 
     } as {
       handle: string;
       reverse?: boolean;
       sortKey?: string;
       filterCategoryProduct?: any[];
+      language?: string
     },
   });
 
@@ -379,7 +387,7 @@ export async function getUserDetails(accessToken: string): Promise<user> {
   return response.body.data;
 }
 
-export async function getCollections(): Promise<Collection[]> {
+export async function getCollections() {
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
     tags: [TAGS.collections],
@@ -404,15 +412,18 @@ export async function getCollections(): Promise<Collection[]> {
     ),
   ];
 
-  console.log("filtered collection", collections)
-
   return collections;
 }
 
-export async function getLatestProducts() {
+export async function getLatestProducts(locale: string) {
+  const language = locale.toLowerCase() === 'pt' ? 'pt_PT' : locale;
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getLatestProductsQuery,
     tags: ["products"],
+    variables: {
+      language: language.toUpperCase() as 'EN' | 'FR' | 'PT_PT'
+    },
+
   });
 
   return removeEdgesAndNodes(res.body.data.products);
@@ -454,11 +465,14 @@ export async function getPages(): Promise<Page[]> {
   return removeEdgesAndNodes(res.body.data.pages);
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(locale: string, handle: string): Promise<Product | undefined> {
+  const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
-    variables: { handle },
+    variables: { 
+      handle, 
+      language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT'},
   });
 
   return reshapeProduct(res.body.data.product, false);
@@ -470,7 +484,9 @@ export async function getProductRecommendations(
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],
-    variables: { productId },
+    variables: { 
+      productId,
+    },
   });
 
   return reshapeProducts(res.body.data.productRecommendations);
@@ -541,16 +557,24 @@ export async function getProducts({
   reverse,
   sortKey,
   cursor,
+  locale
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
   cursor?: string;
+  locale?: string;
 }): Promise<{ pageInfo: PageInfo; products: Product[] }> {
+  const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     tags: [TAGS.products],
-    variables: { query, reverse, sortKey, cursor },
+    variables: { 
+      query, 
+      reverse, 
+      sortKey, 
+      cursor, 
+      language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT' }, 
   });
 
   const pageInfo = res.body.data?.products?.pageInfo;

@@ -17,10 +17,11 @@ export const dynamic = 'force-dynamic';
 export const generateMetadata = async ({
   params,
 }: {
-  params: { locale: string; slug: string };
+  params: Promise<{ locale: string; slug: string }>;
 }) => {
 
-  const product = await getProduct(params.slug);
+  const param = await params;
+  const product = await getProduct(param.locale, param.slug);
   if (!product) return notFound();
 
   return {
@@ -32,7 +33,7 @@ export const generateMetadata = async ({
 const ProductSingle = async ({
   params
 }: {
-  params: { locale: string; slug: string }
+  params: Promise<{ locale: string; slug: string }>
 }) => {
   return (
     <Suspense fallback={<LoadingProductGallery />}>
@@ -43,16 +44,17 @@ const ProductSingle = async ({
 
 export default ProductSingle;
 
-const ShowProductSingle = async ({ params }: { params: { locale: string; slug: string } }) => {
+const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string; slug: string }> }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/content/sections/payments-and-delivery.md`);
   const text = await res.text();
   const { data: frontmatter } = matter(text);
 
+  const param = await params;
+
   const payment_methods = frontmatter.payment_methods;
-  const estimated_delivery = frontmatter.estimated_delivery;
 
   const { currencySymbol } = config.shopify;
-  const product = await getProduct(params.slug);
+  const product = await getProduct(param.locale, param.slug);
 
   if (!product) return notFound();
 
@@ -70,6 +72,12 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
   const relatedProducts = await getProductRecommendations(id);
 
   const related_title = await translateServer("featuredProducts", "related-products")
+  const no_recommendation_title = await translateServer("featuredProducts", "no-recommendation")
+  const desc = await translateServer("featuredProducts", "description")
+  const tag = await translateServer("featuredProducts", "tags")
+  const share = await translateServer("featuredProducts", "share")
+  const payment = await translateServer("featuredProducts", "payment")
+  const delivery = await translateServer("featuredProducts", "delivery")
 
   const defaultVariantId = variants.length > 0 ? variants[0].id : undefined;
 
@@ -110,12 +118,12 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
 
               <div className="mb-8 md:mb-10">
                 <p className="p-2 max-md:text-sm rounded-md bg-light dark:bg-darkmode-light inline">
-                  {estimated_delivery}
+                  {delivery}
                 </p>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <h5 className="max-md:text-base">Payment: </h5>
+                <h5 className="max-md:text-base">{payment}: </h5>
                 {payment_methods?.map(
                   (payment: { name: string; image_url: string }) => (
                     <img
@@ -133,13 +141,13 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
               <hr className="my-6 border border-[#cecece] dark:border-border/40" />
 
               <div className="flex gap-3 items-center mb-6">
-                <h5 className="max-md:text-base">Share:</h5>
+                <h5 className="max-md:text-base">{share}:</h5>
                 <Social socialName={title} className="social-icons" />
               </div>
 
               {tags.length > 0 && (
                 <div className="flex flex-wrap gap-3 items-center">
-                  <h5 className="max-md:text-base">Tags:</h5>
+                  <h5 className="max-md:text-base">{tag}:</h5>
                   <Suspense>
                     <ShowTags tags={tags} />
                   </Suspense>
@@ -156,7 +164,7 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
           <div className="container">
             <div className="row">
               <div className="col-10 lg:col-11 mx-auto">
-                <Tabs descriptionHtml={descriptionHtml} />
+                <Tabs descriptionHtml={descriptionHtml} title={desc} />
               </div>
             </div>
           </div>
@@ -166,12 +174,21 @@ const ShowProductSingle = async ({ params }: { params: { locale: string; slug: s
       {/* Recommended Products section  */}
       <section className="section-bottom">
         <div className="container">
-          {relatedProducts?.length > 0 && (
+          {relatedProducts?.length > 0 ? (
             <>
               <div className="text-center mb-6 md:mb-14 pt-24">
                 <h3 className="mb-2">{related_title}</h3>
               </div>
               <LatestProducts products={relatedProducts.slice(0, 4)} />
+            </>
+          ) : (
+            <>
+              <div className="text-center pt-24">
+                <h3>{related_title}</h3>
+              </div>
+              <div className="text-center mb-6 md:mb-14 pt-10">
+                <p className="text-gray-500">{no_recommendation_title}</p>
+              </div>
             </>
           )}
         </div>

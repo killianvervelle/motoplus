@@ -9,14 +9,31 @@ import { translateClient } from "../../lib/utils/translateClient";
 import { useTheme } from "next-themes";
 import { Suspense } from "react";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const open = useCallback((i: number) => setOpenIndex(i), []);
     const close = useCallback(() => setOpenIndex(null), []);
+    const router = useRouter();
     const { resolvedTheme } = useTheme();
 
     const translatedSeeAll = translateClient("featuredProducts", "see-all-products")
+
+    const handleClick = (parent: string, child: string) => {
+        const params = new URLSearchParams();
+        console.log(parent, child)
+        if (parent === "BRANDS") {
+            params.set("v", child);
+        }
+        else if (parent === "ACCESSORIES") {
+            params.set("c", child);
+        }
+        else if (parent === "USED PARTS") {
+            params.set("c", child);
+        }
+        router.push(`/products?${params.toString()}`);
+    }
 
     return (
         <div className=" bg-[#d7d7d7] dark:bg-darkmode-light">
@@ -121,11 +138,14 @@ export default function Navbar() {
                                                                             className={resolvedTheme === "dark" ? "invert brightness-100" : ""}
                                                                         />
                                                                         <Link
-                                                                            href={{ pathname: "/products", query: { group: menuItem.slug, subgroup: section.slug } }}
+                                                                            href="#"
                                                                             className="inline-block text-[15px] font-extrabold text-[#c70303] dark:text-[#c70303]
-                                                                        hover:underline underline-offset-4 decoration-current dark:hover:text-[#c60404]
+                                                                         decoration-current cursor-default
                                                                         focus-visible:underline focus-visible:outline-none rounded"
-                                                                            onClick={close}
+                                                                            onClick={(e) => {
+                                                                                e.preventDefault();
+                                                                                close();
+                                                                            }}
                                                                             role="menuitem"
                                                                         >
                                                                             {translateClient("menu", section.slug)}
@@ -165,12 +185,14 @@ export default function Navbar() {
                                                                         items.map((item, idx) => (
                                                                             <li key={item.slug} className="inline">
                                                                                 <Link
-                                                                                    href={{
-                                                                                        pathname: "/products",
-                                                                                        query: { group: menuItem.slug, subgroup: section.slug, category: item.slug },
-                                                                                    }}
+                                                                                    href="#"
                                                                                     className="text-sm hover:underline font-semibold text-[#1d1d1f] dark:hover:text-[#c60404] dark:text-white rounded-md py-1 px-1"
-                                                                                    onClick={close}
+                                                                                    onClick={(e) => {
+                                                                                        e.preventDefault();
+                                                                                        handleClick(menuItem.name, item.slug)
+                                                                                        close();
+                                                                                    }
+                                                                                    }
                                                                                     role="menuitem"
                                                                                 >
                                                                                     {translateClient("menu", item.slug)}
@@ -187,10 +209,10 @@ export default function Navbar() {
                                             </div>
                                             <Suspense fallback={<SkeletonFeaturedProducts />}>
                                                 <div className='flex justify-center mt-7'>
-                                                    <Link 
-                                                    className={`${openIndex !== null ? "block" : "hidden"} absolute bottom-4 right-4 btn btn-sm hover:bg-gray-700 btn-primary font-medium`} 
-                                                    href={'/products'}
-                                                    onClick={close}>
+                                                    <Link
+                                                        className={`${openIndex !== null ? "block" : "hidden"} absolute bottom-4 right-4 btn btn-sm hover:bg-gray-700 btn-primary font-medium`}
+                                                        href={'/products'}
+                                                        onClick={close}>
                                                         {translatedSeeAll}
                                                     </Link>
                                                 </div>

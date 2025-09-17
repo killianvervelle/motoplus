@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import ShowTags from '@/components/product/ShowTags'
 import RangeSlider from '@/components/rangeSlider/RangeSlider'
@@ -24,38 +24,56 @@ const ProductFilters = ({
   vendorsWithCounts: { vendor: string; productCount: number }[]
   categoriesWithCounts: { category: string; productCount: number }[]
 }) => {
+
+  console.log("vendor", vendorsWithCounts)
+
+  console.log("cat", categoriesWithCounts)
+
   const router = useRouter()
   const searchParams = useSearchParams()
 
   const selectedBrand = searchParams.get('v')
   const selectedCategory = searchParams.get('c')
 
-  const handleBrandClick = (name: string) => {
-    const newParams = new URLSearchParams(searchParams.toString())
+  const onlyVendorFilterActive =
+    searchParams.has("v") &&
+    !searchParams.has("c") &&
+    !searchParams.has("minPrice") &&
+    !searchParams.has("maxPrice") &&
+    !searchParams.has("q") &&
+    !searchParams.has("t");
 
-    if (name === selectedBrand) {
-      newParams.delete('v')
-    } else {
-      newParams.set('v', name)
-    }
-    router.push(createUrl('/products', newParams), { scroll: false })
-  }
+  const onlyCategoryFilterActive =
+    searchParams.has("c") &&
+    !searchParams.has("v") &&
+    !searchParams.has("minPrice") &&
+    !searchParams.has("maxPrice") &&
+    !searchParams.has("q") &&
+    !searchParams.has("t");
+
+  const handleBrandClick = (name: string) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    if (name === selectedBrand) newParams.delete("v");
+    else newParams.set("v", name);
+    router.push(createUrl("/products", newParams), { scroll: false });
+  };
 
   const handleCategoryClick = (handle: string) => {
-    const newParams = new URLSearchParams(searchParams.toString())
+    const newParams = new URLSearchParams(searchParams.toString());
+    if (handle === selectedCategory) newParams.delete("c");
+    else newParams.set("c", handle);
+    router.push(createUrl("/products", newParams), { scroll: false });
+  };
 
-    if (handle === selectedCategory) {
-      newParams.delete('c')
-    } else {
-      newParams.set('c', handle)
-    }
-    router.push(createUrl('/products', newParams), { scroll: false })
-  }
+  const priceRange = translateClient("product-filters", "price-range");
+  const cat = translateClient("product-filters", "product-cat");
+  const brands = translateClient("product-filters", "brands");
+  const tag = translateClient("product-filters", "tags");
 
   return (
     <div>
       <div>
-        <h5 className='mb-2 lg:text-xl'>{translateClient("product-filters", "price-range")}</h5>
+        <h5 className='mb-2 lg:text-xl'>{priceRange}</h5>
         <hr className='border-[#cecece] dark:border-darkmode-border' />
         <div className='pt-4'>
           <Suspense>
@@ -65,73 +83,72 @@ const ProductFilters = ({
       </div>
 
       <div>
-        <h5 className='mb-2 mt-4 lg:mt-6 lg:text-xl'>{translateClient("product-filters", "product-cat")}</h5>
-        <hr className='border-[#cecece] dark:border-darkmode-border' />
-        <ul className='mt-4 space-y-4'>
-          {categories.map((category) => (
-            <li
-              key={category.handle}
-              className={`flex items-center justify-between cursor-pointer ${selectedCategory === category.handle
-                ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
-                : 'text-text-light dark:text-darkmode-text-light'
-                }`}
-              onClick={() => handleCategoryClick(category.handle)}
-            >
-              {category.title}{' '}
-              {searchParams.has('c') && !searchParams.has('b') ? (
-                <span>({category?.products?.edges.length ?? 0})</span>
-              ) : (
+        <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">{cat}</h5>
+        <hr className="border-[#cecece] dark:border-darkmode-border" />
+        <ul className="mt-4 space-y-4">
+          {categories.map((category) => {
+            const dynamicCount =
+              categoriesWithCounts.find((c) => c.category === category.title)
+                ?.productCount ?? category.products?.length ?? 0;
+
+            const displayCount = onlyCategoryFilterActive
+              ? category.products?.length ?? 0
+              : dynamicCount;
+
+            return (
+              <li
+                key={category.handle}
+                className={`flex items-center justify-between cursor-pointer ${selectedCategory === category.handle
+                  ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
+                  : "text-text-light dark:text-darkmode-text-light"
+                  }`}
+                onClick={() => handleCategoryClick(category.handle)}
+              >
                 <span>
-                  {categoriesWithCounts.length > 0
-                    ? `(${categoriesWithCounts.find((c) => c.category === category.title)?.productCount || 0})`
-                    : `(${category?.products?.edges.length ?? 0})`}
+                  {category.title} ({displayCount})
                 </span>
-              )}
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </div>
 
       {vendors && (
         <div>
-          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{translateClient("product-filters", "brands")}</h5>
-          <hr className='border-[#cecece] dark:border-darkmode-border' />
-          <ul className='mt-4 space-y-4'>
-            {vendors.map((vendor) => (
-              <li
-                key={vendor.vendor}
-                className={`flex items-center justify-between cursor-pointer ${selectedBrand === vendor.vendor
-                  ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
-                  : 'text-text-light dark:text-darkmode-text-light'
-                  }`}
-                onClick={() => handleBrandClick(vendor.vendor)}
-              >
-                {searchParams.has('v') &&
-                  !searchParams.has('c') &&
-                  !searchParams.has('minPrice') &&
-                  !searchParams.has('maxPrice') &&
-                  !searchParams.has('q') &&
-                  !searchParams.has('t') ? (
+          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{brands}</h5>
+          <hr className="border-[#cecece] dark:border-darkmode-border" />
+          <ul className="mt-4 space-y-4">
+            {vendors.map((vendor) => {
+              const dynamicCount =
+                vendorsWithCounts.find((v) => v.vendor === vendor.vendor)
+                  ?.productCount ?? vendor.productCount;
+
+              const displayCount = onlyVendorFilterActive
+                ? vendor.productCount
+                : dynamicCount;
+
+              return (
+                <li
+                  key={vendor.vendor}
+                  className={`flex items-center justify-between cursor-pointer ${selectedBrand === vendor.vendor
+                    ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
+                    : "text-text-light dark:text-darkmode-text-light"
+                    }`}
+                  onClick={() => handleBrandClick(vendor.vendor)}
+                >
                   <span>
-                    {vendor.vendor} ({vendor.productCount})
+                    {vendor.vendor} ({displayCount})
                   </span>
-                ) : (
-                  <span>
-                    {vendorsWithCounts.length > 0
-                      ? `${vendor.vendor} (${vendorsWithCounts.find((v) => v.vendor === vendor.vendor)?.productCount || 0
-                      })`
-                      : `${vendor.vendor} (${vendor.productCount})`}
-                  </span>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
 
       {tags.length > 0 && (
         <div>
-          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{translateClient("product-filters", "tags")}</h5>
+          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{tag}</h5>
           <hr className='border-[#cecece] dark:border-darkmode-border' />
           <div className='mt-4'>
             <Suspense>

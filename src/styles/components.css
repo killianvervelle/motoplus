@@ -12,6 +12,10 @@
   @apply mx-auto !max-w-[1640px] px-4;
 }
 
+.container-foot {
+  @apply mx-auto !max-w-[1200px] px-4;
+}
+
 .section-bottom {
   @apply pb-0;
 }

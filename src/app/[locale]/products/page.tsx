@@ -8,6 +8,7 @@ import ProductFilters from '@/partials/ProductFilters'
 import ProductListView from '@/partials/ProductListView'
 import { Suspense } from 'react'
 
+
 interface SearchParams {
   sort?: string
   q?: string
@@ -15,9 +16,18 @@ interface SearchParams {
   maxPrice?: string
   c?: string
   t?: string
+  m?: string
+  b?: string
+  v?: string
 }
 
-const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) => {
+const ShowProducts = async ({
+  searchParams,
+  locale,
+}: {
+  searchParams: SearchParams
+  locale: string
+}) => {
   const {
     sort,
     q: searchValue,
@@ -27,6 +37,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
     m: model,
     b: brand,
     t: tag,
+    v: vendor,
     layout,
     cursor
   } = searchParams as {
@@ -39,7 +50,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
   let vendorsWithCounts: { vendor: string; productCount: number }[] = []
   let categoriesWithCounts: { category: string; productCount: number }[] = []
 
-  if (searchValue || model || brand || minPrice || maxPrice || category) {
+  if (searchValue || model || brand || minPrice || maxPrice || category || vendor) {
     let queryString = ''
 
     if (minPrice || maxPrice) {
@@ -69,19 +80,26 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
       cursor
     }
 
-    console.log(query)
-
-    productsData =
-      category && category !== 'all'
-        ? await getCollectionProducts({
-          collection: category,
-          sortKey,
-          reverse
-        })
-        : await getProducts(query)
-
-
-    console.log(productsData?.products)
+    if (category && category !== 'all') {
+      productsData = await getCollectionProducts({
+        collection: category,
+        sortKey,
+        reverse,
+        locale
+      })
+    }
+    else if (vendor && vendor !== 'all') {
+      const vendorQuery = `vendor:'${vendor}'`;
+      productsData = await getProducts({
+        sortKey,
+        reverse,
+        query: vendorQuery,
+        cursor
+      });
+    }
+    else {
+      productsData = await getProducts(query)
+    }
 
     const uniqueVendors: string[] = [
       ...new Set(((productsData?.products as Product[]) || []).map((product: Product) => String(product?.vendor || '')))
@@ -102,6 +120,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
       return { vendor, productCount }
     })
 
+
     categoriesWithCounts = uniqueCategories.map((category: string) => {
       const productCount = ((productsData?.products as Product[]) || []).filter((product: Product) =>
         product.collections.nodes.some((collectionNode: any) => collectionNode.title === category)
@@ -109,7 +128,7 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
       return { category, productCount }
     })
   } else {
-    productsData = await getProducts({ sortKey, reverse, cursor })
+    productsData = await getProducts({ sortKey, reverse, cursor, locale })
   }
   const categories = await getCollections()
   const vendors = await getVendors({})
@@ -154,9 +173,9 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
 
           <div className='col-12 lg:col-9 pt-5 pl-5'>
             {layout === 'list' ? (
-              <ProductListView searchParams={searchParams} />
+              <ProductListView searchParams={searchParams} locale={locale} />
             ) : (
-              <ProductCardView searchParams={searchParams} />
+              <ProductCardView searchParams={searchParams} locale={locale} />
             )}
           </div>
         </div>
@@ -165,17 +184,20 @@ const ShowProducts = async ({ searchParams }: { searchParams: SearchParams }) =>
   )
 }
 
-const ProductsListPage = async (props: { searchParams: Promise<SearchParams> }) => {
-  const searchParams = await props.searchParams
+export default async function ProductsListPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>
+  searchParams: Promise<SearchParams>
+}) {
+  // locale is the dynamic [locale] segment
+  const { locale } = await params
 
+  // searchParams is already a plain object, no need to await
   return (
-    <>
-      <Suspense fallback={<LoadingProducts />}>
-        <ShowProducts searchParams={searchParams} />
-      </Suspense>
-
-    </>
+    <Suspense fallback={<LoadingProducts />}>
+      <ShowProducts searchParams={await searchParams} locale={locale} />
+    </Suspense>
   )
 }
-
-export default ProductsListPage

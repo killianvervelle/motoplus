@@ -12,7 +12,13 @@ import Link from "next/link";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 
-const ProductCardView = ({ searchParams }: { searchParams: any }) => {
+const ProductCardView = ({
+  searchParams,
+  locale,
+}: {
+  searchParams: any
+  locale: string
+}) => {
   const { currencySymbol } = config.shopify;
   const [isLoading, setIsLoading] = useState(true);
   const targetElementRef = useRef<HTMLDivElement>(null);
@@ -118,11 +124,12 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
                   filterCategoryProduct.length > 0
                     ? filterCategoryProduct
                     : undefined,
+                locale
               })
-              : await getProducts({ ...query, cursor });
+              : await getProducts({ ...query, cursor, locale });
         } else {
           // Fetch all products
-          productsData = await getProducts({ sortKey, reverse, cursor });
+          productsData = await getProducts({ sortKey, reverse, cursor, locale });
         }
 
         setData({
@@ -170,6 +177,7 @@ const ProductCardView = ({ searchParams }: { searchParams: any }) => {
         reverse,
         query: searchValue,
         cursor: newCursor,
+        locale
       });
 
       setData({

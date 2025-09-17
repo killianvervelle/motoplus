@@ -12,7 +12,13 @@ import Link from 'next/link'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { BiLoaderAlt } from 'react-icons/bi'
 
-const ProductListView = ({ searchParams }: { searchParams: any }) => {
+const ProductListView = ({
+  searchParams,
+  locale,
+}: {
+  searchParams: any
+  locale: string
+}) => {
   const { currencySymbol } = config.shopify
   const [isLoading, setIsLoading] = useState(true)
   const targetElementRef = useRef<HTMLDivElement>(null)
@@ -54,8 +60,8 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
           category ||
           brand ||
           model ||
-          vendor||
-          tag   ||
+          vendor ||
+          tag ||
           cursor) {
           let queryString = ''
           const filterCategoryProduct = []
@@ -105,12 +111,17 @@ const ProductListView = ({ searchParams }: { searchParams: any }) => {
                 collection: category,
                 sortKey,
                 reverse,
-                filterCategoryProduct: filterCategoryProduct.length > 0 ? filterCategoryProduct : undefined
+                filterCategoryProduct: filterCategoryProduct.length > 0 ? filterCategoryProduct : undefined,
+                locale
               })
-              : await getProducts({ ...query, cursor })
+              : await getProducts({
+                ...query,
+                cursor,
+                locale
+              })
         } else {
           // Fetch all products
-          productsData = await getProducts({ sortKey, reverse, cursor })
+          productsData = await getProducts({ sortKey, reverse, cursor, locale })
         }
 
         setData({

@@ -212,6 +212,7 @@
     "athena": "Athena",
     "b": "B",
     "bs-battery": "BS Battery",
+    "brembo": "Brembo",
     "barkbusters": "Barkbusters",
     "barracuda": "Barracuda",
     "beru": "Beru",
@@ -308,7 +309,24 @@
   },
   "featuredProducts": {
     "related-products": "Produits Associés",
-    "see-all-products": "+ Voir tous les produits"
+    "see-all-products": "+ Voir tous les produits",
+    "no-recommendation": "Aucune recommandation ne peut être faite pour le moment.",
+    "description": "Description",
+    "tags": "Étiquettes",
+    "share": "Partager",
+    "payment": "Paiement",
+    "delivery": "Livraison estimée entre 1 – 3 jours",
+    "add-to-cart": "Ajouter au panier"
+  },
+  "cart": {
+    "taxes": "Taxes",
+    "shipping": "Livraison",
+    "total": "Total",
+    "proceed": "Passer à la caisse",
+    "calculated": "Calculé lors du paiement",
+    "your-cart": "Votre panier",
+    "oops": "Oups. Votre sac est vide.",
+    "miss-out": "Ne manquez pas ça : ajoutez un produit"
   },
   "header": {
     "home": "Accueil",

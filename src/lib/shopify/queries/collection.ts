@@ -53,7 +53,8 @@ export const getCollectionProductsQuery = /* GraphQL */ `
     $sortKey: ProductCollectionSortKeys
     $reverse: Boolean
     $filterCategoryProduct: [ProductFilter!]
-  ) {
+    $language: LanguageCode
+  ) @inContext(language: $language){
     collection(handle: $handle) {
       products(
         sortKey: $sortKey

@@ -216,6 +216,7 @@
     "barracuda": "Barracuda",
     "beru": "Beru",
     "bihr": "Bihr",
+    "brembo": "Brembo",
     "bike-lift": "Bike Lift",
     "bikeservice": "Bikeservice",
     "c": "C",
@@ -308,7 +309,24 @@
   },
   "featuredProducts": {
     "related-products": "Produtos Relacionados",
-    "see-all-products": "+ Ver todos os produtos"
+    "see-all-products": "+ Ver todos os produtos",
+    "no-recommendation": "Ainda não é possível fazer recomendações.",
+    "description": "Descrição",
+    "tags": "Etiquetas",
+    "share": "Partilhar",
+    "payment": "Pagamento",
+    "delivery": "Entrega estimada entre 1 – 3 dias",
+    "add-to-cart": "Adicionar ao carrinho"
+  },
+  "cart": {
+    "taxes": "Impostos",
+    "shipping": "Envio",
+    "total": "Total",
+    "proceed": "Finalizar compra",
+    "calculated": "Calculado no checkout",
+    "your-cart": "Seu carrinho",
+    "oops": "Ops. Sua sacola está vazia.",
+    "miss-out": "Não perca: adicione um produto"
   },
   "header": {
     "home": "Início",

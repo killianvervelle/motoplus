@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 import { BiLoaderAlt } from "react-icons/bi";
+import { translateClient } from "../../../lib/utils/translateClient";
 
 function SubmitButton({
   availableForSale,
@@ -22,6 +23,7 @@ function SubmitButton({
   const { pending } = useFormStatus();
   const buttonClasses = stylesClass;
   const disabledClasses = "cursor-not-allowed flex";
+  const addToCart = translateClient("featuredProducts", "add-to-cart")
 
   const DynamicTag = handle === null ? "button" : Link;
 
@@ -67,7 +69,9 @@ function SubmitButton({
 
         />
       ) : (
-        "Add To Cart"
+        <>
+        {addToCart}
+        </>
       )}
     </button>
   );

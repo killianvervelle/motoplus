@@ -51,7 +51,6 @@ const FilterBox = ({
         if (selectedBrand) params.set("b", selectedBrand.slug);
         if (selectedModel) params.set("m", selectedModel.slug);
         if (selectedComponent) params.set("c", selectedComponent.slug);
-        console.log("params")
         router.push(`/products?${params.toString()}`);
     }
 
@@ -182,7 +181,7 @@ const FilterBox = ({
                                     height={22}
                                     style={{ height: "auto", width: "22px" }}
                                     className={`duration-4000 ease-in-out overflow-hidden
-                                        ${animate ? "lg:translate-x-[2000px] sm:translate-x-[100px] -rotate-70 opacity-100" : "translate-x-0 rotate-0 opacity-100"}`}
+                                        ${animate ? "lg:translate-x-[2000px] sm:translate-x-[1000px] translate-x-[100px] -rotate-70 opacity-100" : "translate-x-0 rotate-0 opacity-100"}`}
                                 />
                             </div>
 
