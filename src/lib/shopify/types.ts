@@ -288,6 +288,9 @@ export type ShopifyCollectionsOperation = {
   data: {
     collections: Connection<ShopifyCollection>;
   };
+  variables: {
+      language?: string;
+    },
 };
 
 export type ShopifyMenuOperation = {

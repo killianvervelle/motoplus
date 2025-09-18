@@ -22,6 +22,47 @@ export const GROUPS = {
   "clothing--merchandise": [
     "clothing-care",
     "pedal-for-kids",
+    "helmets",
+    "gloves",
+    "jackets--pants",
+    "boots" 
+  ],
+  "suspension--steering": [
+    "front-forks--fork-tubes",
+    "shock-absorber--rear-shock",
+    "triple-tree--steering-stem",
+    "steering-bearings"
+  ],
+  "wheels--tyres": [
+      "rims--wheels",
+      "hubs--spokes",
+      "tires-front--rear",
+      "inner-tubes",
+      "wheel-axle--spacers"
+  ],
+  "frame--bodywork": [
+      "frame--subframe",
+      "footpegs--rearsets",
+      "fairings--side-panels",
+      "seat--seat-covers"
+  ],
+  "exhaust": [
+      "complete-exhaust-systems",
+      "headers--downpipes",
+      "mufflers--silencers",
+      "exhaust-clamps--gaskets"
+  ],
+  "cooling": [
+      "radiator",
+      "radiator-cap--hoses",
+      "water-pump"
+  ],
+  "engine--transmission": [
+      "engine-blocks--crankcases",
+      "pistons--cylinder-kits",
+      "camshaft--valvetrain-parts",
+      "gearbox--transmission-parts",
+      "gaskets--seals"
   ],
   "drivetrain": [
     "chain-and-sprockets-kit",
@@ -139,6 +180,7 @@ export const GROUPS = {
     "phone-holder",
     "phone-holder-accessoires",
     "phone-holder-mounting",
+    "gps-tracker--alarm-systems"
   ],
   "oil--fluids": [
     "2-stroke-oil",

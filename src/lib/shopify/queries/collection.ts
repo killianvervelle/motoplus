@@ -35,8 +35,8 @@ export const getCollectionQuery = /* GraphQL */ `
 `;
 
 export const getCollectionsQuery = /* GraphQL */ `
-  query getCollections {
-    collections(first: 100, sortKey: TITLE) {
+  query getCollections($language: LanguageCode) @inContext(language: $language) {
+    collections(first: 249, sortKey: TITLE) {
       edges {
         node {
           ...collection

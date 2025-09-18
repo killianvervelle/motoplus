@@ -12,6 +12,7 @@ import Image from "next/image";
 import { translateClient } from "../../lib/utils/translateClient";
 import DropdownLanguages from '../components/filter/DropdownLanguages'
 import { languageItems } from "@/lib/constants";
+import { useLocale } from 'next-intl'
 
 
 interface IChildNavigationLink {
@@ -49,6 +50,23 @@ function MenuGroup({
   onToggleSidebar: () => void;
 }) {
   const [openChild, setOpenChild] = React.useState<number | null>(null);
+  const router = useRouter();
+
+  const handleClick = (parent: string, child: string) => {
+    const params = new URLSearchParams();
+
+    const p = parent.toLowerCase();
+
+    if (["brands", "marcas", "marques"].includes(p)) {
+      params.set("v", child);
+    } else if (["accessories", "accessoires", "acessórios"].includes(p)) {
+      params.set("c", child);
+    } else if (["used parts", "peças usadas", "pièces d’occasion"].includes(p)) {
+      params.set("c", child);
+    }
+
+    router.push(`/products?${params.toString()}`);
+  };
 
   return menu.hasChildren ? (
     <li className='nav-item nav-dropdown group relative' key={menu.name}>
@@ -71,7 +89,7 @@ function MenuGroup({
           return (
             <li className="nav-dropdown-item" key={`child-${i}`}>
               <Link
-                href={{ pathname: "/products", query: { group: menu.slug, subgroup: child.slug } }}
+                href="#"
                 onClick={(e) => {
                   if (grand.length) { e.preventDefault(); setOpenChild(openChild === i ? null : i); }
                 }}
@@ -88,10 +106,16 @@ function MenuGroup({
               {grand.length > 0 && (
                 <ul className={`nav-dropdown-list my-3 bg-[#f5f5f793] ${openChild === i ? 'visible' : 'hidden'}`}>
                   {grand.map((cat, j) => (
-                    <li className="nav-dropdown-item" key={`grand-${j}`} onClick={() => onToggleSidebar()}>
+                    <li className="nav-dropdown-item" key={`grand-${j}`}>
                       <Link
-                        href={{ pathname: "/products", query: { group: menu.slug, subgroup: child.slug, category: cat.slug } }}
+                        href="#"
                         className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(cat, pathname)}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleClick(menu.name, cat.slug)
+                          onToggleSidebar();
+                        }
+                        }
                       >
                         {translateClient("menu", cat.slug)}
                       </Link>
@@ -115,12 +139,14 @@ function MenuGroup({
 
 const Header: React.FC<{ children: any }> = ({ children }) => {
   const [navbarShadow, setNavbarShadow] = useState(false)
-  const { main }: { main: INavigationLink[] } = menu
   const { navigation_button, settings } = config
   const pathname = usePathname()
   const [showSidebar, setShowSidebar] = useState(false)
   const router = useRouter();
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
+
+  const locale = useLocale() as "en" | "fr" | "pt";
+  const nav: INavigationLink[] = menu[locale];
 
   useEffect(() => {
     window.scroll(0, 0)
@@ -224,7 +250,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                 </Suspense>
               </div>
               <ul>
-                {main.map((menu, i) => (
+                {nav.map((menu, i) => (
                   <MenuGroup
                     key={`menu-${i}`}
                     menu={menu}

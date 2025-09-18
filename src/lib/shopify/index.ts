@@ -311,11 +311,12 @@ export async function getCollectionProducts({
   filterCategoryProduct?: any[]; 
 }): Promise<{ pageInfo: PageInfo | null; products: Product[] }> {
   const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
+  const shopifyHandle = collection?.replace(/-+/g, '-');
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
-      handle: collection,
+      handle: shopifyHandle,
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
       language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT', 
@@ -387,10 +388,14 @@ export async function getUserDetails(accessToken: string): Promise<user> {
   return response.body.data;
 }
 
-export async function getCollections() {
+export async function getCollections(locale: string) {
+  const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
     tags: [TAGS.collections],
+    variables: {
+      language: language.toUpperCase() as 'EN' | 'FR' | 'PT_PT'
+    },
   });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
   const collections = [

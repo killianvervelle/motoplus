@@ -136,6 +136,85 @@ export const MENU_ITEMS: MenuItem[] = [
           { name: "Fuel Pump", slug: "fuel-pump" }
         ]
       },
+
+
+
+      {
+        name: "Suspension & Steering",
+        slug: "suspension--steering",
+        imageBlack: "/images/suspensionD.png",
+        imageWhite: "/images/suspensionL.png",
+        submenu: [
+          { name: "Front Forks / Fork Tubes", slug: "front-forks--fork-tubes" },
+          { name: "Shock Absorber / Rear Shock", slug: "shock-absorber--rear-shock" },
+          { name: "Triple Tree / Steering Stem", slug: "triple-tree--steering-stem" },
+          { name: "Steering Bearings", slug: "steering-bearings" }
+        ]
+      },
+      {
+        name: "Wheels & Tyres",
+        slug: "wheels--tyres",
+        imageBlack: "/images/wheelD.png",
+        imageWhite: "/images/wheelL.png",
+        submenu: [
+          { name: "Rims / Wheels", slug: "rims--wheels" },
+          { name: "Hubs & Spokes", slug: "hubs--spokes" },
+          { name: "Tires (Front / Rear)", slug: "tires-front--rear" },
+          { name: "Inner Tubes", slug: "inner-tubes" },
+          { name: "Wheel Axle / Spacers", slug: "wheel-axle--spacers" }
+        ]
+      },
+      {
+        name: "Frame & Bodywork",
+        slug: "frame--bodywork",
+        imageBlack: "/images/bicycleD.png",
+        imageWhite: "/images/bicycleL.png",
+        submenu: [
+          { name: "Frame & Subframe", slug: "frame--subframe" },
+          { name: "Footpegs / Rearsets", slug: "footpegs--rearsets" },
+          { name: "Fairings / Side Panels", slug: "fairings--side-panels" },
+          { name: "Seat & Seat Covers", slug: "seat--seat-covers" }
+        ]
+      },
+      {
+        name: "Exhaust",
+        slug: "exhaust",
+        imageBlack: "/images/mufflerD.png",
+        imageWhite: "/images/mufflerL.png",
+        submenu: [
+          { name: "Complete Exhaust Systems", slug: "complete-exhaust-systems" },
+          { name: "Headers / Downpipes", slug: "headers--downpipes" },
+          { name: "Mufflers / Silencers", slug: "mufflers--silencers" },
+          { name: "Exhaust Clamps & Gaskets", slug: "exhaust-clamps--gaskets" }
+        ]
+      },
+      {
+        name: "Cooling",
+        slug: "cooling",
+        imageBlack: "/images/radiatorD.png",
+        imageWhite: "/images/radiatorL.png",
+        submenu: [
+          { name: "Radiator", slug: "radiator" },
+          { name: "Radiator Cap & Hoses", slug: "radiator-cap--hoses" },
+          { name: "Water Pump", slug: "water-pump" }
+        ]
+      },
+      {
+        name: "Engine & Transmission",
+        slug: "engine--transmission",
+        imageBlack: "/images/engineD.png",
+        imageWhite: "/images/engineL.png",
+        submenu: [
+          { name: "Engine Blocks / Crankcases", slug: "engine-blocks--crankcases" },
+          { name: "Pistons / Cylinder Kits", slug: "pistons--cylinder-kits" },
+          { name: "Camshaft / Valvetrain Parts", slug: "camshaft--valvetrain-parts" },
+          { name: "Gearbox / Transmission Parts", slug: "gearbox--transmission-parts" },
+          { name: "Gaskets & Seals", slug: "gaskets--seals" }
+        ]
+      },
+
+
+
       {
         name: "Electric",
         slug: "electric",
@@ -210,6 +289,24 @@ export const MENU_ITEMS: MenuItem[] = [
         ]
       },
       {
+        name: "Handlebar & Controls",
+        slug: "handlebar--controls",
+        imageBlack: "/images/brakeB.png",
+        imageWhite: "/images/brakeW.png",
+        submenu: [
+          { name: "Mirror set", slug: "mirror-set" },
+          { name: "Mirror Adapter", slug: "mirror-adapter" },
+          { name: "Mirror Holder", slug: "mirror-holder" },
+          { name: "Throttle cable", slug: "throttle-cable" },
+          { name: "Clutch Cable", slug: "clutch-cable" },
+          { name: "Brake Lever", slug: "brake-lever" },
+          { name: "Clutch Lever", slug: "clutch-lever" },
+          { name: "Mirror Left", slug: "mirror-left" },
+          { name: "Mirror Right", slug: "mirror-right" },
+          { name: "Brake Line", slug: "brake-line" }
+        ]
+      },
+      {
         name: "Maintenance",
         slug: "maintenance",
         imageBlack: "/images/settingsB.png",
@@ -235,24 +332,6 @@ export const MENU_ITEMS: MenuItem[] = [
           { name: "Clutch Cover Gasket", slug: "clutch-cover-gasket" },
           { name: "Valve cover gasket", slug: "valve-cover-gasket" },
           { name: "Primary Cover Gasket", slug: "primary-cover-gasket" }
-        ]
-      },
-      {
-        name: "Handlebar & Controls",
-        slug: "handlebar--controls",
-        imageBlack: "/images/brakeB.png",
-        imageWhite: "/images/brakeW.png",
-        submenu: [
-          { name: "Mirror set", slug: "mirror-set" },
-          { name: "Mirror Adapter", slug: "mirror-adapter" },
-          { name: "Mirror Holder", slug: "mirror-holder" },
-          { name: "Throttle cable", slug: "throttle-cable" },
-          { name: "Clutch Cable", slug: "clutch-cable" },
-          { name: "Brake Lever", slug: "brake-lever" },
-          { name: "Clutch Lever", slug: "clutch-lever" },
-          { name: "Mirror Left", slug: "mirror-left" },
-          { name: "Mirror Right", slug: "mirror-right" },
-          { name: "Brake Line", slug: "brake-line" }
         ]
       },
       {
@@ -420,16 +499,27 @@ export const MENU_ITEMS: MenuItem[] = [
           { name: "Lock Reminder", slug: "lock-reminder" }
         ]
       },
+
+
+
       {
-        name: "Clothing & Merchandise",
-        slug: "clothing--merchandise",
+        name: "Riding Gear",
+        slug: "riding-gear",
         imageBlack: "/images/suitB.png",
         imageWhite: "/images/suitW.png",
         submenu: [
           { name: "Clothing Care", slug: "clothing-care" },
-          { name: "Pedal for Kids", slug: "pedal-for-kids" }
+          { name: "Pedal for Kids", slug: "pedal-for-kids" },
+          { name: "Helmets", slug: "helmets" },
+          { name: "Gloves", slug: "gloves" },
+          { name: "Jackets / Pants", slug: "jackets--pants" },
+          { name: "Boots", slug: "boots" }
         ]
       },
+
+
+
+
       {
         name: "Navigation, Intercom & Telephone",
         slug: "navigation--intercom--telephone",
@@ -440,9 +530,15 @@ export const MENU_ITEMS: MenuItem[] = [
           { name: "Phone Holder", slug: "phone-holder" },
           { name: "Phone Holder Mounting", slug: "phone-holder-mounting" },
           { name: "Phone Holder Accessoires", slug: "phone-holder-accessoires" },
-          { name: "Navigation System", slug: "navigation-system" }
+          { name: "Navigation System", slug: "navigation-system" },
+          { name: "GPS Tracker / Alarm Systems", slug: "gps-tracker--alarm-systems" }
         ]
       },
+
+
+
+
+
     ]
   },
 

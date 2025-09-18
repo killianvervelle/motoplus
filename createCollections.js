@@ -11,116 +11,91 @@ const TOKEN = process.env.SHOPIFY_ADMIN_SECRET;    // your Admin API access toke
 // paste only the top-level objects that have submenu arrays:
 const categories = [
       {
-        name: "Wash & Shine",
-        slug: "wash--shine",
-        imageBlack: "/images/sprayB.png",
-        imageWhite: "/images/sprayW.png",
+        name: "Suspension & Steering",
+        slug: "suspension--steering",
         submenu: [
-          { name: "Cleaning Supplies", slug: "cleaning-supplies" },
-          { name: "Brush", slug: "brush" },
-          { name: "Sponge", slug: "sponge" },
-          { name: "Cleaning Cloth", slug: "cleaning-cloth" },
-          { name: "Degreaser", slug: "degreaser" },
-          { name: "Corrosion Protection", slug: "corrosion-protection" },
-          { name: "Cleaning Set", slug: "cleaning-set" },
-          { name: "Wax Spray", slug: "wax-spray" },
-          { name: "Silicone Spray", slug: "silicone-spray" },
-          { name: "Bug Spray", slug: "bug-spray" },
-          { name: "Wheel Cleaner", slug: "wheel-cleaner" },
-          { name: "Exhaust Plug", slug: "exhaust-plug" }
+          { name: "Front Forks / Fork Tubes", slug: "front-forks--fork-tubes" },
+          { name: "Shock Absorber / Rear Shock", slug: "shock-absorber--rear-shock" },
+          { name: "Triple Tree / Steering Stem", slug: "triple-tree--steering-stem" },
+          { name: "Steering Bearings", slug: "steering-bearings" }
         ]
       },
       {
-        name: "Tools",
-        slug: "tools",
-        imageBlack: "/images/clampB.png",
-        imageWhite: "/images/clampW.png",
+        name: "Wheels & Tyres",
+        slug: "wheels--tyres",
         submenu: [
-          { name: "Oil Filter Wrench", slug: "oil-filter-wrench" },
-          { name: "Spark Plug Wrench", slug: "spark-plug-wrench" },
-          { name: "Cable Lubricator Tool", slug: "cable-lubricator-tool" },
-          { name: "Front Fork Tools", slug: "front-fork-tools" },
-          { name: "Carburetor Screwdriver", slug: "carburetor-screwdriver" },
-          { name: "Voltage Tester", slug: "voltage-tester" },
-          { name: "Spring Puller", slug: "spring-puller" },
-          { name: "Gasket Scraper", slug: "gasket-scraper" },
-          { name: "Stethoscope", slug: "stethoscope" },
-          { name: "Thread Repair", slug: "thread-repair" },
-          { name: "Synchronous Tester", slug: "synchronous-tester" },
-          { name: "Brake Bleeder", slug: "brake-bleeder" },
-          { name: "Tire Pressure Gauge", slug: "tire-pressure-gauge" },
-          { name: "Front Wheel Axle Tool", slug: "front-wheel-axle-tool" },
-          { name: "Chain Tools", slug: "chain-tools" }
+          { name: "Rims / Wheels", slug: "rims--wheels" },
+          { name: "Hubs & Spokes", slug: "hubs--spokes" },
+          { name: "Tires (Front / Rear)", slug: "tires-front--rear" },
+          { name: "Inner Tubes", slug: "inner-tubes" },
+          { name: "Wheel Axle / Spacers", slug: "wheel-axle--spacers" }
         ]
       },
       {
-        name: "Workshop Equipment",
-        slug: "workshop-equipment",
-        imageBlack: "/images/wrenchB.png",
-        imageWhite: "/images/wrenchW.png",
+        name: "Frame & Bodywork",
+        slug: "frame--bodywork",
         submenu: [
-          { name: "Wheel Chock", slug: "wheel-chock" },
-          { name: "Paddock Stand", slug: "paddock-stand" },
-          { name: "Motorcycle Lift", slug: "motorcycle-lift" },
-          { name: "Funnel", slug: "funnel" },
-          { name: "Tire Repair Kit", slug: "tire-repair-kit" },
-          { name: "Paddock Stand Adapter", slug: "paddock-stand-adapter" },
-          { name: "Assortment boxes", slug: "assortment-boxes" },
-          { name: "Magnetic Scale", slug: "magnetic-scale" },
-          { name: "Jerrycan", slug: "jerrycan" },
-          { name: "Auxiliary Fuel Tank", slug: "auxiliary-fuel-tank" },
-          { name: "Fuel Tank Protector", slug: "fuel-tank-protector" },
-          { name: "Handlebar Harness", slug: "handlebar-harness" },
-          { name: "Oil Collection Tray", slug: "oil-collection-tray" },
-          { name: "Vice Jaws", slug: "vice-jaws" },
-          { name: "Hand Cleaner", slug: "hand-cleaner" },
-          { name: "Threadlocker", slug: "threadlocker" },
-          { name: "Tie-Down Straps", slug: "tie-down-straps" },
-          { name: "Workshop Glove", slug: "workshop-glove" },
-          { name: "Mechanics Bar Stool", slug: "mechanics-bar-stool" },
-          { name: "Workshop Manual", slug: "workshop-manual" }
+          { name: "Frame & Subframe", slug: "frame--subframe" },
+          { name: "Footpegs / Rearsets", slug: "footpegs--rearsets" },
+          { name: "Fairings / Side Panels", slug: "fairings--side-panels" },
+          { name: "Seat & Seat Covers", slug: "seat--seat-covers" }
         ]
       },
       {
-        name: "Locks",
-        slug: "locks",
-        imageBlack: "/images/lockB.png",
-        imageWhite: "/images/lockW.png",
+        name: "Exhaust",
+        slug: "exhaust",
         submenu: [
-          { name: "Chain Lock", slug: "chain-lock" },
-          { name: "U-lock", slug: "u-lock" },
-          { name: "Ground /Wall Anchor", slug: "ground-wall-anchor" },
-          { name: "Lock Accessory", slug: "lock-accessory" },
-          { name: "Disc Brake Lock", slug: "disc-brake-lock" },
-          { name: "Lock Reminder", slug: "lock-reminder" }
+          { name: "Complete Exhaust Systems", slug: "complete-exhaust-systems" },
+          { name: "Headers / Downpipes", slug: "headers--downpipes" },
+          { name: "Mufflers / Silencers", slug: "mufflers--silencers" },
+          { name: "Exhaust Clamps & Gaskets", slug: "exhaust-clamps--gaskets" }
         ]
       },
       {
-        name: "Clothing & Merchandise",
-        slug: "clothing--merchandise",
+        name: "Cooling",
+        slug: "cooling",
+        submenu: [
+          { name: "Radiator", slug: "radiator" },
+          { name: "Radiator Cap & Hoses", slug: "radiator-cap--hoses" },
+          { name: "Water Pump", slug: "water-pump" }
+        ]
+      },
+      {
+        name: "Engine & Transmission",
+        slug: "engine--transmission",
+        submenu: [
+          { name: "Engine Blocks / Crankcases", slug: "engine-blocks--crankcases" },
+          { name: "Pistons / Cylinder Kits", slug: "pistons--cylinder-kits" },
+          { name: "Camshaft / Valvetrain Parts", slug: "camshaft--valvetrain-parts" },
+          { name: "Gearbox / Transmission Parts", slug: "gearbox--transmission-parts" },
+          { name: "Gaskets & Seals", slug: "gaskets--seals" }
+        ]
+      },
+
+      {
+        name: "Riding Gear",
+        slug: "riding-gear",
         imageBlack: "/images/suitB.png",
         imageWhite: "/images/suitW.png",
         submenu: [
-          { name: "Clothing Care", slug: "clothing-care" },
-          { name: "Pedal for Kids", slug: "pedal-for-kids" }
+          { name: "Helmets", slug: "helmets" },
+          { name: "Gloves", slug: "gloves" },
+          { name: "Jackets / Pants", slug: "jackets--pants" },
+          { name: "Boots", slug: "boots" }
         ]
       },
+
       {
         name: "Navigation, Intercom & Telephone",
         slug: "navigation--intercom--telephone",
         imageBlack: "/images/automotiveB.png",
         imageWhite: "/images/automotiveW.png",
         submenu: [
-          { name: "Intercom", slug: "intercom" },
-          { name: "Phone Holder", slug: "phone-holder" },
-          { name: "Phone Holder Mounting", slug: "phone-holder-mounting" },
-          { name: "Phone Holder Accessoires", slug: "phone-holder-accessoires" },
-          { name: "Navigation System", slug: "navigation-system" }
+          { name: "GPS Tracker / Alarm Systems", slug: "gps-tracker--alarm-systems" }
         ]
       }
 ];
 
-// Helper to create one collection
 async function createCollection(title) {
   const url = `${SHOP}/admin/api/${API_VERSION}/custom_collections.json`;
 

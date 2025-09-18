@@ -77,7 +77,8 @@ const ShowProducts = async ({
       sortKey,
       reverse,
       query: queryString,
-      cursor
+      cursor,
+      locale
     }
 
     if (category && category !== 'all') {
@@ -94,12 +95,15 @@ const ShowProducts = async ({
         sortKey,
         reverse,
         query: vendorQuery,
-        cursor
+        cursor,
+        locale
       });
     }
     else {
       productsData = await getProducts(query)
     }
+
+    console.log("ProductData", productsData)
 
     const uniqueVendors: string[] = [
       ...new Set(((productsData?.products as Product[]) || []).map((product: Product) => String(product?.vendor || '')))
@@ -129,8 +133,13 @@ const ShowProducts = async ({
   } else {
     productsData = await getProducts({ sortKey, reverse, cursor, locale })
   }
-  const categories = await getCollections()
+  const categories = await getCollections(locale)
   const vendors = await getVendors({})
+
+  console.log("categoriesWithCount", categoriesWithCounts)
+  console.log("vendorsWithCOunt", vendorsWithCounts)
+  console.log("categories", categories)
+  console.log("vendors", vendors)
 
   const tags = [
     ...new Set(

@@ -25,10 +25,8 @@ const ProductFilters = ({
   categoriesWithCounts: { category: string; productCount: number }[]
 }) => {
 
-  console.log("vendor", vendorsWithCounts)
-
-  console.log("cat", categoriesWithCounts)
-
+  const disableVendorClick = vendorsWithCounts.length < 2;
+  const disableCatClick = categoriesWithCounts.length < 2;
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -79,25 +77,30 @@ const ProductFilters = ({
         <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">{cat}</h5>
         <hr className="border-[#cecece] dark:border-darkmode-border" />
         <ul className="mt-4 space-y-4">
-          {categories.map(cat => {
-            const currentCount =
-              categoriesWithCounts.find(c => c.category === cat.title)?.productCount ?? 0
-
-            return (
-              <li
-                key={cat.handle}
-                className={`flex items-center justify-between cursor-pointer ${selectedCategory === cat.handle
-                  ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
-                  : 'text-text-light dark:text-darkmode-text-light'
-                  }`}
-                onClick={() => handleCategoryClick(cat.handle)}
-              >
-                <span>
-                  {cat.title} ({currentCount})
-                </span>
-              </li>
+          {categories
+            .filter((c) => categoriesWithCounts.some(
+              cw => cw.category === c.title && cw.productCount > 0
             )
-          })}
+            )
+            .map(cat => {
+              const currentCount =
+                categoriesWithCounts.find(c => c.category === cat.title)?.productCount ?? 0
+
+              return (
+                <li
+                  key={cat.handle}
+                  className={`flex items-center justify-between ${disableCatClick ? "" : "cursor-pointer"} ${selectedCategory === cat.handle
+                    ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
+                    : 'text-text-light dark:text-darkmode-text-light'
+                    }`}
+                  onClick={() => !disableCatClick && handleCategoryClick(cat.handle)}
+                >
+                  <span>
+                    {cat.title} ({currentCount})
+                  </span>
+                </li>
+              )
+            })}
         </ul>
       </div>
 
@@ -106,30 +109,36 @@ const ProductFilters = ({
           <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{brands}</h5>
           <hr className="border-[#cecece] dark:border-darkmode-border" />
           <ul className="mt-4 space-y-4">
-            {vendors.map((vendor) => {
-              const dynamicCount =
-                vendorsWithCounts.find((v) => v.vendor === vendor.vendor)
-                  ?.productCount ?? vendor.productCount;
+            {vendors
+              .filter((v) => vendorsWithCounts.some(
+                vw => vw.vendor === v.vendor && vw.productCount > 0
+              )
+              )
+              .map((vendor) => {
+                const dynamicCount =
+                  vendorsWithCounts.find((v) => v.vendor === vendor.vendor)
+                    ?.productCount ?? "vendor.productCount";
 
-              const displayCount = onlyVendorFilterActive
-                ? vendor.productCount
-                : dynamicCount;
+                const displayCount = onlyVendorFilterActive
+                  ? vendor.productCount
+                  : dynamicCount;
 
-              return (
-                <li
-                  key={vendor.vendor}
-                  className={`flex items-center justify-between cursor-pointer ${selectedBrand === vendor.vendor
-                    ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
-                    : "text-text-light dark:text-darkmode-text-light"
-                    }`}
-                  onClick={() => handleBrandClick(vendor.vendor)}
-                >
-                  <span>
-                    {vendor.vendor} ({displayCount})
-                  </span>
-                </li>
-              );
-            })}
+                return (
+                  <li
+                    key={vendor.vendor}
+                    className={`flex items-center justify-between ${disableVendorClick ? "" : "cursor-pointer"} ${selectedBrand?.toLowerCase() === vendor.vendor.toLowerCase()
+                      ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
+                      : "text-text-light dark:text-darkmode-text-light"
+                      }`}
+                    onClick={() =>
+                      !disableVendorClick && handleBrandClick(vendor.vendor)}
+                  >
+                    <span>
+                      {vendor.vendor} ({displayCount})
+                    </span>
+                  </li>
+                );
+              })}
           </ul>
         </div>
       )}

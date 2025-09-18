@@ -22,18 +22,19 @@ export default function Navbar() {
 
     const handleClick = (parent: string, child: string) => {
         const params = new URLSearchParams();
-        console.log(parent, child)
-        if (parent === "BRANDS") {
+
+        const p = parent.toLowerCase();
+
+        if (["brands", "marcas", "marques"].includes(p)) {
             params.set("v", child);
-        }
-        else if (parent === "ACCESSORIES") {
+        } else if (["accessories", "accessoires", "acessórios"].includes(p)) {
+            params.set("c", child);
+        } else if (["used parts", "peças usadas", "pièces d’occasion"].includes(p)) {
             params.set("c", child);
         }
-        else if (parent === "USED PARTS") {
-            params.set("c", child);
-        }
+
         router.push(`/products?${params.toString()}`);
-    }
+    };
 
     return (
         <div className=" bg-[#d7d7d7] dark:bg-darkmode-light">
