@@ -18,7 +18,7 @@ const Footer = () => {
     <footer className="bg-[#232222] dark:bg-darkmode-light mt-50 text-white">
       <div className="container-foot">
         <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5
-                        gap-y-5 gap-x-5 sm:gap-x-7 sm:gap-y-10 lg:gap-x-20
+                        gap-y-5 gap-x-7 sm:gap-y-10 lg:gap-x-20
                         py-10 md:pt-10 md:pb-14">
           <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-contact", "contact-us")}</span>
