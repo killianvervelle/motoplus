@@ -108,19 +108,16 @@ function MenuGroup({
                 <ul className={`nav-dropdown-list my-3 bg-[#f5f5f793] ${openChild === i ? 'visible' : 'hidden'}`}>
                   {grand.map((cat, j) => (
                     <li className="nav-dropdown-item" key={`grand-${j}`}>
-                      <Link
-                        href="#"
+                      <button
+                        type="button"
                         className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(cat, pathname)}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleClick(menu.name, cat.slug)
+                        onClick={() => {
+                          handleClick(menu.name, cat.slug);
                           onToggleSidebar();
-                        }
-                        }
-                        role="menuitem"
+                        }}
                       >
                         {translateClient("menu", cat.slug)}
-                      </Link>
+                      </button>
                     </li>
                   ))}
                 </ul>
