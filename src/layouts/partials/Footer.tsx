@@ -17,8 +17,8 @@ const Footer = () => {
   return (
     <footer className="bg-[#232222] dark:bg-darkmode-light mt-50 text-white">
       <div className="container-foot">
-        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5
-                        gap-y-5 gap-x-7 sm:gap-y-10 lg:gap-x-20
+        <div className="grid grid-cols-3 lg:grid-cols-5
+                        gap-y-5 sm:gap-x-0 gap-x-5 sm:gap-y-10 lg:gap-x-5 xl:gap-x-12
                         py-10 md:pt-10 md:pb-14">
           <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-contact", "contact-us")}</span>
@@ -36,7 +36,7 @@ const Footer = () => {
               {translateClient("footer-contact", "by-email")}
             </a>
           </div>
-          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
+          <ul className="flex flex-col justify-start gap-x-4 my-3 max-w-40 sm:max-w-full 2xl:w-full ">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-about", "about-us")}</span>
             {menu.footerAbout.map((menu) => (
               <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
@@ -44,7 +44,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
+          <ul className="flex flex-col gap-x-4 my-3 max-w-38 sm:max-w-96 2xl:max-w-none">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-service", "service")}</span>
             {menu.footerService.map((menu) => (
               <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
@@ -52,7 +52,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0 items-start">
+          <ul className="flex flex-col gap-x-4 my-3 max-w-38 sm:max-w-96 items-start">
             <span className="font-semibold mr-4 pb-3">{translateClient("footer-career", "title")}</span>
             {menu.footerCareer.map((menu) => (
               <li className="footer-link text-sm text-white" key={menu.name}>
@@ -60,7 +60,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0'>
+          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 max-w-36 sm:max-w-96'>
             <span className="font-semibold text-white mr-4 pb-3">{translateClient("footer-language", "language")}</span>
             <Suspense>
               <DropdownLanguages list={languageItems} />
