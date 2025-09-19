@@ -29,7 +29,7 @@ export default function Navbar() {
             params.set("v", child);
         } else if (["accessories", "accessoires", "acessórios"].includes(p)) {
             params.set("c", child);
-        } else if (["used parts", "peças usadas", "pièces d’occasion"].includes(p)) {
+        } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
             params.set("c", child);
         }
 
