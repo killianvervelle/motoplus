@@ -66,14 +66,6 @@ function MenuGroup({
       params.set("c", child);
     }
 
-    console.log("parent", parent)
-
-    console.log("parentlowercase", p)
-
-    console.log("child", child)
-
-    console.log("CONSOLE", `/${locale}/products?${params.toString()}`)
-
     router.push(`/${locale}/products?${params.toString()}`);
   };
 

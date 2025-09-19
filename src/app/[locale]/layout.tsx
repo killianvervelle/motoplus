@@ -43,13 +43,15 @@ export default async function RootLayout({ children, params }: { children: React
         <TwSizeIndicator />
         <Providers>
           <NextIntlClientProvider>
-            <Header>
-              <OpenCart />
-              <Cart />
-            </Header>
-            <Navbar />
-            <main>{children}</main>
-            <Footer />
+            <div className='min-h-screen flex flex-col'>
+              <Header>
+                <OpenCart />
+                <Cart />
+              </Header>
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
           </NextIntlClientProvider>
         </Providers>
       </body>
