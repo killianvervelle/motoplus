@@ -17,48 +17,48 @@ const Footer = () => {
   return (
     <footer className="bg-[#232222] dark:bg-darkmode-light mt-50 text-white">
       <div className="container-foot">
-          <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5
-                        gap-y-5  gap-x-5 sm:gap-x-7 sm:gap-y-10 lg:gap-x-20
+        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5
+                        gap-y-5 sm:gap-x-7 sm:gap-y-10 lg:gap-x-20
                         py-10 md:pt-10 md:pb-14">
-            <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
-              <span className="font-semibold mr-4 pb-3">{translateClient("footer-contact", "contact-us")}</span>
-              <a
-                href="/contact"
-                className="btn max-md:btn-sm btn-primary bg-white w-32 text-gray-600 text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-center text-left"
-              >
-                {translateClient("footer-contact", "by-email")}
-              </a>
-            </div>
-            <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
-              <span className="font-semibold mr-4 pb-3">{translateClient("footer-about", "about-us")}</span>
-              {menu.footerAbout.map((menu) => (
-                <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
-                  <Link href={menu.url}>{translateClient("footer-about", menu.slug)}</Link>
-                </li>
-              ))}
-            </ul>
-            <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
-              <span className="font-semibold mr-4 pb-3">{translateClient("footer-service", "service")}</span>
-              {menu.footerService.map((menu) => (
-                <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
-                  <Link href={menu.url + "#" + menu.nav}>{translateClient("footer-service", menu.slug)}</Link>
-                </li>
-              ))}
-            </ul>
-            <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0 items-start">
-              <span className="font-semibold mr-4 pb-3">{translateClient("footer-career", "title")}</span>
-              {menu.footerCareer.map((menu) => (
-                <li className="footer-link text-sm text-white" key={menu.name}>
-                  <p>{translateClient("footer-career", menu.slug)}</p>
-                </li>
-              ))}
-            </ul>
-            <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0'>
-              <span className="font-semibold text-white mr-4 pb-3">{translateClient("footer-language", "language")}</span>
-              <Suspense>
-                <DropdownLanguages list={languageItems} />
-              </Suspense>
-            </div>
+          <div className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3">
+            <span className="font-semibold mr-4 pb-3">{translateClient("footer-contact", "contact-us")}</span>
+            <a
+              href="/contact"
+              className="btn max-md:btn-sm btn-primary bg-white w-28 sm:w-32 text-gray-600 text-sm hover:bg-gray-700 h-6 px-5 py-3 flex items-center justify-center text-left"
+            >
+              {translateClient("footer-contact", "by-email")}
+            </a>
+          </div>
+          <ul className="flex flex-col justify-start gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
+            <span className="font-semibold mr-4 pb-3">{translateClient("footer-about", "about-us")}</span>
+            {menu.footerAbout.map((menu) => (
+              <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
+                <Link href={menu.url}>{translateClient("footer-about", menu.slug)}</Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0">
+            <span className="font-semibold mr-4 pb-3">{translateClient("footer-service", "service")}</span>
+            {menu.footerService.map((menu) => (
+              <li className="footer-link text-sm text-white hover:text-[#c60404]" key={menu.name}>
+                <Link href={menu.url + "#" + menu.nav}>{translateClient("footer-service", menu.slug)}</Link>
+              </li>
+            ))}
+          </ul>
+          <ul className="flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0 items-start">
+            <span className="font-semibold mr-4 pb-3">{translateClient("footer-career", "title")}</span>
+            {menu.footerCareer.map((menu) => (
+              <li className="footer-link text-sm text-white" key={menu.name}>
+                <p>{translateClient("footer-career", menu.slug)}</p>
+              </li>
+            ))}
+          </ul>
+          <div className='flex flex-col gap-x-4 lg:gap-x-10 my-3 min-w-44 sm:min-w-0'>
+            <span className="font-semibold text-white mr-4 pb-3">{translateClient("footer-language", "language")}</span>
+            <Suspense>
+              <DropdownLanguages list={languageItems} />
+            </Suspense>
+          </div>
         </div>
 
         <div className="border-t border-gray-300 dark:border-gray-700 py-5">
