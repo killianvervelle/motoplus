@@ -233,7 +233,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
             ></div>
 
             <div
-              className={`fixed top-0 left-0 h-full bg-white dark:bg-darkmode-body overflow-y-auto w-full md:w-96 p-9 ${showSidebar ? 'transition-transform transform translate-x-0' : 'transition-transform transform -translate-x-full'}`}
+              className={`fixed top-0 left-0 h-full bg-white dark:bg-darkmode-body overflow-y-auto w-screen box-border p-9 transition-transform  transform ${showSidebar ? 'translate-x-0' : '-translate-x-full'}`}
             >
               <div className='flex justify-between items-center mb-14'>
                 <button onClick={handleToggleSidebar} className='p-2'>
