@@ -71,7 +71,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
 
           {!cart || cart.lines.length === 0 ? (
             <div className='flex flex-col justify-center items-center space-y-6 my-auto'>
-              <div className='md:mt-16'>
+              <div className='mt-16'>
                 <FaShoppingCart size={76} />
               </div>
               <p>{oops}</p>

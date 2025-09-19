@@ -230,18 +230,18 @@ const ProductCardView = ({
         </div>
       )}
 
-      <div className="row gap-y-8 md:gap-y-14 pl-40 sm:pl-10">
+      <div className="row gap-y-20 sm:gap-y-10 sm:gap-x-10 md:gap-y-14 xl:gap-x-0 justify-center">
         {products.map((product, index) => {
           const defaultVariantId =
             product?.variants.length > 0 ? product?.variants[0].id : undefined;
           return (
             <div
               key={index}
-              className={`text-center col-10 sm:col-6 md:col-4 group relative 
-                ${index % 3 === 0 && "md:border-r-[0.5px] md:border-[#cecece]"}
-                ${index % 3 === 2 && "md:border-l-[0.5px] md:border-[#cecece]"}`}
+              className={`text-center col-7 sm:col-5 md:col-5 xl:col-4 group relative 
+                ${index % 3 === 0 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
+                ${index % 3 === 2 && "xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
-              <div className="md:relative sm:h-56 md:h-56 lg:h-56 xl:h-56 overflow-hidden">
+              <div className="md:relative w-full sm:h-60 md:h-[269px] overflow-hidden flex justify-center items-center">
                 <ImageFallback
                   src={
                     product.featuredImage?.url || "/images/product_image404.jpg"
@@ -249,14 +249,14 @@ const ProductCardView = ({
                   width={312}
                   height={269}
                   alt={product.featuredImage?.altText || "fallback image"}
-                  className="w-full h-[200px] sm:w-[312px] md:h-[269px] object-cover rounded-md border mx-auto"
+                  className="w-full h-full object-cover rounded-md border"
                 />
                 <img
                   src="/images/logo.png"
                   width={40}
                   height={20}
                   alt="Logo"
-                  className="absolute top-2 right-2 "
+                  className="absolute top-1 right-1"
                 />
 
                 <Suspense>
@@ -271,7 +271,7 @@ const ProductCardView = ({
                   />
                 </Suspense>
               </div>
-              <div className="flex flex-col xl:h-32 lg:h-40 md:h-40 sm:h-24 justify-between py-2 md:py-6 text-center z-20">
+              <div className="flex flex-col xl:h-32 lg:h-40  justify-between mt-14 md:mt-0 md:py-6 text-center z-20">
                 <h2 className="font-medium text-base md:text-lg line-clamp-1 md:line-clamp-2">
                   <Link
                     className="after:absolute after:inset-0"

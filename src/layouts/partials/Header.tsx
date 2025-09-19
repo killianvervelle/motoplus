@@ -209,8 +209,8 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
             </div>
           )}
 
-          <div className='z-60 block md:hidden ml-6 absolute left-0 md:relative'>
-            <button id='nav-toggle' className='focus:outline-none' onClick={handleToggleSidebar}>
+          <div className='z-40 block md:hidden ml-6 absolute left-0 md:relative'>
+            <button id='nav-toggle' className='focus:outline-none z-10' onClick={handleToggleSidebar}>
               {showSidebar ? (
                 <svg className='h-5 fill-current block' viewBox='0 0 20 20'>
                   <title>Menu Close</title>
@@ -220,9 +220,9 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                   ></polygon>
                 </svg>
               ) : (
-                <svg className='h-5 fill-current text-white block hover:text-[#c60404]' viewBox='0 0 20 20'>
+                <svg className='h-5 fill-current z-10 text-white block hover:text-[#c60404]' viewBox='0 0 20 20'>
                   <title>Menu Open</title>
-                  <path d='M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z'></path>
+                  <path className='z-10' d='M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z'></path>
                 </svg>
               )}
             </button>

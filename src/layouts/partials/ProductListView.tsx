@@ -216,7 +216,7 @@ const ProductListView = ({
             return (
               <div className='col-12' key={id}>
                 <div className='row group'>
-                  <div className='col-4 md:relative'>
+                  <div className='col-6 md:col-5 lg:col-5 xl:col-4 md:relative'>
                     <Link
                       href={`/products/${handle}`}>
                       <ImageFallback
@@ -224,7 +224,7 @@ const ProductListView = ({
                         width={312}
                         height={269}
                         alt={featuredImage?.altText || 'fallback image'}
-                        className='w-[312px] h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md'
+                        className='w-full h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md'
                       />
                       <img
                         src="/images/logo.png"
@@ -236,7 +236,7 @@ const ProductListView = ({
                     </Link>
                   </div>
 
-                  <div className='col-8 py-3 max-md:pt-4 '>
+                  <div className='col-6 md:col-7 lg:col-5 xl:col-8 py-3 max-md:pt-4 '>
                     <h3 className='font-bold md:font-normal h5'>
                       <Link href={`/products/${handle}`}>{title}</Link>
                     </h3>

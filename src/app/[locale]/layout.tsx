@@ -39,7 +39,7 @@ export default async function RootLayout({ children, params }: { children: React
         />
       </head>
 
-      <body suppressHydrationWarning={true} className="">
+      <body suppressHydrationWarning={true} className="overflow-x-hidden overscroll-x-none">
         <TwSizeIndicator />
         <Providers>
           <NextIntlClientProvider>
