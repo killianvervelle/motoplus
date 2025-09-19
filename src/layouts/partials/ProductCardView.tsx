@@ -48,6 +48,8 @@ const ProductCardView = ({
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -68,6 +70,8 @@ const ProductCardView = ({
         ) {
           let queryString = "";
           const filterCategoryProduct = [];
+
+          const shopifyHandle = category?.replace(/-+/g, '-');
 
           if (minPrice && maxPrice) {
             filterCategoryProduct.push({
@@ -116,8 +120,9 @@ const ProductCardView = ({
 
           productsData =
             category && category !== "all"
-              ? await getCollectionProducts({
-                collection: category,
+              ? 
+              await getCollectionProducts({
+                collection: shopifyHandle,
                 sortKey,
                 reverse,
                 filterCategoryProduct:

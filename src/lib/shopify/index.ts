@@ -285,11 +285,12 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 export async function getCollection(
   handle: string,
 ): Promise<Collection | undefined> {
+  const shopifyHandle = handle?.replace(/-+/g, '-');
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
     variables: { 
-      handle,
+      handle: shopifyHandle,
      },
   });
 
@@ -436,10 +437,13 @@ export async function getLatestProducts(locale: string) {
 
 
 export async function getMenu(handle: string): Promise<Menu[]> {
+  const shopifyHandle = handle?.replace(/-+/g, '-');
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
-    variables: { handle },
+    variables: { 
+      handle: shopifyHandle 
+    },
   });
 
   return (

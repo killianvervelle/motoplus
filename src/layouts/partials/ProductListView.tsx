@@ -66,6 +66,8 @@ const ProductListView = ({
           let queryString = ''
           const filterCategoryProduct = []
 
+          const shopifyHandle = category?.replace(/-+/g, '-');
+
           if (minPrice && maxPrice) {
             filterCategoryProduct.push({
               price: {
@@ -108,7 +110,7 @@ const ProductListView = ({
           productsData =
             category && category !== 'all'
               ? await getCollectionProducts({
-                collection: category,
+                collection: shopifyHandle,
                 sortKey,
                 reverse,
                 filterCategoryProduct: filterCategoryProduct.length > 0 ? filterCategoryProduct : undefined,

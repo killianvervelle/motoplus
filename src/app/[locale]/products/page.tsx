@@ -46,6 +46,8 @@ const ShowProducts = async ({
 
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort
 
+  const shopifyHandle = category?.replace(/--/g, '-');
+
   let productsData: any
   let vendorsWithCounts: { vendor: string; productCount: number }[] = []
   let categoriesWithCounts: { category: string; productCount: number }[] = []
@@ -81,9 +83,10 @@ const ShowProducts = async ({
       locale
     }
 
+
     if (category && category !== 'all') {
       productsData = await getCollectionProducts({
-        collection: category,
+        collection: shopifyHandle,
         sortKey,
         reverse,
         locale
@@ -102,8 +105,6 @@ const ShowProducts = async ({
     else {
       productsData = await getProducts(query)
     }
-
-    console.log("ProductData", productsData)
 
     const uniqueVendors: string[] = [
       ...new Set(((productsData?.products as Product[]) || []).map((product: Product) => String(product?.vendor || '')))
@@ -135,11 +136,6 @@ const ShowProducts = async ({
   }
   const categories = await getCollections(locale)
   const vendors = await getVendors({})
-
-  console.log("categoriesWithCount", categoriesWithCounts)
-  console.log("vendorsWithCOunt", vendorsWithCounts)
-  console.log("categories", categories)
-  console.log("vendors", vendors)
 
   const tags = [
     ...new Set(

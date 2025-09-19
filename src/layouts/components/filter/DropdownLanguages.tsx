@@ -35,7 +35,7 @@ const DropdownLanguages = ({ list }: { list: LanguageItem[] }) => {
     <div className='relative inline-block text-left text-text-light' ref={menuRef}>
       <button
         type='button'
-        className='inline-flex w-full  justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 cursor-pointer'
+        className='inline-flex w-32  justify-center gap-x-1.5 rounded-md bg-white px-3 py-1 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 cursor-pointer'
         onClick={() => {
           setOpenSelect(!openSelect)
         }}
