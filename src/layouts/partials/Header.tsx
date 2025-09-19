@@ -66,6 +66,8 @@ function MenuGroup({
       params.set("c", child);
     }
 
+    console.log("CONSOLE", `/${locale}/products?${params.toString()}`)
+
     router.push(`/${locale}/products?${params.toString()}`);
   };
 
