@@ -892,7 +892,7 @@
       "slug": "home"
     },
     {
-      "name": "PIÈCES D’OCCASION",
+      "name": "PIÈCES D'OCCASION",
       "url": "/used-parts",
       "slug": "used-parts",
       "hasChildren": true,
@@ -932,22 +932,22 @@
           "hasChildren": true,
           "children": [
             {
-              "name": "Collecteurs / Tubes d’échappement",
+              "name": "Collecteurs / Tubes d'échappement",
               "url": "/used-parts/exhaust/headers--downpipes",
               "slug": "headers--downpipes"
             },
             {
-              "name": "Colliers & Joints d’échappement",
+              "name": "Colliers & Joints d'échappement",
               "url": "/used-parts/exhaust/exhaust-clamps--gaskets",
               "slug": "exhaust-clamps--gaskets"
             },
             {
-              "name": "Lignes d’échappement complètes",
+              "name": "Lignes d'échappement complètes",
               "url": "/used-parts/exhaust/complete-exhaust-systems",
               "slug": "complete-exhaust-systems"
             },
             {
-              "name": "Silencieux / Pots d’échappement",
+              "name": "Silencieux / Pots d'échappement",
               "url": "/used-parts/exhaust/mufflers--silencers",
               "slug": "mufflers--silencers"
             }
@@ -975,7 +975,7 @@
               "slug": "battery"
             },
             {
-              "name": "Bobine d’allumage",
+              "name": "Bobine d'allumage",
               "url": "/used-parts/electric/ignition-coil",
               "slug": "ignition-coil"
             },
@@ -985,7 +985,7 @@
               "slug": "battery-booster"
             },
             {
-              "name": "Bougie d’allumage",
+              "name": "Bougie d'allumage",
               "url": "/used-parts/electric/sparkplug",
               "slug": "sparkplug"
             },
@@ -1005,7 +1005,7 @@
               "slug": "battery-charger"
             },
             {
-              "name": "Contacteur d’embrayage",
+              "name": "Contacteur d'embrayage",
               "url": "/used-parts/electric/clutch-switch",
               "slug": "clutch-switch"
             },
@@ -1093,7 +1093,7 @@
               "slug": "alternator-cover-gasket"
             },
             {
-              "name": "Joint de carter d’embrayage",
+              "name": "Joint de carter d'embrayage",
               "url": "/used-parts/maintenance/clutch-cover-gasket",
               "slug": "clutch-cover-gasket"
             },
@@ -1262,12 +1262,12 @@
               "slug": "mirror-adapter"
             },
             {
-              "name": "Câble d’accélérateur",
+              "name": "Câble d'accélérateur",
               "url": "/used-parts/handlebar--controls/throttle-cable",
               "slug": "throttle-cable"
             },
             {
-              "name": "Câble d’embrayage",
+              "name": "Câble d'embrayage",
               "url": "/used-parts/handlebar--controls/clutch-cable",
               "slug": "clutch-cable"
             },
@@ -1282,7 +1282,7 @@
               "slug": "mirror-set"
             },
             {
-              "name": "Levier d’embrayage",
+              "name": "Levier d'embrayage",
               "url": "/used-parts/handlebar--controls/clutch-lever",
               "slug": "clutch-lever"
             },
@@ -1325,7 +1325,7 @@
               "slug": "2-stroke-oil"
             },
             {
-              "name": "Huile d’amortisseur",
+              "name": "Huile d'amortisseur",
               "url": "/used-parts/oil--fluids/shock-absorber-oil",
               "slug": "shock-absorber-oil"
             },
@@ -1345,7 +1345,7 @@
               "slug": "engine-oil"
             },
             {
-              "name": "Liquide d’embrayage",
+              "name": "Liquide d'embrayage",
               "url": "/used-parts/oil--fluids/clutch-fluid",
               "slug": "clutch-fluid"
             },
@@ -1383,12 +1383,12 @@
               "slug": "front-fork-repair-kit"
             },
             {
-              "name": "Kit réparation robinet d’essence",
+              "name": "Kit réparation robinet d'essence",
               "url": "/used-parts/overhaul-kits/fuel-tap-repair-kit",
               "slug": "fuel-tap-repair-kit"
             },
             {
-              "name": "Roulement d’amortisseur",
+              "name": "Roulement d'amortisseur",
               "url": "/used-parts/overhaul-kits/shock-absorber-bearing",
               "slug": "shock-absorber-bearing"
             },
@@ -1581,7 +1581,7 @@
               "slug": "chains"
             },
             {
-              "name": "Disque d’embrayage",
+              "name": "Disque d'embrayage",
               "url": "/used-parts/drivetrain/clutch-plate",
               "slug": "clutch-plate"
             },
@@ -1801,7 +1801,7 @@
               "slug": "e10-additive"
             },
             {
-              "name": "Booster d’octane",
+              "name": "Booster d'octane",
               "url": "/accessories/fuel--additives/octane-booster",
               "slug": "octane-booster"
             },
@@ -1839,7 +1839,7 @@
               "slug": "oil-collection-tray"
             },
             {
-              "name": "Béquille d’atelier",
+              "name": "Béquille d'atelier",
               "url": "/accessories/workshop-equipment/paddock-stand",
               "slug": "paddock-stand"
             },
@@ -1879,12 +1879,12 @@
               "slug": "jerrycan"
             },
             {
-              "name": "Manuel d’atelier",
+              "name": "Manuel d'atelier",
               "url": "/accessories/workshop-equipment/workshop-manual",
               "slug": "workshop-manual"
             },
             {
-              "name": "Mors d’étau",
+              "name": "Mors d'étau",
               "url": "/accessories/workshop-equipment/vice-jaws",
               "slug": "vice-jaws"
             },
@@ -1914,7 +1914,7 @@
               "slug": "auxiliary-fuel-tank"
             },
             {
-              "name": "Sangles d’arrimage",
+              "name": "Sangles d'arrimage",
               "url": "/accessories/workshop-equipment/tie-down-straps",
               "slug": "tie-down-straps"
             },
@@ -1932,7 +1932,7 @@
           "hasChildren": true,
           "children": [
             {
-              "name": "Bouchon d’échappement",
+              "name": "Bouchon d'échappement",
               "url": "/accessories/wash--shine/exhaust-plug",
               "slug": "exhaust-plug"
             },
