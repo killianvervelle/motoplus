@@ -117,6 +117,7 @@ function MenuGroup({
                           onToggleSidebar();
                         }
                         }
+                        role="menuitem"
                       >
                         {translateClient("menu", cat.slug)}
                       </Link>
