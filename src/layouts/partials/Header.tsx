@@ -51,6 +51,7 @@ function MenuGroup({
 }) {
   const [openChild, setOpenChild] = React.useState<number | null>(null);
   const router = useRouter();
+  const locale = useLocale();
 
   const handleClick = (parent: string, child: string) => {
     const params = new URLSearchParams();
@@ -65,7 +66,7 @@ function MenuGroup({
       params.set("c", child);
     }
 
-    router.push(`/products?${params.toString()}`);
+    router.push(`/${locale}/products?${params.toString()}`);
   };
 
   return menu.hasChildren ? (

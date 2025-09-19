@@ -238,8 +238,8 @@ const ProductCardView = ({
             <div
               key={index}
               className={`text-center col-7 sm:col-5 md:col-5 xl:col-4 group relative 
-                ${index % 3 === 0 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
-                ${index % 3 === 2 && "xl:border-l-[0.5px] xl:border-[#cecece]"}`}
+                ${index % 3 === 0 && products.length > 3 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
+                ${index % 3 === 2 && products.length > 3 &&"xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
               <div className="md:relative w-full sm:h-60 md:h-[269px] overflow-hidden flex justify-center items-center">
                 <ImageFallback
