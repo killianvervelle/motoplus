@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 
+
 const ProductCardView = ({
   searchParams,
   locale,
@@ -48,7 +49,7 @@ const ProductCardView = ({
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
 
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -120,7 +121,7 @@ const ProductCardView = ({
 
           productsData =
             category && category !== "all"
-              ? 
+              ?
               await getCollectionProducts({
                 collection: shopifyHandle,
                 sortKey,
@@ -239,7 +240,7 @@ const ProductCardView = ({
               key={index}
               className={`text-center col-7 sm:col-5 md:col-5 xl:col-4 group relative 
                 ${index % 3 === 0 && products.length > 3 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
-                ${index % 3 === 2 && products.length > 3 &&"xl:border-l-[0.5px] xl:border-[#cecece]"}`}
+                ${index % 3 === 2 && products.length > 3 && "xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
               <div className="relative w-full sm:h-60 md:h-[269px] overflow-hidden flex justify-center items-center">
                 <ImageFallback

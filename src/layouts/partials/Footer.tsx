@@ -13,6 +13,7 @@ export interface ISocial {
   link: string;
 }
 
+
 const Footer = () => {
   return (
     <footer className="bg-[#232222] dark:bg-darkmode-light mt-50 text-white">

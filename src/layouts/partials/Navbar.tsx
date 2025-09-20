@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
 import { useRouter } from "next/navigation";
 
+
 export default function Navbar() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
     const open = useCallback((i: number) => setOpenIndex(i), []);

@@ -8,7 +8,6 @@ import ProductFilters from '@/partials/ProductFilters'
 import ProductListView from '@/partials/ProductListView'
 import { Suspense } from 'react'
 
-
 interface SearchParams {
   sort?: string
   q?: string

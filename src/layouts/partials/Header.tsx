@@ -14,7 +14,6 @@ import DropdownLanguages from '../components/filter/DropdownLanguages'
 import { languageItems } from "@/lib/constants";
 import { useLocale } from 'next-intl'
 
-
 interface IChildNavigationLink {
   name: string
   url: string

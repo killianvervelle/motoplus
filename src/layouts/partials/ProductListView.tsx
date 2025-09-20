@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { BiLoaderAlt } from 'react-icons/bi'
 
+
 const ProductListView = ({
   searchParams,
   locale,
