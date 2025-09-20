@@ -4,6 +4,7 @@ import DynamicIcon from "@/helpers/DynamicIcon";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+
 const Social: React.FC<{ socialName: string; className: string }> = ({
   socialName,
   className,

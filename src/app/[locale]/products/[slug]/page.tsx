@@ -42,6 +42,7 @@ const ProductSingle = async ({
   );
 };
 
+
 export default ProductSingle;
 
 const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string; slug: string }> }) => {
