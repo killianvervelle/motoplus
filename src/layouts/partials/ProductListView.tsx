@@ -2,7 +2,6 @@
 
 import { AddToCart } from '@/components/cart/AddToCart'
 import SkeletonCards from '@/components/loadings/skeleton/SkeletonCards'
-import config from '@/config/config.json'
 import ImageFallback from '@/helpers/ImageFallback'
 import useLoadMore from '@/hooks/useLoadMore'
 import { defaultSort, sorting } from '@/lib/constants'
@@ -19,7 +18,6 @@ const ProductListView = ({
   searchParams: any
   locale: string
 }) => {
-  const { currencySymbol } = config.shopify
   const [isLoading, setIsLoading] = useState(true)
   const targetElementRef = useRef<HTMLDivElement>(null)
   const [data, setData] = useState<{
@@ -216,7 +214,7 @@ const ProductListView = ({
             return (
               <div className='col-12' key={id}>
                 <div className='row group'>
-                  <div className='col-6 md:col-5 lg:col-5 xl:col-4 md:relative'>
+                  <div className='col-6 md:col-5 lg:col-5 xl:col-4 relative'>
                     <Link
                       href={`/products/${handle}`}>
                       <ImageFallback
@@ -228,42 +226,42 @@ const ProductListView = ({
                       />
                       <img
                         src="/images/logo.png"
-                        width={40}
+                        width={30}
                         height={20}
                         alt="Logo"
-                        className="absolute top-2 right-2 "
+                        className="absolute sm:w-11 sm:h-6 top-2 right-2 "
                       />
                     </Link>
                   </div>
 
                   <div className='col-6 md:col-7 lg:col-5 xl:col-8 py-3 max-md:pt-4 '>
-                    <h3 className='font-bold md:font-normal h5'>
+                    <h3 className='font-bold md:font-normal h5 line-clamp-2 md:line-clamp-3'>
                       <Link href={`/products/${handle}`}>{title}</Link>
                     </h3>
 
                     <div className='flex items-center gap-x-2 mt-2'>
                       <span className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark">
-                        {currencySymbol}{" "}
-                        {product?.priceRange?.minVariantPrice?.amount}{" "}
                         {product?.priceRange?.minVariantPrice?.currencyCode}
+                        {" "}
+                        {product?.priceRange?.minVariantPrice?.amount}{" "}
                       </span>
                       {parseFloat(
                         product?.compareAtPriceRange?.maxVariantPrice?.amount,
                       ) > 0 ? (
-                        <s className="text-text-light dark:text-darkmode-text-light text-xs md:text-base font-medium">
-                          {currencySymbol}{" "}
-                          {product?.compareAtPriceRange?.maxVariantPrice?.amount}{" "}
+                        <s className="text-text-light text-base-sm dark:text-darkmode-text-light text-xs md:text-base font-medium">
                           {
                             product?.compareAtPriceRange?.maxVariantPrice
                               ?.currencyCode
                           }
+                          {" "}
+                          {product?.compareAtPriceRange?.maxVariantPrice?.amount}{" "}
                         </s>
                       ) : (
                         ""
                       )}
                     </div>
 
-                    <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-1 md:line-clamp-3'>
+                    <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-2'>
                       {description}
                     </p>
                     <Suspense>

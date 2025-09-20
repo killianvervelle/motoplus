@@ -241,7 +241,7 @@ const ProductCardView = ({
                 ${index % 3 === 0 && products.length > 3 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
                 ${index % 3 === 2 && products.length > 3 &&"xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
-              <div className="md:relative w-full sm:h-60 md:h-[269px] overflow-hidden flex justify-center items-center">
+              <div className="relative w-full sm:h-60 md:h-[269px] overflow-hidden flex justify-center items-center">
                 <ImageFallback
                   src={
                     product.featuredImage?.url || "/images/product_image404.jpg"
@@ -266,7 +266,7 @@ const ProductCardView = ({
                     handle={product?.handle}
                     defaultVariantId={defaultVariantId}
                     stylesClass={
-                      "btn btn-primary max-md:btn-sm z-10 absolute bottom-24 md:bottom-[-5] left-1/2 transform -translate-x-1/2 md:translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md"
+                      "btn btn-primary max-md:btn-sm z-10 absolute bottom-0 md:bottom-[-5] left-1/2 transform -translate-x-1/2 md:translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md"
                     }
                   />
                 </Suspense>

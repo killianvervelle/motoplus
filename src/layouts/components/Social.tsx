@@ -49,9 +49,9 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
             key={"Facebook"}
             src={"/images/facebook.png"}
             alt={"Facebook"}
-            width={25}
+            width={30}
             height={18}
-            className="w-[25] h-[18]"
+            className="w-full h-full"
           />
         </a>
       </li>
@@ -70,7 +70,7 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
             alt={"LinkedIn"}
             width={25}
             height={18}
-            className="w-[25] h-[18]"
+            className="w-full h-full"
           />
         </a>
       </li>
@@ -89,7 +89,7 @@ const Social: React.FC<{ socialName: string; className: string }> = ({
             alt={"Twitter"}
             width={25}
             height={18}
-            className="w-[25] h-[18]"
+            className="w-full h-full"
           />
         </a>
       </li>

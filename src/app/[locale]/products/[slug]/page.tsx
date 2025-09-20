@@ -132,7 +132,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
                       alt={payment.name}
                       width={44}
                       height={40}
-                      className="w-[44px] h-[40px]"
+                      className="w-[36px] h-[32px]"
                     />
                   ),
                 )}
