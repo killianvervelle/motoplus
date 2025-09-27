@@ -23,6 +23,11 @@ export type SortFilterItem = {
   reverse: boolean;
 };
 
+export type NavUserItem = {
+  title: string
+  slug: string
+}
+
 export type Filters = Record<string, string[]>;
 
 export type HomeFilterBoxProp = { 
@@ -45,6 +50,54 @@ export const defaultSort: SortFilterItem = {
   sortKey: "CREATED_AT",
   reverse: false,
 };
+
+export const europeanCountries = [
+    { name: 'Austria', code: 'AT' },
+    { name: 'Belgium', code: 'BE' },
+    { name: 'Bulgaria', code: 'BG' },
+    { name: 'Croatia', code: 'HR' },
+    { name: 'Cyprus', code: 'CY' },
+    { name: 'Czechia', code: 'CZ' },
+    { name: 'Denmark', code: 'DK' },
+    { name: 'Estonia', code: 'EE' },
+    { name: 'Finland', code: 'FI' },
+    { name: 'France', code: 'FR' },
+    { name: 'Germany', code: 'DE' },
+    { name: 'Greece', code: 'GR' },
+    { name: 'Hungary', code: 'HU' },
+    { name: 'Ireland', code: 'IE' },
+    { name: 'Italy', code: 'IT' },
+    { name: 'Latvia', code: 'LV' },
+    { name: 'Lithuania', code: 'LT' },
+    { name: 'Luxembourg', code: 'LU' },
+    { name: 'Malta', code: 'MT' },
+    { name: 'Netherlands', code: 'NL' },
+    { name: 'Poland', code: 'PL' },
+    { name: 'Portugal', code: 'PT' },
+    { name: 'Romania', code: 'RO' },
+    { name: 'Slovakia', code: 'SK' },
+    { name: 'Slovenia', code: 'SI' },
+    { name: 'Spain', code: 'ES' },
+    { name: 'Sweden', code: 'SE' },
+    { name: 'Switzerland', code: 'CH' },
+    { name: 'United Kingdom', code: 'GB' },
+    { name: 'Norway', code: 'NO' },
+]
+
+export const navUserOptions: NavUserItem[] = [
+  {
+    title: "Profile",
+    slug: "profile",
+  },
+  {
+    title: "My Orders",
+    slug: "orders",
+  },
+  {
+    title: "Log out",
+    slug: "log-out",
+  },
+]
 
 export const sorting: SortFilterItem[] = [
   defaultSort,

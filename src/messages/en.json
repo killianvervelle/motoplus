@@ -417,6 +417,12 @@
     "price-asc": "Price: Low to high",
     "price-desc": "Price: High to low"
   },
+  "navuser": {
+    "log-out": "Log out",
+    "profile": "Profile",
+    "settings": "Settings",
+    "orders": "My Orders"
+  },
   "product-filters": {
     "price-range": "Select Price Range",
     "product-cat": "Product Categories",

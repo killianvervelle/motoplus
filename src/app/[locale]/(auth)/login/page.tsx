@@ -1,61 +1,32 @@
 "use client";
 
-import { CustomerError } from "@/lib/shopify/types";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { FormEvent, useState, ChangeEvent } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
-import { FormData } from "../sign-up/page";
+import { sendSignInLink } from '@/lib/shopify'
 
 const Login = () => {
-  const router = useRouter();
-  const [formData, setFormData] = useState<FormData>({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [sent, setSent] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const [loading, setLoading] = useState(false);
-  const [errorMessages, setErrorMessages] = useState([]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleLogin = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    setLoading(true);
+    setError(null)
     try {
-      setLoading(true);
-
-      const response = await fetch("/api/customer/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const responseData = await response.json();
-
-      if (response.ok) {
-        setErrorMessages([]);
-        const data = responseData;
-        localStorage.setItem("user", JSON.stringify(data));
-        router.push("/");
-      } else {
-        const errors = responseData.errors || [];
-        setErrorMessages(errors);
-        router.push("/login");
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
+      const res = await sendSignInLink(email)
+      const errs = res.body.data.customerRecover.userErrors
+      if (errs.length) setError(errs.map(e => e.message).join(', '))
+      else setSent(true)
+    } catch (err: any) {
+      setError(err.message)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
+
 
   return (
     <section className="section">
@@ -69,59 +40,47 @@ const Login = () => {
               </p>
             </div>
 
-            <form onSubmit={handleLogin}>
-              <div>
-                <label className="form-label">Email Address</label>
-                <input
-                  className="form-input"
-                  placeholder="Type your email"
-                  type="email"
-                  onChange={handleChange}
-                  name="email"
-                />
-              </div>
+            {!sent ? (
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <label className="form-label">Email Address</label>
+                  <input
+                    className="form-input"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setEmail(e.target.value)
+                    }
+                  />
+                </div>
 
-              <div>
-                <label className="form-label mt-8">Password</label>
-                <input
-                  className="form-input"
-                  placeholder="********"
-                  type="password"
-                  onChange={handleChange}
-                  name="password"
-                />
-              </div>
+                {error && <p className="text-red-600 text-sm">Failed to login, please try again</p>}
 
-              {errorMessages.map((error: CustomerError) => (
-                <p
-                  key={error.code}
-                  className="font-medium text-red-500 truncate mt-2"
+                <button
+                  type="submit"
+                  className="btn btn-primary md:text-lg md:font-medium w-full mt-10 hover:bg-gray-700"
+                  disabled={loading}
                 >
-                  *
-                  {error.code === "UNIDENTIFIED_CUSTOMER"
-                    ? `${error.message}`
-                    : "Invalid Email or Password"}
-                </p>
-              ))}
-
-              <button
-                type="submit"
-                className="btn btn-primary md:text-lg md:font-medium w-full mt-10"
-              >
-                {loading ? (
-                  <BiLoaderAlt className={`animate-spin mx-auto`} size={26} />
-                ) : (
-                  "Log In"
-                )}
-              </button>
-            </form>
+                  {loading ? (
+                    <BiLoaderAlt className={`animate-spin mx-auto`} size={26} />
+                  ) : (
+                    "Log In"
+                  )}
+                </button>
+              </form>
+            ) : (
+              <p className="text-green-700 text-sm mt-6">
+                Check your email. A one-time sign-in code has been sent.
+              </p>
+            )}
 
             <div className="flex gap-x-2 text-sm md:text-base mt-4">
               <p className="text-text-light dark:text-darkmode-text-light">
                 Don&apos;t have an account?
               </p>
               <Link
-                className="underline font-medium text-text-dark dark:text-darkmode-text-dark"
+                className="hover:underline font-medium text-text-dark dark:text-darkmode-text-dark"
                 href={"/sign-up"}
               >
                 Register
@@ -130,7 +89,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 

@@ -20,14 +20,31 @@ export interface CustomerAccessTokenInput {
   password: string;
 }
 
+export type ShopifyAddress = {
+  id: string
+  firstName?: string | null
+  lastName?: string | null
+  address1?: string | null
+  address2?: string | null
+  city?: string | null
+  province?: string | null
+  country?: string | null
+  zip?: string | null
+  phone?: string | null
+}
+
+export type NewShopifyAddress = Omit<ShopifyAddress, 'id'>
+
 export type user = {
   customer: {
-    id?: string;
+    id: string;
     firstName: string;
-    lastName?: string;
+    lastName: string;
     email: string;
     phone?: string | null;
     acceptsMarketing: boolean;
+    addresses: { edges: { node: ShopifyAddress }[] };
+    defaultAddress?: ShopifyAddress | null;
   };
 };
 

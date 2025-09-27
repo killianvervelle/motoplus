@@ -3,10 +3,14 @@
 import { getUserDetails } from '@/lib/shopify'
 import type { user } from '@/lib/shopify/types'
 import Cookies from 'js-cookie'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Gravatar from 'react-gravatar'
 import { BsPerson } from 'react-icons/bs'
+import { useTranslations } from 'next-intl';
+import Link from 'next/link'
+import { navUserOptions } from '@/lib/constants'
+
 
 export const fetchUser = async () => {
   try {
@@ -27,8 +31,11 @@ export const fetchUser = async () => {
 
 const NavUser = () => {
   const pathname = usePathname()
+  const router = useRouter()
   const [user, setUser] = useState<any>()
   const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  const t = useTranslations('navuser');
 
   useEffect(() => {
     const getUser = async () => {
@@ -44,6 +51,7 @@ const NavUser = () => {
     localStorage.removeItem('user')
     setUser(null)
     setDropdownOpen(false)
+    router.push('/login')
   }
 
   const toggleDropdown = () => {
@@ -58,16 +66,16 @@ const NavUser = () => {
           className='relative cursor-pointer text-left sm:text-xs flex items-center justify-center'
         >
           <div className='flex items-center gap-x-1'>
-            <div className='h-6 w-6 border border-darkmode-border dark:border-border rounded-full'>
+            <div className='h-6 w-6 border border-white rounded-full'>
               <Gravatar email={user?.email} style={{ borderRadius: '50px' }} key={user?.email} />
             </div>
             <div className='leading-none max-md:hidden'>
               <div className='flex items-center'>
-                <p className='block text-text-dark dark:text-darkmode-text-dark text-base truncate'>
+                <p className='block text-white dark:text-darkmode-text-dark text-base truncate'>
                   {user?.firstName?.split(' ')[0]}
                 </p>
                 <svg
-                  className={`w-5 text-text-dark dark:text-darkmode-text-dark dark:hover:text-darkmode-text-primary`}
+                  className={`w-5 text-white dark:text-darkmode-text-dark dark:hover:text-darkmode-text-primary`}
                   fill='currentColor'
                   viewBox='0 0 20 20'
                   aria-hidden='true'
@@ -93,10 +101,38 @@ const NavUser = () => {
       )}
 
       {dropdownOpen && (
-        <div className='z-20 text-center absolute w-full right-8 bg-transparent shadow-md rounded mt-2'>
-          <button onClick={handleLogout} className='btn btn-primary max-md:btn-sm mt-2'>
-            Logout
-          </button>
+        <div className='z-20 text-center absolute w-full right-0 bg-transparent shadow-md rounded mt-2'>
+          <div
+            className='absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden'
+          >
+            <div role='menu' aria-orientation='vertical' aria-labelledby='menu-button'>
+              <ul className='relative inline-block text-left text-text-light w-full' onPointerLeave={() => setDropdownOpen(false)}>
+                {navUserOptions.map((option) => (
+                  <li
+                    key={option.slug}
+                    className="flex text-sm text-text-dark hover:bg-dark/50 hover:text-white"
+                  >
+                    {option.slug === 'log-out' ? (
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left pl-4 py-2"
+                      >
+                        {t(option.slug)}
+                      </button>
+                    ) : (
+                      <Link
+                        href={`/${option.slug}`}
+                        className="w-full pl-4 py-2"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        {t(option.slug)}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -19,6 +19,9 @@ import { IoDiamondSharp } from "react-icons/io5";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { Testimonial } from '@/types'
 import matter from 'gray-matter';
+import fs from 'fs';
+import path from 'path';
+import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -141,6 +144,16 @@ const Home = async ({
   const testimonials_section_enable = frontmatter.testimonials_section_enable;
 
 
+  const filePath = path.join(process.cwd(), 'public/content/pages', locale, "home.md")
+
+  if (!fs.existsSync(filePath)) {
+    notFound();
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { data: homeFrontmatter } = matter(fileContent);
+
+
   const translatedTestimonials = await Promise.all(
     frontmatter.testimonials.map(
       async (item: Testimonial) => {
@@ -155,7 +168,7 @@ const Home = async ({
 
   return (
     <>
-      <SeoMeta />
+      <SeoMeta {...homeFrontmatter} />
       <section className="section">
         <div className="pb-48 sm:pb-32 md:pb-0">
           <div className="pb-5 overflow-hidden relative">

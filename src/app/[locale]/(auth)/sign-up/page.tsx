@@ -8,16 +8,16 @@ import { BiLoaderAlt } from 'react-icons/bi'
 
 export interface FormData {
   firstName?: string
+  lastName?: string
   email: string
-  password: string
 }
 
 const SignUp = () => {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
     firstName: '',
+    lastName: '',
     email: '',
-    password: ''
   })
 
   const [loading, setLoading] = useState(false)
@@ -64,7 +64,7 @@ const SignUp = () => {
 
   return (
     <section className='section'>
-      <div className='container'>
+      <div className="container pt-12 xl:pt-28">
         <div className='row'>
           <div className='col-11 sm:col-9 md:col-7 mx-auto'>
             <div className='mb-14 text-center'>
@@ -73,15 +73,27 @@ const SignUp = () => {
             </div>
 
             <form onSubmit={handleSignUp}>
-              <div>
-                <label className='form-label'>Name</label>
-                <input
-                  name='firstName'
-                  className='form-input'
-                  placeholder='Enter your name'
-                  type='text'
-                  onChange={handleChange}
-                />
+              <div className='grid grid-cols-2 gap-10'>
+                <div>
+                  <label className='form-label'>First name</label>
+                  <input
+                    name='firstName'
+                    className='form-input'
+                    placeholder='Enter your first name'
+                    type='text'
+                    onChange={handleChange}
+                  />
+                </div>
+                <div>
+                  <label className='form-label'>Surname</label>
+                  <input
+                    name='lastName'
+                    className='form-input'
+                    placeholder='Enter your surname'
+                    type='text'
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
 
               <div>
@@ -91,17 +103,6 @@ const SignUp = () => {
                   className='form-input'
                   placeholder='Type your email'
                   type='email'
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label className='form-label mt-8'>Password</label>
-                <input
-                  name='password'
-                  className='form-input'
-                  placeholder='********'
-                  type='password'
                   onChange={handleChange}
                 />
               </div>
@@ -121,7 +122,7 @@ const SignUp = () => {
               <p className='text-text-light dark:text-darkmode-text-light'>I have read and agree to the</p>
               <Link
                 className='underline font-medium text-text-dark dark:text-darkmode-text-dark'
-                href={'/terms-services'}
+                href={'/terms-service'}
               >
                 Terms & Conditions
               </Link>

@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import path from "path";
 
-const contentPath = "src/content";
+const contentPath = "public/content";
 
 // Helper function to read file content
 const readFile = (filePath: string) => {

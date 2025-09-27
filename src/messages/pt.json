@@ -415,6 +415,12 @@
     "price-asc": "Preço: mais baixo para mais alto",
     "price-desc": "Preço: mais alto para mais baixo"
   },
+  "navuser": {
+    "log-out": "Terminar sessão",
+    "profile": "Perfil",
+    "settings": "Definições",
+    "orders": "As minhas encomendas"
+  },
   "product-filters": {
     "price-range": "Selecionar faixa de preço",
     "product-cat": "Categorias de produtos",

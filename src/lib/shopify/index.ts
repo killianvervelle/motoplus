@@ -19,6 +19,9 @@ import {
   createCustomerMutation,
   getCustomerAccessTokenMutation,
   getUserDetailsQuery,
+  deleteUserAddressQuery,
+  createUserAddressQuery,
+  setDefaultAddressQuery,
 } from "./mutations/customer";
 import { getCartQuery } from "./queries/cart";
 import {
@@ -66,16 +69,15 @@ import {
   registerOperation,
   user,
   userOperation,
+  NewShopifyAddress,
 } from "./types";
+
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
   : "";
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
-
-console.log("SHOPIFY_STORE_DOMAIN:", process.env.SHOPIFY_STORE_DOMAIN);
-console.log("Shopify endpoint:", endpoint);
 
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
@@ -388,6 +390,63 @@ export async function getUserDetails(accessToken: string): Promise<user> {
 
   return response.body.data;
 }
+
+export async function sendSignInLink(email: string) {
+  const res = await shopifyFetch<{
+    data: {
+      customerRecover: {
+        userErrors: { field: string[] | null; message: string }[]
+      }
+    }
+  }>({
+    query: `
+      mutation customerRecover($email: String!) {
+        customerRecover(email: $email) {
+          userErrors { field message }
+        }
+      }
+    `,
+    variables: { email } as any,  
+    cache: 'no-store',
+  })
+
+  return res
+}
+
+export async function deleteUserAdress(accessToken: string, id: string) {
+  const response = await shopifyFetch<any>({
+    query: deleteUserAddressQuery,
+    variables: { customerAccessToken: accessToken, id },
+    cache: 'no-store',
+  }); 
+
+  return response.body.data;
+}
+
+export async function createUserAdress(accessToken: string, address: NewShopifyAddress) {
+  const response = await shopifyFetch<any>({
+    query: createUserAddressQuery,
+    variables: { customerAccessToken: accessToken, address },
+    cache: 'no-store',
+  }); 
+
+  const newId = response.body.data.customerAddressCreate.customerAddress?.id
+  const errors = response.body.data.customerAddressCreate.userErrors
+  if (errors?.length) throw new Error(errors.map((e:any) => e.message).join(', '))
+  if (!newId) throw new Error('No id returned from Shopify')
+
+  const setDefault = await shopifyFetch<any>({
+  query: setDefaultAddressQuery,
+  variables: { customerAccessToken: accessToken, addressId: newId },
+  cache: 'no-store',
+})
+
+  const defErr = setDefault.body.data.customerDefaultAddressUpdate.userErrors
+  if (defErr?.length) throw new Error(defErr.map((e: any) => e.message).join(', '))
+
+  return newId
+}
+
 
 export async function getCollections(locale: string) {
   const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
