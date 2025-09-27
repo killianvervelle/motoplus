@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import * as sgMail from "@sendgrid/mail";
-import { signUpFormSchema } from "../../../contact/schema";
+import { signUpFormSchema } from "./schema";
+
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
