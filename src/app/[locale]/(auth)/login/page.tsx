@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 
-const loginUrl = `https://shopify.com/91717009789/account/login`;
-
 const Login = () => {
+  const handleLogin = () => {
+    // Optionally remember where the user was before clicking Login
+    sessionStorage.setItem(
+      "postLoginRedirect",
+      window.location.pathname || "/"
+    );
+
+    // Kick off the OAuth / PKCE login flow
+    window.location.href = "/api/customer/auth/login";
+  };
+
   return (
     <section className="section">
       <div className="container pt-12 2xl:pt-36 xl:pt-28 2xl:pb-60">
@@ -18,7 +27,7 @@ const Login = () => {
             </div>
 
             <button
-              onClick={() => (window.location.href = loginUrl)}
+              onClick={() => handleLogin()}
               className="btn btn-primary md:text-lg md:font-medium w-full mt-10 hover:bg-gray-700"
             >
               Log in with Email

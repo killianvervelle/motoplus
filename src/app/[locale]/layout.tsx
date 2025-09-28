@@ -43,7 +43,7 @@ export default async function RootLayout({ children, params }: { children: React
         <TwSizeIndicator />
         <Providers>
           <NextIntlClientProvider>
-              <div className='min-h-screen flex flex-col'>
+            <div className='min-h-screen flex flex-col'>
               <Header>
                 <OpenCart />
                 <Cart />
