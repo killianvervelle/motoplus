@@ -22,7 +22,7 @@ export async function GET(request: Request) {
   }
 
   const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
-  const clientId = process.env.SHOPIFY_CLIENT_ID!;
+  const clientId = process.env.NEXT_PUBLIC_SHOPIFY_CUSTOMER_API_CLIENT_ID!;
   const redirectUri = process.env.SHOPIFY_REDIRECT_URI!;
   const tokenEndpoint = `https://shopify.com/authentication/${shopId}/oauth/token`;
 
