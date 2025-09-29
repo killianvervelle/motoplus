@@ -15,7 +15,9 @@ export async function POST(req: NextRequest) {
     const cookieStore = await cookies();
     cookieStore.set("token", token);
 
-    const { customer } = await getUserDetails(token);
+    const { customer } = await getUserDetails();
+
+    console.log("USER", customer)
 
     return NextResponse.json({ ...customer, token });
   } catch (error: any) {

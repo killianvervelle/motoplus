@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import type { ShopifyAddress, NewShopifyAddress } from '@/lib/shopify/types'
-import { getUserDetails } from '@/lib/shopify'
 import Cookies from 'js-cookie'
 import { deleteUserAdress, createUserAdress } from '@/lib/shopify'
 import { europeanCountries } from '@/lib/constants'
@@ -15,25 +14,11 @@ type ProfileUser = {
     addresses: ShopifyAddress[]
 }
 
-async function fetchUser(): Promise<ProfileUser | null> {
-    try {
-        const accessToken = Cookies.get('token')
-        if (!accessToken) return null
-
-        const data = await getUserDetails(accessToken)
-
-        return {
-            firstName: data.customer.firstName,
-            lastName: data.customer.lastName,
-            email: data.customer.email,
-            addresses: data.customer.addresses.edges.map(e => e.node),
-            defaultAddress: data.customer.defaultAddress
-
-        }
-    } catch (error) {
-        console.error('Error fetching user details:', error)
-        return null
-    }
+async function fetchUser() {
+    const res = await fetch('/api/customer/me', { credentials: 'include' })
+    console.log("RES", res)
+    if (!res.ok) return null
+    return await res.json()
 }
 
 export default function ProfilePage() {

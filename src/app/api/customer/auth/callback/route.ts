@@ -60,7 +60,7 @@ export async function GET(request: Request) {
 
   // Store the customer access token in an HttpOnly cookie (or your own session store)
   const maxAge = Math.max(60, (tokens.expires_in ?? 3600) - 60); // safety minus 60s
-  c.set("shopify_customer_token", tokens.access_token, {
+  c.set("token", tokens.access_token, {
     httpOnly: true,
     secure: true,
     sameSite: "lax",
@@ -71,6 +71,10 @@ export async function GET(request: Request) {
   // Optional: store refresh_token server-side (e.g. in DB keyed by a session)
   // For brevity we skip here. If you need long sessions, implement a refresh route.
 
+  const redirectAfterLogin =
+    process.env.NEXT_PUBLIC_POST_LOGIN_REDIRECT ??
+    "https://printerlike-nonindustriously-amparo.ngrok-free.dev/";
+
   // ✅ Land them on your home page (or wherever you want)
-  return NextResponse.redirect(new URL("/", url.origin), { status: 302 });
+  return NextResponse.redirect(redirectAfterLogin, { status: 302 });
 }

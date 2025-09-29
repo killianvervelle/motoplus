@@ -1,7 +1,5 @@
 'use client'
 
-import { getUserDetails } from '@/lib/shopify'
-import type { user } from '@/lib/shopify/types'
 import Cookies from 'js-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -12,21 +10,11 @@ import Link from 'next/link'
 import { navUserOptions } from '@/lib/constants'
 
 
-export const fetchUser = async () => {
-  try {
-    const accessToken = Cookies.get('token')
-
-    if (!accessToken) {
-      return null
-    } else {
-      const userDetails: user = await getUserDetails(accessToken)
-      const userInfo = userDetails.customer
-      return userInfo
-    }
-  } catch (error) {
-    console.log('Error fetching user details:', error)
-    return null
-  }
+async function fetchUser() {
+  const res = await fetch('/api/customer/me', { credentials: 'include' })
+  console.log("RES", res)
+  if (!res.ok) return null
+  return await res.json()
 }
 
 const NavUser = () => {
@@ -40,6 +28,7 @@ const NavUser = () => {
   useEffect(() => {
     const getUser = async () => {
       const userInfo = await fetchUser()
+      console.log("userdetails", user)
       setUser(userInfo)
     }
 

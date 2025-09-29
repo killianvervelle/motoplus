@@ -1,4 +1,5 @@
 "use server";
+import { cookies } from 'next/headers'
 import {
   HIDDEN_PRODUCT_TAG,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
@@ -18,7 +19,6 @@ import {
 import {
   createCustomerMutation,
   getCustomerAccessTokenMutation,
-  getUserDetailsQuery,
   deleteUserAddressQuery,
   createUserAddressQuery,
   setDefaultAddressQuery,
@@ -67,8 +67,6 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation,
   registerOperation,
-  user,
-  userOperation,
   NewShopifyAddress,
 } from "./types";
 
@@ -381,14 +379,68 @@ export async function getCustomerAccessToken({
   return { token, customerLoginErrors };
 }
 
-export async function getUserDetails(accessToken: string): Promise<user> {
-  const response = await shopifyFetch<userOperation>({
-    query: getUserDetailsQuery,
-    variables: { input: accessToken },
-    cache: "no-store",
-  });
+export async function getUserDetails() {
+  const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
 
-  return response.body.data;
+  const cookie = await cookies();
+  const token = cookie.get('token')?.value
+  if (!token) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+
+  const query = `
+    query {
+      customer {
+        firstName
+        lastName
+        email
+        defaultAddress {
+          id
+          firstName
+          lastName
+          address1
+          address2
+          city
+          province
+          country
+          zip
+          phone
+        }
+        addresses(first: 20) {
+          edges {
+            node {
+              id
+              firstName
+              lastName
+              address1
+              address2
+              city
+              province
+              country
+              zip
+              phone
+            }
+          }
+        }
+      }
+    }`;
+
+  const resp = await fetch(
+    `https://shopify.com/authentication/${shopId}/customer-account`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ query }),
+    }
+  );
+
+  if (!resp.ok) {
+    throw new Error(`Shopify API error: ${await resp.text()}`);
+  }
+
+  const { data } = await resp.json();
+  return data;
 }
 
 export async function sendSignInLink(email: string) {
