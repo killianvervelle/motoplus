@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import type { ShopifyAddress, NewShopifyAddress } from '@/lib/shopify/types'
-import Cookies from 'js-cookie'
-import { deleteUserAdress, createUserAdress } from '@/lib/shopify'
 import { europeanCountries } from '@/lib/constants'
+import { useTranslations } from 'next-intl';
+
 
 type ProfileUser = {
     firstName: string
@@ -16,31 +16,37 @@ type ProfileUser = {
 
 async function fetchUser() {
     const res = await fetch('/api/customer/me', { credentials: 'include' })
-    console.log("RES", res)
     if (!res.ok) return null
-    return await res.json()
+
+    const json = await res.json()
+
+    const c = json.customer
+    return {
+        firstName: c.firstName,
+        lastName: c.lastName,
+        email: c.emailAddress?.emailAddress ?? '',
+        defaultAddress: c.defaultAddress,
+        addresses: c.addresses.edges.map((e: any) => e.node)
+    }
 }
 
 export default function ProfilePage() {
     const [user, setUser] = useState<ProfileUser | null>(null)
     const [showForm, setShowForm] = useState(false)
     const [form, setForm] = useState<NewShopifyAddress>({
-        firstName: '',
-        lastName: '',
-        address1: '',
-        address2: '',
-        city: '',
-        province: '',
-        country: '',
-        zip: '',
+        firstName: '', lastName: '',
+        address1: '', address2: '',
+        city: '', province: '',
+        country: '', zip: '',
         phone: '',
     })
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
-    useEffect(() => {
-        fetchUser().then(setUser)
-    }, [])
+    const t = useTranslations('profile')
+
+
+    useEffect(() => { fetchUser().then(setUser) }, [])
 
     const initials =
         `${user?.firstName?.[0] ?? ''}${user?.lastName?.[0] ?? ''}`.toUpperCase()
@@ -54,12 +60,14 @@ ${a.country ?? ''}`
             : 'No address on file.'
 
     const handleDelete = async (id: string) => {
-        const accessToken = Cookies.get('token')
-        if (!accessToken) return null
         try {
-            await deleteUserAdress(accessToken, id)
-            const updated = await fetchUser()
-            setUser(updated)
+            await fetch("/api/customer/me", {
+                method: "DELETE",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id }),
+            })
+            setUser(await fetchUser())
         } catch (err) {
             console.error('Error deleting address:', err)
         }
@@ -69,14 +77,41 @@ ${a.country ?? ''}`
         setForm({ ...form, [e.target.name]: e.target.value })
 
     const handleSubmit = async (e: React.FormEvent) => {
-        const accessToken = Cookies.get('token')
-        if (!accessToken) return null
         e.preventDefault()
-        setLoading(true); setError(null)
+
+        setLoading(true)
+        setError(null)
+
         try {
-            await createUserAdress(accessToken, form)
+            const addressPayload = {
+                firstName: form.firstName,
+                lastName: form.lastName,
+                address1: form.address1,
+                address2: form.address2 || null,
+                city: form.city,
+                territoryCode: europeanCountries.find(c => c.name === form.country)?.code || '',
+                zip: form.zip,
+            };
+
+            const res = await fetch("/api/customer/me", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ address: addressPayload }),
+            });
+
+            const json = await res.json();
+
+            if (json.error || (json.userErrors && json.userErrors.length > 0)) {
+                const message =
+                    json.error ||
+                    json.userErrors.map((e: any) => e.message).join(", ");
+                setError(message);
+                return;
+            }
+
             setShowForm(false)
-            fetchUser().then(setUser)
+            setUser(await fetchUser())
         } catch (err) {
             setError((err as Error).message)
         } finally {
@@ -87,7 +122,7 @@ ${a.country ?? ''}`
     return (
         <section className="pt-12 xl:pt-24">
             <div className="container max-w-5xl">
-                <h1 className="h2 mb-10 text-center">My Account</h1>
+                <h1 className="h2 mb-10 text-center">{t("my-account")}</h1>
 
                 <div className="grid md:grid-cols-3 gap-10">
                     <div className="bg-white dark:bg-darkmode-light rounded-xl shadow p-8 flex flex-col items-center text-center">
@@ -107,7 +142,7 @@ ${a.country ?? ''}`
                                 href="/orders"
                                 className="btn btn-outline-primary w-full hover:bg-gray-700"
                             >
-                                View Orders
+                                {t("view-order")}
                             </a>
                         </div>
                     </div>
@@ -123,7 +158,7 @@ ${a.country ?? ''}`
 
                         <div className="bg-white dark:bg-darkmode-light rounded-xl shadow p-6">
                             <div className="flex justify-between items-center mb-4">
-                                <h3 className="font-semibold text-lg">Saved Addresses</h3>
+                                <h3 className="font-semibold text-lg">{t("saved-adresses")}</h3>
                                 <button
                                     onClick={() => {
                                         setShowForm(!showForm)
@@ -141,7 +176,7 @@ ${a.country ?? ''}`
                                     }}
                                     className="btn btn-outline-primary text-sm hover:bg-gray-700"
                                 >
-                                    {showForm ? 'Close' : '+ Add Address'}
+                                    {showForm ? t("close") : t("add-adress")}
                                 </button>
                             </div>
 
@@ -161,18 +196,18 @@ ${a.country ?? ''}`
                                                     onClick={() => handleDelete(addr.id)}
                                                     className="text-red-600 text-sm hover:underline ml-4"
                                                 >
-                                                    Delete
+                                                    {t("delete")}
                                                 </button>
                                             </div>
                                         </div>
                                     ))
                             ) : (
-                                <p className="text-sm text-gray-500">No additional addresses.</p>
+                                <p className="text-sm text-gray-500">{t("no-additional-adress")}</p>
                             )}
 
                             {showForm && (
                                 <form onSubmit={handleSubmit} className="mt-8 border-t border-gray-300 pt-6 space-y-4">
-                                    <h4 className="font-semibold text-md mb-2">Add New Address (will become default)</h4>
+                                    <h4 className="font-semibold text-md mb-2">{t("add-new-adress")}</h4>
 
                                     <div className="grid grid-cols-2 gap-4">
                                         <input name="firstName" placeholder="First name" value={form.firstName ? form.firstName : ''}
@@ -203,7 +238,7 @@ ${a.country ?? ''}`
                                             className="border p-2 rounded w-full"
                                             required
                                         >
-                                            <option value="">Select country…</option>
+                                            <option value="">{t("select-country")}</option>
                                             {europeanCountries.map(c => (
                                                 <option key={c.code} value={c.name}>
                                                     {c.name} ({c.code})
@@ -215,10 +250,14 @@ ${a.country ?? ''}`
                                     <input name="phone" placeholder="Phone (optional)" value={form.phone ? form.phone : ''}
                                         onChange={handleFormChange} className="border p-2 rounded w-full" />
 
-                                    {error && <p className="text-red-600 text-sm">{error}</p>}
+                                    {error && (
+                                        <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded text-sm">
+                                            {error}
+                                        </div>
+                                    )}
 
                                     <button type="submit" disabled={loading} className="btn btn-primary w-full hover:bg-gray-700">
-                                        {loading ? 'Adding…' : 'Add & Set Default'}
+                                        {loading ? t("adding") : t("add-set")}
                                     </button>
                                 </form>
                             )}

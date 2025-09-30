@@ -99,6 +99,60 @@ export const navUserOptions: NavUserItem[] = [
   },
 ]
 
+export const financialStatusLabels: Record<string, Record<string, string>> = {
+  en: {
+    PENDING: "Pending",
+    PAID: "Paid",
+    UNPAID: "Unpaid",
+    REFUNDED: "Refunded",
+  },
+  fr: {
+    PENDING: "En attente",
+    PAID: "Payé",
+    UNPAID: "Non payé",
+    REFUNDED: "Remboursé",
+  },
+  pt: {
+    PENDING: "Pendente",
+    PAID: "Pago",
+    UNPAID: "Não pago",
+    REFUNDED: "Reembolsado",
+  },
+};
+
+export const fulfillmentStatusLabels: Record<string, Record<string, string>> = {
+  en: {
+    FULFILLED: "Fulfilled",
+    UNFULFILLED: "Unfulfilled",
+    PARTIALLY_FULFILLED: "Partially fulfilled",
+    IN_PROGRESS: "In progress",
+    ON_HOLD: "On hold",
+    PENDING_FULFILLMENT: "Pending fulfillment",
+    RESTOCKED: "Restocked",
+    CANCELLED: "Cancelled",
+  },
+  fr: {
+    FULFILLED: "Exécutée",
+    UNFULFILLED: "Non exécutée",
+    PARTIALLY_FULFILLED: "Partiellement exécutée",
+    IN_PROGRESS: "En cours",
+    ON_HOLD: "En attente",
+    PENDING_FULFILLMENT: "En attente de traitement",
+    RESTOCKED: "Réapprovisionnée",
+    CANCELLED: "Annulée",
+  },
+  pt: {
+    FULFILLED: "Concluído",
+    UNFULFILLED: "Não concluído",
+    PARTIALLY_FULFILLED: "Parcialmente concluído",
+    IN_PROGRESS: "Em andamento",
+    ON_HOLD: "Em espera",
+    PENDING_FULFILLMENT: "Aguardando processamento",
+    RESTOCKED: "Reabastecido",
+    CANCELLED: "Cancelado",
+  },
+};
+
 export const sorting: SortFilterItem[] = [
   defaultSort,
   {

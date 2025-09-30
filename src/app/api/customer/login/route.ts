@@ -1,4 +1,4 @@
-import { getCustomerAccessToken, getUserDetails } from "@/lib/shopify";
+import { getCustomerAccessToken } from "@/lib/shopify";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -15,11 +15,9 @@ export async function POST(req: NextRequest) {
     const cookieStore = await cookies();
     cookieStore.set("token", token);
 
-    const { customer } = await getUserDetails();
+    //const { customer } = await getUserDetails();
 
-    console.log("USER", customer)
-
-    return NextResponse.json({ ...customer, token });
+    //return NextResponse.json({ ...customer, token });
   } catch (error: any) {
     const { message, status } = error.error;
     return NextResponse.json(

@@ -1,6 +1,5 @@
 'use client'
 
-import Cookies from 'js-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Gravatar from 'react-gravatar'
@@ -9,39 +8,54 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link'
 import { navUserOptions } from '@/lib/constants'
 
+type UserInfo = {
+  firstName: string
+  lastName: string
+  email: string
+}
 
-async function fetchUser() {
+async function fetchUser(): Promise<UserInfo | null> {
   const res = await fetch('/api/customer/me', { credentials: 'include' })
-  console.log("RES", res)
   if (!res.ok) return null
-  return await res.json()
+
+  const json = await res.json()
+
+  const c = json.customer
+  return {
+    firstName: c.firstName,
+    lastName: c.lastName,
+    email: c.emailAddress?.emailAddress ?? ''
+  }
 }
 
 const NavUser = () => {
   const pathname = usePathname()
   const router = useRouter()
-  const [user, setUser] = useState<any>()
+  const [user, setUser] = useState<UserInfo | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
-  const t = useTranslations('navuser');
+  const t = useTranslations('navuser')
 
   useEffect(() => {
     const getUser = async () => {
       const userInfo = await fetchUser()
-      console.log("userdetails", user)
       setUser(userInfo)
     }
-
     getUser()
   }, [pathname])
 
-  const handleLogout = () => {
-    Cookies.remove('token')
-    localStorage.removeItem('user')
-    setUser(null)
-    setDropdownOpen(false)
-    router.push('/login')
-  }
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/customer/auth/logout", { method: "POST", credentials: "include" });
+    } catch (err) {
+      console.error("Failed to logout:", err);
+    }
+
+    localStorage.removeItem("user");
+    setUser(null);
+    setDropdownOpen(false);
+    router.push("/login");
+  };
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen)

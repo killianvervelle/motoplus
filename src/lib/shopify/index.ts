@@ -1,5 +1,4 @@
 "use server";
-import { cookies } from 'next/headers'
 import {
   HIDDEN_PRODUCT_TAG,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
@@ -19,9 +18,8 @@ import {
 import {
   createCustomerMutation,
   getCustomerAccessTokenMutation,
+  getUserDetailsQuery,
   deleteUserAddressQuery,
-  createUserAddressQuery,
-  setDefaultAddressQuery,
 } from "./mutations/customer";
 import { getCartQuery } from "./queries/cart";
 import {
@@ -67,7 +65,8 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation,
   registerOperation,
-  NewShopifyAddress,
+  user,
+  userOperation,
 } from "./types";
 
 
@@ -379,68 +378,14 @@ export async function getCustomerAccessToken({
   return { token, customerLoginErrors };
 }
 
-export async function getUserDetails() {
-  const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
+export async function getUserDetails(accessToken: string): Promise<user> {
+  const response = await shopifyFetch<userOperation>({
+    query: getUserDetailsQuery,
+    variables: { input: accessToken },
+    cache: "no-store",
+  });
 
-  const cookie = await cookies();
-  const token = cookie.get('token')?.value
-  if (!token) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
-
-  const query = `
-    query {
-      customer {
-        firstName
-        lastName
-        email
-        defaultAddress {
-          id
-          firstName
-          lastName
-          address1
-          address2
-          city
-          province
-          country
-          zip
-          phone
-        }
-        addresses(first: 20) {
-          edges {
-            node {
-              id
-              firstName
-              lastName
-              address1
-              address2
-              city
-              province
-              country
-              zip
-              phone
-            }
-          }
-        }
-      }
-    }`;
-
-  const resp = await fetch(
-    `https://shopify.com/authentication/${shopId}/customer-account`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ query }),
-    }
-  );
-
-  if (!resp.ok) {
-    throw new Error(`Shopify API error: ${await resp.text()}`);
-  }
-
-  const { data } = await resp.json();
-  return data;
+  return response.body.data;
 }
 
 export async function sendSignInLink(email: string) {
@@ -473,30 +418,6 @@ export async function deleteUserAdress(accessToken: string, id: string) {
   }); 
 
   return response.body.data;
-}
-
-export async function createUserAdress(accessToken: string, address: NewShopifyAddress) {
-  const response = await shopifyFetch<any>({
-    query: createUserAddressQuery,
-    variables: { customerAccessToken: accessToken, address },
-    cache: 'no-store',
-  }); 
-
-  const newId = response.body.data.customerAddressCreate.customerAddress?.id
-  const errors = response.body.data.customerAddressCreate.userErrors
-  if (errors?.length) throw new Error(errors.map((e:any) => e.message).join(', '))
-  if (!newId) throw new Error('No id returned from Shopify')
-
-  const setDefault = await shopifyFetch<any>({
-  query: setDefaultAddressQuery,
-  variables: { customerAccessToken: accessToken, addressId: newId },
-  cache: 'no-store',
-})
-
-  const defErr = setDefault.body.data.customerDefaultAddressUpdate.userErrors
-  if (defErr?.length) throw new Error(defErr.map((e: any) => e.message).join(', '))
-
-  return newId
 }
 
 

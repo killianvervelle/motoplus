@@ -420,8 +420,42 @@
   "navuser": {
     "log-out": "Log out",
     "profile": "Profile",
-    "settings": "Settings",
     "orders": "My Orders"
+  },
+  "orderID": {
+    "account": "Account",
+    "return": "Return to Account details",
+    "order": "Order",
+    "placed-on": "Placed on",
+    "fullfillment": "Fulfillment Status",
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Qty",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping (Standard)",
+    "billing-address": "Billing Address",
+    "shipping-address": "Shipping Address",
+
+    "loading": "Loading orders…",
+    "error": "Error",
+    "history": "Order history",
+    "date": "Date",
+    "payment": "Payment status",
+    "no-orders": "No orders yet"
+  },
+  "profile": {
+    "my-account": "My Account",
+    "view-order": "View Orders",
+    "saved-adresses": "Saved Addresses",
+    "delete": "Delete",
+    "no-additional-adress": "No additional addresses.",
+    "add-new-adress": "Add New Address (will become default)",
+    "select-country": "Select country…",
+    "close": "Close",
+    "add-adress": "+ Add Adresse",
+    "adding": "Adding…",
+    "add-set": "Add & Set Default"
   },
   "product-filters": {
     "price-range": "Select Price Range",

@@ -79,10 +79,9 @@ export const getUserDetailsQuery = /* GraphQL */ `
 
 export const deleteUserAddressQuery  = `
 mutation customerAddressDelete(
-  $customerAccessToken: String!
   $id: ID!
 ) {
-  customerAddressDelete(customerAccessToken: $customerAccessToken, id: $id) {
+  customerAddressDelete(id: $id) {
     deletedCustomerAddressId
     userErrors {
       field
@@ -92,43 +91,32 @@ mutation customerAddressDelete(
 }
 `;
 
-export const createUserAddressQuery  = `
-mutation customerAddressCreate(
-  $customerAccessToken: String!
-  $address: MailingAddressInput!
+export const createUserAddressQuery = `
+  mutation addressCreate(
+  $addressInput: CustomerAddressInput!
+  $defaultAddress: Boolean
 ) {
-  customerAddressCreate(customerAccessToken: $customerAccessToken, address: $address) {
+  customerAddressCreate(
+    address: $addressInput
+    defaultAddress: $defaultAddress
+  ) {
     customerAddress {
       id
-      firstName
-      lastName
       address1
-      address2
       city
-      province
-      country
+      territoryCode
+      zoneCode
+      phoneNumber
       zip
-      phone
     }
     userErrors {
       field
       message
+      code
     }
   }
 }`
 ;
-
-export const setDefaultAddressQuery = `
-  mutation customerDefaultAddressUpdate(
-    $customerAccessToken: String!
-    $addressId: ID!
-  ) {
-    customerDefaultAddressUpdate(customerAccessToken: $customerAccessToken, addressId: $addressId) {
-      customer { id }
-      userErrors { field message }
-    }
-  }
-`
 
 export const customerRecoverQuery = `
   mutation customerRecover($email: String!) {
