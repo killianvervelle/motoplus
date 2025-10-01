@@ -59,7 +59,7 @@ export async function GET(request: Request) {
   c.delete("oauth_nonce");
 
   // Store the customer access token in an HttpOnly cookie (or your own session store)
-  const maxAge = Math.max(60, (tokens.expires_in ?? 3600) - 60); // safety minus 60s
+  const maxAge = Math.max(60, (tokens.expires_in ?? 3600) - 60); 
   c.set("token", tokens.access_token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
