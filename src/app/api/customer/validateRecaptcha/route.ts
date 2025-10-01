@@ -14,5 +14,6 @@ export async function POST(req: Request) {
     cache: "no-store",
   });
   const data = await res.json();
+  console.log("🔎 reCAPTCHA verify response:", data);
   return NextResponse.json({ success: !!data.success }, { status: data.success ? 200 : 400 });
 }
