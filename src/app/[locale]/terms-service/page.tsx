@@ -20,7 +20,8 @@ export default async function ServicePage({
 
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const { data: frontmatter, content } = matter(fileContent);
-    const html = marked(content);
+
+    const html = await marked(content);
 
     return (
         <>
