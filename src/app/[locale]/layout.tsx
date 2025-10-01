@@ -11,7 +11,7 @@ import '@/styles/main.css'
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { ReCaptchaProvider } from "@/layouts/components/ReCaptchaProvider"
+import ReCaptchaProvider from "@/layouts/components/ReCaptchaProvider"
 
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode, params: Promise<{ locale: string }> }) {
@@ -45,8 +45,6 @@ export default async function RootLayout({ children, params }: { children: React
         <Providers>
           <NextIntlClientProvider>
             <ReCaptchaProvider
-              reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-              scriptProps={{ async: true, defer: true }}
             >
               <div className='min-h-screen flex flex-col'>
                 <Header>
