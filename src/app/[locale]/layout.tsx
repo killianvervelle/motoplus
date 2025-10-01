@@ -11,7 +11,7 @@ import '@/styles/main.css'
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { ReCaptchaProvider } from "@/layouts/components/ReCaptchaProvider"
 
 
 export default async function RootLayout({ children, params }: { children: React.ReactNode, params: Promise<{ locale: string }> }) {
@@ -44,7 +44,7 @@ export default async function RootLayout({ children, params }: { children: React
         <TwSizeIndicator />
         <Providers>
           <NextIntlClientProvider>
-            <GoogleReCaptchaProvider
+            <ReCaptchaProvider
               reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
               scriptProps={{ async: true, defer: true }}
             >
@@ -57,7 +57,7 @@ export default async function RootLayout({ children, params }: { children: React
                 <main className="flex-1">{children}</main>
                 <Footer />
               </div>
-            </GoogleReCaptchaProvider>
+            </ReCaptchaProvider>
           </NextIntlClientProvider>
         </Providers>
       </body>
