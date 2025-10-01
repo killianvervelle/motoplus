@@ -24,30 +24,30 @@ export async function GET() {
    const query = `
     query customerOrders
      {
-  customer {
-    orders(first: 20) {
-      edges {
-        node {
-          id
-          name
-          processedAt
-          financialStatus
-          fulfillments(first: 1) {
-            edges {
-              node {
-                status
+    customer {
+      orders(first: 20) {
+        edges {
+          node {
+            id
+            name
+            processedAt
+            financialStatus
+            fulfillments(first: 1) {
+              edges {
+                node {
+                  status
+                }
               }
             }
-          }
-          totalPrice {
-            amount
-            currencyCode
+            totalPrice {
+              amount
+              currencyCode
+            }
           }
         }
       }
     }
   }
-}
   `;
 
   const resp = await fetch(

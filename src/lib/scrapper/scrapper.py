@@ -28,37 +28,49 @@ makes = [
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
 
-grouped_data = {} 
+grouped_data = {}
 
 
-def scrap(makes_list):
-    global dataset
+def scrap(makes_list, start_year=2000, end_year=2025):
+    global grouped_data
     global API_KEY
+
     for make in makes_list:
-        url = f"https://api.api-ninjas.com/v1/motorcycles?make={make}"
-        headers = {"X-Api-Key": API_KEY}
+        grouped_data.setdefault(make, [])
+        total_found = 0
 
-        response = requests.get(url, headers=headers)
+        for year in range(start_year, end_year + 1):
+            url = "https://api.api-ninjas.com/v1/motorcycles"
+            headers = {"X-Api-Key": API_KEY}
+            params = {"make": make, "year": year}
 
-        if response.status_code == 200:
+            response = requests.get(url, headers=headers, params=params)
+
+            if response.status_code != 200:
+                print(
+                    f"❌ {make} ({year}) - Error {response.status_code}: {response.text}")
+                continue
+
             data = response.json()
-
-            grouped_data.setdefault(make, [])
+            if not data:
+                continue  # nothing for this year
 
             for bike in data:
                 model_name = bike.get("model")
-                year = bike.get("year")
+                year_val = bike.get("year")
                 if model_name:
-                    grouped_data[make].append(
-                        f"{model_name} ({year})" if year else model_name
-                    )
+                    entry = f"{model_name} ({year_val})" if year_val else model_name
+                    # avoid duplicates
+                    if entry not in grouped_data[make]:
+                        grouped_data[make].append(entry)
 
-            print(f"✅ {make}: {len(data)} motorcycles found")
-        else:
-            print(f"❌ {make} - Error {response.status_code}: {response.text}")
+            total_found += len(data)
+
+        print(f"✅ {make}: {total_found} motorcycles found")
 
     with open("motorcycles_simplified.json", "w", encoding="utf-8") as f:
         json.dump(grouped_data, f, indent=4, ensure_ascii=False)
     print("\n📁 Saved dataset to motorcycles_simplified.json")
+
 
 scrap(makes)

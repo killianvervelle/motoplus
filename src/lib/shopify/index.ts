@@ -598,7 +598,7 @@ export async function getProducts({
   reverse,
   sortKey,
   cursor,
-  locale
+  locale,
 }: {
   query?: string;
   reverse?: boolean;

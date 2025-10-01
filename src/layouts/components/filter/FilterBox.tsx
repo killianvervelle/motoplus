@@ -27,14 +27,6 @@ const FilterBox = ({
     const [animate, setAnimate] = useState(false);
     const router = useRouter();
 
-    const brands = useMemo(() => Object.keys(filtersBrands).sort(), [filtersBrands]);
-
-    type Pick = { name: string; slug: string } | null;
-
-    const models = useMemo(() => {
-        if (!selectedBrand) return [];
-        return (filtersBrands[selectedBrand.name] ?? []).sort();
-    }, [filtersBrands, selectedBrand]);
 
     const toggleSelect = (key: string) => {
         setOpenSelect(openSelect === key ? null : key);
@@ -45,14 +37,27 @@ const FilterBox = ({
         setOpenSelect(null);
     };
 
+    type Pick = { name: string; handle: string } | null;
+
+    const brands = useMemo(() => Object.keys(filtersBrands).sort(), [filtersBrands]);
+
+    const models = useMemo(() => {
+        if (!selectedBrand) return [];
+        const brandModels = filtersBrands[selectedBrand.name]?.models || [];
+
+        return [...brandModels].sort((a, b) => a.name.localeCompare(b.name));
+
+    }, [filtersBrands, selectedBrand]);
+
     const handleSearch = () => {
         setAnimate(true);
         const params = new URLSearchParams();
-        if (selectedBrand) params.set("b", selectedBrand.slug);
-        if (selectedModel) params.set("m", selectedModel.slug);
-        if (selectedComponent) params.set("c", selectedComponent.slug);
+        if (selectedBrand) params.set("b", selectedBrand.handle);
+        if (selectedModel) params.set("m", selectedModel.handle);
+        if (selectedComponent) params.set("c", selectedComponent.handle);
         router.push(`/products?${params.toString()}`);
-    }
+    };
+
 
     return (
         <div className="bg-[#232222] min-h-[150px] text-white px-10 py-10 rounded-2xl shadow-lg opacity-97">
@@ -80,10 +85,10 @@ const FilterBox = ({
                             <ul className="absolute left-0 w-full z-10 mt-2 max-h-64 overflow-auto bg-white text-sm text-gray-700 rounded-md shadow-lg">
                                 {brands.map((b) => (
                                     <li
-                                        key={b}
+                                        key={filtersBrands[b].handle}
                                         className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                                         onClick={closeAnd(() => {
-                                            setSelectedBrand({ name: b, slug: slugify(b) });
+                                            setSelectedBrand({ name: b, handle: filtersBrands[b].handle });
                                             setSelectedModel(null);
                                         })}
                                     >
@@ -110,14 +115,14 @@ const FilterBox = ({
                             <ul className="absolute left-0 w-full z-10 mt-2 max-h-64 overflow-auto bg-white text-sm text-gray-700 rounded-md shadow-lg">
                                 {models.map((m) => (
                                     <li
-                                        key={m}
+                                        key={m.handle}
                                         className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                                         onClick={closeAnd(() => {
-                                            setSelectedModel({ name: m, slug: slugify(m) });
+                                            setSelectedModel({ name: m.name, handle: m.handle });
                                             setSelectedComponent(null);
                                         })}
                                     >
-                                        {m}
+                                        {m.name}
                                     </li>
                                 ))}
                             </ul>
@@ -150,7 +155,7 @@ const FilterBox = ({
                                                     key={item}
                                                     className="px-6 py-2 hover:bg-gray-200 cursor-pointer"
                                                     onClick={closeAnd(() =>
-                                                        setSelectedComponent({ name: item, slug: slugify(item) })
+                                                        setSelectedComponent({ name: item, handle: slugify(item) })
                                                     )}
                                                 >
                                                     {item}

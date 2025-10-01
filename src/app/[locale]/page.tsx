@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import Link from 'next/link'
 import { translateServer } from "../../lib/utils/translateServer";
 import Image from "next/image";
-import filtersBrands from "../../../motorcycles_simplified.json"
+import filtersBrands from "../../../brands_models.json"
 import FilterBox from "@/components/filter/FilterBox";
 import { GROUPS } from "@/lib/groups";
 import { getTranslations } from 'next-intl/server';

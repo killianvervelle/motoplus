@@ -28,11 +28,23 @@ export type NavUserItem = {
   slug: string
 }
 
-export type Filters = Record<string, string[]>;
+export type Model = {
+  name: string
+  handle: string
+}
 
+export type Brand = {
+  handle: string
+  models: Model[]
+}
+
+export type FiltersBrands = Record<string, Brand>
+
+export type Filters = Record<string, string[]>
+ 
 export type HomeFilterBoxProp = { 
   filtersComponents: Filters
-  filtersBrands: Filters
+  filtersBrands: FiltersBrands
   totalProducts: string
   title: string
   subtitle: string
