@@ -13,10 +13,6 @@ export async function GET() {
 
   const data = await res.json();
 
-  console.log(data)
-
-  console.log("hey")
-
   const { rating, user_ratings_total } = data.result ?? {};
 
   return NextResponse.json({ rating, totalReviews: user_ratings_total });

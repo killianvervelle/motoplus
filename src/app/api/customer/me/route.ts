@@ -1,6 +1,9 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
+const version = process.env.SHOPIFY_API_VERSION!;
+
 export async function GET() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
@@ -48,7 +51,7 @@ export async function GET() {
   `;
 
   const resp = await fetch(
-    `https://shopify.com/91717009789/account/customer/api/2025-01/graphql`,
+    `https://shopify.com/${shopId}/account/customer/api/${version}/graphql`,
     {
       method: "POST",
       headers: {
@@ -63,7 +66,7 @@ export async function GET() {
   if (!resp.ok) {
     const message = await resp.text();
     console.error("Shopify API error:", message);
-    return NextResponse.json({ error: message }, { status: resp.status });
+    return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
   }
 
   const { data, errors } = await resp.json();
@@ -150,7 +153,7 @@ export async function POST(req: Request) {
   if (!resp.ok) {
     const message = await resp.text();
     console.error("Shopify API error:", message);
-    return NextResponse.json({ error: message }, { status: resp.status });
+    return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
   }
 
   const json = await resp.json();
@@ -220,7 +223,7 @@ export async function DELETE(req: Request) {
   if (!resp.ok) {
     const message = await resp.text();
     console.error("Shopify API error:", message);
-    return NextResponse.json({ error: message }, { status: resp.status });
+    return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
   }
 
   const json = await resp.json();

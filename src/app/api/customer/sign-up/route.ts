@@ -15,9 +15,16 @@ export async function POST(req: NextRequest) {
       );
     }
     const cookieStore = await cookies();
-    cookieStore.set("token", token);
+    cookieStore.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60
+    });
 
-    return NextResponse.json({ ...customer, token });
+
+    return NextResponse.json({ customer });
   } catch (error: any) {
     const { message, status } = error.error;
     return NextResponse.json(

@@ -3,6 +3,9 @@ import { NextResponse } from "next/server";
 import { financialStatusLabels, fulfillmentStatusLabels} from '@/lib/constants'
 
 
+const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
+const version = process.env.SHOPIFY_API_VERSION!;
+
 function StatusLabel({ status, locale }: { status: string; locale: string }) {
   return financialStatusLabels[locale]?.[status] ?? status;
 }
@@ -51,7 +54,7 @@ export async function GET() {
   `;
 
   const resp = await fetch(
-    "https://shopify.com/91717009789/account/customer/api/2025-01/graphql",
+    `https://shopify.com/${shopId}/account/customer/api/${version}/graphql`,
     {
       method: "POST",
       headers: {
@@ -70,7 +73,7 @@ export async function GET() {
   if (!resp.ok) {
     const message = await resp.text();
     console.error("Shopify API error:", message);
-    return NextResponse.json({ error: message }, { status: resp.status });
+    return NextResponse.json({ error: "Upstream service error" }, { status: 502 });
   }
 
   const { data, errors } = await resp.json();

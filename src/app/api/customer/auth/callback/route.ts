@@ -62,7 +62,7 @@ export async function GET(request: Request) {
   const maxAge = Math.max(60, (tokens.expires_in ?? 3600) - 60); // safety minus 60s
   c.set("token", tokens.access_token, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
     maxAge,
