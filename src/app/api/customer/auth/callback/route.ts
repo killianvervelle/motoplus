@@ -71,7 +71,7 @@ export async function GET(request: Request) {
 
   const redirectAfterLogin =
     process.env.NEXT_PUBLIC_POST_LOGIN_REDIRECT ??
-    "https://printerlike-nonindustriously-amparo.ngrok-free.dev/";
+    "https://www.shopmotoplus.ch/";
 
   return NextResponse.redirect(redirectAfterLogin, { status: 302 });
 }
