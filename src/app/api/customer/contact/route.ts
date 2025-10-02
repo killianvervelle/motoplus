@@ -47,12 +47,11 @@ export async function POST(req: Request) {
 
     try {
       const data = await mg.messages.create(process.env.MAILGUN_DOMAIN, {
-        from: process.env.CONTACT_FROM,
+        from: `MotoPlus <${process.env.CONTACT_FROM}>`,
         to: [process.env.CONTACT_TO],
-        "h:Reply-To": email,
+        "h:Reply-To": `${fullName} <${email}>`,
         subject: subjectLine,
         text: `From: ${fullName} <${email}>\n\n${message}`,
-        html: `<p><strong>From:</strong> ${fullName} &lt;${email}&gt;</p><p>${message.replace(/\n/g, "<br/>")}</p>`,
       });
 
       console.log("[contact] Mailgun response:", data);
