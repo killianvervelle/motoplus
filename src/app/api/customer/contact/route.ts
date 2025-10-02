@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       const data = await mg.messages.create(process.env.MAILGUN_DOMAIN, {
         from: process.env.CONTACT_FROM,
         to: [process.env.CONTACT_TO],
-        reply_to: email,
+        "h:Reply-To": email,
         subject: subjectLine,
         text: `From: ${fullName} <${email}>\n\n${message}`,
         html: `<p><strong>From:</strong> ${fullName} &lt;${email}&gt;</p><p>${message.replace(/\n/g, "<br/>")}</p>`,
