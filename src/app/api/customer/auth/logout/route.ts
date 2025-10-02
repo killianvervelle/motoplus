@@ -12,5 +12,9 @@ export async function POST() {
     domain: ".shopmotoplus.ch",   
   });
 
+  res.cookies.set("pkce_verifier", "", { path: "/", maxAge: 0 });
+  res.cookies.set("oauth_state", "", { path: "/", maxAge: 0 });
+  res.cookies.set("oauth_nonce", "", { path: "/", maxAge: 0 });
+
   return res;
 }
