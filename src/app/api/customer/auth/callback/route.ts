@@ -45,13 +45,7 @@ export async function GET(request: Request) {
     return new NextResponse(`Token exchange failed: ${text}`, { status: 400 });
   }
 
-  const tokens = await resp.json() as {
-    access_token: string;
-    id_token?: string;
-    refresh_token?: string;
-    expires_in?: number; // seconds
-    token_type?: string;
-  };
+  const tokens = await resp.json();
 
   // Clear one-time cookies
   c.delete("pkce_verifier");
@@ -67,6 +61,10 @@ export async function GET(request: Request) {
     maxAge: 60 * 60, 
     domain: ".shopmotoplus.ch",
   });
+
+  c.set("id_token", tokens.id_token, 
+    { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", maxAge: 60 * 60, domain: ".shopmotoplus.ch" });
+
 
 
   const redirectAfterLogin =
