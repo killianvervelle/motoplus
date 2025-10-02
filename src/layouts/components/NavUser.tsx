@@ -61,6 +61,8 @@ const NavUser = () => {
     setDropdownOpen(!dropdownOpen)
   }
 
+  const isTouch = typeof window !== "undefined" && matchMedia("(pointer: coarse)").matches;
+
   return (
     <div className='relative'>
       {user ? (
@@ -109,7 +111,10 @@ const NavUser = () => {
             className='absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-hidden'
           >
             <div role='menu' aria-orientation='vertical' aria-labelledby='menu-button'>
-              <ul className='relative inline-block text-left text-text-light w-full' onPointerLeave={() => setDropdownOpen(false)}>
+              <ul
+                className="relative inline-block text-left text-text-light w-full"
+                {...(!isTouch ? { onPointerLeave: () => setDropdownOpen(false) } : {})}
+              >
                 {navUserOptions.map((option) => (
                   <li
                     key={option.slug}
