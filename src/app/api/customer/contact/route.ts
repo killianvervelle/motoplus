@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       username: "api",
       key: process.env.MAILGUN_API_KEY,
       // If you’re using EU region:
-      url: "https://api.mailgun.net",
+      url: process.env.MAILGUN_REGION === "eu" ? "https://api.eu.mailgun.net" : "https://api.mailgun.net",
     });
 
     const subjectLine = subject ?? `New contact from ${firstName}`;
