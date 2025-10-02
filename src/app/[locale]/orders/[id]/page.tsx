@@ -128,8 +128,8 @@ export default function OrderDetailsPage() {
     if (!order) return null
 
     return (
-        <section className="pt-12 xl:pt-24">
-            <div className="container max-w-6xl">
+        <section className="section">
+            <div className="container pt-12 2xl:pt-36 xl:pt-28 2xl:pb-60 max-w-5xl">
                 <h1 className="h2 mb-4">{t("account")}</h1>
                 <a
                     href="/orders"

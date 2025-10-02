@@ -43,8 +43,8 @@ export default function OrdersPage() {
     if (error) return <p className="p-6 text-red-600">{t("error")}: {error}</p>
 
     return (
-        <section className="pt-12 xl:pt-24">
-            <div className="container">
+        <section className="section">
+            <div className="container pt-12 2xl:pt-36 xl:pt-28 2xl:pb-60 max-w-5xl">
                 <h1 className="h2 mb-8">{t("account")}</h1>
 
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-20">
