@@ -44,7 +44,7 @@ export default function OrdersPage() {
 
     return (
         <section className="section">
-            <div className="container pt-12 2xl:pt-36 xl:pt-28 2xl:pb-40 max-w-5xl">
+            <div className="container pt-12 2xl:pt-36 xl:pt-28 pb-20 max-w-5xl">
                 <h1 className="h2 mb-8">{t("account")}</h1>
 
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-20">

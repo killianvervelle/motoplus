@@ -121,7 +121,7 @@ ${a.country ?? ''}`
 
     return (
         <section className="section">
-            <div className="container pt-12 2xl:pt-36 xl:pt-28 2xl:pb-40 max-w-5xl">
+            <div className="container pt-12 2xl:pt-36 xl:pt-28 pb-20 max-w-5xl">
                 <h1 className="h2 mb-10 text-center">{t("my-account")}</h1>
 
                 <div className="grid md:grid-cols-3 gap-10">

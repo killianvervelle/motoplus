@@ -16,7 +16,7 @@ const Login = () => {
 
   return (
     <section className="section">
-      <div className="container pt-12 2xl:pt-36 xl:pt-28 2xl:pb-40">
+      <div className="container pt-12 2xl:pt-36 xl:pt-28 pb-20">
         <div className="row">
           <div className="col-11 sm:col-9 md:col-7 mx-auto">
             <div className="mb-14 text-center">
