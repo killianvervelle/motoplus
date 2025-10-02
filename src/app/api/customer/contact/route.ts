@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import * as sgMail from "@sendgrid/mail";
+import FormData from "form-data";
+import Mailgun from "mailgun.js";
 import { signUpFormSchema } from "./schema";
-
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -9,54 +9,62 @@ export const dynamic = "force-dynamic";
 export async function POST(req: Request) {
   try {
     const json = await req.json().catch(() => null);
-    if (!json) return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+    if (!json) {
+      return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+    }
 
-    if (!json.subject && typeof json.name === "string") json.subject = json.name;
+    if (!json.subject && typeof json.name === "string") {
+      json.subject = json.name;
+    }
 
     const parsed = signUpFormSchema.safeParse(json);
     if (!parsed.success) {
-      return NextResponse.json({ ok: false, error: "Invalid input", issues: parsed.error.flatten() }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, error: "Invalid input", issues: parsed.error.flatten() },
+        { status: 400 }
+      );
     }
 
     const { firstName, lastName, email, subject, message } = parsed.data;
 
-    if (!process.env.SENDGRID_API_KEY || !process.env.CONTACT_FROM || !process.env.CONTACT_TO) {
-      return NextResponse.json({ ok: false, error: "Missing SENDGRID/CONTACT_* env vars" }, { status: 500 });
+    if (!process.env.MAILGUN_API_KEY || !process.env.MAILGUN_DOMAIN || !process.env.CONTACT_TO) {
+      return NextResponse.json(
+        { ok: false, error: "Missing MAILGUN_* or CONTACT_* env vars" },
+        { status: 500 }
+      );
     }
-    if (process.env.SENDGRID_REGION === "eu" && "setDataResidency" in sgMail) {
-      (sgMail as any).setDataResidency("eu");
-    }
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
+
+    const mailgun = new Mailgun(FormData);
+    const mg = mailgun.client({
+      username: "api",
+      key: process.env.MAILGUN_API_KEY,
+      // If you’re using EU region:
+      url: process.env.MAILGUN_REGION === "eu" ? "https://api.eu.mailgun.net" : "https://api.mailgun.net",
+    });
 
     const subjectLine = subject ?? `New contact from ${firstName}`;
     const fullName = [firstName, lastName].filter(Boolean).join(" ");
-    const text = `From: ${fullName} <${email}>\n\n${message}`;
-    const html = `<p><strong>From:</strong> ${fullName} &lt;${email}&gt;</p><p>${message.replace(/\n/g, "<br/>")}</p>`;
-
-    const msg = {
-      to: process.env.CONTACT_TO!,
-      from: process.env.CONTACT_FROM!, 
-      subject: subjectLine,
-      replyTo: email,
-      text,
-      html,
-    };
 
     try {
-  const [resp, body] = await sgMail.send(msg);
-  if (resp.statusCode < 200 || resp.statusCode >= 300) {
-    console.error("[contact] SendGrid non-2xx:", resp.statusCode, body);
-    return NextResponse.json(
-      { ok: false, error: "sendgrid_non_2xx", status: resp.statusCode, body },
-      { status: 502 }
-    );
-  }
-  return NextResponse.json({ ok: true });
-} catch (e: any) {
-  const sgErr = e?.response?.body || e?.message || e;
-  console.error("[contact] SendGrid send error:", sgErr);
-  return NextResponse.json({ ok: false, error: "sendgrid_error", details: sgErr }, { status: 502 });
-}
+      const data = await mg.messages.create(process.env.MAILGUN_DOMAIN, {
+        from: process.env.CONTACT_FROM,
+        to: [process.env.CONTACT_TO],
+        reply_to: email,
+        subject: subjectLine,
+        text: `From: ${fullName} <${email}>\n\n${message}`,
+        html: `<p><strong>From:</strong> ${fullName} &lt;${email}&gt;</p><p>${message.replace(/\n/g, "<br/>")}</p>`,
+      });
+
+      console.log("[contact] Mailgun response:", data);
+
+      return NextResponse.json({ ok: true, id: data.id });
+    } catch (e: any) {
+      console.error("[contact] Mailgun send error:", e);
+      return NextResponse.json(
+        { ok: false, error: "mailgun_error", details: e?.message || e },
+        { status: 502 }
+      );
+    }
   } catch (err: any) {
     const details = err?.response?.body ?? err?.message ?? "Server error";
     return NextResponse.json({ ok: false, error: details }, { status: 500 });
