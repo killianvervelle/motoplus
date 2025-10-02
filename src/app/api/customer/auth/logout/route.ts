@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 
-function makeLogoutResponse() {
-  const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
-  const logoutUrl = `https://${shopId}.myshopify.com/account/logout?return_to=https://www.shopmotoplus.ch/`;
-
-  const res = NextResponse.redirect(logoutUrl, 302);
-
-  // clear cookies
+function clearCookies(res: NextResponse) {
   res.cookies.set("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -18,14 +12,16 @@ function makeLogoutResponse() {
   res.cookies.set("pkce_verifier", "", { path: "/", maxAge: 0 });
   res.cookies.set("oauth_state", "", { path: "/", maxAge: 0 });
   res.cookies.set("oauth_nonce", "", { path: "/", maxAge: 0 });
-
-  return res;
 }
 
 export async function GET() {
-  return makeLogoutResponse();
+  const res = NextResponse.redirect("https://www.shopmotoplus.ch/login");
+  clearCookies(res);
+  return res;
 }
 
 export async function POST() {
-  return makeLogoutResponse();
+  const res = NextResponse.redirect("https://www.shopmotoplus.ch/login");
+  clearCookies(res);
+  return res;
 }
