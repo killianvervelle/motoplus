@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
-export async function POST() {
+function makeLogoutResponse() {
   const shopId = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
-
   const logoutUrl = `https://${shopId}.myshopify.com/account/logout?return_to=https://www.shopmotoplus.ch/`;
 
   const res = NextResponse.redirect(logoutUrl, 302);
 
+  // clear cookies
   res.cookies.set("token", "", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -20,4 +20,12 @@ export async function POST() {
   res.cookies.set("oauth_nonce", "", { path: "/", maxAge: 0 });
 
   return res;
+}
+
+export async function GET() {
+  return makeLogoutResponse();
+}
+
+export async function POST() {
+  return makeLogoutResponse();
 }

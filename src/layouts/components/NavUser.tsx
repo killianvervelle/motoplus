@@ -30,7 +30,6 @@ async function fetchUser(): Promise<UserInfo | null> {
 
 const NavUser = () => {
   const pathname = usePathname()
-  //const router = useRouter()
   const [user, setUser] = useState<UserInfo | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -45,6 +44,11 @@ const NavUser = () => {
   }, [pathname])
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    setDropdownOpen(false);
+
+    // navigate via full redirect so Shopify clears its session too
     window.location.href = "/api/customer/auth/logout";
   };
 
