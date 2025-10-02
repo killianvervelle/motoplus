@@ -12,10 +12,9 @@ export async function GET() {
   const state = randomState();
   const nonce = randomNonce();
 
-  // Persist PKCE + CSRF values in secure cookies for the callback step
   const c = await cookies();
-  // Short-lived cookies (10 minutes is plenty for the round trip)
-  const maxAge = 10 * 60;
+
+  const maxAge = 60 * 60;
 
   c.set("pkce_verifier", verifier, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge });
   c.set("oauth_state", state, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge });
