@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Gravatar from 'react-gravatar'
 import { BsPerson } from 'react-icons/bs'
@@ -30,7 +30,6 @@ async function fetchUser(): Promise<UserInfo | null> {
 
 const NavUser = () => {
   const pathname = usePathname()
-  const router = useRouter()
   const [user, setUser] = useState<UserInfo | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
@@ -44,17 +43,9 @@ const NavUser = () => {
     getUser()
   }, [pathname])
 
-  const handleLogout = async () => {
-    try {
-      await fetch("/api/customer/auth/logout", { method: "POST", credentials: "include" });
-    } catch (err) {
-      console.error("Failed to logout:", err);
-    }
-
-    localStorage.removeItem("user");
-    setUser(null);
-    setDropdownOpen(false);
-    router.push("/login");
+  const handleLogout = () => {
+    // let the browser follow redirects to the end_session_endpoint
+    window.location.href = "/api/customer/auth/logout";
   };
 
   const toggleDropdown = () => {
