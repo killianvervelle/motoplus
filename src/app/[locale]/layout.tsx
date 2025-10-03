@@ -46,7 +46,7 @@ export default async function RootLayout({ children, params }: { children: React
           <NextIntlClientProvider>
             <ReCaptchaProvider
             >
-              <div className='min-h-screen flex flex-col'>
+              <div className='min-h-screen flex flex-col overflow-y-hidden'>
                 <Header>
                   <OpenCart />
                   <Cart />

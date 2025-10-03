@@ -16,7 +16,7 @@ export interface ISocial {
 
 const Footer = () => {
   return (
-    <footer className="bg-[#232222] dark:bg-darkmode-light mt-50 text-white">
+    <footer className="bg-[#232222] dark:bg-darkmode-light text-white">
       <div className="container-foot">
         <div className="grid grid-cols-3 lg:grid-cols-5
                         gap-y-5 sm:gap-x-0 gap-x-5 sm:gap-y-10 lg:gap-x-5 xl:gap-x-12

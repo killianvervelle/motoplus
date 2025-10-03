@@ -15,10 +15,10 @@ const Login = () => {
   };
 
   return (
-    <section className="section">
-      <div className="container pt-12 2xl:pt-36 xl:pt-28 pb-20">
+    <section className="flex-1 flex flex-col">
+      <div className="container py-28 md:py-36 xl:py-44 2xl:py-52 max-w-5xl">
         <div className="row">
-          <div className="col-11 sm:col-9 md:col-7 mx-auto">
+          <div className="col-7 md:col-6 lg:col-4 mx-auto">
             <div className="mb-14 text-center">
               <h2 className="max-md:h1 md:mb-2">Login</h2>
               <p className="md:text-lg">
@@ -28,7 +28,7 @@ const Login = () => {
 
             <button
               onClick={() => handleLogin()}
-              className="btn btn-primary md:text-lg md:font-medium w-full mt-10 hover:bg-gray-700"
+              className="btn btn-primary md:text-lg md:font-medium w-full hover:bg-gray-700"
             >
               Log in with Email
             </button>
@@ -46,6 +46,7 @@ const Login = () => {
             </div>
           </div>
         </div>
+        <div className="flex-1" />
       </div>
     </section >
   );
