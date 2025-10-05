@@ -1,5 +1,10 @@
 {
+  "not-found": {
+    "no-product": "No Product Found!",
+    "we": "We couldn't find what you filtered for. Try filtering again."
+  },
   "menu": {
+    "new-parts": "NEW PARTS",
     "used-parts": "USED PARTS",
     "drivetrain": "Drivetrain",
     "chains": "Chains",
@@ -823,5 +828,15 @@
     "search": "Search part",
     "available": "Currently ",
     "available2": " parts available"
+  },
+  "gallery": {
+    "gallery": "GALLERY"
+  },
+  "login": {
+    "login": "Login",
+    "fill": "Please fill your email and password to login",
+    "login-email": "Log in with Email",
+    "no-account": "Don't have an account?",
+    "register": "Register"
   }
 }

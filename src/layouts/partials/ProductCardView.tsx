@@ -11,6 +11,7 @@ import { PageInfo, Product } from "@/lib/shopify/types";
 import Link from "next/link";
 import { Suspense, useEffect, useRef, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
+import { translateClient } from "../../lib/utils/translateClient";
 
 
 const ProductCardView = ({
@@ -41,6 +42,7 @@ const ProductCardView = ({
     b: brand,
     v: vendor,
     t: tag,
+    condition: condition,
     cursor,
   } = searchParams as {
     [key: string]: string;
@@ -49,7 +51,8 @@ const ProductCardView = ({
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
 
-
+  const noProductTranslation = translateClient("not-found", "no-product")
+  const weTranslation = translateClient("not-found", "we")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,17 +61,17 @@ const ProductCardView = ({
       try {
         let productsData;
 
-        if (
-          searchValue ||
-          minPrice ||
-          maxPrice ||
-          category ||
-          brand ||
-          model ||
-          vendor ||
-          cursor ||
-          tag
-        ) {
+        const hasFilters =
+          (searchValue && searchValue.trim() !== "") ||
+          (model && model.trim() !== "") ||
+          (brand && brand.trim() !== "") ||
+          (minPrice && minPrice.trim() !== "") ||
+          (maxPrice && maxPrice.trim() !== "") ||
+          (category && category !== "all" && category.trim() !== "") ||
+          (vendor && vendor !== "all" && vendor.trim() !== "") ||
+          (condition && condition.trim() !== "");
+
+        if (hasFilters) {
           let queryString = "";
           const filterCategoryProduct = [];
 
@@ -119,22 +122,33 @@ const ProductCardView = ({
             query: queryString,
           };
 
-          productsData =
-            category && category !== "all"
-              ?
-              await getCollectionProducts({
-                collection: shopifyHandle,
-                sortKey,
-                reverse,
-                filterCategoryProduct:
-                  filterCategoryProduct.length > 0
-                    ? filterCategoryProduct
-                    : undefined,
-                locale
-              })
-              : await getProducts({ ...query, cursor, locale });
+          if (category && category !== "all") {
+            // Case 1: Category is defined (collection-level query)
+            productsData = await getCollectionProducts({
+              collection: shopifyHandle,
+              sortKey,
+              reverse,
+              locale,
+              condition,
+              filterCategoryProduct:
+                filterCategoryProduct.length > 0
+                  ? filterCategoryProduct
+                  : undefined,
+            });
+          } else if (condition) {
+            // Case 2: No category, but filtering by condition
+            productsData = await getCollectionProducts({
+              collection: "all-products",
+              sortKey,
+              reverse,
+              locale,
+              condition,
+            });
+          } else {
+            // Case 3: Normal query (no collection/metafield filter)
+            productsData = await getProducts({ ...query, cursor, locale });
+          }
         } else {
-          // Fetch all products
           productsData = await getProducts({ sortKey, reverse, cursor, locale });
         }
 
@@ -161,7 +175,8 @@ const ProductCardView = ({
     model,
     vendor,
     brand,
-    tag
+    tag,
+    condition
   ]);
 
   const { products, pageInfo } = data;
@@ -224,9 +239,9 @@ const ProductCardView = ({
             height={184}
             priority={true}
           />
-          <h1 className="h2 mt-4 mb-4">No Product Found!</h1>
+          <h1 className="h2 mt-4 mb-4">{noProductTranslation}</h1>
           <p>
-            We couldn&apos;t find what you filtered for. Try filtering again.
+            {weTranslation}
           </p>
         </div>
       )}

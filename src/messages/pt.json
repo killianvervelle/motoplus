@@ -1,5 +1,10 @@
 {
+  "not-found": {
+    "no-product": "Nenhum produto encontrado!",
+    "we": "Não conseguimos encontrar o que você filtrou. Tente filtrar novamente."
+  },
   "menu": {
+    "new-parts": "NOVAS PEÇAS",
     "used-parts": "PEÇAS USADAS",
     "drivetrain": "Transmissão",
     "chains": "Correntes",
@@ -820,5 +825,15 @@
     "search": "Busque a peça",
     "available": "Atualmente ",
     "available2": " peças disponíveis"
+  },
+  "gallery": {
+    "gallery": "GALERIA"
+  },
+  "login": {
+    "login": "Entrar",
+    "fill": "Por favor, preencha seu e-mail e senha para entrar",
+    "login-email": "Entrar com E-mail",
+    "no-account": "Não tem uma conta?",
+    "register": "Registrar-se"
   }
 }

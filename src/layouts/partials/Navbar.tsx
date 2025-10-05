@@ -20,18 +20,21 @@ export default function Navbar() {
     const { resolvedTheme } = useTheme();
 
     const translatedSeeAll = translateClient("featuredProducts", "see-all-products")
+    const transaltedGallery = translateClient("gallery", "gallery")
 
     const handleClick = (parent: string, child: string) => {
         const params = new URLSearchParams();
 
         const p = parent.toLowerCase();
 
-        if (["brands", "marcas", "marques"].includes(p)) {
-            params.set("v", child);
-        } else if (["accessories", "accessoires", "acessórios"].includes(p)) {
+        if (["accessories", "accessoires", "acessórios"].includes(p)) {
             params.set("c", child);
         } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
             params.set("c", child);
+            params.set("condition", "used");
+        } else if (["new parts", "novas peças", "nouvelles pièces"].includes(p)) {
+            params.set("c", child);
+            params.set("condition", "new");
         }
 
         router.push(`/products?${params.toString()}`);
@@ -224,6 +227,16 @@ export default function Navbar() {
                                 </li>
                             );
                         })}
+                        <li key="gallery" className="px-2">
+                            <Link
+                                href="/gallery"
+                                className="inline-flex items-center text-[14px] px-1 py-1 rounded transition-colors font-bold
+               text-[#29292c] dark:text-white hover:text-[#c60404]
+               hover:bg-white/70 dark:hover:bg-white/10"
+                            >
+                                {transaltedGallery}
+                            </Link>
+                        </li>
                     </ul>
                     <div className="flex items-center gap-2">
                         <img

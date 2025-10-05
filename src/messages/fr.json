@@ -1,5 +1,10 @@
 {
+  "not-found": {
+    "no-product": "Aucun produit trouvé !",
+    "we": "Nous n’avons pas trouvé ce que vous avez filtré. Essayez de filtrer à nouveau."
+  },
   "menu": {
+    "new-parts": "NOUVELLES PIÈCES",
     "used-parts": "PIÈCES D'OCCASION",
     "drivetrain": "Transmission",
     "chains": "Chaînes",
@@ -825,5 +830,15 @@
     "search": "Recherchez la pièce",
     "available": "Actuellement ",
     "available2": " pièces disponibles"
+  },
+  "gallery": {
+    "gallery": "GALERIE"
+  },
+  "login": {
+    "login": "Connexion",
+    "fill": "Veuillez saisir votre e-mail et votre mot de passe pour vous connecter",
+    "login-email": "Se connecter avec un e-mail",
+    "no-account": "Vous n’avez pas de compte ?",
+    "register": "S’inscrire"
   }
 }

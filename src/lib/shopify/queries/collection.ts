@@ -52,7 +52,7 @@ export const getCollectionProductsQuery = /* GraphQL */ `
     $handle: String!
     $sortKey: ProductCollectionSortKeys
     $reverse: Boolean
-    $filterCategoryProduct: [ProductFilter!]
+    $filters: [ProductFilter!]
     $language: LanguageCode
   ) @inContext(language: $language){
     collection(handle: $handle) {
@@ -60,7 +60,7 @@ export const getCollectionProductsQuery = /* GraphQL */ `
         sortKey: $sortKey
         reverse: $reverse
         first: 100
-        filters: $filterCategoryProduct
+        filters: $filters
       ) {
         edges {
           node {

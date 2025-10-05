@@ -75,12 +75,22 @@ Tous les paiements doivent être effectués intégralement au moment de l’acha
 
 Nous souhaitons que vous soyez satisfait de votre achat. Veuillez lire attentivement les conditions suivantes :
 
-- **Éligibilité** : retours acceptés dans les **3 jours** suivant la livraison uniquement si la pièce est défectueuse, endommagée ou non conforme à la description.
+- **Éligibilité** : les retours sont acceptés dans un délai de **3 jours ouvrables** suivant la livraison uniquement si la pièce est **défectueuse**, **endommagée** ou **non conforme à la description**.
 - **État** : les articles retournés doivent être dans le même état que reçus et, si possible, dans leur emballage d’origine.
-- **Exclusions** : aucun retour accepté pour les pièces d’occasion fournies correctement mais devenues inutiles, ou en cas d’erreur de compatibilité imputable au client.
-- **Procédure** : pour demander un retour, contactez-nous avec votre numéro de commande et la raison du retour.
-- **Remboursements** : effectués sous **5 à 7 jours ouvrables** après inspection, via le mode de paiement original.
-- **Frais de retour** : à la charge de l’acheteur sauf erreur de notre part (article incorrect/défectueux).
+- **Exclusions** :
+  - Aucun retour n’est accepté pour les **pièces montées, utilisées ou modifiées**, même partiellement.
+  - Aucun retour n’est accepté pour les **pièces d’occasion** livrées correctement mais devenues inutiles.
+  - Aucun retour n’est accepté en cas d’erreur de **compatibilité imputable au client** (mauvais modèle, référence incorrecte, etc.).
+- **Procédure** : pour demander un retour, contactez-nous avec votre **numéro de commande** et la **raison du retour**.
+- **Inspection** : toutes les pièces retournées sont inspectées. Si le produit n’est pas reconnu comme défectueux, aucun remboursement ne sera effectué.
+- **Remboursements** :
+  - Les remboursements sont effectués sous **5 à 7 jours ouvrables** après réception et vérification de la pièce.
+  - Le remboursement est réalisé via le mode de paiement original, **hors TVA et hors frais de port**.
+  - **La TVA suisse (8,1 %) n’est pas remboursée** une fois la transaction enregistrée.
+- **Frais de retour** :
+  - Les frais de retour sont **à la charge de l’acheteur**, sauf en cas d’erreur de notre part (article incorrect ou défectueux).
+  - Aucun envoi contre remboursement ne sera accepté.
+- **Produits non récupérés** : en cas de refus du colis ou d’absence de retrait, les frais de renvoi et de réexpédition sont également à la charge du client.
 
 ### ARTICLE 9 - EXACTITUDE DE LA FACTURATION ET DES INFORMATIONS DE COMPTE
 

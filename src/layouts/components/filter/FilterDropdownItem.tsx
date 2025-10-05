@@ -80,7 +80,7 @@ function SortLanguageItem({ item }: { item: LanguageItem }) {
 
   return (
     <li
-      className='flex items-center justify-between px-5 text-sm text-text-dark hover:bg-dark/50 hover:text-white'
+      className='flex items-center cursor-pointer justify-between px-5 text-sm text-text-dark hover:bg-dark/50 hover:text-white'
       key={item.title}
       onClick={() => {
         handleChange(item.code)

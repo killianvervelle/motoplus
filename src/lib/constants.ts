@@ -221,6 +221,259 @@ export type MenuItem = {
 
 export const MENU_ITEMS: MenuItem[] = [
   {
+    name: "NEW PARTS",
+    slug: "new-parts",
+    kind: "category",
+    submenu: [
+      {
+        name: "Drivetrain",
+        slug: "drivetrain",
+        imageBlack: "/images/wheelB.png",
+        imageWhite: "/images/wheelW.png",
+        submenu: [
+          { name: "Chains", slug: "chains" },
+          { name: "Sprockets", slug: "sprockets" },
+          { name: "Chain Guard", slug: "chain-guard" },
+          { name: "Chain and Sprockets Kit", slug: "chain-and-sprockets-kit" },
+          { name: "Chain Oiler System", slug: "chain-oiler-system" },
+          { name: "Chain Tools", slug: "chain-tools" },
+          { name: "Clutch", slug: "clutch" },
+          { name: "Clutch Plate", slug: "clutch-plate" }
+        ]
+      },
+      {
+        name: "Fuel Tank",
+        slug: "fuel-tank",
+        imageBlack: "/images/gas-tankB.png",
+        imageWhite: "/images/gas-tankW.png",
+        submenu: [
+          { name: "Fuel Hose", slug: "fuel-hose" },
+          { name: "Quick Connector", slug: "quick-connector" },
+          { name: "Fuel Tank Cleaner", slug: "fuel-tank-cleaner" },
+          { name: "Fuel Tank Deruster", slug: "fuel-tank-deruster" },
+          { name: "Fuel Tank Sealant", slug: "fuel-tank-sealant" },
+          { name: "Fuel Pump", slug: "fuel-pump" }
+        ]
+      },
+
+
+
+      {
+        name: "Suspension & Steering",
+        slug: "suspension--steering",
+        imageBlack: "/images/suspensionD.png",
+        imageWhite: "/images/suspensionL.png",
+        submenu: [
+          { name: "Front Forks / Fork Tubes", slug: "front-forks--fork-tubes" },
+          { name: "Shock Absorber / Rear Shock", slug: "shock-absorber--rear-shock" },
+          { name: "Triple Tree / Steering Stem", slug: "triple-tree--steering-stem" },
+          { name: "Steering Bearings", slug: "steering-bearings" }
+        ]
+      },
+      {
+        name: "Wheels & Tyres",
+        slug: "wheels--tyres",
+        imageBlack: "/images/wheelD.png",
+        imageWhite: "/images/wheelL.png",
+        submenu: [
+          { name: "Rims / Wheels", slug: "rims--wheels" },
+          { name: "Hubs & Spokes", slug: "hubs--spokes" },
+          { name: "Tires (Front / Rear)", slug: "tires-front--rear" },
+          { name: "Inner Tubes", slug: "inner-tubes" },
+          { name: "Wheel Axle / Spacers", slug: "wheel-axle--spacers" }
+        ]
+      },
+      {
+        name: "Frame & Bodywork",
+        slug: "frame--bodywork",
+        imageBlack: "/images/bicycleD.png",
+        imageWhite: "/images/bicycleL.png",
+        submenu: [
+          { name: "Frame & Subframe", slug: "frame--subframe" },
+          { name: "Footpegs / Rearsets", slug: "footpegs--rearsets" },
+          { name: "Fairings / Side Panels", slug: "fairings--side-panels" },
+          { name: "Seat & Seat Covers", slug: "seat--seat-covers" }
+        ]
+      },
+      {
+        name: "Exhaust",
+        slug: "exhaust",
+        imageBlack: "/images/mufflerD.png",
+        imageWhite: "/images/mufflerL.png",
+        submenu: [
+          { name: "Complete Exhaust Systems", slug: "complete-exhaust-systems" },
+          { name: "Headers / Downpipes", slug: "headers--downpipes" },
+          { name: "Mufflers / Silencers", slug: "mufflers--silencers" },
+          { name: "Exhaust Clamps & Gaskets", slug: "exhaust-clamps--gaskets" }
+        ]
+      },
+      {
+        name: "Cooling",
+        slug: "cooling",
+        imageBlack: "/images/radiatorD.png",
+        imageWhite: "/images/radiatorL.png",
+        submenu: [
+          { name: "Radiator", slug: "radiator" },
+          { name: "Radiator Cap & Hoses", slug: "radiator-cap--hoses" },
+          { name: "Water Pump", slug: "water-pump" }
+        ]
+      },
+      {
+        name: "Engine & Transmission",
+        slug: "engine--transmission",
+        imageBlack: "/images/engineD.png",
+        imageWhite: "/images/engineL.png",
+        submenu: [
+          { name: "Engine Blocks / Crankcases", slug: "engine-blocks--crankcases" },
+          { name: "Pistons / Cylinder Kits", slug: "pistons--cylinder-kits" },
+          { name: "Camshaft / Valvetrain Parts", slug: "camshaft--valvetrain-parts" },
+          { name: "Gearbox / Transmission Parts", slug: "gearbox--transmission-parts" },
+          { name: "Gaskets & Seals", slug: "gaskets--seals" }
+        ]
+      },
+
+
+
+      {
+        name: "Electric",
+        slug: "electric",
+        imageBlack: "/images/wireB.png",
+        imageWhite: "/images/wireW.png",
+        submenu: [
+          { name: "Regulator", slug: "regulator" },
+          { name: "Starter", slug: "starter" },
+          { name: "Alternator", slug: "alternator" },
+          { name: "Battery Charger", slug: "battery-charger" },
+          { name: "Sparkplug", slug: "sparkplug" },
+          { name: "Battery", slug: "battery" },
+          { name: "Contact Cleaner", slug: "contact-cleaner" },
+          { name: "Battery Charger Accessories", slug: "battery-charger-accessories" },
+          { name: "Battery Booster", slug: "battery-booster" },
+          { name: "Tape", slug: "tape" },
+          { name: "Spark Plug Wire", slug: "spark-plug-wire" },
+          { name: "Spark Plug Cap", slug: "spark-plug-cap" },
+          { name: "Ignition Coil", slug: "ignition-coil" },
+          { name: "Flasher Relay", slug: "flasher-relay" },
+          { name: "Clutch Switch", slug: "clutch-switch" },
+          { name: "Brake Light Switch", slug: "brake-light-switch" },
+          { name: "Starter Relay", slug: "starter-relay" }
+        ]
+      },
+      {
+        name: "Filters",
+        slug: "filters",
+        imageBlack: "/images/oil-filterB.png", 
+        imageWhite: "/images/oil-filterW.png",
+        submenu: [
+          { name: "Oil Filter", slug: "oil-filter" },
+          { name: "Air filter", slug: "air-filter" },
+          { name: "Maintenance Package", slug: "maintenance-package" },
+          { name: "Fuel Filter", slug: "fuel-filter" },
+          { name: "Air Filter Oil", slug: "air-filter-oil" },
+          { name: "Air Filter Cleaner", slug: "air-filter-cleaner" }
+        ]
+      },
+      {
+        name: "Oil & Fluids",
+        slug: "oil--fluids",
+        imageBlack: "/images/engine-oilB.png",
+        imageWhite: "/images/engine-oilW.png",
+        submenu: [
+          { name: "Engine coolant", slug: "engine-coolant" },
+          { name: "Engine Oil", slug: "engine-oil" },
+          { name: "Clutch Fluid", slug: "clutch-fluid" },
+          { name: "Fork Oil", slug: "fork-oil" },
+          { name: "Transmission Oil", slug: "transmission-oil" },
+          { name: "2 Stroke Oil", slug: "2-stroke-oil" },
+          { name: "Oil Collection Tray", slug: "oil-collection-tray" },
+          { name: "Shock absorber oil", slug: "shock-absorber-oil" }
+        ]
+      },
+      {
+        name: "Brakes",
+        slug: "brakes",
+        imageBlack: "/images/disc-brakeB.png",
+        imageWhite: "/images/disc-brakeW.png",
+        submenu: [
+          { name: "Brake Fluid", slug: "brake-fluid" },
+          { name: "Brake Disc Rear", slug: "brake-disc-rear" },
+          { name: "Brake Cleaner", slug: "brake-cleaner" },
+          { name: "Brake Disc Front", slug: "brake-disc-front" },
+          { name: "Brake Pads", slug: "brake-pads" },
+          { name: "Maintenance Package", slug: "maintenance-package" },
+          { name: "Brake Bleeder", slug: "brake-bleeder" },
+          { name: "Brake Caliper Repair Kit", slug: "brake-caliper-repair-kit" },
+          { name: "Brake Pump Repair Kit", slug: "brake-pump-repair-kit" },
+          { name: "Brake Piston Grease", slug: "brake-piston-grease" }
+        ]
+      },
+      {
+        name: "Handlebar & Controls",
+        slug: "handlebar--controls",
+        imageBlack: "/images/brakeB.png",
+        imageWhite: "/images/brakeW.png",
+        submenu: [
+          { name: "Mirror set", slug: "mirror-set" },
+          { name: "Mirror Adapter", slug: "mirror-adapter" },
+          { name: "Mirror Holder", slug: "mirror-holder" },
+          { name: "Throttle cable", slug: "throttle-cable" },
+          { name: "Clutch Cable", slug: "clutch-cable" },
+          { name: "Brake Lever", slug: "brake-lever" },
+          { name: "Clutch Lever", slug: "clutch-lever" },
+          { name: "Mirror Left", slug: "mirror-left" },
+          { name: "Mirror Right", slug: "mirror-right" },
+          { name: "Brake Line", slug: "brake-line" }
+        ]
+      },
+      {
+        name: "Maintenance",
+        slug: "maintenance",
+        imageBlack: "/images/settingsB.png",
+        imageWhite: "/images/settingsW.png",
+        submenu: [
+          { name: "Assembly Paste", slug: "assembly-paste" },
+          { name: "Chain Spray", slug: "chain-spray" },
+          { name: "Lithium Grease", slug: "lithium-grease" },
+          { name: "Bearing Grease", slug: "bearing-grease" },
+          { name: "Liquid Gasket", slug: "liquid-gasket" },
+          { name: "Drain Plug", slug: "drain-plug" },
+          { name: "Multispray", slug: "multispray" },
+          { name: "Radiator Cleaner", slug: "radiator-cleaner" },
+          { name: "Carburetor Cleaner", slug: "carburetor-cleaner" },
+          { name: "Penetrating Oil", slug: "penetrating-oil" },
+          { name: "Drain Plug Washer", slug: "drain-plug-washer" },
+          { name: "Gasket Paper", slug: "gasket-paper" },
+          { name: "Clamps", slug: "clamps" },
+          { name: "Engine Oil Cleaner", slug: "engine-oil-cleaner" },
+          { name: "Chain Cleaner", slug: "chain-cleaner" },
+          { name: "Molybdeen Grease", slug: "molybdeen-grease" },
+          { name: "Alternator Cover Gasket", slug: "alternator-cover-gasket" },
+          { name: "Clutch Cover Gasket", slug: "clutch-cover-gasket" },
+          { name: "Valve cover gasket", slug: "valve-cover-gasket" },
+          { name: "Primary Cover Gasket", slug: "primary-cover-gasket" }
+        ]
+      },
+      {
+        name: "Overhaul Kits",
+        slug: "overhaul-kits",
+        imageBlack: "/images/mechanic-toolsB.png",
+        imageWhite: "/images/mechanic-toolsW.png",
+        submenu: [
+          { name: "Carburettor Repair Kit", slug: "carburettor-repair-kit" },
+          { name: "Front Fork Oil Seal", slug: "front-fork-oil-seal" },
+          { name: "Wheel Bearing", slug: "wheel-bearing" },
+          { name: "Steering Bearing", slug: "steering-bearing" },
+          { name: "Gaskets", slug: "gaskets" },
+          { name: "Swingarm Bearing", slug: "swingarm-bearing" },
+          { name: "Fuel Tap Repair Kit", slug: "fuel-tap-repair-kit" },
+          { name: "Link System Bearing", slug: "link-system-bearing" },
+          { name: "Shock Absorber Bearing", slug: "shock-absorber-bearing" },
+          { name: "Front Fork Repair Kit", slug: "front-fork-repair-kit" }
+        ]
+      },
+    ]
+  },
+  {
     name: "USED PARTS",
     slug: "used-parts",
     kind: "category",
@@ -660,136 +913,6 @@ export const MENU_ITEMS: MenuItem[] = [
 
     ]
   },
-
-  {
-  name: "BRANDS",
-  slug: "brands",
-  kind: "brand",
-  submenu: [
-    { name: "A", slug: "a", submenu: [
-      { name: "A-Sider", slug: "a-sider" },
-      { name: "AFAM", slug: "afam" },
-      { name: "Abus", slug: "abus" },
-      { name: "Acebikes", slug: "acebikes" },
-      { name: "All Balls Racing", slug: "all-balls-racing" },
-      { name: "Ate", slug: "ate" },
-      { name: "Athena", slug: "athena" }
-    ]},
-    { name: "B", slug: "b", submenu: [
-      { name: "BS Battery", slug: "bs-battery" },
-      { name: "Barkbusters", slug: "barkbusters" },
-      { name: "Barracuda", slug: "barracuda" },
-      { name: "Beru", slug: "beru" },
-      { name: "Bihr", slug: "bihr" },
-      { name: "Bike Lift", slug: "bike-lift" },
-      { name: "Bikeservice", slug: "bikeservice" },
-      { name: "Brembo", slug: "brembo" }
-    ]},
-    { name: "C", slug: "c", submenu: [
-      { name: "Castrol", slug: "castrol" },
-      { name: "Centauro", slug: "centauro" }
-    ]},
-    { name: "D", slug: "d", submenu: [
-      { name: "DS Covers", slug: "ds-covers" },
-      { name: "Daytona", slug: "daytona" },
-      { name: "Denali", slug: "denali" },
-      { name: "Domino", slug: "domino" },
-      { name: "Draper", slug: "draper" }
-    ]},
-    { name: "E", slug: "e", submenu: [
-      { name: "Ecomaxx", slug: "ecomaxx" },
-      { name: "Elring", slug: "elring" }
-    ]},
-    { name: "F", slug: "f", submenu: [
-      { name: "Forté", slug: "forte" }
-    ]},
-    { name: "G", slug: "g", submenu: [
-      { name: "GIVI", slug: "givi" },
-      { name: "Garmin", slug: "garmin" }
-    ]},
-    { name: "H", slug: "h", submenu: [
-      { name: "HPX", slug: "hpx" },
-      { name: "Haynes", slug: "haynes" },
-      { name: "Held", slug: "held" },
-      { name: "Hepco & Becker", slug: "hepco-becker" },
-      { name: "Hiflofiltro", slug: "hiflofiltro" },
-      { name: "Hiplok", slug: "hiplok" }
-    ]},
-    { name: "I", slug: "i", submenu: [
-      { name: "IK Sprayers", slug: "ik-sprayers" }
-    ]},
-    { name: "J", slug: "j", submenu: [
-      { name: "JMP", slug: "jmp" },
-      { name: "JT Sprockets", slug: "jt-sprockets" }
-    ]},
-    { name: "K", slug: "k", submenu: [
-      { name: "K&N", slug: "k-n" },
-      { name: "KAOKO", slug: "kaoko" }
-    ]},
-    { name: "L", slug: "l", submenu: [
-      { name: "Liqui Moly", slug: "liqui-moly" },
-      { name: "Loctite", slug: "loctite" }
-    ]},
-    { name: "M", slug: "m", submenu: [
-      { name: "Mahle", slug: "mahle" },
-      { name: "Motion Pro", slug: "motion-pro" },
-      { name: "Motobrackets", slug: "motobrackets" },
-      { name: "Motorcycle Storehouse", slug: "motorcycle-storehouse" },
-      { name: "Motul", slug: "motul" },
-      { name: "Muc-Off", slug: "muc-off" }
-    ]},
-    { name: "N", slug: "n", submenu: [
-      { name: "NGK", slug: "ngk" },
-      { name: "NOCO", slug: "noco" }
-    ]},
-    { name: "O", slug: "o", submenu: [
-      { name: "Onedesign", slug: "onedesign" },
-      { name: "Osram", slug: "osram" },
-      { name: "Oxford", slug: "oxford" }
-    ]},
-    { name: "P", slug: "p", submenu: [
-      { name: "Pressol", slug: "pressol" },
-      { name: "Putoline", slug: "putoline" }
-    ]},
-    { name: "Q", slug: "q", submenu: [
-      { name: "Quad Lock", slug: "quad-lock" }
-    ]},
-    { name: "R", slug: "r", submenu: [
-      { name: "RK", slug: "rk" },
-      { name: "Roadlok", slug: "roadlok" }
-    ]},
-    { name: "S", slug: "s", submenu: [
-      { name: "SP Connect", slug: "sp-connect" },
-      { name: "SW-Motech", slug: "sw-motech" },
-      { name: "Sachs", slug: "sachs" },
-      { name: "Scottoiler", slug: "scottoiler" },
-      { name: "Sena", slug: "sena" },
-      { name: "Sonic", slug: "sonic" }
-    ]},
-    { name: "T", slug: "t", submenu: [
-      { name: "TNK", slug: "tnk" },
-      { name: "TRW", slug: "trw" },
-      { name: "Tank Cure", slug: "tank-cure" },
-      { name: "Tecmate", slug: "tecmate" },
-      { name: "Tecnium", slug: "tecnium" },
-      { name: "TomTom", slug: "tomtom" },
-      { name: "Tsubaki", slug: "tsubaki" },
-      { name: "Twin Air", slug: "twin-air" }
-    ]},
-    { name: "V", slug: "v", submenu: [
-      { name: "V-Parts", slug: "v-parts" },
-      { name: "Vector", slug: "vector" }
-    ]},
-    { name: "W", slug: "w", submenu: [
-      { name: "WAI Global", slug: "wai-global" },
-      { name: "WRS", slug: "wrs" },
-      { name: "Wunderlich", slug: "wunderlich" }
-    ]},
-    { name: "Y", slug: "y", submenu: [
-      { name: "Yuasa", slug: "yuasa" }
-    ]}
-  ]
-}
 ];
 
 

@@ -71,16 +71,26 @@ Todos os pagamentos devem ser feitos integralmente no momento da compra.
 - Ao efetuar o pagamento, confirma que está autorizado a utilizar o método escolhido.
 - As encomendas não serão processadas ou enviadas até que o pagamento seja recebido.
 
-### SECÇÃO 8 - POLÍTICA DE DEVOLUÇÃO E REEMBOLSO
+### ARTIGO 8 - POLÍTICA DE DEVOLUÇÃO E REEMBOLSO
 
-Queremos que esteja satisfeito com a sua compra. Condições:
+Queremos que fique satisfeito com a sua compra. Por favor, leia atentamente as seguintes condições:
 
-- **Elegibilidade**: devoluções aceites até **3 dias** após a entrega, apenas se a peça estiver defeituosa, danificada ou não conforme descrito.
-- **Condição**: os artigos devem ser devolvidos no mesmo estado em que foram recebidos e, sempre que possível, na embalagem original.
-- **Exclusões**: não aceitamos devoluções de peças usadas corretamente fornecidas que já não sejam necessárias, ou incompatibilidades devido a erro do cliente.
-- **Processo**: contacte-nos com o número da encomenda e motivo da devolução.
-- **Reembolsos**: processados em **5 a 7 dias úteis** após inspeção, pelo método de pagamento original.
-- **Custos de envio da devolução**: suportados pelo cliente, exceto se a devolução se dever a erro nosso (artigo errado/defeituoso).
+- **Elegibilidade**: as devoluções são aceites no prazo de **3 dias úteis** após a entrega apenas se a peça estiver **defeituosa**, **danificada** ou **não conforme com a descrição**.
+- **Estado**: os artigos devolvidos devem estar nas mesmas condições em que foram recebidos e, se possível, na sua **embalagem original**.
+- **Exclusões**:
+  - Nenhuma devolução será aceite para **peças montadas, utilizadas ou modificadas**, mesmo que parcialmente.
+  - Nenhuma devolução será aceite para **peças usadas** entregues corretamente, mas que se tornaram inúteis.
+  - Nenhuma devolução será aceite em caso de erro de **compatibilidade imputável ao cliente** (modelo incorreto, referência errada, etc.).
+- **Procedimento**: para solicitar uma devolução, contacte-nos com o seu **número de encomenda** e o **motivo da devolução**.
+- **Inspeção**: todas as peças devolvidas são inspecionadas. Se o produto não for reconhecido como defeituoso, **nenhum reembolso será efetuado**.
+- **Reembolsos**:
+  - Os reembolsos são efetuados no prazo de **5 a 7 dias úteis** após a receção e verificação da peça.
+  - O reembolso é realizado através do mesmo método de pagamento original, **excluindo o IVA e os custos de envio**.
+  - **O IVA suíço (8,1%) não é reembolsável** após o registo da transação.
+- **Custos de devolução**:
+  - Os custos de devolução são **da responsabilidade do comprador**, exceto em caso de erro da nossa parte (artigo incorreto ou defeituoso).
+  - Nenhum envio com pagamento à cobrança será aceite.
+- **Produtos não reclamados**: em caso de **recusa da encomenda** ou **falta de levantamento**, os custos de reenvio e de devolução são igualmente da responsabilidade do cliente.
 
 ### SECÇÃO 9 - EXATIDÃO DA FATURAÇÃO E INFORMAÇÕES DE CONTA
 

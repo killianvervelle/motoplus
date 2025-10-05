@@ -92,16 +92,27 @@ All payments must be made in full at the time of purchase.
 - By submitting payment, you confirm that you are authorized to use the selected payment method.
 - Orders will not be processed or shipped until payment is successfully received.
 
-<h3 id="section-8---return-and-refund-policy">SECTION 8 - RETURN AND REFUND POLICY</h3>
+### ARTICLE 8 - RETURN AND REFUND POLICY
 
-We want you to be satisfied with your purchase. Please read the following conditions carefully:
+We want you to be fully satisfied with your purchase. Please read the following terms carefully:
 
-- **Eligibility**: Returns are accepted within **3 days** of delivery, only if the part is defective, damaged, or not as described.
-- **Condition**: Returned items must be in the same condition as received and, where possible, in their original packaging.
-- **Exclusions**: We do not accept returns for correctly supplied used parts that are no longer needed, or where incompatibility is due to customer error.
-- **Process**: To request a return, please contact us with your order number and reason for return.
-- **Refunds**: Approved refunds will be processed within **5-7 business days** after inspection of the returned part, using the original payment method.
-- **Return Shipping**: The buyer is responsible for return shipping costs unless the return is due to our error (wrong/defective item).
+- **Eligibility**: Returns are accepted within **3 business days** after delivery only if the item is **defective**, **damaged**, or **not as described**.
+- **Condition**: Returned items must be in the **same condition** as received and, if possible, in their **original packaging**.
+- **Exclusions**:
+  - No returns are accepted for **installed, used, or modified parts**, even partially.
+  - No returns are accepted for **used parts** that were delivered correctly but are no longer needed.
+  - No returns are accepted in cases of **compatibility errors caused by the customer** (wrong model, incorrect reference, etc.).
+- **Procedure**: To request a return, please contact us with your **order number** and the **reason for the return**.
+- **Inspection**: All returned parts are inspected. If the product is not confirmed as defective, **no refund will be issued**.
+- **Refunds**:
+  - Refunds are processed within **5 to 7 business days** after receiving and verifying the returned part.
+  - Refunds are issued using the **original payment method**, **excluding VAT and shipping costs**.
+  - **Swiss VAT (8.1%) is non-refundable** once the transaction has been recorded.
+- **Return shipping costs**:
+  - Return shipping costs are **the responsibility of the buyer**, except in cases where we made a mistake (incorrect or defective item).
+  - Shipments sent with **cash on delivery (C.O.D.)** will not be accepted.
+  - Original shipping costs are non-refundable.
+- **Unclaimed or refused parcels**: In cases of **package refusal** or **failure to collect**, reshipment and return costs are also the responsibility of the customer.
 
 ### SECTION 9 - ACCURACY OF BILLING AND ACCOUNT INFORMATION
 

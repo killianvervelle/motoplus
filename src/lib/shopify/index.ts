@@ -301,17 +301,36 @@ export async function getCollectionProducts({
   reverse,
   sortKey,
   filterCategoryProduct,
-  locale
+  locale,
+  condition
 
 }: {
   collection?: string;
   reverse?: boolean;
   sortKey?: string;
   locale?: string;
+  condition?: string;
   filterCategoryProduct?: any[]; 
 }): Promise<{ pageInfo: PageInfo | null; products: Product[] }> {
   const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
   const shopifyHandle = collection?.replace(/-+/g, '-');
+
+  const filters: any[] = [];
+
+  if (condition) {
+    filters.push({
+      productMetafield: {
+        namespace: "custom",
+        key: "condition",
+        value: condition,
+      },
+    });
+  }
+
+  if (filterCategoryProduct?.length) {
+    filters.push(...filterCategoryProduct);
+  }
+
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
@@ -320,12 +339,12 @@ export async function getCollectionProducts({
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
       language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT', 
-      filterCategoryProduct, 
+      filters, 
     } as {
       handle: string;
       reverse?: boolean;
       sortKey?: string;
-      filterCategoryProduct?: any[];
+      filters?: any[];
       language?: string
     },
   });
