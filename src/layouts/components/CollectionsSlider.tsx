@@ -73,8 +73,8 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                   />
                   <img
                     src="/images/logo.png"
-                    width={50}
-                    height={30}
+                    width={40}
+                    height={20}
                     alt="Logo"
                     className="absolute top-2 right-2 "
                   />

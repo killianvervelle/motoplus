@@ -4,7 +4,7 @@ import NavUser from '@/components/NavUser'
 import SearchBar from '@/components/SearchBar'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
 import config from '@/config/config.json'
-import menu from '@/config/menu.json'
+import { MENU_ITEMS } from '@/lib/constants';
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
@@ -12,28 +12,26 @@ import Image from "next/image";
 import { translateClient } from "../../lib/utils/translateClient";
 import DropdownLanguages from '../components/filter/DropdownLanguages'
 import { languageItems } from "@/lib/constants";
-import { useLocale } from 'next-intl'
+
 
 interface IChildNavigationLink {
   name: string
-  url: string
   slug: string
+  submenu?: IChildNavigationLink[]
 }
 
 interface INavigationLink {
   name: string
-  url: string
   slug: string
-  hasChildren?: boolean
-  children?: IChildNavigationLink[]
+  submenu?: IChildNavigationLink[]
 }
 
-const isMenuItemActive = (menu: INavigationLink, pathname: string) => {
-  return (pathname === `${menu.url}/` || pathname === menu.url) && 'nav-active'
+const isMenuItemActive = (menu: IChildNavigationLink, pathname: string) => {
+  return pathname.includes(menu.slug) ? 'nav-active' : ''
 }
 
-const hasKids = (n: INavigationLink | undefined): n is INavigationLink & { children: INavigationLink[] } =>
-  !!n?.children && Array.isArray(n.children) && n.children.length > 0;
+const hasKids = (n: IChildNavigationLink | undefined): n is IChildNavigationLink & { submenu: IChildNavigationLink[] } =>
+  !!n?.submenu && Array.isArray(n.submenu) && n.submenu.length > 0
 
 function MenuGroup({
   menu,
@@ -42,58 +40,70 @@ function MenuGroup({
   onToggle,
   onToggleSidebar,
 }: {
-  menu: INavigationLink;
-  pathname: string;
-  isOpen: boolean;
-  onToggle: () => void;
-  onToggleSidebar: () => void;
+  menu: INavigationLink
+  pathname: string
+  isOpen: boolean
+  onToggle: () => void
+  onToggleSidebar: () => void
 }) {
-  const [openChild, setOpenChild] = React.useState<number | null>(null);
-  const router = useRouter();
-  const locale = useLocale();
+  const [openChild, setOpenChild] = useState<number | null>(null)
+  const router = useRouter()
 
+  // Same logic as Navbar for filtering
   const handleClick = (parent: string, child: string) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams()
+    const p = parent.toLowerCase()
 
-    const p = parent.toLowerCase();
-
-    if (["brands", "marcas", "marques"].includes(p)) {
-      params.set("v", child);
-    } else if (["accessories", "accessoires", "acessórios"].includes(p)) {
-      params.set("c", child);
+    if (["accessories", "accessoires", "acessórios"].includes(p)) {
+      params.set("c", child)
     } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
-      params.set("c", child);
+      params.set("c", child)
+      params.set("condition", "used")
+    } else if (["new parts", "novas peças", "nouvelles pièces"].includes(p)) {
+      params.set("c", child)
+      params.set("condition", "new")
+    } else if (["brands", "marcas", "marques"].includes(p)) {
+      params.set("v", child)
     }
 
-    router.push(`/${locale}/products?${params.toString()}`);
-  };
+    router.push(`/products?${params.toString()}`)
+    onToggleSidebar()
+  }
 
-  return menu.hasChildren ? (
-    <li className='nav-item nav-dropdown group relative' key={menu.name}>
+  return menu.submenu && menu.submenu.length > 0 ? (
+    <li className="nav-item nav-dropdown group relative" key={menu.name}>
       <span
-        className={`nav-link inline-flex hover:text-[#c70303] items-center ${(menu.children?.map(({ url }) => url).includes(pathname) ||
-          menu.children?.map(({ url }) => `${url}/`).includes(pathname)) &&
-          'active'
+        className={`nav-link inline-flex hover:text-[#c70303] items-center ${isOpen ? 'active' : ''
           }`}
         onClick={onToggle}
       >
-        {translateClient("header", menu.slug)}
-        <svg className='h-4 w-4 fill-current ml-2 ' viewBox='0 0 20 20'>
-          <path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
+        {translateClient("menu", menu.slug)}
+        <svg className="h-4 w-4 fill-current ml-2" viewBox="0 0 20 20">
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
         </svg>
       </span>
-      <ul className={`nav-dropdown-list hover:text-[#c70303] ${openChild === null ? 'bg-[#f5f5f793]' : ''} ${isOpen ? 'visible' : 'hidden'}`}>
-        {menu.children?.map((child, i) => {
-          const grand = hasKids(child) ? child.children : [];
+
+      {/* Submenu level 1 */}
+      <ul
+        className={`nav-dropdown-list hover:text-[#c70303] ${openChild === null ? "bg-[#f5f5f793]" : ""
+          } ${isOpen ? "visible" : "hidden"}`}
+      >
+        {menu.submenu.map((child, i) => {
+          const grand = hasKids(child) ? child.submenu : []
 
           return (
             <li className="nav-dropdown-item" key={`child-${i}`}>
-              <Link
-                href="#"
-                onClick={(e) => {
-                  if (grand.length) { e.preventDefault(); setOpenChild(openChild === i ? null : i); }
-                }}
-                className={`nav-sublink hover:text-[#c70303] inline-flex items-center ${isMenuItemActive(child, pathname)}`}
+              <button
+                type="button"
+                onClick={() =>
+                  grand.length
+                    ? setOpenChild(openChild === i ? null : i)
+                    : handleClick(menu.name, child.slug)
+                }
+                className={`nav-sublink hover:text-[#c70303] inline-flex items-center ${isMenuItemActive(
+                  child,
+                  pathname
+                )}`}
               >
                 {translateClient("menu", child.slug)}
                 {grand.length > 0 && (
@@ -101,19 +111,23 @@ function MenuGroup({
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 )}
-              </Link>
+              </button>
 
+              {/* Submenu level 2 */}
               {grand.length > 0 && (
-                <ul className={`nav-dropdown-list my-3 bg-[#f5f5f793] ${openChild === i ? 'visible' : 'hidden'}`}>
+                <ul
+                  className={`nav-dropdown-list my-3 bg-[#f5f5f793] ${openChild === i ? "visible" : "hidden"
+                    }`}
+                >
                   {grand.map((cat, j) => (
                     <li className="nav-dropdown-item" key={`grand-${j}`}>
                       <button
                         type="button"
-                        className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(cat, pathname)}`}
-                        onClick={() => {
-                          handleClick(menu.name, cat.slug);
-                          onToggleSidebar();
-                        }}
+                        className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(
+                          cat,
+                          pathname
+                        )}`}
+                        onClick={() => handleClick(menu.name, cat.slug)}
                       >
                         {translateClient("menu", cat.slug)}
                       </button>
@@ -122,14 +136,18 @@ function MenuGroup({
                 </ul>
               )}
             </li>
-          );
+          )
         })}
       </ul>
     </li>
   ) : (
-    <li className='nav-item' key={menu.name}>
-      <Link href={menu.url} className={`nav-link block hover:text-[#c70303] ${isMenuItemActive(menu, pathname)}`}>
-        {translateClient("header", menu.slug)}
+    <li className="nav-item" key={menu.name}>
+      <Link
+        href={`/${menu.slug}`}
+        className={`nav-link block hover:text-[#c70303] ${isMenuItemActive(menu, pathname)}`}
+        onClick={onToggleSidebar}
+      >
+        {translateClient("menu", menu.slug)}
       </Link>
     </li>
   )
@@ -140,11 +158,8 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
   const { navigation_button, settings } = config
   const pathname = usePathname()
   const [showSidebar, setShowSidebar] = useState(false)
-  const router = useRouter();
-  const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
-
-  const locale = useLocale() as "en" | "fr" | "pt";
-  const nav: INavigationLink[] = menu[locale];
+  const router = useRouter()
+  const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null)
 
   useEffect(() => {
     window.scroll(0, 0)
@@ -162,18 +177,17 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
     }
   }, [])
 
-  const handleToggleSidebar = () => {
-    setShowSidebar(!showSidebar)
-  }
-
+  const handleToggleSidebar = () => setShowSidebar(!showSidebar)
   const toggleMenuIndex = (idx: number) =>
-    setOpenMenuIndex(curr => (curr === idx ? null : idx));
+    setOpenMenuIndex(curr => (curr === idx ? null : idx))
 
   return (
     <header
-      className={`header pb-5 z-[60] bg-[#232222] dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'} ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
+      className={`header pb-5 z-[60] bg-[#232222] dark:bg-darkmode-light ${settings.sticky_header && 'sticky top-0'
+        } ${navbarShadow ? 'shadow-sm' : 'shadow-none'}`}
     >
       <nav className='navbar flex flex-wrap z-[60] relative container'>
+        {/* Center logo */}
         <div className='order-1 py-6 mb-3 md:mb-0 md:py-0 flex items-center justify-between md:justify-center space-x-7 lg:space-x-14'>
           <div className="absolute left-1/2 -translate-x-1/2 mt-3 md:mt-0 md:static md:translate-x-0">
             <Image
@@ -189,6 +203,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
           </div>
         </div>
 
+        {/* Search bar */}
         <div className='max-lg:mt-4 w-full lg:w-[45%] xl:w-[60%] lg:order-2 order-3'>
           {settings.search && (
             <Suspense>
@@ -197,16 +212,17 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
           )}
         </div>
 
+        {/* Right icons */}
         <div className='order-1 lg:order-3 ml-auto flex items-center lg:ml-0'>
           <ThemeSwitcher className='mr-4 md:mr-6' />
           <Suspense fallback={children[0]}>{children[1]}</Suspense>
-
           {settings.account && (
             <div className='ml-4 md:ml-6'>
               <NavUser />
             </div>
           )}
 
+          {/* Sidebar toggle (mobile only) */}
           <div className='z-40 block md:hidden ml-6 absolute left-0 md:relative'>
             <button id='nav-toggle' className='focus:outline-none z-10' onClick={handleToggleSidebar}>
               {showSidebar ? (
@@ -225,13 +241,15 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
               )}
             </button>
 
+            {/* Overlay */}
             <div
               className={`fixed top-0 left-0 h-full bg-black opacity-50 w-full ${showSidebar ? 'block' : 'hidden'}`}
               onClick={handleToggleSidebar}
             ></div>
 
+            {/* Sidebar menu */}
             <div
-              className={`fixed top-0 left-0 h-full bg-white dark:bg-darkmode-body overflow-y-auto w-screen box-border p-9 transition-transform  transform ${showSidebar ? 'translate-x-0' : '-translate-x-full'}`}
+              className={`fixed top-0 left-0 h-full bg-white dark:bg-darkmode-body overflow-y-auto w-screen box-border p-9 transition-transform transform ${showSidebar ? 'translate-x-0' : '-translate-x-full'}`}
             >
               <div className='flex justify-between items-center mb-14'>
                 <button onClick={handleToggleSidebar} className='p-2'>
@@ -247,8 +265,19 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                   <DropdownLanguages list={languageItems} />
                 </Suspense>
               </div>
+
               <ul>
-                {nav.map((menu, i) => (
+                <li className="nav-item mb-2">
+                  <Link
+                    href="/"
+                    className="nav-link block hover:text-[#c70303] font-semibold"
+                    onClick={handleToggleSidebar}
+                  >
+                    {translateClient("header", "home").toUpperCase()}
+                  </Link>
+                </li>
+
+                {MENU_ITEMS.map((menu, i) => (
                   <MenuGroup
                     key={`menu-${i}`}
                     menu={menu}
@@ -258,6 +287,17 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                     onToggleSidebar={() => setShowSidebar(false)}
                   />
                 ))}
+
+                <li className="nav-item mt-2">
+                  <Link
+                    href="/contact"
+                    className="nav-link block hover:text-[#c70303] font-semibold"
+                    onClick={handleToggleSidebar}
+                  >
+                    {translateClient("header", "contact").toUpperCase()}
+                  </Link>
+                </li>
+
                 {navigation_button.enable && (
                   <li className='mt-4 inline-block lg:hidden mr-4 md:mr-6'>
                     <Link className='btn btn-outline-primary btn-sm' href={navigation_button.link}>
