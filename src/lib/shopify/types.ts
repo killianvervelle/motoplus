@@ -307,6 +307,7 @@ export type ShopifyCollectionsOperation = {
   };
   variables: {
       language?: string;
+      cursor?: string | null;
     },
 };
 

@@ -56,7 +56,7 @@ const ShowProducts = async ({
     c: category,
     m: model,
     b: brand,
-    t: tag,
+    t: type,
     v: vendor,
     layout,
     cursor,
@@ -79,6 +79,7 @@ const ShowProducts = async ({
     (maxPrice && maxPrice.trim() !== "") ||
     (category && category !== "all" && category.trim() !== "") ||
     (vendor && vendor !== "all" && vendor.trim() !== "") ||
+    (type && type !== "all" && type.trim() !== "") ||
     (condition && condition.trim() !== "");
 
   if (hasFilters) {
@@ -100,12 +101,16 @@ const ShowProducts = async ({
       queryString += ` tag:'${model}'`
     }
 
-    if (tag) {
-      queryString += ` tag:'${tag}'`
-    }
+    //if (tag) {
+    //queryString += ` tag:'${tag}'`
+    //}
 
     if (condition) {
       queryString += `metafield:custom.condition:${condition}`;
+    }
+
+    if (type) {
+      queryString += `metafield:custom.type:${type}`;
     }
 
     const query = {
@@ -123,7 +128,18 @@ const ShowProducts = async ({
         sortKey,
         reverse,
         locale,
-        condition, // 👈 supports condition filter within category
+        condition, //  supports condition filter within category
+        type
+      });
+    }
+    else if (type && type !== 'all') {
+      // Filter by metafield (type)
+      productsData = await getProducts({
+        sortKey,
+        reverse,
+        locale,
+        cursor,
+        query: `metafield:custom.type:${type}`,
       });
     }
     else if (condition && condition !== 'all') {

@@ -3,6 +3,9 @@
     "no-product": "No Product Found!",
     "we": "We couldn't find what you filtered for. Try filtering again."
   },
+  "older": {
+    "older": "Older Models"
+  },
   "menu": {
     "new-parts": "NEW PARTS",
     "used-parts": "USED PARTS",
@@ -831,6 +834,12 @@
   },
   "gallery": {
     "gallery": "GALLERY"
+  },
+  "moto": {
+    "moto": "MOTORCYCLES"
+  },
+  "motobilia": {
+    "motobilia": "COLLECTIBLES"
   },
   "login": {
     "login": "Login",

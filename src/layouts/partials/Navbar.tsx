@@ -21,6 +21,8 @@ export default function Navbar() {
 
     const translatedSeeAll = translateClient("featuredProducts", "see-all-products")
     const transaltedGallery = translateClient("gallery", "gallery")
+    const translatedMoto = translateClient("moto", "moto")
+    const translateMotobilia = translateClient("motobilia", "motobilia")
 
     const handleClick = (parent: string, child: string) => {
         const params = new URLSearchParams();
@@ -28,11 +30,14 @@ export default function Navbar() {
         const p = parent.toLowerCase();
 
         if (["accessories", "accessoires", "acessórios"].includes(p)) {
+            params.set("t", "accessories");
             params.set("c", child);
         } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
+            params.set("t", "moto-parts");
             params.set("c", child);
             params.set("condition", "used");
         } else if (["new parts", "novas peças", "nouvelles pièces"].includes(p)) {
+            params.set("t", "moto-parts");
             params.set("c", child);
             params.set("condition", "new");
         }
@@ -76,6 +81,19 @@ export default function Navbar() {
                             </Link>
                         </li>
 
+                        <li key="products" className="px-2">
+                            <Link
+                                href={{
+                                    pathname: "/products",
+                                    query: { t: "motos" },
+                                }}
+                                className="inline-flex items-center text-[14px] px-1 py-1 rounded transition-colors font-bold
+                                        text-[#29292c] dark:text-white hover:text-[#c60404]
+                                        hover:bg-white/70 dark:hover:bg-white/10"
+                            >
+                                {translatedMoto}
+                            </Link>
+                        </li>
                         {MENU_ITEMS.map((menuItem, i) => {
                             const isOpen = openIndex === i;
                             const panelId = `megamenu-${menuItem.slug}`;
@@ -227,12 +245,25 @@ export default function Navbar() {
                                 </li>
                             );
                         })}
+                        <li key="collectibles" className="px-2">
+                            <Link
+                                href={{
+                                    pathname: "/products",
+                                    query: { t: "collectibles" },
+                                }}
+                                className="inline-flex items-center text-[14px] px-1 py-1 rounded transition-colors font-bold
+                                        text-[#29292c] dark:text-white hover:text-[#c60404]
+                                        hover:bg-white/70 dark:hover:bg-white/10"
+                            >
+                                {translateMotobilia}
+                            </Link>
+                        </li>
                         <li key="gallery" className="px-2">
                             <Link
                                 href="/gallery"
                                 className="inline-flex items-center text-[14px] px-1 py-1 rounded transition-colors font-bold
-               text-[#29292c] dark:text-white hover:text-[#c60404]
-               hover:bg-white/70 dark:hover:bg-white/10"
+                                        text-[#29292c] dark:text-white hover:text-[#c60404]
+                                        hover:bg-white/70 dark:hover:bg-white/10"
                             >
                                 {transaltedGallery}
                             </Link>

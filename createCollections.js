@@ -8,94 +8,22 @@ const SHOP = process.env.SHOPIFY_STORE_DOMAIN;      // e.g. motoplus-site76.mysh
 const API_VERSION = process.env.SHOPIFY_API_VERSION ;
 const TOKEN = process.env.SHOPIFY_ADMIN_SECRET;    // your Admin API access token
 
+/*
 // --- your category data ---
 // paste only the top-level objects that have submenu arrays:
 const categories = [
-      {
-        name: "Suspension & Steering",
-        slug: "suspension--steering",
-        submenu: [
-          { name: "Front Forks / Fork Tubes", slug: "front-forks--fork-tubes" },
-          { name: "Shock Absorber / Rear Shock", slug: "shock-absorber--rear-shock" },
-          { name: "Triple Tree / Steering Stem", slug: "triple-tree--steering-stem" },
-          { name: "Steering Bearings", slug: "steering-bearings" }
-        ]
-      },
-      {
-        name: "Wheels & Tyres",
-        slug: "wheels--tyres",
-        submenu: [
-          { name: "Rims / Wheels", slug: "rims--wheels" },
-          { name: "Hubs & Spokes", slug: "hubs--spokes" },
-          { name: "Tires (Front / Rear)", slug: "tires-front--rear" },
-          { name: "Inner Tubes", slug: "inner-tubes" },
-          { name: "Wheel Axle / Spacers", slug: "wheel-axle--spacers" }
-        ]
-      },
-      {
-        name: "Frame & Bodywork",
-        slug: "frame--bodywork",
-        submenu: [
-          { name: "Frame & Subframe", slug: "frame--subframe" },
-          { name: "Footpegs / Rearsets", slug: "footpegs--rearsets" },
-          { name: "Fairings / Side Panels", slug: "fairings--side-panels" },
-          { name: "Seat & Seat Covers", slug: "seat--seat-covers" }
-        ]
-      },
-      {
-        name: "Exhaust",
-        slug: "exhaust",
-        submenu: [
-          { name: "Complete Exhaust Systems", slug: "complete-exhaust-systems" },
-          { name: "Headers / Downpipes", slug: "headers--downpipes" },
-          { name: "Mufflers / Silencers", slug: "mufflers--silencers" },
-          { name: "Exhaust Clamps & Gaskets", slug: "exhaust-clamps--gaskets" }
-        ]
-      },
-      {
-        name: "Cooling",
-        slug: "cooling",
-        submenu: [
-          { name: "Radiator", slug: "radiator" },
-          { name: "Radiator Cap & Hoses", slug: "radiator-cap--hoses" },
-          { name: "Water Pump", slug: "water-pump" }
-        ]
-      },
-      {
-        name: "Engine & Transmission",
-        slug: "engine--transmission",
-        submenu: [
-          { name: "Engine Blocks / Crankcases", slug: "engine-blocks--crankcases" },
-          { name: "Pistons / Cylinder Kits", slug: "pistons--cylinder-kits" },
-          { name: "Camshaft / Valvetrain Parts", slug: "camshaft--valvetrain-parts" },
-          { name: "Gearbox / Transmission Parts", slug: "gearbox--transmission-parts" },
-          { name: "Gaskets & Seals", slug: "gaskets--seals" }
-        ]
-      },
-
-      {
-        name: "Riding Gear",
-        slug: "riding-gear",
-        imageBlack: "/images/suitB.png",
-        imageWhite: "/images/suitW.png",
-        submenu: [
-          { name: "Helmets", slug: "helmets" },
-          { name: "Gloves", slug: "gloves" },
-          { name: "Jackets / Pants", slug: "jackets--pants" },
-          { name: "Boots", slug: "boots" }
-        ]
-      },
-
-      {
-        name: "Navigation, Intercom & Telephone",
-        slug: "navigation--intercom--telephone",
-        imageBlack: "/images/automotiveB.png",
-        imageWhite: "/images/automotiveW.png",
-        submenu: [
-          { name: "GPS Tracker / Alarm Systems", slug: "gps-tracker--alarm-systems" }
-        ]
-      }
+  // 🔹 Advertising & Promotional
+  {
+    name: "Pop Culture Crossovers",
+    slug: "pop-culture-crossovers",
+    submenu: [
+      { name: "Movie Car Replicas", slug: "movie-car-replicas" },
+      { name: "Comics & Graphic Novels", slug: "comics--graphic-novels" }
+    ]
+  }
 ];
+
+
 
 async function createCollection(title) {
   const url = `${SHOP}/admin/api/${API_VERSION}/custom_collections.json`;
@@ -121,8 +49,8 @@ async function createCollection(title) {
     throw new Error(`Failed to create "${title}": ${text}`);
   }
 
-  //const json = await res.json();
-  //console.log(`✅ Created collection: ${json.custom_collection.title} (id: ${json.custom_collection.id})`);
+  const json = await res.json();
+  console.log(`✅ Created collection: ${json.custom_collection.title} (id: ${json.custom_collection.id})`);
 }
 
 // Main: loop through every submenu name and create a collection
@@ -134,6 +62,112 @@ async function createCollection(title) {
   }
 })();
 
+
+async function fetchAllCollections() {
+  let all = [];
+  let pageInfo = null;
+  const base = `${SHOP}/admin/api/${API_VERSION}/custom_collections.json?limit=250&fields=id,handle,title,created_at`; 
+
+  while (true) {
+    const url = pageInfo ? `${base}&page_info=${pageInfo}` : base;
+    const res = await fetch(url, {
+      headers: {
+        "X-Shopify-Access-Token": TOKEN,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(`Failed to fetch collections: ${text}`);
+    }
+
+    const data = await res.json();
+    all.push(...data.custom_collections);
+
+    const link = res.headers.get("link");
+    if (!link || !link.includes('rel="next"')) break;
+
+    const match = link.match(/<([^>]+)>;\s*rel="next"/);
+    if (!match) break;
+    pageInfo = new URL(match[1]).searchParams.get("page_info");
+  }
+
+  return all;
+}
+
+function normalize(str = "") {
+  return str.toLowerCase().trim();
+}
+
+function groupDuplicatesByTitle(collections) {
+  const grouped = {};
+  for (const c of collections) {
+    const key = normalize(c.title);
+    if (!grouped[key]) grouped[key] = [];
+    grouped[key].push(c);
+  }
+  return Object.entries(grouped).filter(([_, group]) => group.length > 1);
+}
+
+async function deleteCollection(id) {
+  const url = `${SHOP}/admin/api/${API_VERSION}/custom_collections/${id}.json`;
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: { "X-Shopify-Access-Token": TOKEN },
+  });
+  return res.ok;
+}
+
+async function confirmAndDelete(dupes) {
+  if (dupes.length === 0) {
+    console.log("\n✅ No duplicate collections found!");
+    return;
+  }
+
+  console.log(`\n⚠️ Found ${dupes.length} duplicate title groups:\n`);
+  dupes.forEach(([title, group]) => {
+    console.log(`🔁 "${title}" has ${group.length} collections:`);
+    group.forEach(c => {
+      console.log(`   - ID ${c.id}, handle: ${c.handle}, created: ${c.created_at}`);
+    });
+  });
+
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+  rl.question("\n⚠️  Do you want to delete duplicates (keeping the oldest)? (yes/no) ", async answer => {
+    if (answer.toLowerCase() === "yes") {
+      for (const [title, group] of dupes) {
+        // sort by created_at (oldest first)
+        group.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+        const keep = group[0];
+        const toDelete = group.slice(1);
+
+        console.log(`\nKeeping oldest "${title}" (ID ${keep.id})`);
+        for (const d of toDelete) {
+          const ok = await deleteCollection(d.id);
+          console.log(ok ? `🗑️  Deleted ${title} (ID ${d.id})` : `❌ Failed to delete ID ${d.id}`);
+        }
+      }
+    } else {
+      console.log("❎ Deletion cancelled.");
+    }
+    rl.close();
+  });
+}
+
+(async () => {
+  try {
+    console.log("🔍 Fetching all collections...");
+    const collections = await fetchAllCollections();
+    console.log(`✅ Total fetched: ${collections.length}`);
+
+    const dupes = groupDuplicatesByTitle(collections);
+    await confirmAndDelete(dupes);
+  } catch (err) {
+    console.error("❌ Error:", err.message);
+  }
+})();
 
 const endpoint = `${SHOP}/admin/api/${API_VERSION}/graphql.json`;
 
@@ -368,7 +402,7 @@ async function createBrand(handle, brandKey) {
       }
     }
   `;
-  const variables = { brandKey, value: JSON.stringify(handle) };
+  const variables = { brandKey, value: handle };
   const data = await graphql(mutation, variables);
   return data.data?.metaobjectCreate?.metaobject?.id;
 }
@@ -393,7 +427,7 @@ async function createModel(handle, brandId, modelKey, brandRefKey) {
   const variables = {
     modelKey,
     brandRefKey,
-    handleVal: JSON.stringify(handle),
+    handleVal: handle,
     brandId: brandId.toString(),
   };
   return graphql(mutation, variables);

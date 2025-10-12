@@ -38,7 +38,7 @@ const ProductListView = ({
     m: model,
     c: category,
     v: vendor,
-    t: tag,
+    t: type,
     condition: condition,
     cursor
   } = searchParams as {
@@ -65,6 +65,7 @@ const ProductListView = ({
           (maxPrice && maxPrice.trim() !== "") ||
           (category && category !== "all" && category.trim() !== "") ||
           (vendor && vendor !== "all" && vendor.trim() !== "") ||
+          (type && type !== "all" && type.trim() !== "") ||
           (condition && condition.trim() !== "");
 
         if (hasFilters) {
@@ -102,12 +103,16 @@ const ProductListView = ({
             queryString += ` vendor:"${vendor}"`;
           }
 
-          if (tag) {
-            queryString += ` tag:'${tag}'`
-          }
+          //if (tag) {
+          //queryString += ` tag:'${tag}'`
+          //}
 
           if (condition) {
             queryString += `metafield:custom.condition:${condition}`;
+          }
+
+          if (type) {
+            queryString += `metafield:custom.type:${type}`;
           }
 
           const query = {
@@ -116,29 +121,38 @@ const ProductListView = ({
             query: queryString
           }
 
-          if (category && category !== "all") {
-            // Case 1: Category is defined (collection-level query)
+          if (category && category !== 'all') {
+            // Filter by collection (category)
             productsData = await getCollectionProducts({
               collection: shopifyHandle,
               sortKey,
               reverse,
               locale,
-              condition,
-              filterCategoryProduct:
-                filterCategoryProduct.length > 0
-                  ? filterCategoryProduct
-                  : undefined,
+              condition, //  supports condition filter within category
+              type
             });
-          } else if (condition) {
-            // Case 2: No category, but filtering by condition
+          }
+          else if (type && type !== 'all') {
+            // Filter by metafield (type)
+            productsData = await getProducts({
+              sortKey,
+              reverse,
+              locale,
+              cursor,
+              query: `metafield:custom.type:${type}`,
+            });
+          }
+          else if (condition && condition !== 'all') {
+            // Filter by metafield (condition)
             productsData = await getCollectionProducts({
-              collection: "all-products",
+              collection: 'all-products',
               sortKey,
               reverse,
               locale,
               condition,
             });
-          } else {
+          }
+          else {
             // Case 3: Normal query (no collection/metafield filter)
             productsData = await getProducts({ ...query, cursor, locale });
           }
@@ -158,7 +172,7 @@ const ProductListView = ({
     }
 
     fetchData()
-  }, [cursor, sortKey, searchValue, minPrice, maxPrice, category, reverse, model, brand, vendor, tag, condition])
+  }, [cursor, sortKey, searchValue, minPrice, maxPrice, category, reverse, model, brand, vendor, type, condition])
 
   const { products, pageInfo } = data
   const endCursor = pageInfo?.endCursor || ''

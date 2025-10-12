@@ -35,12 +35,17 @@ export const getCollectionQuery = /* GraphQL */ `
 `;
 
 export const getCollectionsQuery = /* GraphQL */ `
-  query getCollections($language: LanguageCode) @inContext(language: $language) {
-    collections(first: 249, sortKey: TITLE) {
+    query getCollections($language: LanguageCode, $cursor: String) @inContext(language: $language) {
+    collections(first: 250, after: $cursor, sortKey: TITLE) {
       edges {
+      cursor
         node {
           ...collection
         }
+      }
+        pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

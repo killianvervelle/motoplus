@@ -9,6 +9,10 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { translateClient } from "../../lib/utils/translateClient";
 
+function normalize(name: string) {
+  return name.toLowerCase().trim();
+}
+
 const ProductFilters = ({
   categories,
   vendors,
@@ -78,13 +82,25 @@ const ProductFilters = ({
         <hr className="border-[#cecece] dark:border-darkmode-border" />
         <ul className="mt-4 space-y-4">
           {categories
-            .filter((c) => categoriesWithCounts.some(
-              cw => cw.category === c.title && cw.productCount > 0
-            )
+            .filter(
+              (c) => {
+                const title = c.title.toLowerCase();
+                const hiddenTitles = [
+                  "all products",        
+                  "tous les produits",   
+                  "todos os produtos"   
+                ];
+                return (
+                  !hiddenTitles.includes(title) &&
+                  categoriesWithCounts.some(
+                    (cw) => cw.category === c.title && cw.productCount > 0
+                  )
+                );
+              }
             )
             .map(cat => {
               const currentCount =
-                categoriesWithCounts.find(c => c.category === cat.title)?.productCount ?? 0
+                categoriesWithCounts.find(c => normalize(c.category) === normalize(cat.title))?.productCount ?? 0
 
               return (
                 <li

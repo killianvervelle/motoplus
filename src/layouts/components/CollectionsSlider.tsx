@@ -63,20 +63,24 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
           return (
             <SwiperSlide key={handle}>
               <div className='text-center relative rounded-md overflow-hidden group'>
-                <div className='relative'>
+                <div className="relative">
                   <img
-                    src={featuredImage.url}
+                    src={featuredImage?.url || "/images/image-placeholder.png"}
                     width={424}
                     height={306}
-                    alt={title}
-                    className='h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
+                    alt={title || "Placeholder image"}
+                    className="h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93"
+                    onError={(e) => {
+                      e.currentTarget.src = "/images/image-placeholder.png";
+                      e.currentTarget.onerror = null; 
+                    }}
                   />
                   <img
                     src="/images/logo.png"
                     width={40}
                     height={20}
                     alt="Logo"
-                    className="absolute top-2 right-2 "
+                    className="absolute top-2 right-2"
                   />
                 </div>
 

@@ -55,20 +55,22 @@ function MenuGroup({
     const p = parent.toLowerCase()
 
     if (["accessories", "accessoires", "acessórios"].includes(p)) {
-      params.set("c", child)
+      params.set("t", "accessories");
+      params.set("c", child);
     } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
-      params.set("c", child)
-      params.set("condition", "used")
+      params.set("t", "moto-parts");
+      params.set("c", child);
+      params.set("condition", "used");
     } else if (["new parts", "novas peças", "nouvelles pièces"].includes(p)) {
-      params.set("c", child)
-      params.set("condition", "new")
-    } else if (["brands", "marcas", "marques"].includes(p)) {
-      params.set("v", child)
+      params.set("t", "moto-parts");
+      params.set("c", child);
+      params.set("condition", "new");
     }
 
     router.push(`/products?${params.toString()}`)
     onToggleSidebar()
   }
+
 
   return menu.submenu && menu.submenu.length > 0 ? (
     <li className="nav-item nav-dropdown group relative" key={menu.name}>
@@ -160,6 +162,10 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
   const [showSidebar, setShowSidebar] = useState(false)
   const router = useRouter()
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null)
+
+  const transaltedGallery = translateClient("gallery", "gallery")
+  const translatedMoto = translateClient("moto", "moto")
+  const translateMotobilia = translateClient("motobilia", "motobilia")
 
   useEffect(() => {
     window.scroll(0, 0)
@@ -277,6 +283,19 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                   </Link>
                 </li>
 
+                <li key="products" className="nav-item mt-2">
+                  <Link
+                    href={{
+                      pathname: "/products",
+                      query: { t: "motos" },
+                    }}
+                    className="nav-link block hover:text-[#c70303] font-semibold"
+                    onClick={handleToggleSidebar}
+                  >
+                    {translatedMoto}
+                  </Link>
+                </li>
+
                 {MENU_ITEMS.map((menu, i) => (
                   <MenuGroup
                     key={`menu-${i}`}
@@ -287,6 +306,28 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
                     onToggleSidebar={() => setShowSidebar(false)}
                   />
                 ))}
+
+                <li key="collectibles" className="nav-item mt-2">
+                  <Link
+                    href={{
+                      pathname: "/products",
+                      query: { t: "collectibles" },
+                    }}
+                    className="nav-link block hover:text-[#c70303] font-semibold"
+                    onClick={handleToggleSidebar}
+                  >
+                    {translateMotobilia}
+                  </Link>
+                </li>
+                <li key="gallery" className="nav-item mt-2">
+                  <Link
+                    href="/gallery"
+                    className="nav-link block hover:text-[#c70303] font-semibold"
+                    onClick={handleToggleSidebar}
+                  >
+                    {transaltedGallery}
+                  </Link>
+                </li>
 
                 <li className="nav-item mt-2">
                   <Link

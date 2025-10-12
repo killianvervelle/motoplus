@@ -5,6 +5,7 @@ import { HomeFilterBoxProp } from "@/lib/constants";
 import { slugify } from "@/lib/utils/textConverter"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 const FilterBox = ({
@@ -36,6 +37,8 @@ const FilterBox = ({
         fn();
         setOpenSelect(null);
     };
+
+    const t = useTranslations("older");
 
     type Pick = { name: string; handle: string } | null;
 
@@ -102,7 +105,7 @@ const FilterBox = ({
                     <div className="relative">
                         <button
                             type="button"
-                            className="inline-flex w-full justify-between items-center rounded-md bg-white px-3 py-2 text-[16px] font-semibold shadow-sm ring-1 ring-inset ring-gray-300 disabled:cursor-not-allowed cursor-pointer disabled:opacity-50"
+                            className="inline-flex justify-between items-center 2xl:w-64 xl:w-60 lg:w-52 w-full rounded-md bg-white px-3 py-2 text-[16px] font-semibold shadow-sm ring-1 ring-inset ring-gray-300 disabled:cursor-not-allowed cursor-pointer disabled:opacity-50"
                             onClick={() => selectedBrand && toggleSelect("Model")}
                             disabled={!selectedBrand}
                         >
@@ -113,6 +116,14 @@ const FilterBox = ({
                         </button>
                         {openSelect === "Model" && (
                             <ul className="absolute left-0 w-full z-10 mt-2 max-h-64 overflow-auto bg-white text-sm text-gray-700 rounded-md shadow-lg">
+                                <li
+                                    className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                                    onClick={closeAnd(() => {
+                                        setSelectedModel({ name: t("older"), handle: "older" });
+                                        setSelectedComponent(null);
+                                    })}>
+                                    {t("older")}
+                                </li>
                                 {models.map((m) => (
                                     <li
                                         key={m.handle}

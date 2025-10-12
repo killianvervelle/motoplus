@@ -3,6 +3,9 @@
     "no-product": "Aucun produit trouvé !",
     "we": "Nous n’avons pas trouvé ce que vous avez filtré. Essayez de filtrer à nouveau."
   },
+  "older": {
+    "older": "Anciens Modèles"
+  },
   "menu": {
     "new-parts": "NOUVELLES PIÈCES",
     "used-parts": "PIÈCES D'OCCASION",
@@ -833,6 +836,12 @@
   },
   "gallery": {
     "gallery": "GALERIE"
+  },
+  "moto": {
+    "moto": "MOTOS"
+  },
+  "motobilia": {
+    "motobilia": "OBJETS DE COLLECTION"
   },
   "login": {
     "login": "Connexion",

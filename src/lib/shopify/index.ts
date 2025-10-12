@@ -302,7 +302,8 @@ export async function getCollectionProducts({
   sortKey,
   filterCategoryProduct,
   locale,
-  condition
+  condition,
+  type
 
 }: {
   collection?: string;
@@ -310,6 +311,7 @@ export async function getCollectionProducts({
   sortKey?: string;
   locale?: string;
   condition?: string;
+  type?: string;
   filterCategoryProduct?: any[]; 
 }): Promise<{ pageInfo: PageInfo | null; products: Product[] }> {
   const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
@@ -323,6 +325,16 @@ export async function getCollectionProducts({
         namespace: "custom",
         key: "condition",
         value: condition,
+      },
+    });
+  }
+
+  if (type) {
+    filters.push({
+      productMetafield: {
+        namespace: "custom",
+        key: "type",
+        value: type,
       },
     });
   }
@@ -441,33 +453,32 @@ export async function deleteUserAdress(accessToken: string, id: string) {
 
 
 export async function getCollections(locale: string) {
-  const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
-  const res = await shopifyFetch<ShopifyCollectionsOperation>({
-    query: getCollectionsQuery,
-    tags: [TAGS.collections],
-    variables: {
-      language: language.toUpperCase() as 'EN' | 'FR' | 'PT_PT'
-    },
-  });
-  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
-  const collections = [
-    // {
-    //   handle: '',
-    //   title: 'All',
-    //   description: 'All products',
-    //   seo: {
-    //     title: 'All',
-    //     description: 'All products'
-    //   },
-    //   path: '/products',
-    //   updatedAt: new Date().toISOString()
-    // },
-    // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
-    ...reshapeCollections(shopifyCollections).filter(
-      collection => !collection.handle.startsWith("hidden") && collection.products?.edges?.length > 0,
-    ),
-  ];
+  const language = locale?.toLowerCase() === "pt" ? "pt_PT" : locale;
+  let hasNextPage = true;
+  let cursor: string | null = null;
+  let allCollections: any[] = [];
+
+  while (hasNextPage) {
+    const res: any = await shopifyFetch<ShopifyCollectionsOperation>({
+      query: getCollectionsQuery,
+      tags: [TAGS.collections],
+      variables: {
+        language: language.toUpperCase() as "EN" | "FR" | "PT_PT",
+        cursor,
+      },
+    });
+
+    const { edges, pageInfo } = res.body.data.collections;
+    const pageCollections = edges.map((edge: any) => edge.node);
+
+    allCollections = [...allCollections, ...pageCollections];
+    hasNextPage = pageInfo.hasNextPage;
+    cursor = pageInfo.endCursor;
+  }
+
+  const collections = reshapeCollections(allCollections).filter(
+    (collection) =>
+      !collection.handle.startsWith("hidden"));
 
   return collections;
 }
