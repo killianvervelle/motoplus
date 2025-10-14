@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getProducts, getCollections } from "@/lib/shopify"
 
 export async function getAllProducts(locale?: string) {
