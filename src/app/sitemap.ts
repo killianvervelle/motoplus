@@ -20,14 +20,13 @@ export async function getAllProducts(locale?: string) {
     hasNextPage = pageInfo?.hasNextPage;
     cursor = pageInfo?.endCursor || undefined;
 
-    // Safety: avoid infinite loops if API fails
     if (!cursor) break;
   }
 
   return allProducts;
 }
 
-export const revalidate = 60 //* 60 * 24 * 7
+export const revalidate = 60 * 60 * 24 * 7
 
 export default async function sitemap() {
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || ""
