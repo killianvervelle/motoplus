@@ -90,56 +90,60 @@ function MenuGroup({
         className={`nav-dropdown-list hover:text-[#c70303] ${openChild === null ? "bg-[#f5f5f793]" : ""
           } ${isOpen ? "visible" : "hidden"}`}
       >
-        {menu.submenu.map((child, i) => {
-          const grand = hasKids(child) ? child.submenu : []
+        {menu.submenu
+          .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }))
+          .map((child, i) => {
+            const grand = hasKids(child) ? child.submenu : []
 
-          return (
-            <li className="nav-dropdown-item" key={`child-${i}`}>
-              <button
-                type="button"
-                onClick={() =>
-                  grand.length
-                    ? setOpenChild(openChild === i ? null : i)
-                    : handleClick(menu.name, child.slug)
-                }
-                className={`nav-sublink hover:text-[#c70303] inline-flex items-center ${isMenuItemActive(
-                  child,
-                  pathname
-                )}`}
-              >
-                {translateClient("menu", child.slug)}
-                {grand.length > 0 && (
-                  <svg className="h-4 w-4 ml-2 fill-current" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                  </svg>
-                )}
-              </button>
-
-              {/* Submenu level 2 */}
-              {grand.length > 0 && (
-                <ul
-                  className={`nav-dropdown-list my-3 bg-[#f5f5f793] ${openChild === i ? "visible" : "hidden"
-                    }`}
+            return (
+              <li className="nav-dropdown-item" key={`child-${i}`}>
+                <button
+                  type="button"
+                  onClick={() =>
+                    grand.length
+                      ? setOpenChild(openChild === i ? null : i)
+                      : handleClick(menu.name, child.slug)
+                  }
+                  className={`nav-sublink hover:text-[#c70303] inline-flex items-center ${isMenuItemActive(
+                    child,
+                    pathname
+                  )}`}
                 >
-                  {grand.map((cat, j) => (
-                    <li className="nav-dropdown-item" key={`grand-${j}`}>
-                      <button
-                        type="button"
-                        className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(
-                          cat,
-                          pathname
-                        )}`}
-                        onClick={() => handleClick(menu.name, cat.slug)}
-                      >
-                        {translateClient("menu", cat.slug)}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          )
-        })}
+                  {translateClient("menu", child.slug)}
+                  {grand.length > 0 && (
+                    <svg className="h-4 w-4 ml-2 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  )}
+                </button>
+
+                {/* Submenu level 2 */}
+                {grand.length > 0 && (
+                  <ul
+                    className={`nav-dropdown-list my-3 bg-[#f5f5f793] ${openChild === i ? "visible" : "hidden"
+                      }`}
+                  >
+                    {grand
+                      .sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: "base" }))
+                      .map((cat, j) => (
+                        <li className="nav-dropdown-item" key={`grand-${j}`}>
+                          <button
+                            type="button"
+                            className={`nav-subsublink hover:text-[#c70303] ${isMenuItemActive(
+                              cat,
+                              pathname
+                            )}`}
+                            onClick={() => handleClick(menu.name, cat.slug)}
+                          >
+                            {translateClient("menu", cat.slug)}
+                          </button>
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </li>
+            )
+          })}
       </ul>
     </li>
   ) : (
