@@ -24,21 +24,21 @@ export default function Navbar() {
     const translatedMoto = translateClient("moto", "moto")
     const translateMotobilia = translateClient("motobilia", "motobilia")
 
-    const handleClick = (parent: string, child: string) => {
+    const handleClick = (parent: string, child?: string) => {
         const params = new URLSearchParams();
 
         const p = parent.toLowerCase();
 
         if (["accessories", "accessoires", "acessórios"].includes(p)) {
             params.set("t", "accessories");
-            params.set("c", child);
+            if (child) params.set("c", child);
         } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
             params.set("t", "moto-parts");
-            params.set("c", child);
+            if (child) params.set("c", child);
             params.set("condition", "used");
         } else if (["new parts", "novas peças", "nouvelles pièces"].includes(p)) {
             params.set("t", "moto-parts");
-            params.set("c", child);
+            if (child) params.set("c", child);
             params.set("condition", "new");
         }
 
@@ -104,6 +104,11 @@ export default function Navbar() {
                                     onMouseEnter={() => open(i)}
                                     onMouseLeave={close}
                                     onFocus={() => open(i)}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleClick(menuItem.name)
+                                        close();
+                                    }}
                                     onBlur={(e) => {
                                         if (!e.currentTarget.contains(e.relatedTarget as Node)) close();
                                     }}
@@ -337,7 +342,7 @@ export default function Navbar() {
                         </div>
                     </div>
                 </div>
-            </nav>
-        </div>
+            </nav >
+        </div >
     );
 }

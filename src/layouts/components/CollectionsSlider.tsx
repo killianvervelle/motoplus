@@ -72,7 +72,7 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                     className="h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93"
                     onError={(e) => {
                       e.currentTarget.src = "/images/image-placeholder.png";
-                      e.currentTarget.onerror = null; 
+                      e.currentTarget.onerror = null;
                     }}
                   />
                   <img
@@ -80,7 +80,7 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                     width={40}
                     height={20}
                     alt="Logo"
-                    className="absolute top-2 right-2"
+                    className="absolute top-5 right-7"
                   />
                 </div>
 

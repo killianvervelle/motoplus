@@ -1,7 +1,7 @@
 const SkeletonCards = () => {
   return (
     <section>
-      <div className="container">
+      <div className="container scroll-">
         <div className="row gy-4">
           <div className="col-12 mx-auto">
             <div>
@@ -11,7 +11,7 @@ const SkeletonCards = () => {
                   .map((_, index) => {
                     return (
                       <div key={index}>
-                        <div className="h-[200px] md:h-[269px] rounded-md animate-pulse bg-neutral-200 dark:bg-neutral-700" />
+                        <div className="h-[100px] md:h-[200px] rounded-md animate-pulse bg-neutral-200 dark:bg-neutral-700" />
                         <div className="flex flex-col justify-center items-center">
                           <div className="mt-4 w-24 h-3 rounded-full animate-pulse bg-neutral-200 dark:bg-neutral-700"></div>
                           <div className="mt-2 w-16 h-2 rounded-full animate-pulse bg-neutral-200 dark:bg-neutral-700"></div>

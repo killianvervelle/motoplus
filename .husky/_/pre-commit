@@ -1,2 +1,4 @@
 #!/usr/bin/env sh
-. "$(dirname "$0")/h"
+
+# run lint staged files using npm instead of yarn
+npx lint-staged

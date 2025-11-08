@@ -134,10 +134,10 @@ const CustomZoomImage = ({ src, alt, width, height }: CustomZoomImageProps): JSX
       />
       <img
         src="/images/logo.png"
-        width={60}
-        height={40}
+        width={40}
+        height={20}
         alt="Logo"
-        className="absolute top-2 right-2 "
+        className="absolute h-5 w-10 lg:h-10 lg:w-20 top-2 right-2"
       />
 
       {/* Magnifying glass icon - shown on hover for desktop, shown on touch for mobile */}
@@ -296,7 +296,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
                 width={20}
                 height={10}
                 alt="Logo"
-                className="absolute top-2 right-2 "
+                className="absolute h-3 w-6 top-2 right-2"
               />
             </div>
           </SwiperSlide>
