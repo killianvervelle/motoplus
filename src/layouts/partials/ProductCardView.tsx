@@ -271,22 +271,22 @@ const ProductCardView = ({
                 ${index % 3 === 0 && products.length > 3 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
                 ${index % 3 === 2 && products.length > 3 && "xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
-              <div className="relative w-full sm:h-60 md:h-[269px] overflow-hidden flex justify-center items-center">
+              <div className="relative w-full overflow-hidden rounded-md border">  {/*sm:h-60 md:h-[230px]*/}
                 <ImageFallback
                   src={
                     product.featuredImage?.url || "/images/product_image404.jpg"
                   }
-                  width={312}
-                  height={269}
+                  width={380}
+                  height={369}
                   alt={product.featuredImage?.altText || "fallback image"}
-                  className="w-full h-full object-cover rounded-md border"
+                  className="w-full h-full object-cover"
                 />
                 <img
                   src="/images/logo.png"
                   width={40}
                   height={20}
                   alt="Logo"
-                  className="absolute top-1 right-1"
+                  className="absolute top-3 right-3"
                 />
 
                 <Suspense>
@@ -314,7 +314,6 @@ const ProductCardView = ({
                   <span className="text-base md:text-lg font-bold text-text-dark dark:text-darkmode-text-dark">
                     {currencySymbol}{" "}
                     {product?.priceRange?.minVariantPrice?.amount}{" "}
-                    {product?.priceRange?.minVariantPrice?.currencyCode}
                   </span>
                   {parseFloat(
                     product?.compareAtPriceRange?.maxVariantPrice?.amount,

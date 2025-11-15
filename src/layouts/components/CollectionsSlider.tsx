@@ -91,7 +91,7 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                     </Link>
                   </h4>
                   <p className='text-text-light dark:text-darkmode-text-light text-base-sm md:text-xl'>
-                    {priceRange.maxVariantPrice.amount} CHF
+                    CHF {priceRange.maxVariantPrice.amount}
                   </p>
                 </div>
               </div>

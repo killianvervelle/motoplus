@@ -249,28 +249,28 @@ const ProductListView = ({
 
             return (
               <div className='col-12' key={id}>
-                <div className='row group'>
-                  <div className='col-6 md:col-5 lg:col-5 xl:col-4 relative'>
+                <div className='flex gap-5 group'>
+                  <div className='relative overflow-hidden rounded-md border'>
                     <Link
                       href={`/products/${handle}`}>
                       <ImageFallback
                         src={featuredImage?.url || '/images/product_image404.jpg'}
-                        width={312}
-                        height={269}
+                        width={280}
+                        height={369}
                         alt={featuredImage?.altText || 'fallback image'}
-                        className='w-full h-[150px] md:h-[269px] object-cover border border-border dark:border-darkmode-border rounded-md'
+                        className='w-full h-full object-cover'
                       />
                       <img
                         src="/images/logo.png"
-                        width={30}
+                        width={40}
                         height={20}
                         alt="Logo"
-                        className="absolute sm:w-11 sm:h-6 top-2 right-2 "
+                        className="absolute top-3 right-3"
                       />
                     </Link>
                   </div>
 
-                  <div className='col-6 md:col-7 lg:col-5 xl:col-8 py-3 max-md:pt-4 '>
+                  <div className='col-6 md:col-7 lg:col-5 xl:col-8 max-md:pt-4 '>
                     <h3 className='font-bold md:font-normal h5 line-clamp-2 md:line-clamp-3'>
                       <Link href={`/products/${handle}`}>{title}</Link>
                     </h3>

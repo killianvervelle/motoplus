@@ -106,11 +106,11 @@ const ShowProducts = async ({
     //}
 
     if (condition) {
-      queryString += `metafield:custom.condition:${condition}`;
+      queryString += ` metafield:custom.condition:${condition}`;
     }
 
     if (type) {
-      queryString += `metafield:custom.type:${type}`;
+      queryString += ` metafield:custom.type:${type}`;
     }
 
     const query = {
@@ -120,6 +120,7 @@ const ShowProducts = async ({
       cursor,
       locale
     }
+    console.log("query", query)
 
     if (category && category !== 'all') {
       // Filter by collection (category)
@@ -133,7 +134,16 @@ const ShowProducts = async ({
       });
     }
     else if (type && type !== 'all') {
-      // Filter by metafield (type)
+      if (condition && condition !== 'all') {
+        productsData = await getProducts({
+        sortKey,
+        reverse,
+        locale,
+        cursor,
+        query: `metafield:custom.type:${type} AND metafield:custom.condition:${condition}`,
+      });
+      }
+      else {
       productsData = await getProducts({
         sortKey,
         reverse,
@@ -141,6 +151,7 @@ const ShowProducts = async ({
         cursor,
         query: `metafield:custom.type:${type}`,
       });
+      }
     }
     else if (condition && condition !== 'all') {
       // Filter by metafield (condition)

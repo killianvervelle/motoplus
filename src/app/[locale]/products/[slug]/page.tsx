@@ -100,7 +100,6 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
               <div className="flex gap-2 items-center">
                 <h4 className="text-[#c60404] max-md:h2">
                   {currencySymbol} {priceRange?.minVariantPrice.amount}{" "}
-                  {priceRange?.minVariantPrice?.currencyCode}
                 </h4>
 
               </div>
