@@ -26,7 +26,7 @@ export async function getAllProducts(locale?: string) {
   return allProducts;
 }
 
-export const revalidate = 60 * 60 * 24 * 7
+export const revalidate = 604800
 
 export default async function sitemap() {
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || ""
