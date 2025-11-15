@@ -69,7 +69,7 @@ const CollectionsSlider = ({ collections }: { collections: any }) => {
                     width={424}
                     height={306}
                     alt={title || "Placeholder image"}
-                    className="h-[150px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93"
+                    className="border rounded-md h-[150px] md:h-[250px] lg:h-[306px] object-cover transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93"
                     onError={(e) => {
                       e.currentTarget.src = "/images/image-placeholder.png";
                       e.currentTarget.onerror = null;

@@ -108,11 +108,11 @@ const ProductListView = ({
           //}
 
           if (condition) {
-            queryString += `metafield:custom.condition:${condition}`;
+            queryString += ` metafield:custom.condition:${condition}`;
           }
 
           if (type) {
-            queryString += `metafield:custom.type:${type}`;
+            queryString += ` metafield:custom.type:${type}`;
           }
 
           const query = {
@@ -133,7 +133,16 @@ const ProductListView = ({
             });
           }
           else if (type && type !== 'all') {
-            // Filter by metafield (type)
+            if (condition && condition !== 'all') {
+              productsData = await getProducts({
+              sortKey,
+              reverse,
+              locale,
+              cursor,
+              query: `metafield:custom.type:${type} AND metafield:custom.condition:${condition}`,
+            });
+            }
+            else {
             productsData = await getProducts({
               sortKey,
               reverse,
@@ -141,16 +150,7 @@ const ProductListView = ({
               cursor,
               query: `metafield:custom.type:${type}`,
             });
-          }
-          else if (condition && condition !== 'all') {
-            // Filter by metafield (condition)
-            productsData = await getCollectionProducts({
-              collection: 'all-products',
-              sortKey,
-              reverse,
-              locale,
-              condition,
-            });
+            }
           }
           else {
             // Case 3: Normal query (no collection/metafield filter)
@@ -250,7 +250,7 @@ const ProductListView = ({
             return (
               <div className='col-12' key={id}>
                 <div className='flex gap-5 group'>
-                  <div className='relative overflow-hidden rounded-md border'>
+                  <div className='relative sm:max-h-[215px] max-h-[175px] overflow-clip rounded-md border'>
                     <Link
                       href={`/products/${handle}`}>
                       <ImageFallback

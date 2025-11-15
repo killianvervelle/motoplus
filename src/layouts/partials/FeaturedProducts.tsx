@@ -25,7 +25,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                   width={424}
                   height={306}
                   alt={featuredImage?.altText || 'fallback image'}
-                  className='h-[220px] sm:h-[350px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
+                  className='h-[220px] border sm:h-[350px] md:h-[250px] lg:h-[306px] object-cover rounded-md transform transition-transform duration-300 ease-in-out scale-90 group-hover:scale-93 '
                 />
                 <img
                   src="/images/logo.png"

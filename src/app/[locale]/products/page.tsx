@@ -120,7 +120,6 @@ const ShowProducts = async ({
       cursor,
       locale
     }
-    console.log("query", query)
 
     if (category && category !== 'all') {
       // Filter by collection (category)

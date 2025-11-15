@@ -118,7 +118,7 @@ const ProductCardView = ({
           //}
 
           if (type) {
-            queryString += `metafield:custom.type:${type}`;
+            queryString += ` metafield:custom.type:${type}`;
           }
 
           const query = {
@@ -139,7 +139,16 @@ const ProductCardView = ({
             });
           }
           else if (type && type !== 'all') {
-            // Filter by metafield (type)
+            if (condition && condition !== 'all') {
+              productsData = await getProducts({
+              sortKey,
+              reverse,
+              locale,
+              cursor,
+              query: `metafield:custom.type:${type} AND metafield:custom.condition:${condition}`,
+            });
+            }
+            else {
             productsData = await getProducts({
               sortKey,
               reverse,
@@ -147,16 +156,7 @@ const ProductCardView = ({
               cursor,
               query: `metafield:custom.type:${type}`,
             });
-          }
-          else if (condition && condition !== 'all') {
-            // Filter by metafield (condition)
-            productsData = await getCollectionProducts({
-              collection: 'all-products',
-              sortKey,
-              reverse,
-              locale,
-              condition,
-            });
+            }
           }
           else {
             // Case 3: Normal query (no collection/metafield filter)
@@ -271,7 +271,7 @@ const ProductCardView = ({
                 ${index % 3 === 0 && products.length > 3 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
                 ${index % 3 === 2 && products.length > 3 && "xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
-              <div className="relative w-full overflow-hidden rounded-md border">  {/*sm:h-60 md:h-[230px]*/}
+              <div className="relative w-full xl:max-h-[215px] md:max-h-[230px] max-h-[215px] overflow-hidden rounded-md border">  {/*sm:h-60 md:h-[230px]*/}
                 <ImageFallback
                   src={
                     product.featuredImage?.url || "/images/product_image404.jpg"
@@ -279,7 +279,7 @@ const ProductCardView = ({
                   width={380}
                   height={369}
                   alt={product.featuredImage?.altText || "fallback image"}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full overflow-clip object-cover"
                 />
                 <img
                   src="/images/logo.png"

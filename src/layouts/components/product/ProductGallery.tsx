@@ -129,7 +129,7 @@ const CustomZoomImage = ({ src, alt, width, height }: CustomZoomImageProps): JSX
         alt={alt}
         width={width}
         height={height}
-        className='w-full h-full object-contain'
+        className='border rounded-md w-full h-auto object-contain'
         draggable={false}
       />
       <img
@@ -204,8 +204,6 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
 
   const altTextArray: string[] = images.map((item: ImageItem) => item.altText)
 
-  const filteredImages: ImageItem[] = images.filter((item: ImageItem) => item.altText === altTextArray[activeIndex])
-
   useEffect(() => {
     if (searchParams) {
       const foundIndex: number = altTextArray.indexOf(searchParams)
@@ -216,11 +214,11 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
 
   const handleSlideChange = (swiper: TSwiper): void => {
     setActiveIndex(swiper.activeIndex)
-    setPicUrl(filteredImages[swiper.activeIndex]?.url || '')
+    setPicUrl(images[swiper.activeIndex]?.url || '')
   }
 
   const handleThumbSlideClick = (clickedUrl: string): void => {
-    const foundIndex: number = filteredImages.findIndex((item: ImageItem) => item.url === clickedUrl)
+    const foundIndex: number = images.findIndex((item: ImageItem) => item.url === clickedUrl)
     if (foundIndex !== -1) {
       setActiveIndex(foundIndex)
     }
@@ -232,7 +230,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
 
   return (
     <>
-      <div className='relative' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <div className='relative pt-10 md:pt-0' onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <Swiper
           spaceBetween={10}
           thumbs={{ swiper: thumbsSwiper }}
@@ -244,9 +242,9 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
           onSlideChange={handleSlideChange}
           allowTouchMove={!isHovered} // Disable Swiper touch when zooming is active
         >
-          {filteredImages.map((item: ImageItem) => (
+          {images.map((item: ImageItem) => (
             <SwiperSlide key={item.url}>
-              <div className='mb-6 border border-[#cecece] dark:border-border/40 rounded-md max-h-[623px] overflow-hidden'>
+              <div className='mb-5 border border-[#cecece] dark:border-border/40 rounded-md overflow-hidden'>
                 <CustomZoomImage src={item.url} alt={item.altText} width={722} height={623} />
               </div>
             </SwiperSlide>
@@ -274,7 +272,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
       >
-        {filteredImages.map((item: ImageItem) => (
+        {images.map((item: ImageItem) => (
           <SwiperSlide key={item.url}>
             <div
               onClick={() => handleThumbSlideClick(item.url)}
@@ -288,7 +286,7 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
                 alt={item.altText}
                 width={168}
                 height={146}
-                className='max-h-[146px]'
+                className='border rounded-md overflow-hidden w-full h-full object-cover'
                 draggable={false}
               />
               <img
