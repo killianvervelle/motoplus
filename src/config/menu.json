@@ -234,6 +234,7 @@
           "slug": "fuel-tank",
           "hasChildren": true,
           "children": [
+            { "name": "Fuel Tank", "url": "/used-parts/fuel-tank/fuel-tank", "slug": "fuel-tank" },
             { "name": "Fuel Hose", "url": "/used-parts/fuel-tank/fuel-hose", "slug": "fuel-hose" },
             { "name": "Fuel Pump", "url": "/used-parts/fuel-tank/fuel-pump", "slug": "fuel-pump" },
             {

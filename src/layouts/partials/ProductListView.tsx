@@ -139,7 +139,7 @@ const ProductListView = ({
               reverse,
               locale,
               cursor,
-              query: `metafield:custom.type:${type} AND metafield:custom.condition:${condition}`,
+              query: `metafields.custom.type:"${type}" AND metafields.custom.condition:"${condition}"`,
             });
             }
             else {
@@ -148,7 +148,7 @@ const ProductListView = ({
               reverse,
               locale,
               cursor,
-              query: `metafield:custom.type:${type}`,
+              query: `metafields:custom.type:"${type}"`,
             });
             }
           }

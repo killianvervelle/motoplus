@@ -29,6 +29,7 @@ export default function Navbar() {
 
         const p = parent.toLowerCase();
 
+
         if (["accessories", "accessoires", "acessórios"].includes(p)) {
             params.set("t", "accessories");
             if (child) params.set("c", child);
@@ -217,6 +218,7 @@ export default function Navbar() {
                                                                                     className="text-sm hover:underline font-semibold text-[#1d1d1f] dark:hover:text-[#c60404] dark:text-white rounded-md py-1 px-1"
                                                                                     onClick={(e) => {
                                                                                         e.preventDefault();
+                                                                                        e.stopPropagation();
                                                                                         handleClick(menuItem.name, item.slug)
                                                                                         close();
                                                                                     }

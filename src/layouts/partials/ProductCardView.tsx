@@ -14,6 +14,39 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { translateClient } from "../../lib/utils/translateClient";
 
 
+function resolveCollectionHandle(
+  category?: string,
+  type?: string,
+  condition?: string
+) {
+  // 1) If a category collection is explicitly chosen, always use it
+  if (category && category !== 'all') {
+    // your categories use "--" in the URL, Shopify uses "-" in handles
+    return category?.replace(/-+/g, '-');
+  }
+
+  // 2) No category → map type/condition to your 5 collections
+
+  if (type === 'moto-parts') {
+    if (condition === 'used') return 'used-parts';
+    if (condition === 'new') return 'new-parts';
+    // moto-parts but no condition filter → if you have a generic collection:
+    return 'moto-parts';
+  }
+
+  if (type === 'accessories') return 'accessories';
+  if (type === 'collectibles') return 'collectibles';
+  if (type === 'motos') return 'motos';
+
+  // 3) Only condition but no type (optional: you can decide this behaviour)
+  if (!type && condition === 'used') return 'used-parts';
+  if (!type && condition === 'new') return 'new-parts';
+
+  // 4) Fallback – your “all” collection
+  return 'all';
+}
+
+
 const ProductCardView = ({
   searchParams,
   locale,
@@ -55,143 +88,132 @@ const ProductCardView = ({
   const weTranslation = translateClient("not-found", "we")
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
+  const fetchData = async () => {
+    setIsLoading(true);
 
-      try {
-        let productsData;
+    try {
+      let productsData;
 
-        const hasFilters =
-          (searchValue && searchValue.trim() !== "") ||
-          (model && model.trim() !== "") ||
-          (brand && brand.trim() !== "") ||
-          (minPrice && minPrice.trim() !== "") ||
-          (maxPrice && maxPrice.trim() !== "") ||
-          (category && category !== "all" && category.trim() !== "") ||
-          (vendor && vendor !== "all" && vendor.trim() !== "") ||
-          (type && type !== "all" && type.trim() !== "") ||
-          (condition && condition.trim() !== "");
+      const hasFilters =
+        (searchValue && searchValue.trim() !== "") ||
+        (model && model.trim() !== "") ||
+        (brand && brand.trim() !== "") ||
+        (minPrice && minPrice.trim() !== "") ||
+        (maxPrice && maxPrice.trim() !== "") ||
+        (category && category !== "all" && category.trim() !== "") ||
+        (vendor && vendor !== "all" && vendor.trim() !== "") ||
+        (type && type !== "all" && type.trim() !== "") ||
+        (condition && condition.trim() !== "");
 
-        if (hasFilters) {
-          let queryString = "";
-          const filterCategoryProduct = [];
-
-          const shopifyHandle = category?.replace(/-+/g, '-');
-
-          if (minPrice && maxPrice) {
-            filterCategoryProduct.push({
-              price: {
-                min:
-                  minPrice !== undefined && minPrice !== ""
-                    ? parseFloat(minPrice)
-                    : 0,
-                max:
-                  maxPrice !== undefined && maxPrice !== ""
-                    ? parseFloat(maxPrice)
-                    : Number.POSITIVE_INFINITY,
-              },
-            });
-          }
-
-          if (minPrice || maxPrice) {
-            queryString += `variants.price:<=${maxPrice} variants.price:>=${minPrice}`;
-          }
-
-          if (searchValue) {
-            queryString += ` ${searchValue}`;
-          }
-
-          if (brand) {
-            queryString += ` tag:'${brand}'`
-          }
-
-          if (model) {
-            queryString += ` tag:'${model}'`
-          }
-
-          if (vendor) {
-            queryString += ` vendor:"${vendor}"`;
-          }
-
-          //if (tag) {
-          //queryString += ` tag:'${tag}'`
-          //}
-
-          if (type) {
-            queryString += ` metafield:custom.type:${type}`;
-          }
-
-          const query = {
-            sortKey,
-            reverse,
-            query: queryString,
-          };
-
-          if (category && category !== 'all') {
-            // Filter by collection (category)
-            productsData = await getCollectionProducts({
-              collection: shopifyHandle,
-              sortKey,
-              reverse,
-              locale,
-              condition, //  supports condition filter within category
-              type
-            });
-          }
-          else if (type && type !== 'all') {
-            if (condition && condition !== 'all') {
-              productsData = await getProducts({
-              sortKey,
-              reverse,
-              locale,
-              cursor,
-              query: `metafield:custom.type:${type} AND metafield:custom.condition:${condition}`,
-            });
-            }
-            else {
-            productsData = await getProducts({
-              sortKey,
-              reverse,
-              locale,
-              cursor,
-              query: `metafield:custom.type:${type}`,
-            });
-            }
-          }
-          else {
-            // Case 3: Normal query (no collection/metafield filter)
-            productsData = await getProducts({ ...query, cursor, locale });
-          }
-        } else {
-          productsData = await getProducts({ sortKey, reverse, cursor, locale });
-        }
-
+      // You can decide: if no filters, do you want to load "all products"?
+      if (!hasFilters) {
+        // Example: fetch all products (or skip if that’s not desired)
+        productsData = await getProducts({ cursor, locale, sortKey, reverse });
         setData({
           products: productsData.products,
           pageInfo: productsData.pageInfo!,
         });
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      } finally {
-        setIsLoading(false);
+        return;
       }
-    };
 
-    fetchData();
-  }, [
-    cursor,
-    sortKey,
-    searchValue,
-    minPrice,
-    maxPrice,
-    category,
-    reverse,
-    model,
-    vendor,
-    brand,
-    type,
-    condition
-  ]);
+      const filterCategoryProduct: any[] = [];
+      const queryParts: string[] = [];
+
+      // Price filters
+      if (minPrice || maxPrice) {
+        const min = minPrice ? parseFloat(minPrice) : 0;
+        const max = maxPrice ? parseFloat(maxPrice) : Number.MAX_SAFE_INTEGER;
+
+        queryParts.push(`variants.price:>=${min} variants.price:<=${max}`);
+
+        filterCategoryProduct.push({
+          price: { min, max },
+        });
+      }
+
+      if (searchValue) {
+        queryParts.push(searchValue);
+      }
+
+      if (brand) {
+        queryParts.push(` tag:'${brand}'`);
+      }
+
+      if (model) {
+        queryParts.push(` tag:'${model}'`);
+      }
+
+      if (vendor) {
+        queryParts.push(` vendor:"${vendor}"`);
+      }
+
+      if (type) {
+        queryParts.push(` metafield:custom.type:${type}`);
+      }
+
+      const queryString = queryParts.join(" ");
+
+      const query = {
+        sortKey,
+        reverse,
+        query: queryString,
+      };
+
+      const collectionHandle = resolveCollectionHandle(category, type, condition);
+
+      console.log(collectionHandle)
+
+      if (collectionHandle !== "all") {
+        productsData = await getCollectionProducts({
+          collection: collectionHandle,
+          sortKey,
+          reverse,
+          locale,
+          filterCategoryProduct:
+            category &&
+            category !== "all" &&
+            filterCategoryProduct.length > 0
+              ? filterCategoryProduct
+              : undefined,
+        })
+      } else {
+        productsData = await getProducts({
+          ...query,
+          cursor,
+          locale,
+          sortKey,
+          reverse,
+        });
+      }
+
+      setData({
+        products: productsData.products,
+        pageInfo: productsData.pageInfo!,
+      });
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchData();
+}, [
+  cursor,
+  sortKey,
+  searchValue,
+  minPrice,
+  maxPrice,
+  category,
+  reverse,
+  model,
+  vendor,
+  brand,
+  type,
+  condition,
+  locale,
+]);
+
 
   const { products, pageInfo } = data;
   const endCursor = pageInfo?.endCursor || "";

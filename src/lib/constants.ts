@@ -247,6 +247,7 @@ export const MENU_ITEMS: MenuItem[] = [
         imageBlack: "/images/gas-tankB.png",
         imageWhite: "/images/gas-tankW.png",
         submenu: [
+          { name: "Fuel Tank", slug: "fuel-tank" },
           { name: "Fuel Hose", slug: "fuel-hose" },
           { name: "Quick Connector", slug: "quick-connector" },
           { name: "Fuel Tank Cleaner", slug: "fuel-tank-cleaner" },
@@ -500,6 +501,7 @@ export const MENU_ITEMS: MenuItem[] = [
         imageBlack: "/images/gas-tankB.png",
         imageWhite: "/images/gas-tankW.png",
         submenu: [
+          { name: "Fuel Tank", slug: "fuel-tank" },
           { name: "Fuel Hose", slug: "fuel-hose" },
           { name: "Quick Connector", slug: "quick-connector" },
           { name: "Fuel Tank Cleaner", slug: "fuel-tank-cleaner" },
