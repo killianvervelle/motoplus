@@ -50,7 +50,7 @@ export async function POST(req: Request) {
         from: `MotoPlus <${process.env.CONTACT_FROM}>`,
         to: [
         process.env.CONTACT_TO,
-        "killian@vervelle.ch"
+        "motopecas.net@gmail.com"
       ],
         "h:Reply-To": `${fullName} <${email}>`,
         subject: subjectLine,
