@@ -363,6 +363,7 @@
     "share": "Partager",
     "payment": "Paiement",
     "delivery": "Livraison estimée entre 1 – 3 jours",
+    "delivery-moto": "Pour toute demande concernant ce produit, veuillez contacter notre garage.",
     "add-to-cart": "Ajouter au panier"
   },
   "cart": {

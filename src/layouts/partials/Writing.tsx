@@ -19,13 +19,9 @@ export default function Writing() {
     return (
         <div>
             {resolvedTheme == 'light' ?
-                <a href="https://www.fontspace.com/category/handwriting">
-                    <img src="https://see.fontimg.com/api/rf5/14M2/NjNkOGVlNzVmYjdjNGVhYWI0MWFmY2YxODM3OTU3ZDMudHRm/QSB2aWRhIMOpIHVtYSBlc3RyYWRhICAgYSBtb3RvIMOpIGEgbGliZXJkYWRlICAgZSBvIHZlbnRvIG5vIHJvc3RvIMOpIGEgZmVsaWNpZGFkZQ/great-day-personal-use.png?r=fs&h=39&w=1000&fg=000000&bg=FFFFFF&tb=1&s=39" alt="Handwriting fonts" />
-                </a>
+                <a href="https://www.fontspace.com/category/calligraphy"><img src="https://see.fontimg.com/api/rf5/nAYpR/NGQyZmJkMjY1MzkzNDFkZGJlODExN2UyNTY0MzYxODkudHRm/QSB2aWRhIMOpIHVtYSBlc3RyYWRhLCBhIG1vdG8gw6kgbGliZXJkYWRlIGUgbyB2ZW50byBubyByb3N0byDDqSBmZWxpY2lkYWRlLg/zialothus-regular.png?r=fs&h=38&w=1250&fg=000000&bg=FFFFFF&tb=1&s=30" alt="Calligraphy fonts"/></a>
                 :
-                <a href="https://www.fontspace.com/category/handwriting">
-                    <img src="https://see.fontimg.com/api/rf5/14M2/NjNkOGVlNzVmYjdjNGVhYWI0MWFmY2YxODM3OTU3ZDMudHRm/QSB2aWRhIMOpIHVtYSBlc3RyYWRhICAgYSBtb3RvIMOpIGEgbGliZXJkYWRlICAgZSBvIHZlbnRvIG5vIHJvc3RvIMOpIGEgZmVsaWNpZGFkZQ/great-day-personal-use.png?r=fs&h=39&w=1000&fg=FFFBFB&bg=FFFFFF&tb=1&s=39" alt="Handwriting fonts" />
-                </a>
+                <a href="https://www.fontspace.com/category/calligraphy"><img src="https://see.fontimg.com/api/rf5/nAYpR/NGQyZmJkMjY1MzkzNDFkZGJlODExN2UyNTY0MzYxODkudHRm/QSB2aWRhIMOpIHVtYSBlc3RyYWRhLCBhIG1vdG8gw6kgbGliZXJkYWRlIGUgbyB2ZW50byBubyByb3N0byDDqSBmZWxpY2lkYWRlLg/zialothus-regular.png?r=fs&h=34&w=1250&fg=F5F3F3&bg=FFFFFF&tb=1&s=27" alt="Calligraphy fonts"/></a>            
             }
         </div>
     );

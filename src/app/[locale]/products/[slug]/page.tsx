@@ -10,7 +10,9 @@ import LatestProducts from "@/partials/FeaturedProducts";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import matter from 'gray-matter';
+import { NodeItem } from '@/lib/shopify/types'
 import { translateServer } from "../../../../lib/utils/translateServer";
+
 
 export const dynamic = 'force-dynamic';
 
@@ -66,6 +68,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
     descriptionHtml,
     priceRange,
     images,
+    collections,
     variants,
     tags,
   } = product;
@@ -79,6 +82,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
   const share = await translateServer("featuredProducts", "share")
   const payment = await translateServer("featuredProducts", "payment")
   const delivery = await translateServer("featuredProducts", "delivery")
+  const deliverymoto = await translateServer("featuredProducts", "delivery-moto")
 
   const defaultVariantId = variants.length > 0 ? variants[0].id : undefined;
 
@@ -118,7 +122,9 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
 
               <div className="mb-8 md:mb-10">
                 <p className="p-2 max-md:text-sm rounded-md bg-light dark:bg-darkmode-light inline">
-                  {delivery}
+                  {collections.nodes.some((node: NodeItem) => node.title.toLowerCase()==="motos" || node.title.toLowerCase()==="motorcycles") 
+                  ? deliverymoto
+                  : delivery}
                 </p>
               </div>
 

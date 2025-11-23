@@ -20,7 +20,7 @@ type MerchandiseSearchParams = {
   [key: string]: string
 }
 
-export default function CartModal({ cart }: { cart: Cart | undefined }) {
+export default function CartModal({ cart, token }: { cart: Cart | undefined, token: string | undefined}) {
   const [isOpen, setIsOpen] = useState(false)
   const quantityRef = useRef(cart?.totalQuantity)
   const openCart = () => setIsOpen(true)
@@ -171,7 +171,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 </div>
               </div>
               <a
-                href={cart.checkoutUrl}
+                href={token ? cart.checkoutUrl : "/login"}
                 className='block w-full rounded-md bg-dark dark:bg-light p-3 text-center text-sm font-medium text-white dark:text-text-dark opacity-100 hover:opacity-90'
               >
                 {proceed}

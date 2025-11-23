@@ -92,6 +92,11 @@ export type PageInfo = {
   endCursor: string;
 };
 
+export type NodeItem = {
+  name: string;
+  [key: string]: any;
+};
+
 export type CartItem = {
   id: string;
   quantity: number;

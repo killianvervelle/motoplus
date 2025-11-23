@@ -363,6 +363,7 @@
     "share": "Share",
     "payment": "Payment",
     "delivery": "Est. Delivery between 1 – 3 days",
+    "delivery-moto": "For inquiries about this product, please contact our garage.",
     "add-to-cart": "Add To Cart"
   },
   "cart": {
