@@ -59,14 +59,21 @@ export const getCollectionProductsQuery = /* GraphQL */ `
     $reverse: Boolean
     $filters: [ProductFilter!]
     $language: LanguageCode
+    $after: String # <--- 1. Add this variable definition
   ) @inContext(language: $language){
     collection(handle: $handle) {
       products(
         sortKey: $sortKey
         reverse: $reverse
-        first: 100
+        first: 24
         filters: $filters
+        after: $after # <--- 2. Pass it to the products connection
       ) {
+        pageInfo {     # <--- 3. Ensure this is inside the products block
+          hasNextPage
+          hasPreviousPage
+          endCursor
+        }
         edges {
           node {
             ...product

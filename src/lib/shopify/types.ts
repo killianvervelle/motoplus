@@ -87,6 +87,7 @@ export type Cart = Omit<ShopifyCart, "lines"> & {
 };
 
 export type PageInfo = {
+  totalCount?: number;
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   endCursor: string;

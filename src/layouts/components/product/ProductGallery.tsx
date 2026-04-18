@@ -113,31 +113,43 @@ const CustomZoomImage = ({ src, alt, width, height }: CustomZoomImageProps): JSX
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden rounded-md ${!isZoomed && showMagnifier ? 'cursor-zoom-in' : isZoomed ? 'cursor-zoom-out' : ''
-        }`}
-      ref={imageRef}
-      onMouseEnter={() => !isTouchDevice && setShowMagnifier(true)}
-      onMouseLeave={() => !isTouchDevice && setShowMagnifier(false)}
-      onMouseMove={handleMouseMove}
-      onClick={!isTouchDevice ? handleClick : undefined}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className='border rounded-md w-full h-auto object-contain'
-        draggable={false}
-      />
-      <img
-        src="/images/logo.png"
-        width={40}
-        height={20}
-        alt="Logo"
-        className="absolute h-5 w-10 lg:h-10 lg:w-20 top-2 right-2"
+      className={`relative w-full h-auto min-h-0 overflow-hidden rounded-md border border-[#cecece] bg-white ${
+    !isZoomed && showMagnifier ? 'cursor-zoom-in' : isZoomed ? 'cursor-zoom-out' : ''
+    }`}
+  ref={imageRef}
+  onMouseEnter={() => !isTouchDevice && setShowMagnifier(true)}
+  onMouseLeave={() => !isTouchDevice && setShowMagnifier(false)}
+  onMouseMove={handleMouseMove}
+  onClick={!isTouchDevice ? handleClick : undefined}
+  onTouchStart={handleTouchStart}
+  onTouchMove={handleTouchMove}
+  onTouchEnd={handleTouchEnd}
+>
+  <img
+    src={src}
+    alt={alt}
+    className='w-full h-72 sm:h-96 md:h-96 lg:h-120 block object-fill border rounded-md'
+    style={{ maxHeight: 'none' }} // Ensure no global CSS limits the height
+    draggable={false}
+  />
+  
+  <img
+    src="/images/logo.png"
+    width={40}
+    height={20}
+    alt="Logo"
+    className="absolute h-5 w-10 lg:h-10 lg:w-20 top-2 right-2 pointer-events-none z-10"
+  />
+  
+  {/* Magnifier Overlay (If you have one rendered here) */}
+  
+  <img
+    src="/images/logo.png"
+    width={40}
+    height={20}
+    alt="Logo"
+    // 4. Ensure logo stays in the top right of the ACTUAL image
+    className="absolute h-5 w-10 lg:h-10 lg:w-20 top-2 right-2 pointer-events-none"
       />
 
       {/* Magnifying glass icon - shown on hover for desktop, shown on touch for mobile */}
@@ -265,41 +277,40 @@ const ProductGallery = ({ images }: ProductGalleryProps): JSX.Element => {
         </Swiper>
       </div>
       <Swiper
-        onSwiper={setThumbsSwiper}
-        spaceBetween={10}
-        slidesPerView={isTouchDevice ? 3.5 : 4}
-        freeMode={true}
-        watchSlidesProgress={true}
-        modules={[FreeMode, Navigation, Thumbs]}
+  onSwiper={setThumbsSwiper}
+  spaceBetween={10}
+  slidesPerView={isTouchDevice ? 3.5 : 4}
+  freeMode={true}
+  watchSlidesProgress={true}
+  modules={[FreeMode, Navigation, Thumbs]}
+>
+  {images.map((item: ImageItem) => (
+    <SwiperSlide key={item.url}>
+      <div
+        onClick={() => handleThumbSlideClick(item.url)}
+        className={`rounded-md cursor-pointer overflow-hidden relative w-full aspect-[4/3] ${
+          picUrl === item.url
+            ? 'border-2 border-darkmode-border dark:border-yellow-500' // Increased to border-2 for visibility
+            : 'border border-[#cecece] dark:border-border/40'
+        }`}
       >
-        {images.map((item: ImageItem) => (
-          <SwiperSlide key={item.url}>
-            <div
-              onClick={() => handleThumbSlideClick(item.url)}
-              className={`rounded-md cursor-pointer overflow-hidden relative ${picUrl === item.url
-                ? 'border border-darkmode-border dark:border-yellow-500'
-                : 'border border-[#cecece] dark:border-border/40'
-                }`}
-            >
-              <img
-                src={item.url}
-                alt={item.altText}
-                width={168}
-                height={146}
-                className='border rounded-md overflow-hidden w-full h-full object-cover'
-                draggable={false}
-              />
-              <img
-                src="/images/logo.png"
-                width={20}
-                height={10}
-                alt="Logo"
-                className="absolute h-3 w-6 top-2 right-2"
-              />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <img
+          src={item.url}
+          alt={item.altText}
+          className='absolute inset-0 w-full h-full object-fill'
+          draggable={false}
+        />
+        <img
+          src="/images/logo.png"
+          width={20}
+          height={10}
+          alt="Logo"
+          className="absolute h-3 w-6 top-2 right-2 z-10"
+        />
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
     </>
   )
 }

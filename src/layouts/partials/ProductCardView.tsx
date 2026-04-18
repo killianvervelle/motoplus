@@ -4,14 +4,14 @@ import { AddToCart } from "@/components/cart/AddToCart";
 import SkeletonCards from "@/components/loadings/skeleton/SkeletonCards";
 import config from "@/config/config.json";
 import ImageFallback from "@/helpers/ImageFallback";
-import useLoadMore from "@/hooks/useLoadMore";
 import { defaultSort, sorting } from "@/lib/constants";
 import { getCollectionProducts, getProducts } from "@/lib/shopify";
 import { PageInfo, Product } from "@/lib/shopify/types";
 import Link from "next/link";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { BiLoaderAlt } from "react-icons/bi";
 import { translateClient } from "../../lib/utils/translateClient";
+import { usePathname, useRouter } from '@/i18n/navigation'
+import React from 'react'
 
 
 function resolveCollectionHandle(
@@ -19,18 +19,13 @@ function resolveCollectionHandle(
   type?: string,
   condition?: string
 ) {
-  // 1) If a category collection is explicitly chosen, always use it
   if (category && category !== 'all') {
-    // your categories use "--" in the URL, Shopify uses "-" in handles
     return category?.replace(/-+/g, '-');
   }
-
-  // 2) No category → map type/condition to your 5 collections
 
   if (type === 'moto-parts') {
     if (condition === 'used') return 'used-parts';
     if (condition === 'new') return 'new-parts';
-    // moto-parts but no condition filter → if you have a generic collection:
     return 'moto-parts';
   }
 
@@ -38,11 +33,9 @@ function resolveCollectionHandle(
   if (type === 'collectibles') return 'collectibles';
   if (type === 'motos') return 'motos';
 
-  // 3) Only condition but no type (optional: you can decide this behaviour)
   if (!type && condition === 'used') return 'used-parts';
   if (!type && condition === 'new') return 'new-parts';
 
-  // 4) Fallback – your “all” collection
   return 'all';
 }
 
@@ -62,8 +55,11 @@ const ProductCardView = ({
     pageInfo: PageInfo;
   }>({
     products: [],
-    pageInfo: { endCursor: "", hasNextPage: false, hasPreviousPage: false },
+        pageInfo: { totalCount: 0, endCursor: '', hasNextPage: false, hasPreviousPage: false }
   });
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const {
     sort,
@@ -77,6 +73,7 @@ const ProductCardView = ({
     t: type,
     condition: condition,
     cursor,
+    page
   } = searchParams as {
     [key: string]: string;
   };
@@ -107,8 +104,11 @@ const ProductCardView = ({
 
       // You can decide: if no filters, do you want to load "all products"?
       if (!hasFilters) {
-        // Example: fetch all products (or skip if that’s not desired)
-        productsData = await getProducts({ cursor, locale, sortKey, reverse });
+        productsData = await getProducts({ 
+          cursor, 
+          locale, 
+          sortKey, 
+          reverse });
         setData({
           products: productsData.products,
           pageInfo: productsData.pageInfo!,
@@ -161,14 +161,13 @@ const ProductCardView = ({
 
       const collectionHandle = resolveCollectionHandle(category, type, condition);
 
-      console.log(collectionHandle)
-
       if (collectionHandle !== "all") {
         productsData = await getCollectionProducts({
           collection: collectionHandle,
           sortKey,
           reverse,
           locale,
+          cursor,
           filterCategoryProduct:
             category &&
             category !== "all" &&
@@ -186,10 +185,21 @@ const ProductCardView = ({
         });
       }
 
-      setData({
-        products: productsData.products,
-        pageInfo: productsData.pageInfo!,
-      });
+      setData((prev) => ({
+                products: productsData.products,
+                pageInfo: {
+                  // 1. Keep previous values as a base (to preserve totalCount)
+                  ...prev.pageInfo,
+                  // 2. Spread new values
+                  ...productsData.pageInfo,
+                  // 3. Force defaults so they are never undefined
+                  hasNextPage: productsData.pageInfo?.hasNextPage ?? false,
+                  hasPreviousPage: productsData.pageInfo?.hasPreviousPage ?? false,
+                  endCursor: productsData.pageInfo?.endCursor ?? '',
+                  // 4. Specifically ensure totalCount persists
+                  totalCount: productsData.pageInfo?.totalCount ?? prev.pageInfo.totalCount ?? 0,
+                } as PageInfo // 5. Tell TS this matches your interface
+              }));
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -200,6 +210,7 @@ const ProductCardView = ({
   fetchData();
 }, [
   cursor,
+  page,
   sortKey,
   searchValue,
   minPrice,
@@ -215,38 +226,57 @@ const ProductCardView = ({
 ]);
 
 
-  const { products, pageInfo } = data;
-  const endCursor = pageInfo?.endCursor || "";
-  const hasNextPage = pageInfo?.hasNextPage || false;
+  const { products, pageInfo } = data
+  const hasNextPage = pageInfo?.hasNextPage || false
+  const hasPreviousPage = pageInfo?.hasPreviousPage || false
 
-  useLoadMore(targetElementRef as React.RefObject<HTMLElement>, () => {
-    if (hasNextPage && !isLoading) {
-      fetchDataWithNewCursor(endCursor);
-    }
-  });
+  const handlePageChange = (targetPage: number) => {
+  const params = new URLSearchParams(searchParams);
 
-  const fetchDataWithNewCursor = async (newCursor: string) => {
-    // setIsLoading(true);
+  if (targetPage === 1) {
+    params.delete('cursor');
+    params.delete('page');
+    router.push(`${pathname}?${params.toString()}`);
+  } else if (targetPage > currentPage) {
+    // Only go forward if we have the cursor
+    if (!pageInfo.endCursor) return;
+    params.set('cursor', pageInfo.endCursor);
+    params.set('page', targetPage.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  } else if (targetPage < currentPage) {
+    // Go back using browser history to return to previous cursor
+    window.history.back();
+  }
+};
 
-    try {
-      const res = await getProducts({
-        sortKey,
-        reverse,
-        query: searchValue,
-        cursor: newCursor,
-        locale
-      });
+  const currentPage = Number(page) || 1;
+  const productsPerPage = 24;
+  const totalCount = pageInfo?.totalCount || (products.length > 0 ? 24 : 0); 
+  const totalPages = Math.ceil(totalCount / productsPerPage) || 1;
 
-      setData({
-        products: [...products, ...res.products],
-        pageInfo: res.pageInfo,
-      });
-    } catch (error) {
-      console.error("Error fetching more products:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const getPaginationNumbers = () => {
+  const pages = new Set<(number | string)>();
+  pages.add(1);
+  if (currentPage > 3) {
+    pages.add('...start');
+  }
+
+  if (currentPage > 2) {
+    pages.add(currentPage - 1);
+  }
+  
+  if (currentPage !== 1) {
+    pages.add(currentPage);
+  }
+
+  if (hasNextPage) {
+    pages.add(currentPage + 1);
+    pages.add('...end');
+  }
+  return Array.from(pages);
+};
+
+  const pageNumbers = getPaginationNumbers();
 
   if (isLoading) {
     return <SkeletonCards />;
@@ -293,15 +323,13 @@ const ProductCardView = ({
                 ${index % 3 === 0 && products.length > 3 && "xl:border-r-[0.5px] xl:border-[#cecece]"}
                 ${index % 3 === 2 && products.length > 3 && "xl:border-l-[0.5px] xl:border-[#cecece]"}`}
             >
-              <div className="relative w-full xl:max-h-[215px] md:max-h-[230px] max-h-[215px] overflow-hidden rounded-md border">  {/*sm:h-60 md:h-[230px]*/}
+              <div className="relative w-full aspect-square overflow-hidden rounded-md border bg-white group">
                 <ImageFallback
-                  src={
-                    product.featuredImage?.url || "/images/product_image404.jpg"
-                  }
-                  width={380}
-                  height={369}
-                  alt={product.featuredImage?.altText || "fallback image"}
-                  className="w-full h-full overflow-clip object-cover"
+                  src={product.featuredImage?.url || "/images/product_image404.jpg"}
+                  alt={product.title}
+                  fill 
+                  className="absolute top-0 left-0 w-full h-full object-fill transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 <img
                   src="/images/logo.png"
@@ -357,16 +385,63 @@ const ProductCardView = ({
           );
         })}
       </div>
-
-      <p
-        className={
-          hasNextPage || isLoading
-            ? "opacity-100 flex justify-center"
-            : "opacity-0 hidden"
-        }
-      >
-        <BiLoaderAlt className={`animate-spin`} size={30} />
-      </p>
+      {/* PAGINATION BAR */}
+              <div className="flex justify-center items-center mt-24 pb-10">
+                <nav className="inline-flex items-center rounded-md border border-gray-200 bg-white shadow-sm overflow-hidden">
+                  {/* Previous */}
+                  <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={!hasPreviousPage}
+                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-30 border-r border-gray-200"
+                  >
+                    ❮ Previous
+                  </button>
+      
+                  {/* Numbers */}
+                  <div className="flex items-center h-full">
+                    {pageNumbers.map((pageVal, index) => {
+                      const isDots = typeof pageVal === 'string' && pageVal.startsWith('...');
+                      const label = isDots ? '...' : pageVal;
+      
+                      return (
+                        <React.Fragment key={index}>
+                          {isDots ? (
+                            <span className="px-4 h-full flex items-center text-gray-400 border-r border-gray-200">
+                              {label}
+                            </span>
+                          ) : (
+                            <button
+                              // Ensure we compare against the actual number value
+                              onClick={() => typeof pageVal === 'number' && handlePageChange(pageVal)}
+                              // Sequential navigation: Only allow clicking 1, current-1, or current+1
+                              disabled={
+                                pageVal === currentPage || 
+                                (pageVal !== 1 && pageVal !== currentPage + 1 && pageVal !== currentPage - 1)
+                              }
+                              className={`px-4 h-full text-sm font-bold transition-all border-r border-gray-200 flex items-center ${
+                                currentPage === pageVal
+                                  ? 'bg-white text-black border-2 border-black z-10' // Active Box
+                                  : 'text-gray-500 hover:bg-gray-50 disabled:opacity-50'
+                              }`}
+                            >
+                              {label}
+                            </button>
+                          )}
+                        </React.Fragment>
+                      );
+                    })}
+                  </div>
+      
+                  {/* Next */}
+                  <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={!hasNextPage}
+                    className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-30"
+                  >
+                    Next ❯
+                  </button>
+                </nav>
+              </div>
     </div>
   );
 };

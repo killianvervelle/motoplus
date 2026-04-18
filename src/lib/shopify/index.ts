@@ -302,6 +302,7 @@ export async function getCollectionProducts({
   sortKey,
   filterCategoryProduct,
   locale,
+  cursor,
   condition,
   type
 
@@ -310,6 +311,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
   locale?: string;
+  cursor?: string;
   condition?: string;
   type?: string;
   filterCategoryProduct?: any[]; 
@@ -352,12 +354,14 @@ export async function getCollectionProducts({
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
       language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT', 
       filters, 
+      after: cursor, // <--- 4. Map the cursor to 'after'
     } as {
       handle: string;
       reverse?: boolean;
       sortKey?: string;
       filters?: any[];
-      language?: string
+      language?: string;
+      after?: string; // 5. Add after to the type cast
     },
   });
 

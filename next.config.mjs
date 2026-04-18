@@ -12,7 +12,15 @@ const nextConfig = {
       { protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' }
     ]
   },
-  eslint: { ignoreDuringBuilds: true }
+  eslint: { ignoreDuringBuilds: true },
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        "expert-couscous-wp6x74q4w5pfgg7x-3000.app.github.dev",
+        "localhost:3000"
+      ],
+    },
+  },
 };
 
 
