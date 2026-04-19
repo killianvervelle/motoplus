@@ -2,10 +2,38 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function GalleryClient({ imageFiles, isAdmin }: { imageFiles: string[]; isAdmin: boolean }) {
+export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) {
   const router = useRouter();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  async function fetchUser() {
+      const res = await fetch('/api/customer/me', { credentials: 'include' })
+      if (!res.ok) return null
+
+      const json = await res.json()
+
+      const c = json.customer
+      return {
+          firstName: c.firstName,
+          lastName: c.lastName,
+          email: c.emailAddress?.emailAddress ?? '',
+          defaultAddress: c.defaultAddress,
+          addresses: c.addresses.edges.map((e: any) => e.node)
+      }
+  }
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      const user = await fetchUser();
+      if (user) {
+        setIsAdmin(user.email === process.env.ADMIN_EMAIL);
+      }
+    };
+    checkAdmin();
+  }, []);
+
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
