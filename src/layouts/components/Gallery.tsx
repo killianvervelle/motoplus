@@ -36,24 +36,53 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
 
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const file = e.target.files?.[0];
+  if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+  const formData = new FormData();
+  formData.append("file", file);
 
-    const res = await fetch("/api/customer/gallery", { method: "POST", body: formData });
-    if (res.ok) router.refresh(); // Syncs server state with UI
-  };
+  const res = await fetch("/api/customer/gallery", { 
+    method: "POST", 
+    body: formData 
+  });
+  
+  if (res.ok) {
+    router.refresh(); 
+  } else {
+    const err = await res.json();
+    alert(err.error || "Upload failed");
+  }
+};
 
-  const handleDelete = async (fileName: string) => {
-    const res = await fetch("/api/customer/gallery", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fileName }),
-    });
-    if (res.ok) router.refresh();
-  };
+const handleDelete = async (url: string) => {
+  const res = await fetch("/api/customer/gallery", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ url }),
+  });
+  
+  if (res.ok) router.refresh();
+};
+
+{imageFiles.map((url) => (
+  <div key={url} className="relative aspect-square group overflow-hidden rounded-lg shadow-md border">
+    <Image
+      src={url} 
+      alt="Gallery image"
+      fill
+      className="object-cover transition-transform group-hover:scale-105"
+    />
+    {isAdmin && (
+      <button
+        onClick={() => handleDelete(url)}
+        className="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full z-20"
+      >
+        ✕
+      </button>
+    )}
+  </div>
+))}
 
   return (
     <div className="container mx-auto px-4 py-12">

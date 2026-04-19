@@ -33,6 +33,7 @@
     "@hcaptcha/react-hcaptcha": "^1.12.1",
     "@justinribeiro/lite-youtube": "^1.7.1",
     "@sendgrid/mail": "^8.1.5",
+    "@vercel/blob": "^2.3.3",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.2",

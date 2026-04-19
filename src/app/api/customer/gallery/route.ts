@@ -1,6 +1,7 @@
 import { writeFile, unlink } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
+import { del, put } from '@vercel/blob';
 
 const GALLERY_PATH = path.join(process.cwd(), "public/images/gallery");
 
@@ -14,23 +15,23 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const filePath = path.join(GALLERY_PATH, file.name);
+    const blob = await put(file.name, file, {
+      access: 'public',
+    });
 
-    await writeFile(filePath, buffer);
-    return NextResponse.json({ success: true });
+    return NextResponse.json(blob); 
   } catch (error) {
+    console.error("Upload error:", error);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { fileName }: { fileName: string } = await request.json();
-    const filePath = path.join(GALLERY_PATH, fileName);
-
-    await unlink(filePath);
+    const { url }: { url: string } = await request.json();
+    
+    await del(url);
+    
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Delete failed" }, { status: 500 });
