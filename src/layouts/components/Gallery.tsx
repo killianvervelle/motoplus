@@ -28,10 +28,7 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
     const checkAdmin = async () => {
       const user = await fetchUser();
       if (user) {
-        console.log("User email:", user.email); // Debug log
-        console.log("Admin email:", process.env.ADMIN_EMAIL); // Debug log
-        setIsAdmin(user.email === process.env.ADMIN_EMAIL);
-        console.log("Is Admin:", user.email === process.env.ADMIN_EMAIL); // Debug log
+        setIsAdmin(user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL);
       }
     };
     checkAdmin();
