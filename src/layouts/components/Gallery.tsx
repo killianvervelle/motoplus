@@ -33,6 +33,7 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
       }
     };
     checkAdmin();
+    console.log("ADMIN?", isAdmin);
   }, []);
 
 
