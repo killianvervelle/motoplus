@@ -1,28 +1,34 @@
 import fs from "fs";
 import path from "path";
-import { cookies } from "next/headers";
 
 import GalleryClient from '@/components/Gallery';
 
-async function getShopifyUser() {
-  const cookieStore = await cookies();
-  const sessionToken = cookieStore.get("shopify_session_token")?.value;
+type ProfileUser = {
+    firstName: string
+    lastName: string
+    email: string
+}
 
-  if (!sessionToken) return null;
+async function fetchUser() {
+    const res = await fetch('/api/customer/me', { credentials: 'include' })
+    if (!res.ok) return null
 
-  const response = await fetch("https://your-shopify-store.myshopify.com/api/customer/me", {
-    headers: {
-      "Authorization": `Bearer ${sessionToken}`,
-    },
-  });
+    const json = await res.json()
 
-  return response.ok ? await response.json() : null;
+    const c = json.customer
+    return {
+        firstName: c.firstName,
+        lastName: c.lastName,
+        email: c.emailAddress?.emailAddress ?? '',
+        defaultAddress: c.defaultAddress,
+        addresses: c.addresses.edges.map((e: any) => e.node)
+    }
 }
 
 export default async function GalleryPage() {
     const galleryDir = path.join(process.cwd(), "public/images/gallery");
     const email = process.env.ADMIN_EMAIL;
-    const user = await getShopifyUser();
+    const user = await fetchUser();
 
     // Create folder if missing
     if (!fs.existsSync(galleryDir)) {
