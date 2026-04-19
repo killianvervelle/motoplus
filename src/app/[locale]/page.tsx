@@ -2,7 +2,7 @@ import CollectionsSlider from "@/components/CollectionsSlider";
 //import HeroSlider from "@/components/HeroSlider";
 import SkeletonCategory from "@/components/loadings/skeleton/SkeletonCategory";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
-import { getLatestProducts } from "@/lib/shopify"; //getCollectionProducts, 
+import { getLatestProducts, getProducts } from "@/lib/shopify"; //getCollectionProducts, 
 import SeoMeta from "@/partials/SeoMeta";
 import Writing from "@/partials/Writing";
 import { Suspense } from "react";
@@ -22,6 +22,7 @@ import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
 import { notFound } from 'next/navigation';
+import { slugify } from "@/lib/utils/textConverter";
 
 export const dynamic = 'force-dynamic';
 
@@ -166,6 +167,113 @@ const Home = async ({
     )
   )
 
+
+
+
+  
+    async function getAllProducts(locale?: string) {
+        const allProducts: any[] = [];
+        let cursor: string | undefined = undefined;
+        let hasNextPage = true;
+
+        while (hasNextPage) {
+            const { pageInfo, products } = await getProducts({
+            cursor,
+            locale,
+            sortKey: "CREATED_AT",
+            reverse: true,
+            });
+
+            allProducts.push(...products);
+
+            hasNextPage = pageInfo?.hasNextPage;
+            cursor = pageInfo?.endCursor || undefined;
+
+            if (!cursor) break;
+        }
+
+        return allProducts;
+        }
+
+    const products = await getAllProducts(locale);
+
+    console.log("Products", products);
+
+    const dynamicBrands: Record<string, any> = {};
+    let totalAnalyzed = 0;
+    let completeCount = 0;
+
+    products.forEach((p) => {
+      totalAnalyzed++;
+      const mFields = Array.isArray(p.metafields) ? p.metafields : [];
+
+      const brand = (mFields.find((m: { key: string; }) => m?.key === 'brand')?.value || "").trim();
+      const model = mFields.find((m: { key: string; }) => m?.key === 'model')?.value?.trim();
+      const component = mFields.find((m: { key: string; }) => m?.key === 'component')?.value?.trim();
+
+  // 1. STRICT CHECK: Must have all three
+  if (brand && model && component) {
+    completeCount++;
+    const brandKey = brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase(); 
+  const modelKey = model; // Models usually have specific casing (SH125i)
+
+    if (!dynamicBrands[brandKey]) {
+      dynamicBrands[brandKey] = { 
+        handle: slugify(brand), 
+        models: {} 
+      };
+    }
+
+    if (!dynamicBrands[brandKey].models[modelKey]) {
+      dynamicBrands[brandKey].models[modelKey] = {
+        handle: slugify(model),
+        components: new Set() 
+      };
+    }
+
+    dynamicBrands[brandKey].models[modelKey].components.add(component);
+  }
+});
+
+// 2. LOG THE STATS
+console.log("--- FILTER STATS ---");
+console.log(`Total Products Fetched: ${totalAnalyzed}`);
+console.log(`Products with Brand+Model+Component: ${completeCount}`);
+console.log(`Products Filtered Out: ${totalAnalyzed - completeCount}`);
+
+// 3. TRANSFORM SETS TO ARRAYS
+const finalizedFilters = {};
+
+for (const [brandName, brandData] of Object.entries(dynamicBrands)) {
+  const modelsObj = {};
+
+  for (const [modelName, modelData] of Object.entries(brandData.models)) {
+    // Ensure components is a Set before converting, otherwise fallback to empty array
+    const componentList = modelData.components instanceof Set 
+      ? Array.from(modelData.components).sort() 
+      : [];
+
+    modelsObj[modelName] = {
+      handle: modelData.handle,
+      components: componentList
+    };
+  }
+
+  finalizedFilters[brandName] = {
+    handle: brandData.handle,
+    models: modelsObj
+  };
+}
+
+// LOG IT TO VERIFY
+console.log("--- FINALIZED FILTERS READY FOR CLIENT ---");
+console.dir(finalizedFilters, { depth: null });
+
+// 4. LOG THE RESULTING STRUCTURE
+console.log("--- FINALIZED NESTED OBJECT ---");
+console.dir(finalizedFilters, { depth: null });
+    
+
   return (
     <>
       <SeoMeta {...homeFrontmatter} />
@@ -188,8 +296,8 @@ const Home = async ({
           </div>
           <div className="absolute w-full h-auto top-1/4 flex justify-center">
             <FilterBox
-              filtersBrands={filtersBrands}
-              filtersComponents={Object.fromEntries(sortedFiltersComponents)}
+              filtersBrands={finalizedFilters}
+              filtersComponents={finalizedFilters}
               totalProducts={totalProducts}
               title={t('title')}
               subtitle={t('subtitle')}

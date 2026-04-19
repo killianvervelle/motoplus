@@ -14,6 +14,17 @@ const productFragment = /* GraphQL */ `
       name
       values
     }
+    
+    metafields(identifiers: [
+      {namespace: "custom", key: "brand"},
+      {namespace: "custom", key: "model"},
+      {namespace: "custom", key: "component"}
+    ]) {
+      key
+      value
+      namespace
+    }
+      
     priceRange {
       maxVariantPrice {
         amount
@@ -24,6 +35,7 @@ const productFragment = /* GraphQL */ `
         currencyCode
       }
     }
+    
     compareAtPriceRange {
       maxVariantPrice {
         amount

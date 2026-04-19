@@ -12,9 +12,6 @@ import { Suspense } from "react";
 import matter from 'gray-matter';
 import { NodeItem } from '@/lib/shopify/types'
 import { translateServer } from "../../../../lib/utils/translateServer";
-import ProductSchema from "@/components/product/ProductSchema";
-import Breadcrumbs from "@/components/Breadcrumbs"; 
-
 
 
 export const dynamic = 'force-dynamic';
@@ -28,43 +25,55 @@ export const generateMetadata = async ({
   const product = await getProduct(param.locale, param.slug);
   if (!product) return notFound();
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://motoplus.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shopmotoplus.ch';
   const productUrl = `${baseUrl}/${param.locale}/products/${param.slug}`;
   const primaryImage = product.images[0];
 
   return {
     title: `${product.seo.title || product.title} | MotoPlus`,
     description: product.seo.description || product.description,
+    
+    // SEO Tip: Keywords should be an array in Next.js Metadata
     keywords: [
       product.title,
       product.vendor,
       ...product.tags,
       'motorcycle',
-      'parts',
-      'accessories'
-    ].filter(Boolean).join(', '),
-    canonical: productUrl,
+      'parts'
+    ].filter(Boolean),
+
+    alternates: {
+      canonical: productUrl,
+    },
+
     openGraph: {
       title: product.seo.title || product.title,
       description: product.seo.description || product.description,
       url: productUrl,
-      type: 'product',
+      siteName: 'MotoPlus',
+      // Change 'product' to 'website' to fix the crash
+      type: 'website', 
       images: [
         {
           url: primaryImage?.url,
-          width: primaryImage?.width,
-          height: primaryImage?.height,
+          width: 1200, // Best practice for OG images
+          height: 630,
           alt: primaryImage?.altText || product.title,
         }
       ],
     },
+
     twitter: {
       card: 'summary_large_image',
       title: product.seo.title || product.title,
       description: product.seo.description || product.description,
       images: [primaryImage?.url],
     },
-    robots: 'index, follow',
+
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
 };
 
@@ -124,13 +133,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
 
   return (
     <>
-    <Breadcrumbs 
-        productTitle={title} 
-        collections={collections} 
-        locale={param.locale}
-      />
       <section className="md:section-sm">
-        <ProductSchema product={product} />
         <div className="container">
           <div className="row justify-center">
             {/* left side contents  */}

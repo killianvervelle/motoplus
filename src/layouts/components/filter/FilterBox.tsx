@@ -5,7 +5,7 @@ import { HomeFilterBoxProp } from "@/lib/constants";
 import { slugify } from "@/lib/utils/textConverter"
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 
 const FilterBox = ({
@@ -27,7 +27,7 @@ const FilterBox = ({
     const [selectedComponent, setSelectedComponent] = useState<Pick | null>(null);
     const [animate, setAnimate] = useState(false);
     const router = useRouter();
-
+    const locale = useLocale();
 
     const toggleSelect = (key: string) => {
         setOpenSelect(openSelect === key ? null : key);
@@ -42,9 +42,9 @@ const FilterBox = ({
 
     type Pick = { name: string; handle: string } | null;
 
-    const brands = useMemo(() => Object.keys(filtersBrands).sort(), [filtersBrands]);
+    //const brands = useMemo(() => Object.keys(filtersBrands).sort(), [filtersBrands]);
 
-    const models = useMemo(() => {
+    /*const models = useMemo(() => {
         if (!selectedBrand) return [];
         const brandModels = filtersBrands[selectedBrand.name]?.models || [];
 
@@ -59,7 +59,37 @@ const FilterBox = ({
         if (selectedModel) params.set("m", selectedModel.handle);
         if (selectedComponent) params.set("c", selectedComponent.handle);
         router.push(`/products?${params.toString()}`);
-    };
+    };*/
+
+
+    // 1. Brands (Top Level keys)
+    const brands = useMemo(() => Object.keys(filtersBrands).sort(), [filtersBrands]);
+
+    // 2. Models (Children of selected Brand)
+    const models = useMemo(() => {
+        if (!selectedBrand) return [];
+        
+        // filtersBrands[Honda].models is now an object
+        const brandModelsObj = filtersBrands[selectedBrand.name]?.models || {};
+
+        // Convert object keys into the array format you need
+        return Object.entries(brandModelsObj).map(([name, data]: [string, any]) => ({
+            name: name,
+            handle: data.handle
+        })).sort((a, b) => a.name.localeCompare(b.name));
+    }, [filtersBrands, selectedBrand]);
+
+    // 3. Components (Children of selected Model)
+    const componentOptions = useMemo(() => {
+        if (!selectedBrand || !selectedModel) return [];
+
+        // filtersBrands[Honda].models[SH125i].components is now an array
+        const modelData = filtersBrands[selectedBrand.name]?.models[selectedModel.name];
+        
+        return (modelData?.components || []).sort();
+    }, [filtersBrands, selectedBrand, selectedModel]);
+
+
 
 
     return (

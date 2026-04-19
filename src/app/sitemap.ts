@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import { getProducts, getCollections } from "@/lib/shopify"
+import { getProducts } from "@/lib/shopify"
 
 export async function getAllProducts(locale?: string) {
   const allProducts: any[] = [];
@@ -26,7 +26,7 @@ export async function getAllProducts(locale?: string) {
   return allProducts;
 }
 
-export const revalidate = 604800
+export const revalidate = 3600
 
 export default async function sitemap() {
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || ""
@@ -41,15 +41,6 @@ export default async function sitemap() {
     { url: `${siteUrl}/terms-service`, priority: 0.3 },
     { url: `${siteUrl}/cookies-policy`, priority: 0.3 },
   ]
-
-  // Dynamic collections / categories
-  const collections = await getCollections("en")
-  const collectionUrls = collections.map((c) => ({
-    url: `${siteUrl}/collections/${c.handle}`,
-    lastModified: c.updatedAt || new Date().toISOString(),
-    changeFrequency: "weekly",
-    priority: 0.8,
-  }))
 
   // Dynamic product pages
   const products = await getAllProducts()
@@ -68,5 +59,5 @@ export default async function sitemap() {
     priority: 0.6,
   }))
 
-  return [...staticPages, ...collectionUrls, ...productUrls, ...vendorUrls]
+  return [...staticPages, ...productUrls, ...vendorUrls]
 }
