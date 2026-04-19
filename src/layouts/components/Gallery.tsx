@@ -18,7 +18,7 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
       return {
           firstName: c.firstName,
           lastName: c.lastName,
-          email: c.emailAddress?.emailAddress ?? '',
+          email: c.emailAddress,
           defaultAddress: c.defaultAddress,
           addresses: c.addresses.edges.map((e: any) => e.node)
       }
@@ -27,6 +27,7 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
   useEffect(() => {
     const checkAdmin = async () => {
       const user = await fetchUser();
+      console.log("USER", user);
       if (user) {
         setIsAdmin(user.email === process.env.ADMIN_EMAIL);
       }
