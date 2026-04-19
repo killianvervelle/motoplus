@@ -18,7 +18,7 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
       return {
           firstName: c.firstName,
           lastName: c.lastName,
-          email: c.email.emailAddress,
+          email: c.emailAddress?.emailAddress ?? '',
           defaultAddress: c.defaultAddress,
           addresses: c.addresses.edges.map((e: any) => e.node)
       }
