@@ -96,21 +96,22 @@ const handleDelete = async (url: string) => {
         )}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {imageFiles.map((file) => (
-          <div key={file} className="relative aspect-square group overflow-hidden rounded-lg shadow-md border">
+        {imageFiles.map((url) => (
+          <div key={url} className="relative aspect-square group overflow-hidden rounded-lg shadow-md border">
             <Image
-              src={`/images/gallery/${file}`}
-              alt={file}
+              src={url} 
+              alt="Gallery image"
               fill
               className="object-cover transition-transform group-hover:scale-105"
             />
+            
             {isAdmin && (
               <button
-                onClick={() => handleDelete(file)}
-                className="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-red-800"
+                onClick={() => handleDelete(url)} 
+                className="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center hover:bg-red-800 z-10"
               >
                 ✕
-              </button>  
+              </button>
             )}
           </div>
         ))}

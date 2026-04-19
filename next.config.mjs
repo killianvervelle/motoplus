@@ -9,7 +9,8 @@ const nextConfig = {
   output: 'standalone',
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' }
+      //{ protocol: 'https', hostname: 'cdn.shopify.com', pathname: '/**' }
+   { protocol: 'https', hostname: '**.public.blob.vercel-storage.com', port: '' },
     ]
   },
   eslint: { ignoreDuringBuilds: true },
@@ -22,7 +23,6 @@ const nextConfig = {
     },
   },
 };
-
 
 const withNextIntl = createNextIntlPlugin();
 

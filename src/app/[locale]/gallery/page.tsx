@@ -1,22 +1,12 @@
-import fs from "fs";
-import path from "path";
-
+import { list } from '@vercel/blob';
 import GalleryClient from '@/components/Gallery';
 
 
 export default async function GalleryPage() {
-    const galleryDir = path.join(process.cwd(), "public/images/gallery");
-    const email = process.env.ADMIN_EMAIL;
+    const { blobs } = await list();
 
-    // Create folder if missing
-    if (!fs.existsSync(galleryDir)) {
-        fs.mkdirSync(galleryDir, { recursive: true });
-    }
-
-    const imageFiles = fs
-        .readdirSync(galleryDir)
-        .filter((file) => /\.(png|jpe?g|gif|webp)$/i.test(file));
+    const imageFiles = blobs.map((blob) => blob.url);
         
-        return <GalleryClient imageFiles={imageFiles} />;
+    return <GalleryClient imageFiles={imageFiles} />;
 
 }
