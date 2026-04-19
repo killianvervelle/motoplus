@@ -27,13 +27,14 @@ export default function GalleryClient({ imageFiles }: { imageFiles: string[] }) 
   useEffect(() => {
     const checkAdmin = async () => {
       const user = await fetchUser();
-      console.log("USER", user);
       if (user) {
+        console.log("User email:", user.email); // Debug log
+        console.log("Admin email:", process.env.ADMIN_EMAIL); // Debug log
         setIsAdmin(user.email === process.env.ADMIN_EMAIL);
+        console.log("Is Admin:", user.email === process.env.ADMIN_EMAIL); // Debug log
       }
     };
     checkAdmin();
-    console.log("ADMIN?", isAdmin);
   }, []);
 
 
