@@ -12,6 +12,9 @@ import { Suspense } from "react";
 import matter from 'gray-matter';
 import { NodeItem } from '@/lib/shopify/types'
 import { translateServer } from "../../../../lib/utils/translateServer";
+import ProductSchema from "@/components/product/ProductSchema";
+import Breadcrumbs from "@/components/Breadcrumbs"; 
+
 
 
 export const dynamic = 'force-dynamic';
@@ -21,14 +24,47 @@ export const generateMetadata = async ({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) => {
-
   const param = await params;
   const product = await getProduct(param.locale, param.slug);
   if (!product) return notFound();
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://motoplus.vercel.app';
+  const productUrl = `${baseUrl}/${param.locale}/products/${param.slug}`;
+  const primaryImage = product.images[0];
+
   return {
-    title: product.seo.title || product.title,
+    title: `${product.seo.title || product.title} | MotoPlus`,
     description: product.seo.description || product.description,
+    keywords: [
+      product.title,
+      product.vendor,
+      ...product.tags,
+      'motorcycle',
+      'parts',
+      'accessories'
+    ].filter(Boolean).join(', '),
+    canonical: productUrl,
+    openGraph: {
+      title: product.seo.title || product.title,
+      description: product.seo.description || product.description,
+      url: productUrl,
+      type: 'product',
+      images: [
+        {
+          url: primaryImage?.url,
+          width: primaryImage?.width,
+          height: primaryImage?.height,
+          alt: primaryImage?.altText || product.title,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.seo.title || product.title,
+      description: product.seo.description || product.description,
+      images: [primaryImage?.url],
+    },
+    robots: 'index, follow',
   };
 };
 
@@ -88,7 +124,13 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
 
   return (
     <>
+    <Breadcrumbs 
+        productTitle={title} 
+        collections={collections} 
+        locale={param.locale}
+      />
       <section className="md:section-sm">
+        <ProductSchema product={product} />
         <div className="container">
           <div className="row justify-center">
             {/* left side contents  */}
