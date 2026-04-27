@@ -41,9 +41,11 @@ function resolveCollectionHandle(
 
 
 const ProductCardView = ({
+  initialData,
   searchParams,
   locale,
 }: {
+  initialData:any
   searchParams: any
   locale: string
 }) => {
@@ -61,22 +63,35 @@ const ProductCardView = ({
   const router = useRouter();
   const pathname = usePathname();
 
+  useEffect(() => {
+  if (initialData) {
+    // Only update state if the products are actually different
+    // This prevents the infinite loop
+    setData({
+      products: initialData.products,
+      pageInfo: initialData.pageInfo
+    });
+    setIsLoading(false);
+  }
+}, [initialData]);
+
   const {
-    sort,
-    q: searchValue,
-    minPrice,
-    maxPrice,
-    c: category,
-    m: model,
-    b: brand,
-    v: vendor,
-    t: type,
-    condition: condition,
-    cursor,
-    page
-  } = searchParams as {
-    [key: string]: string;
-  };
+  sort,
+  q: searchValue,
+  minPrice,
+  maxPrice,
+  c: category,
+  brand: brand,      // Extracted as 'brand'
+  model: model,      // Extracted as 'model'
+  component: component,  // Added 'component'
+  t: type,
+  v: vendor,
+  layout,
+  cursor,
+  condition,
+  page
+} = searchParams as { [key: string]: string };
+
 
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
@@ -86,35 +101,41 @@ const ProductCardView = ({
 
   useEffect(() => {
   const fetchData = async () => {
+    // Only fetch if a cursor exists (PAGINATION)
+    // If no cursor, we use the initialData from props
+    if (!cursor) return; 
+
     setIsLoading(true);
 
     try {
-      let productsData;
+      let productsData: { products: any; pageInfo: any; };
 
       const hasFilters =
-        (searchValue && searchValue.trim() !== "") ||
-        (model && model.trim() !== "") ||
-        (brand && brand.trim() !== "") ||
-        (minPrice && minPrice.trim() !== "") ||
-        (maxPrice && maxPrice.trim() !== "") ||
-        (category && category !== "all" && category.trim() !== "") ||
-        (vendor && vendor !== "all" && vendor.trim() !== "") ||
-        (type && type !== "all" && type.trim() !== "") ||
-        (condition && condition.trim() !== "");
+    (searchValue && searchValue.trim() !== "") ||
+    (model && model.trim() !== "") ||
+    (brand && brand.trim() !== "") ||
+    (component && component.trim() !== "") ||
+    (minPrice && minPrice.trim() !== "") ||
+    (maxPrice && maxPrice.trim() !== "") ||
+    (category && category !== "all" && category.trim() !== "") ||
+    (vendor && vendor !== "all" && vendor.trim() !== "") ||
+    (type && type !== "all" && type.trim() !== "") ||
+    (condition && condition.trim() !== "");
 
       // You can decide: if no filters, do you want to load "all products"?
-      if (!hasFilters) {
+      /*if (hasFilters) {
         productsData = await getProducts({ 
           cursor, 
           locale, 
           sortKey, 
           reverse });
+
         setData({
           products: productsData.products,
           pageInfo: productsData.pageInfo!,
         });
         return;
-      }
+      }*/
 
       const filterCategoryProduct: any[] = [];
       const queryParts: string[] = [];
@@ -131,27 +152,35 @@ const ProductCardView = ({
         });
       }
 
-      if (searchValue) {
+      /*if (searchValue) {
         queryParts.push(searchValue);
       }
 
       if (brand) {
-        queryParts.push(` tag:'${brand}'`);
+        queryParts.push(`metafield:custom.brand:"${brand}"`);
       }
 
       if (model) {
-        queryParts.push(` tag:'${model}'`);
+        queryParts.push(`metafield:custom.model:"${model}"`);
       }
 
-      if (vendor) {
-        queryParts.push(` vendor:"${vendor}"`);
+      if (component && component !== 'None') {
+        queryParts.push(`metafield:custom.component:"${component}"`);
       }
 
-      if (type) {
-        queryParts.push(` metafield:custom.type:${type}`);
+      if (condition && condition !== 'all') {
+        queryParts.push(`metafield:custom.condition:${condition}`);
       }
 
-      const queryString = queryParts.join(" ");
+      if (type && type !== 'all') {
+        queryParts.push(`metafield:custom.type:${type}`);
+      }
+    
+          if (vendor) {
+            queryParts.push(` vendor:"${vendor}"`);
+          }
+
+      const queryString = queryParts.join(" ").trim();
 
       const query = {
         sortKey,
@@ -182,24 +211,70 @@ const ProductCardView = ({
           locale,
           sortKey,
           reverse,
-        });
-      }
+        });*/
 
-      setData((prev) => ({
-                products: productsData.products,
-                pageInfo: {
-                  // 1. Keep previous values as a base (to preserve totalCount)
-                  ...prev.pageInfo,
-                  // 2. Spread new values
-                  ...productsData.pageInfo,
-                  // 3. Force defaults so they are never undefined
-                  hasNextPage: productsData.pageInfo?.hasNextPage ?? false,
-                  hasPreviousPage: productsData.pageInfo?.hasPreviousPage ?? false,
-                  endCursor: productsData.pageInfo?.endCursor ?? '',
-                  // 4. Specifically ensure totalCount persists
-                  totalCount: productsData.pageInfo?.totalCount ?? prev.pageInfo.totalCount ?? 0,
-                } as PageInfo // 5. Tell TS this matches your interface
-              }));
+        if (hasFilters) {
+    // 1. Force the Collection Filter API (Strict Metafield Matching)
+    // We use 'all-products' or your specific 'category' handle.
+    productsData = await getCollectionProducts({
+      collection: 'all', // Ensure this collection exists in Admin!
+      brand,
+      model,
+      component,
+      type,
+      condition,
+      sortKey,
+      reverse,
+      locale,
+      cursor
+    });
+
+    // 2. Safety fallback if the collection doesn't exist or query fails
+    if (!productsData || !productsData.products) {
+       productsData = { products: [], pageInfo: null };
+    }
+
+    // 3. The "Double Lock" Strict Filter
+    // If Shopify returns it, we verify the data one last time in JS.
+    /*if (productsData.products.length > 0) {
+      productsData.products = productsData.products.filter((product: Product) => {
+        const mFields = product.metafields || [];
+        
+        // If these metafields are MISSING from your GraphQL fragment, 
+        // this will return false and hide everything.
+        const matchesBrand = brand 
+          ? mFields.find(m => m?.key === 'brand')?.value === brand 
+          : true;
+        const matchesModel = model 
+          ? mFields.find(m => m?.key === 'model')?.value === model 
+          : true;
+        const matchesComponent = (component && component !== 'None') 
+          ? mFields.find(m => m?.key === 'component')?.value === component 
+          : true;
+
+        return matchesBrand && matchesModel && matchesComponent;
+      });
+    }*/
+  } else {
+    // No filters? Use standard fetch.
+    productsData = await getProducts({ sortKey, reverse, cursor, locale });
+  }
+
+    setData((prev) => ({
+              products: productsData.products,
+              pageInfo: {
+                // 1. Keep previous values as a base (to preserve totalCount)
+                ...prev.pageInfo,
+                // 2. Spread new values
+                ...productsData.pageInfo,
+                // 3. Force defaults so they are never undefined
+                hasNextPage: productsData.pageInfo?.hasNextPage ?? false,
+                hasPreviousPage: productsData.pageInfo?.hasPreviousPage ?? false,
+                endCursor: productsData.pageInfo?.endCursor ?? '',
+                // 4. Specifically ensure totalCount persists
+                totalCount: productsData.pageInfo?.totalCount ?? prev.pageInfo.totalCount ?? 0,
+              } as PageInfo // 5. Tell TS this matches your interface
+            }));
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
@@ -220,6 +295,7 @@ const ProductCardView = ({
   model,
   vendor,
   brand,
+  component,
   type,
   condition,
   locale,

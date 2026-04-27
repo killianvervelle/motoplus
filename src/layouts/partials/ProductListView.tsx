@@ -14,7 +14,7 @@ import React from 'react'
 
 
 
-function resolveCollectionHandle(
+/*function resolveCollectionHandle(
   category?: string,
   type?: string,
   condition?: string
@@ -37,12 +37,14 @@ function resolveCollectionHandle(
   if (!type && condition === 'new') return 'new-parts';
 
   return 'all';
-}
+}*/
 
 const ProductListView = ({
+  initialData,
   searchParams,
   locale,
 }: {
+  initialData:any
   searchParams: any
   locale: string
 }) => {
@@ -59,22 +61,35 @@ const ProductListView = ({
   const router = useRouter();
   const pathname = usePathname();
 
-  const {
-    sort,
-    q: searchValue,
-    minPrice,
-    maxPrice,
-    b: brand,
-    m: model,
-    c: category,
-    v: vendor,
-    t: type,
-    condition: condition,
-    cursor,
-    page
-  } = searchParams as {
-    [key: string]: string
+  useEffect(() => {
+  if (initialData) {
+    // Only update state if the products are actually different
+    // This prevents the infinite loop
+    setData({
+      products: initialData.products,
+      pageInfo: initialData.pageInfo
+    });
+    setIsLoading(false);
   }
+}, [initialData]);
+
+  const {
+  sort,
+  q: searchValue,
+  minPrice,
+  maxPrice,
+  c: category,
+  brand: brand,      // Extracted as 'brand'
+  model: model,      // Extracted as 'model'
+  component: component,  // Added 'component'
+  t: type,
+  v: vendor,
+  layout,
+  cursor,
+  condition,
+  page
+} = searchParams as { [key: string]: string };
+
 
   const currentPage = Number(page) || 1;
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort
@@ -84,35 +99,49 @@ const ProductListView = ({
 
   useEffect(() => {
     const fetchData = async () => {
-        setIsLoading(true);
+        if (!cursor) return; 
+
+    setIsLoading(true);
+
+    try {
+      let productsData: { products: any; pageInfo: any; };
     
-        try {
-          let productsData;
-    
-          const hasFilters =
-            (searchValue && searchValue.trim() !== "") ||
-            (model && model.trim() !== "") ||
-            (brand && brand.trim() !== "") ||
-            (minPrice && minPrice.trim() !== "") ||
-            (maxPrice && maxPrice.trim() !== "") ||
-            (category && category !== "all" && category.trim() !== "") ||
-            (vendor && vendor !== "all" && vendor.trim() !== "") ||
-            (type && type !== "all" && type.trim() !== "") ||
-            (condition && condition.trim() !== "");
+          /*const hasFilters =
+    (searchValue && searchValue.trim() !== "") ||
+    (model && model.trim() !== "") ||
+    (brand && brand.trim() !== "") ||
+    (component && component.trim() !== "") ||
+    (minPrice && minPrice.trim() !== "") ||
+    (maxPrice && maxPrice.trim() !== "") ||
+    (category && category !== "all" && category.trim() !== "") ||
+    (vendor && vendor !== "all" && vendor.trim() !== "") ||
+    (type && type !== "all" && type.trim() !== "") ||
+    (condition && condition.trim() !== "");
     
           // You can decide: if no filters, do you want to load "all products"?
-          if (!hasFilters) {
+          if (hasFilters) {
             productsData = await getProducts({ 
               cursor, 
               locale, 
               sortKey, 
               reverse });
+            
+            console.log('Fetched products with filters:', productsData);
+
+            if (brand) {
+              productsData.products = productsData.products.filter((product: Product) => {
+                const actualBrand = product.metafields?.find(m => m.key === 'brand')?.value;
+                return actualBrand === brand; 
+              });
+            }
+            
             setData({
               products: productsData.products,
               pageInfo: productsData.pageInfo!,
             });
             return;
           }
+            */
     
           const filterCategoryProduct: any[] = [];
           const queryParts: string[] = [];
@@ -134,22 +163,30 @@ const ProductListView = ({
           }
     
           if (brand) {
-            queryParts.push(` tag:'${brand}'`);
+            queryParts.push(`metafield:custom.brand:"${brand}"`);
           }
-    
+
           if (model) {
-            queryParts.push(` tag:'${model}'`);
+            queryParts.push(`metafield:custom.model:"${model}"`);
+          }
+
+          if (component && component !== 'None') {
+            queryParts.push(`metafield:custom.component:"${component}"`);
+          }
+
+          if (condition && condition !== 'all') {
+            queryParts.push(`metafield:custom.condition:${condition}`);
+          }
+
+          if (type && type !== 'all') {
+            queryParts.push(`metafield:custom.type:${type}`);
           }
     
           if (vendor) {
             queryParts.push(` vendor:"${vendor}"`);
           }
     
-          if (type) {
-            queryParts.push(` metafield:custom.type:${type}`);
-          }
-    
-          const queryString = queryParts.join(" ");
+          const queryString = queryParts.join(" AND ").trim();
     
           const query = {
             sortKey,
@@ -157,9 +194,9 @@ const ProductListView = ({
             query: queryString,
           };
     
-          const collectionHandle = resolveCollectionHandle(category, type, condition);
+          //const collectionHandle = resolveCollectionHandle(category, type, condition);
     
-          if (collectionHandle !== "all") {
+          /*if (collectionHandle !== "all") {
             productsData = await getCollectionProducts({
               collection: collectionHandle,
               sortKey,
@@ -181,7 +218,73 @@ const ProductListView = ({
               sortKey,
               reverse,
             });
-          }
+          }*/
+
+        const hasFilters =
+    (searchValue && searchValue.trim() !== "") ||
+    (model && model.trim() !== "") ||
+    (brand && brand.trim() !== "") ||
+    (component && component.trim() !== "") ||
+    (minPrice && minPrice.trim() !== "") ||
+    (maxPrice && maxPrice.trim() !== "") ||
+    (category && category !== "all" && category.trim() !== "") ||
+    (vendor && vendor !== "all" && vendor.trim() !== "") ||
+    (type && type !== "all" && type.trim() !== "") ||
+    (condition && condition.trim() !== "");
+
+
+
+    
+
+  if (hasFilters) {
+    // 1. Force the Collection Filter API (Strict Metafield Matching)
+    // We use 'all-products' or your specific 'category' handle.
+    productsData = await getCollectionProducts({
+      collection: 'all', // Ensure this collection exists in Admin!
+      brand,
+      model,
+      component,
+      type,
+      condition,
+      sortKey,
+      reverse,
+      locale,
+      cursor
+    });
+
+    // 2. Safety fallback if the collection doesn't exist or query fails
+    if (!productsData || !productsData.products) {
+       productsData = { products: [], pageInfo: null };
+    }
+
+    // 3. The "Double Lock" Strict Filter
+    // If Shopify returns it, we verify the data one last time in JS.
+    if (productsData.products.length > 0 && (brand || model || (component && component !== 'None'))) {
+      productsData.products = productsData.products.filter((product: Product) => {
+        const mFields = product.metafields || [];
+        
+        // If these metafields are MISSING from your GraphQL fragment, 
+        // this will return false and hide everything.
+        const matchesBrand = brand 
+          ? mFields.find(m => m?.key === 'brand')?.value === brand 
+          : true;
+        const matchesModel = model 
+          ? mFields.find(m => m?.key === 'model')?.value === model 
+          : true;
+        const matchesComponent = (component && component !== 'None') 
+          ? mFields.find(m => m?.key === 'component')?.value === component 
+          : true;
+
+        return matchesBrand && matchesModel && matchesComponent;
+      });
+    }
+  } else {
+    // No filters? Use standard fetch.
+    console.log("No filters applied, fetching products without collection filter...");
+  }
+
+
+
 
         setData((prev) => ({
           products: productsData.products,
@@ -206,12 +309,26 @@ const ProductListView = ({
     }
 
     fetchData()
-  }, [cursor, page, sortKey, searchValue, minPrice, maxPrice, category, reverse, model, brand, vendor, type, condition])
+  }, [
+    cursor, 
+    page, 
+    sortKey, 
+    searchValue, 
+    minPrice, 
+    maxPrice, 
+    category, 
+    reverse, 
+    model, 
+    brand, 
+    vendor, 
+    type, 
+    condition, 
+    component, 
+    locale])
 
   const { products, pageInfo } = data
   const hasNextPage = pageInfo?.hasNextPage || false
   const hasPreviousPage = pageInfo?.hasPreviousPage || false
-
 
   const handlePageChange = (targetPage: number) => {
   const params = new URLSearchParams(searchParams);

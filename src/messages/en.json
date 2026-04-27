@@ -470,6 +470,8 @@
     "price-range": "Select Price Range",
     "product-cat": "Product Categories",
     "brands": "Brands",
+    "components": "Components",
+    "models": "Models",
     "tags": "Tags"
   },
   "contact-meta": {
@@ -848,5 +850,10 @@
     "login-email": "Log in with Email",
     "no-account": "Don't have an account?",
     "register": "Register"
-  }
+  },
+  "middlemenu": {
+    "new-parts": "NEW PARTS",
+    "used-parts": "USED PARTS",
+    "accessory": "ACCESSORIES"
+}
 }

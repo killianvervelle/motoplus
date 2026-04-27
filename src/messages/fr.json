@@ -381,6 +381,8 @@
     "used-parts": "Pièces d'occasion",
     "accessories": "Accessoires",
     "brands": "Marques",
+    "models": "Modèles",
+    "components": "Composants",
     "contact": "Contact"
   },
   "searchbar": {
@@ -470,6 +472,8 @@
     "price-range": "Sélectionner la gamme de prix",
     "product-cat": "Catégories de produits",
     "brands": "Marques",
+    "models": "Modèles",
+    "components": "Composants",
     "tags": "Étiquettes"
   },
   "contact-meta": {
@@ -850,5 +854,10 @@
     "login-email": "Se connecter avec un e-mail",
     "no-account": "Vous n’avez pas de compte ?",
     "register": "S’inscrire"
-  }
+  },
+  "middlemenu": {
+    "new-parts": "NOUVELLES PIÈCES",
+    "used-parts": "PIÈCES D'OCCASION",
+    "accessory": "ACCESSOIRES"
+}
 }

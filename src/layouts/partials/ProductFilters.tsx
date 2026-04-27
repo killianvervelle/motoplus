@@ -9,66 +9,58 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { translateClient } from "../../lib/utils/translateClient";
 
-function normalize(name: string) {
-  return name.toLowerCase().trim();
-}
 
 const ProductFilters = ({
-  categories,
-  vendors,
-  tags,
+  brands_,
+  models_,
+  components_,
   maxPriceData,
-  vendorsWithCounts,
-  categoriesWithCounts
 }: {
-  categories: ShopifyCollection[]
-  vendors: { vendor: string; productCount: number }[]
-  tags: string[]
-  maxPriceData: { amount: string; currencyCode: string }
-  vendorsWithCounts: { vendor: string; productCount: number }[]
-  categoriesWithCounts: { category: string; productCount: number }[]
+  brands_: { brand: string; productCount: number }[];
+  models_: { model: string; productCount: number }[];
+  components_: { component: string; productCount: number }[];
+  maxPriceData: { amount: string; currencyCode: string };
 }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const disableVendorClick = vendorsWithCounts.length < 2;
-  const disableCatClick = categoriesWithCounts.length < 2;
+  // Get current active filters from URL
+  const selectedBrand = searchParams.get('brand');
+  const selectedModel = searchParams.get('model');
+  const selectedComponent = searchParams.get('component');
 
-  const router = useRouter()
-  const searchParams = useSearchParams()
-
-  const selectedBrand = searchParams.get('v')
-  const selectedCategory = searchParams.get('c')
-
-  const onlyVendorFilterActive =
-    searchParams.has("v") &&
-    !searchParams.has("c") &&
-    !searchParams.has("minPrice") &&
-    !searchParams.has("maxPrice") &&
-    !searchParams.has("q") &&
-    !searchParams.has("t");
-
-  const handleBrandClick = (name: string) => {
+  // Generic handler to update URL params
+  const handleFilterClick = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
-    if (name === selectedBrand) newParams.delete("v");
-    else newParams.set("v", name);
+    
+    if (newParams.get(key) === value) {
+      newParams.delete(key);
+      // Logic: If you deselect a Brand, clear dependent Model/Component
+      if (key === 'brand') {
+        newParams.delete('model');
+        newParams.delete('component');
+      }
+      if (key === 'model') newParams.delete('component');
+    } else {
+      newParams.set(key, value);
+      // Reset pagination when filter changes
+      newParams.delete('cursor');
+      newParams.delete('page');
+    }
+    
     router.push(createUrl("/products", newParams), { scroll: false });
   };
 
-  const handleCategoryClick = (handle: string) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    if (handle === selectedCategory) newParams.delete("c");
-    else newParams.set("c", handle);
-    router.push(createUrl("/products", newParams), { scroll: false });
-  };
-
-  const priceRange = translateClient("product-filters", "price-range");
-  const cat = translateClient("product-filters", "product-cat");
-  const brands = translateClient("product-filters", "brands");
-  const tag = translateClient("product-filters", "tags");
+  const priceRangeLabel = translateClient("product-filters", "price-range");
+  const brandsLabel = translateClient("product-filters", "brands");
+  const modelsLabel = translateClient("product-filters", "models"); // usually "Models" in your context
+  const componentsLabel = translateClient("product-filters", "components"); // usually "Components"
 
   return (
-    <div>
+    <div className="space-y-8">
+      {/* PRICE RANGE */}
       <div>
-        <h5 className='mb-2 lg:text-xl'>{priceRange}</h5>
+        <h5 className='mb-2 lg:text-xl'>{priceRangeLabel}</h5>
         <hr className='border-[#cecece] dark:border-darkmode-border' />
         <div className='pt-4'>
           <Suspense>
@@ -77,102 +69,76 @@ const ProductFilters = ({
         </div>
       </div>
 
-      <div>
-        <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">{cat}</h5>
-        <hr className="border-[#cecece] dark:border-darkmode-border" />
-        <ul className="mt-4 space-y-4">
-          {categories
-            .filter(
-              (c) => {
-                const title = c.title.toLowerCase();
-                const hiddenTitles = [
-                  "all products",        
-                  "tous les produits",   
-                  "todos os produtos"   
-                ];
-                return (
-                  !hiddenTitles.includes(title) &&
-                  categoriesWithCounts.some(
-                    (cw) => cw.category === c.title && cw.productCount > 0
-                  )
-                );
-              }
-            )
-            .map(cat => {
-              const currentCount =
-                categoriesWithCounts.find(c => normalize(c.category) === normalize(cat.title))?.productCount ?? 0
-
-              return (
-                <li
-                  key={cat.handle}
-                  className={`flex items-center justify-between ${disableCatClick ? "" : "cursor-pointer"} ${selectedCategory === cat.handle
-                    ? 'text-text-dark dark:text-darkmode-text-dark font-semibold'
-                    : 'text-text-light dark:text-darkmode-text-light'
-                    }`}
-                  onClick={() => !disableCatClick && handleCategoryClick(cat.handle)}
-                >
-                  <span>
-                    {cat.title} ({currentCount})
-                  </span>
-                </li>
-              )
-            })}
-        </ul>
-      </div>
-
-      {vendors && (
+      {/* BRANDS */}
+      {brands_.length > 0 && (
         <div>
-          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{brands}</h5>
+          <h5 className="mb-2 lg:text-xl">{brandsLabel}</h5>
           <hr className="border-[#cecece] dark:border-darkmode-border" />
-          <ul className="mt-4 space-y-4">
-            {vendors
-              .filter((v) => vendorsWithCounts.some(
-                vw => vw.vendor === v.vendor && vw.productCount > 0
-              )
-              )
-              .map((vendor) => {
-                const dynamicCount =
-                  vendorsWithCounts.find((v) => v.vendor === vendor.vendor)
-                    ?.productCount ?? "vendor.productCount";
-
-                const displayCount = onlyVendorFilterActive
-                  ? vendor.productCount
-                  : dynamicCount;
-
-                return (
-                  <li
-                    key={vendor.vendor}
-                    className={`flex items-center justify-between ${disableVendorClick ? "" : "cursor-pointer"} ${selectedBrand?.toLowerCase() === vendor.vendor.toLowerCase()
-                      ? "text-text-dark dark:text-darkmode-text-dark font-semibold"
-                      : "text-text-light dark:text-darkmode-text-light"
-                      }`}
-                    onClick={() =>
-                      !disableVendorClick && handleBrandClick(vendor.vendor)}
-                  >
-                    <span>
-                      {vendor.vendor} ({displayCount})
-                    </span>
-                  </li>
-                );
-              })}
+          <ul className="mt-4 space-y-3">
+            {brands_.map((b) => (
+              <li
+                key={b.brand}
+                className={`flex items-center justify-between cursor-pointer text-sm transition-colors hover:text-black ${
+                  selectedBrand === b.brand
+                    ? 'text-text-dark dark:text-darkmode-text-dark font-bold'
+                    : 'text-text-light dark:text-darkmode-text-light'
+                }`}
+                onClick={() => handleFilterClick('brand', b.brand)}
+              >
+                <span>{b.brand} ({b.productCount})</span>
+              </li>
+            ))}
           </ul>
         </div>
       )}
 
-      {tags.length > 0 && (
+      {/* MODELS - Shows if a brand is selected OR if models exist */}
+      {(selectedBrand || models_.length > 0) && models_.length > 0 && (
         <div>
-          <h5 className='mb-2 mt-8 lg:mt-10 lg:text-xl'>{tag}</h5>
-          <hr className='border-[#cecece] dark:border-darkmode-border' />
-          <div className='mt-4'>
-            <Suspense>
-              {' '}
-              <ShowTags tags={tags} />
-            </Suspense>
-          </div>
+          <h5 className="mb-2 mt-4 lg:mt-6 lg:text-xl">{modelsLabel}</h5>
+          <hr className="border-[#cecece] dark:border-darkmode-border" />
+          <ul className="mt-4 space-y-3">
+            {models_.map((m) => (
+              <li
+                key={m.model}
+                className={`flex items-center justify-between cursor-pointer text-sm transition-colors hover:text-black ${
+                  selectedModel === m.model
+                    ? 'text-text-dark dark:text-darkmode-text-dark font-bold'
+                    : 'text-text-light dark:text-darkmode-text-light'
+                }`}
+                onClick={() => handleFilterClick('model', m.model)}
+              >
+                <span>{m.model} ({m.productCount})</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* COMPONENTS - Shows if a model is selected OR if components exist */}
+      {(selectedModel || components_.length > 0) && components_.length > 0 && (
+        <div>
+          <h5 className="mb-2 mt-8 lg:mt-10 lg:text-xl">{componentsLabel}</h5>
+          <hr className="border-[#cecece] dark:border-darkmode-border" />
+          <ul className="mt-4 space-y-3">
+            {components_.map((c) => (
+              <li
+                key={c.component}
+                className={`flex items-center justify-between cursor-pointer text-sm transition-colors hover:text-black ${
+                  selectedComponent === c.component
+                    ? 'text-text-dark dark:text-darkmode-text-dark font-bold'
+                    : 'text-text-light dark:text-darkmode-text-light'
+                }`}
+                onClick={() => handleFilterClick('component', c.component)}
+              >
+                <span>{c.component} ({c.productCount})</span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ProductFilters
+export default ProductFilters;

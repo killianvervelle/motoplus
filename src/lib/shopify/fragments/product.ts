@@ -18,7 +18,9 @@ const productFragment = /* GraphQL */ `
     metafields(identifiers: [
       {namespace: "custom", key: "brand"},
       {namespace: "custom", key: "model"},
-      {namespace: "custom", key: "component"}
+      {namespace: "custom", key: "component"},
+      {namespace: "custom", key: "type"},     
+      {namespace: "custom", key: "condition"}  
     ]) {
       key
       value

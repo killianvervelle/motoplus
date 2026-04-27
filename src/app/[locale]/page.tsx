@@ -197,8 +197,6 @@ const Home = async ({
 
     const products = await getAllProducts(locale);
 
-    console.log("Products", products);
-
     const dynamicBrands: Record<string, any> = {};
     let totalAnalyzed = 0;
     let completeCount = 0;
@@ -212,45 +210,53 @@ const Home = async ({
       const component = mFields.find((m: { key: string; }) => m?.key === 'component')?.value?.trim();
 
   // 1. STRICT CHECK: Must have all three
-  if (brand && model && component) {
-    completeCount++;
-    const brandKey = brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase(); 
-  const modelKey = model; // Models usually have specific casing (SH125i)
+ if (brand && model && component) {
+  completeCount++;
+  
+  // Normalize keys to prevent duplicates like 'honda' vs 'Honda'
+  const brandKey = brand.trim().charAt(0).toUpperCase() + brand.trim().slice(1).toLowerCase();
+  
+  // Normalize modelKey to be consistent (e.g., always uppercase or trimmed)
+  // This ensures 'honda:SH125i' and 'Honda:SH125i' merge into one
+  const modelKey = model.trim(); 
 
-    if (!dynamicBrands[brandKey]) {
-      dynamicBrands[brandKey] = { 
-        handle: slugify(brand), 
-        models: {} 
-      };
-    }
-
-    if (!dynamicBrands[brandKey].models[modelKey]) {
-      dynamicBrands[brandKey].models[modelKey] = {
-        handle: slugify(model),
-        components: new Set() 
-      };
-    }
-
-    dynamicBrands[brandKey].models[modelKey].components.add(component);
+  if (!dynamicBrands[brandKey]) {
+    dynamicBrands[brandKey] = { 
+      handle: slugify(brandKey), 
+      models: {} 
+    };
   }
+
+  if (!dynamicBrands[brandKey].models[modelKey]) {
+    dynamicBrands[brandKey].models[modelKey] = {
+      // Use the normalized modelKey for the handle
+      handle: slugify(modelKey), 
+      components: new Set() 
+    };
+  }
+
+  dynamicBrands[brandKey].models[modelKey].components.add(component);
+}
 });
 
-// 2. LOG THE STATS
-console.log("--- FILTER STATS ---");
-console.log(`Total Products Fetched: ${totalAnalyzed}`);
-console.log(`Products with Brand+Model+Component: ${completeCount}`);
-console.log(`Products Filtered Out: ${totalAnalyzed - completeCount}`);
+type FinalizedFilters = Record<string, { 
+  handle: string; 
+  models: Record<string, { 
+    handle: string; 
+    components: string[] 
+  }> 
+}>;
 
-// 3. TRANSFORM SETS TO ARRAYS
-const finalizedFilters = {};
+const finalizedFilters: FinalizedFilters = {};
 
 for (const [brandName, brandData] of Object.entries(dynamicBrands)) {
-  const modelsObj = {};
+  const modelsObj: FinalizedFilters[string]['models'] = {};
 
-  for (const [modelName, modelData] of Object.entries(brandData.models)) {
-    // Ensure components is a Set before converting, otherwise fallback to empty array
-    const componentList = modelData.components instanceof Set 
-      ? Array.from(modelData.components).sort() 
+  for (const [modelName, modelData] of Object.entries(brandData.models as Record<string, any>)) {
+    
+    // Explicitly cast the Array.from result to string[]
+    const componentList: string[] = modelData.components instanceof Set 
+      ? Array.from(modelData.components).sort() as string[]
       : [];
 
     modelsObj[modelName] = {
@@ -264,15 +270,7 @@ for (const [brandName, brandData] of Object.entries(dynamicBrands)) {
     models: modelsObj
   };
 }
-
-// LOG IT TO VERIFY
-console.log("--- FINALIZED FILTERS READY FOR CLIENT ---");
-console.dir(finalizedFilters, { depth: null });
-
-// 4. LOG THE RESULTING STRUCTURE
-console.log("--- FINALIZED NESTED OBJECT ---");
-console.dir(finalizedFilters, { depth: null });
-    
+  
 
   return (
     <>
@@ -296,8 +294,8 @@ console.dir(finalizedFilters, { depth: null });
           </div>
           <div className="absolute w-full h-auto top-1/4 flex justify-center">
             <FilterBox
-              filtersBrands={finalizedFilters}
-              filtersComponents={finalizedFilters}
+              filtersBrands={finalizedFilters as any}
+  filtersComponents={finalizedFilters as any}
               totalProducts={totalProducts}
               title={t('title')}
               subtitle={t('subtitle')}

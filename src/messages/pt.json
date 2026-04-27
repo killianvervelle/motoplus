@@ -413,6 +413,8 @@
     "used-parts": "Peças usadas",
     "accessories": "Acessórios",
     "brands": "Marcas",
+    "models": "Modelos",
+    "components": "Componentes",
     "contact": "Contacto"
   },
   "searchbar": {
@@ -468,6 +470,8 @@
     "price-range": "Selecionar faixa de preço",
     "product-cat": "Categorias de produtos",
     "brands": "Marcas",
+    "models": "Modelos",
+    "components": "Componentes",
     "tags": "Etiquetas"
   },
   "contact-meta": {
@@ -845,5 +849,10 @@
     "login-email": "Entrar com E-mail",
     "no-account": "Não tem uma conta?",
     "register": "Registrar-se"
-  }
+  },
+  "middlemenu": {
+    "new-parts": "NOVAS PEÇAS",
+    "used-parts": "PEÇAS USADAS",
+    "accessory": "ACCESSÓRIOS"
+}
 }

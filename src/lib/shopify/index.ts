@@ -304,8 +304,10 @@ export async function getCollectionProducts({
   locale,
   cursor,
   condition,
-  type
-
+  type,
+  brand,   // Add this
+  model,   // Add this
+  component // Add this
 }: {
   collection?: string;
   reverse?: boolean;
@@ -314,42 +316,40 @@ export async function getCollectionProducts({
   cursor?: string;
   condition?: string;
   type?: string;
+  brand?: string;    // Add this
+  model?: string;    // Add this
+  component?: string; // Add this
   filterCategoryProduct?: any[]; 
-}): Promise<{ pageInfo: PageInfo | null; products: Product[] }> {
+}) {
   const language = locale?.toLowerCase() === 'pt' ? 'pt_PT' : locale;
-  const shopifyHandle = collection?.replace(/-+/g, '-');
+  const shopifyHandle = collection?.replace(/-+/g, '-') || 'all'; // Default to 'all'
 
   const filters: any[] = [];
 
+  // --- Add the Bike Metafield Filters ---
+  if (brand) {
+    filters.push({ productMetafield: { namespace: "custom", key: "brand", value: brand } });
+  }
+  if (model) {
+    filters.push({ productMetafield: { namespace: "custom", key: "model", value: model } });
+  }
+  if (component && component !== 'None') {
+    filters.push({ productMetafield: { namespace: "custom", key: "component", value: component } });
+  }
+
+  // Existing filters
   if (condition) {
-    filters.push({
-      productMetafield: {
-        namespace: "custom",
-        key: "condition",
-        value: condition,
-      },
-    });
+    filters.push({ productMetafield: { namespace: "custom", key: "condition", value: condition } });
   }
-
   if (type) {
-    filters.push({
-      productMetafield: {
-        namespace: "custom",
-        key: "type",
-        value: type,
-      },
-    });
-  }
-
-  if (filterCategoryProduct?.length) {
-    filters.push(...filterCategoryProduct);
+    filters.push({ productMetafield: { namespace: "custom", key: "type", value: type } });
   }
 
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
-      handle: shopifyHandle,
+      handle: 'all',
       reverse,
       sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
       language: language?.toUpperCase() as 'EN' | 'FR' | 'PT_PT', 

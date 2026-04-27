@@ -15,7 +15,12 @@ import { translateClient } from "../../../lib/utils/translateClient";
 export type ListItem = SortFilterItem | PathFilterItem
 export type PathFilterItem = { title: string; path: string }
 
-const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCounts, categoriesWithCounts }: any) => {
+const ProductLayouts = ({ 
+  brands, 
+  models, 
+  components, 
+  maxPriceData 
+}: any) => {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [isInputEditing, setInputEditing] = useState(false)
@@ -121,15 +126,12 @@ const ProductLayouts = ({ categories, vendors, tags, maxPriceData, vendorsWithCo
                   style={{ display: isExpanded ? 'block' : 'none' }}
                 >
                   <div className='pb-8'>
-                    <Suspense>
-                      {' '}
+                    <Suspense fallback={<div>Loading...</div>}>
                       <ProductFilters
-                        categories={categories}
-                        vendors={vendors}
-                        tags={tags}
+                        brands_={brands}     // Pass new props
+                        models_={models}     // Pass new props
+                        components_={components} // Pass new props
                         maxPriceData={maxPriceData}
-                        vendorsWithCounts={vendorsWithCounts}
-                        categoriesWithCounts={categoriesWithCounts}
                       />
                     </Suspense>
                   </div>

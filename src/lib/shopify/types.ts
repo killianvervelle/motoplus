@@ -201,6 +201,10 @@ export type ShopifyProduct = {
   id: string;
   handle: string;
   availableForSale: boolean;
+  metafields: Array<{
+        key: string;
+        value: string;
+    }>;
   title: string;
   description: string;
   descriptionHtml: string;

@@ -10,6 +10,7 @@ import { useTheme } from "next-themes";
 import { Suspense } from "react";
 import SkeletonFeaturedProducts from "@/components/loadings/skeleton/SkeletonFeaturedProducts";
 import { useRouter } from "next/navigation";
+import { useTranslations, useLocale } from 'next-intl';
 
 
 export default function Navbar() {
@@ -18,32 +19,57 @@ export default function Navbar() {
     const close = useCallback(() => setOpenIndex(null), []);
     const router = useRouter();
     const { resolvedTheme } = useTheme();
+    const locale = useLocale();
 
     const translatedSeeAll = translateClient("featuredProducts", "see-all-products")
     const transaltedGallery = translateClient("gallery", "gallery")
     const translatedMoto = translateClient("moto", "moto")
     const translateMotobilia = translateClient("motobilia", "motobilia")
+    const middleMenuTranslations = useTranslations('middlemenu')
 
     const handleClick = (parent: string, child?: string) => {
         const params = new URLSearchParams();
 
         const p = parent.toLowerCase();
+        
+        const isAccessories = ["accessories", "accessoires", "acessórios"].includes(p);
+        const isUsedParts = ["used parts", "peças usadas", "pièces d'occasion"].includes(p);
+        const isNewParts = ["new parts", "novas peças", "nouvelles pièces"].includes(p);
 
-
-        if (["accessories", "accessoires", "acessórios"].includes(p)) {
+        if (isAccessories) {
+            if (locale === 'fr') {
+                params.set("t", "accessoires");
+            }
+                else { 
             params.set("t", "accessories");
-            if (child) params.set("c", child);
-        } else if (["used parts", "peças usadas", "pièces d'occasion"].includes(p)) {
-            params.set("t", "moto-parts");
-            if (child) params.set("c", child);
-            params.set("condition", "used");
-        } else if (["new parts", "novas peças", "nouvelles pièces"].includes(p)) {
-            params.set("t", "moto-parts");
-            if (child) params.set("c", child);
-            params.set("condition", "new");
+        } 
+    }
+        if (isUsedParts || isNewParts) {
+            // Set type based on locale expectation
+            if (locale === 'fr') {
+                params.set("t", "pièces de moto");
+                params.set("condition", isUsedParts ? "utilisé" : "nouveau");
+            } else if (locale === 'en') {
+                params.set("t", "motorcycle parts");
+                params.set("condition", isUsedParts ? "used" : "new");
+            } else {
+                // Default / Portuguese
+                params.set("t", "motorcycle parts");
+                params.set("condition", isUsedParts ? "used" : "new");
+            }
         }
 
         router.push(`/products?${params.toString()}`);
+    };
+
+    const getMotoType = () => {
+        if (locale === 'fr') return "motocycles";
+        return "motorcycles";
+    };
+
+    const getCollectiblesType = () => {
+        if (locale === 'fr') return "objets de collection";
+        return "collectibles";
     };
 
     return (
@@ -86,7 +112,7 @@ export default function Navbar() {
                             <Link
                                 href={{
                                     pathname: "/products",
-                                    query: { t: "motos" },
+                                    query: { t: getMotoType() },
                                 }}
                                 className="inline-flex items-center text-[14px] px-1 py-1 rounded transition-colors font-bold
                                         text-[#29292c] dark:text-white hover:text-[#c60404]
@@ -107,7 +133,7 @@ export default function Navbar() {
                                         hover:bg-white/70 dark:hover:bg-white/10 hover:cursor-pointer"
                                 onClick={() => handleClick(menuItem.name)}
                             >
-                                {menuItem.name}
+                                {middleMenuTranslations(menuItem.slug)}
                             </div>  
                                 </li>
                             );
@@ -116,7 +142,7 @@ export default function Navbar() {
                             <Link
                                 href={{
                                     pathname: "/products",
-                                    query: { t: "collectibles" },
+                                    query: { t: getCollectiblesType() },
                                 }}
                                 className="inline-flex items-center text-[14px] px-1 py-1 rounded transition-colors font-bold
                                         text-[#29292c] dark:text-white hover:text-[#c60404]
