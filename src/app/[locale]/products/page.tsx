@@ -85,9 +85,6 @@ const ShowProducts = async ({
     (type && type !== "all" && type.trim() !== "") ||
     (condition && condition.trim() !== "");
 
-
-
-
   if (hasFilters) {
     // 1. Force the Collection Filter API (Strict Metafield Matching)
     // We use 'all-products' or your specific 'category' handle.
@@ -136,6 +133,13 @@ const ShowProducts = async ({
   } else {
     // No filters? Use standard fetch.
     console.log("No filters applied, fetching products without collection filter...");
+    productsData = await getCollectionProducts({
+      collection: 'all', 
+      sortKey,
+      reverse,
+      locale,
+      cursor
+    });
   }
 
   //vendorsWithCounts = getVendorCounts(productsData.products);
@@ -146,7 +150,7 @@ const ShowProducts = async ({
 
   function getMetafieldCounts(products: Product[], metafieldKey: string, labelKey: string) {
   const counts: Record<string, number> = {};
-  
+  if (!products || products.length === 0) return [];
   products.forEach(p => {
     const val = p.metafields?.find(m => m?.key === metafieldKey)?.value;
     if (val) {
@@ -160,7 +164,7 @@ const ShowProducts = async ({
   })).sort((a, b) => (a[labelKey] as string).localeCompare(b[labelKey] as string));
 }
 
-  const brandFilters = getMetafieldCounts(productsData.products, 'brand', 'brand') as 
+    const brandFilters = getMetafieldCounts(productsData.products, 'brand', 'brand') as 
   { brand: string; productCount: number }[];
 
 const modelFilters = getMetafieldCounts(productsData.products, 'model', 'model') as 

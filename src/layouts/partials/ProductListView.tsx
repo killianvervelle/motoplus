@@ -39,6 +39,7 @@ import React from 'react'
   return 'all';
 }*/
 
+
 const ProductListView = ({
   initialData,
   searchParams,
