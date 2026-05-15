@@ -55,7 +55,7 @@ const NavUser = () => {
   const isTouch = typeof window !== "undefined" && matchMedia("(pointer: coarse)").matches;
 
   return (
-    <div className='relative'>
+    <div className='relative mr-4 md:mr-6'>
       {user ? (
         <button
           onClick={toggleDropdown}

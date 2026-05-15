@@ -98,6 +98,7 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
 
         {/* Right Icons & Sidebar Toggle */}
         <div className='order-1 lg:order-3 ml-auto flex items-center lg:ml-0'>
+          <NavUser />
           <ThemeSwitcher className='mr-4 md:mr-6' />
           <Suspense fallback={children[0]}>{children[1]}</Suspense>
           
