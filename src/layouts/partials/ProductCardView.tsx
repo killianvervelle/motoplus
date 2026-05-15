@@ -416,7 +416,7 @@ const ProductCardView = ({
                   alt="Logo"
                   className="absolute top-3 right-3"
                 />
-                {type !== "motorcycles" && (
+                {type !== "motorcycles" && type !== "motocycles" && (
                 <Suspense>
                   <AddToCart
                     variants={product?.variants}

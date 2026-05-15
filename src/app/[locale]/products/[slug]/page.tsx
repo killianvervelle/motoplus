@@ -155,7 +155,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
               </div>
 
               <div className="flex gap-4 mt-8 md:mt-10 mb-6">
-                {typeObj?.value !== "motorcycles" && (
+                {typeObj?.value !== "motorcycles" && typeObj?.value !== "motocycles" && (
                 <Suspense>
                   <AddToCart
                     variants={product?.variants}
@@ -170,7 +170,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
 
               <div className="mb-8 md:mb-10">
                 <p className="p-2 max-md:text-sm rounded-md bg-light dark:bg-darkmode-light inline">
-                  {collections.nodes.some((node: NodeItem) => node.title.toLowerCase()==="motos" || node.title.toLowerCase()==="motorcycles") 
+                  {typeObj?.value === "motorcycles" || typeObj?.value === "motocycles"
                   ? deliverymoto
                   : delivery}
                 </p>
