@@ -24,7 +24,6 @@ export const generateMetadata = async ({
   const param = await params;
   const product = await getProduct(param.locale, param.slug);
   if (!product) return notFound();
-
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shopmotoplus.ch';
   const productUrl = `${baseUrl}/${param.locale}/products/${param.slug}`;
   const primaryImage = product.images[0];
@@ -118,6 +117,8 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
     tags,
   } = product;
 
+  const typeObj = product.metafields.find(item => item.key === 'type');
+
   const relatedProducts = await getProductRecommendations(id);
 
   const related_title = await translateServer("featuredProducts", "related-products")
@@ -154,6 +155,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
               </div>
 
               <div className="flex gap-4 mt-8 md:mt-10 mb-6">
+                {typeObj?.value !== "motorcycles" && (
                 <Suspense>
                   <AddToCart
                     variants={product?.variants}
@@ -163,6 +165,7 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
                     defaultVariantId={defaultVariantId}
                   />
                 </Suspense>
+                )}
               </div>
 
               <div className="mb-8 md:mb-10">
