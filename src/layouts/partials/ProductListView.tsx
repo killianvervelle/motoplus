@@ -71,7 +71,6 @@ const ProductListView = ({
       products: initialData.products,
       pageInfo: initialData.pageInfo
     });
-    setType(searchParams.t || "")
     setIsLoading(false);
   }
 }, [initialData]);
@@ -474,7 +473,7 @@ const ProductListView = ({
                     <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-2'>
                       {description}
                     </p>
-                    {isType !== "motocycles" && (
+                    {type  !== "motorcycles" && (
                     <Suspense>
                       <AddToCart
                         variants={product?.variants}

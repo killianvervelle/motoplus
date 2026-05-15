@@ -72,7 +72,6 @@ const ProductCardView = ({
       products: initialData.products,
       pageInfo: initialData.pageInfo
     });
-    setType(searchParams.t || "")
     setIsLoading(false);
   }
 }, [initialData]);
@@ -417,7 +416,7 @@ const ProductCardView = ({
                   alt="Logo"
                   className="absolute top-3 right-3"
                 />
-                {isType !== "motocycles" && (
+                {type !== "motorcycles" && (
                 <Suspense>
                   <AddToCart
                     variants={product?.variants}

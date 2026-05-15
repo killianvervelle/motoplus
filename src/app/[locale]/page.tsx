@@ -155,17 +155,20 @@ const Home = async ({
   const { data: homeFrontmatter } = matter(fileContent);
 
 
+
+
   const translatedTestimonials = await Promise.all(
-    frontmatter.testimonials.map(
-      async (item: Testimonial) => {
-        const name = await translateServer("about-us", item.slug_name)
-        const designation = await translateServer("about-us", item.slug_designation)
-        const content = await translateServer("about-us", item.slug_content)
-        const image = await translateServer("about-us", item.avatar)
-        return { name, designation, content, image }
-      }
-    )
+  (frontmatter.testimonials || []).map(
+    async (item: Testimonial) => {
+      const name = await translateServer("about-us", item.slug_name)
+      const designation = await translateServer("about-us", item.slug_designation)
+      const content = await translateServer("about-us", item.slug_content)
+      const image = await translateServer("about-us", item.avatar)
+
+      return { name, designation, content, image }
+    }
   )
+)
 
 
 
