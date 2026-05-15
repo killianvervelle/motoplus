@@ -35,7 +35,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                   className="absolute top-5 right-5"
                 />
 
-                <AddToCart
+                {/* <AddToCart
                   variants={product.variants}
                   availableForSale={product.availableForSale}
                   handle={handle}
@@ -44,6 +44,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                     'btn btn-primary max-md:btn-sm z-10 absolute bottom-12 bottom-[-5] left-1/2 transform -translate-x-1/2 translate-y-full md:group-hover:-translate-y-6 duration-300 ease-in-out whitespace-nowrap drop-shadow-md'
                   }
                 />
+                  */}
               </div>
               <div className='py-2 md:py-4 text-center z-20'>
                 <h2 className='font-medium text-base md:text-xl'>
