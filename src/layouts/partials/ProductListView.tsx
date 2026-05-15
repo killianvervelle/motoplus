@@ -49,6 +49,7 @@ const ProductListView = ({
   searchParams: any
   locale: string
 }) => {
+  const [isType, setType] = useState("") 
   const [isLoading, setIsLoading] = useState(true)
   const targetElementRef = useRef<HTMLDivElement>(null)
   const [data, setData] = useState<{
@@ -70,6 +71,7 @@ const ProductListView = ({
       products: initialData.products,
       pageInfo: initialData.pageInfo
     });
+    setType(searchParams.t || "")
     setIsLoading(false);
   }
 }, [initialData]);
@@ -181,6 +183,8 @@ const ProductListView = ({
 
           if (type && type !== 'all') {
             queryParts.push(`metafield:custom.type:${type}`);
+            console.log("Setting type filter for query:", type);
+            setType(type)
           }
     
           if (vendor) {
@@ -233,10 +237,6 @@ const ProductListView = ({
     (type && type !== "all" && type.trim() !== "") ||
     (condition && condition.trim() !== "");
 
-
-
-    
-
   if (hasFilters) {
     // 1. Force the Collection Filter API (Strict Metafield Matching)
     // We use 'all-products' or your specific 'category' handle.
@@ -252,6 +252,7 @@ const ProductListView = ({
       locale,
       cursor
     });
+
 
     // 2. Safety fallback if the collection doesn't exist or query fails
     if (!productsData || !productsData.products) {
@@ -283,8 +284,6 @@ const ProductListView = ({
     // No filters? Use standard fetch.
     console.log("No filters applied, fetching products without collection filter...");
   }
-
-
 
 
         setData((prev) => ({
@@ -332,7 +331,10 @@ const ProductListView = ({
   const hasPreviousPage = pageInfo?.hasPreviousPage || false
 
   const handlePageChange = (targetPage: number) => {
-  const params = new URLSearchParams(searchParams);
+  const params = new URLSearchParams(searchParams); 
+
+        console.log("Fetched products with collection filter:", isType);
+
 
   if (targetPage === 1) {
     params.delete('cursor');
@@ -472,6 +474,7 @@ const ProductListView = ({
                     <p className='max-md:text-xs text-justify text-text-light dark:text-darkmode-text-light my-4 md:mb-8 line-clamp-2'>
                       {description}
                     </p>
+                    {isType !== "motocycles" && (
                     <Suspense>
                       <AddToCart
                         variants={product?.variants}
@@ -481,6 +484,7 @@ const ProductListView = ({
                         stylesClass={'btn btn-outline-primary max-md:btn-sm drop-shadow-md'}
                       />
                     </Suspense>
+                    )}
                   </div>
                 </div>
               </div>

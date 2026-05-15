@@ -49,6 +49,7 @@ const ProductCardView = ({
   searchParams: any
   locale: string
 }) => {
+    const [isType, setType] = useState("") 
   const { currencySymbol } = config.shopify;
   const [isLoading, setIsLoading] = useState(true);
   const targetElementRef = useRef<HTMLDivElement>(null);
@@ -71,6 +72,7 @@ const ProductCardView = ({
       products: initialData.products,
       pageInfo: initialData.pageInfo
     });
+    setType(searchParams.t || "")
     setIsLoading(false);
   }
 }, [initialData]);
@@ -151,6 +153,7 @@ const ProductCardView = ({
           price: { min, max },
         });
       }
+
 
       /*if (searchValue) {
         queryParts.push(searchValue);
@@ -414,7 +417,7 @@ const ProductCardView = ({
                   alt="Logo"
                   className="absolute top-3 right-3"
                 />
-
+                {isType !== "motocycles" && (
                 <Suspense>
                   <AddToCart
                     variants={product?.variants}
@@ -426,6 +429,7 @@ const ProductCardView = ({
                     }
                   />
                 </Suspense>
+                )}
               </div>
               <div className="flex flex-col xl:h-32 lg:h-40  justify-between mt-14 md:mt-0 md:py-6 text-center z-20">
                 <h2 className="font-medium text-base md:text-lg line-clamp-1 md:line-clamp-2">
