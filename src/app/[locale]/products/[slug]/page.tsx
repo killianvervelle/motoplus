@@ -117,7 +117,9 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
     tags,
   } = product;
 
-  const typeObj = product.metafields.find(item => item.key === 'type');
+const typeObj = (product?.metafields || []).find(
+  (item) => item?.key === 'type'
+);
 
   const relatedProducts = await getProductRecommendations(id);
 
@@ -155,8 +157,9 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
               </div>
 
               <div className="flex gap-4 mt-8 md:mt-10 mb-6">
-                {typeObj?.value !== "motorcycles" && typeObj?.value !== "motocycles" && (
+                
                 <Suspense>
+                  {typeObj?.value !== "motorcycles" && typeObj?.value !== "motocycles" && (
                   <AddToCart
                     variants={product?.variants}
                     availableForSale={product?.availableForSale}
@@ -164,8 +167,8 @@ const ShowProductSingle = async ({ params }: { params: Promise<{ locale: string;
                     handle={null}
                     defaultVariantId={defaultVariantId}
                   />
+                  )}
                 </Suspense>
-                )}
               </div>
 
               <div className="mb-8 md:mb-10">
